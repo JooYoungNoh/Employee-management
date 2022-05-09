@@ -13,10 +13,10 @@ class FindVC: UIViewController {
         super.viewDidLoad()
 
         idUIDeployment()
+        passwordUIDeployment()
     }
     
-    //MARK: UI 배치(No Storyboard)
-    //MARK: FindID
+    //MARK: UI 배치(Find ID)
     func idUIDeployment(){
         //닫기 버튼
         let closeButton = UIButton()
@@ -33,9 +33,8 @@ class FindVC: UIViewController {
         //아이디 찾기 레이블
         let findID = UILabel()
         
-        findID.frame = CGRect(x: self.view.frame.width/2 - 100, y: 60, width: 200, height: 100)
-        
-        findID.text = "Find  ID"
+        findID.frame = CGRect(x: self.view.frame.width/2 - 80, y: 90, width: 160, height: 50)
+        findID.text = "Find ID"
         findID.textColor = UIColor.black
         findID.font = UIFont.init(name: "Chalkboard SE", size: 30)
         findID.textAlignment = .center
@@ -108,5 +107,56 @@ class FindVC: UIViewController {
         findIdButton.layer.borderColor = UIColor.black.cgColor
         
         self.view.addSubview(findIdButton)
+    }
+    
+    //MARK: UI 배치(Find Password)
+    func passwordUIDeployment(){
+        //비밀번호 레이블
+        let findPW = UILabel()
+        
+        findPW.frame = CGRect(x: self.view.frame.width/2 - 100, y: 340, width: 200, height: 50)
+        
+        findPW.text = "Find Password"
+        findPW.textColor = UIColor.black
+        findPW.font = UIFont.init(name: "Chalkboard SE", size: 30)
+        findPW.textAlignment = .center
+        
+        self.view.addSubview(findPW)
+        
+        //아이디
+        let idImage = UIImageView(image: UIImage(systemName: "person.circle"))
+        let idTextField = UITextField()
+        
+        idImage.frame = CGRect(x: 70, y: 405, width: 30, height: 30)
+        idImage.tintColor = UIColor.systemGray2
+        
+        idTextField.frame = CGRect(x: 110, y: 405, width: 200, height: 30)
+        idTextField.placeholder = "id"
+        idTextField.borderStyle = .roundedRect
+        idTextField.layer.borderWidth = 1
+        idTextField.layer.borderColor = UIColor.systemGray2.cgColor
+        idTextField.font = UIFont.init(name: "Chalkboard SE", size: 15)
+        
+        self.view.addSubview(idImage)
+        self.view.addSubview(idTextField)
+        
+        //비밀번호 질문 창
+        let pwQuestionImage = UIImageView(image: UIImage(systemName: "questionmark.circle"))
+        let pwLabel = UILabel()
+        
+        pwQuestionImage.frame = CGRect(x: 70, y: 445, width: 30, height: 30)
+        pwQuestionImage.tintColor = UIColor.systemGray2
+        
+        pwLabel.frame = CGRect(x: 110, y: 445, width: 150, height: 30)
+        pwLabel.text = " password Question"
+        pwLabel.textColor = UIColor.systemGray2
+        pwLabel.font = UIFont.init(name: "Chalkboard SE", size: 15)
+        
+        pwLabel.layer.borderWidth = 1
+        pwLabel.layer.borderColor = UIColor.systemGray2.cgColor
+        
+        self.view.addSubview(pwQuestionImage)
+        self.view.addSubview(pwLabel)
+        
     }
 }
