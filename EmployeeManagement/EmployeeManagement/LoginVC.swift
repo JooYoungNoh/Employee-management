@@ -70,7 +70,7 @@ class LoginVC: UIViewController {
         
         login.layer.cornerRadius = 3
         login.layer.borderWidth = 2
-        login.layer.borderColor = UIColor.systemGray4.cgColor
+        login.layer.borderColor = UIColor.systemGray.cgColor
         
         self.view.addSubview(login)
         
