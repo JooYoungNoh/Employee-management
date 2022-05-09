@@ -12,11 +12,12 @@ class FindVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        uiDeployment()
+        idUIDeployment()
     }
     
     //MARK: UI 배치(No Storyboard)
-    func uiDeployment(){
+    //MARK: FindID
+    func idUIDeployment(){
         //닫기 버튼
         let closeButton = UIButton()
         
@@ -91,5 +92,21 @@ class FindVC: UIViewController {
         
         self.view.addSubview(phoneImage)
         self.view.addSubview(phoneTextField)
+        
+        //아이디 찾기 버튼
+        let findIdButton = UIButton()
+        
+        findIdButton.frame = CGRect(x: 260, y: 270, width: 50, height: 30)
+        
+        findIdButton.setTitle("Find", for: .normal)
+        findIdButton.setTitleColor(UIColor.black, for: .normal)
+        findIdButton.titleLabel?.font = UIFont.init(name: "Chalkboard SE", size: 15)
+        findIdButton.alpha = 0.7
+        
+        findIdButton.layer.cornerRadius = 5
+        findIdButton.layer.borderWidth = 1
+        findIdButton.layer.borderColor = UIColor.black.cgColor
+        
+        self.view.addSubview(findIdButton)
     }
 }
