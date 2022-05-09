@@ -37,7 +37,7 @@ class LoginVC: UIViewController {
         idTextField.frame = CGRect(x: 120, y: 350, width: 180, height: 30)
         idTextField.placeholder = "id"
         idTextField.borderStyle = .roundedRect
-        idTextField.font = UIFont.init(name: "Chalkboard SE", size: 14)
+        idTextField.font = UIFont.init(name: "Chalkboard SE", size: 15)
         
         self.view.addSubview(idImage)
         self.view.addSubview(idTextField)
@@ -53,7 +53,7 @@ class LoginVC: UIViewController {
         pwTextField.frame = CGRect(x: 120, y: 400, width: 180, height: 30)
         pwTextField.placeholder = "password"
         pwTextField.borderStyle = .roundedRect
-        pwTextField.font = UIFont.init(name: "Chalkboard SE", size: 14)
+        pwTextField.font = UIFont.init(name: "Chalkboard SE", size: 15)
         
         self.view.addSubview(pwImage)
         self.view.addSubview(pwTextField)
