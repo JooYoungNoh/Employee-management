@@ -66,7 +66,7 @@ class FindIDVC: UIViewController {
         birthImage.tintColor = UIColor.systemGray2
         
         birthTextField.frame = CGRect(x: 110, y: 190, width: 200, height: 30)
-        birthTextField.placeholder = "Birth ex)990101"
+        birthTextField.placeholder = "ex) 970101"
         birthTextField.borderStyle = .roundedRect
         birthTextField.layer.borderWidth = 1
         birthTextField.layer.borderColor = UIColor.systemGray2.cgColor
@@ -74,5 +74,22 @@ class FindIDVC: UIViewController {
         
         self.view.addSubview(birthImage)
         self.view.addSubview(birthTextField)
+        
+        //전화번호
+        let phoneImage = UIImageView(image: UIImage(systemName: "phone"))
+        let phoneTextField = UITextField()
+        
+        phoneImage.frame = CGRect(x: 70, y: 230, width: 30, height: 30)
+        phoneImage.tintColor = UIColor.systemGray2
+        
+        phoneTextField.frame = CGRect(x: 110, y: 230, width: 200, height: 30)
+        phoneTextField.placeholder = "ex) 010-0000-0000"
+        phoneTextField.borderStyle = .roundedRect
+        phoneTextField.layer.borderWidth = 1
+        phoneTextField.layer.borderColor = UIColor.systemGray2.cgColor
+        phoneTextField.font = UIFont.init(name: "Chalkboard SE", size: 15)
+        
+        self.view.addSubview(phoneImage)
+        self.view.addSubview(phoneTextField)
     }
 }
