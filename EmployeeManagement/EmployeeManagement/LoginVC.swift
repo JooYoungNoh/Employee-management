@@ -61,15 +61,15 @@ class LoginVC: UIViewController {
         //로그인 버튼
         let login = UIButton()
         
-        login.frame = CGRect(x: 80, y: 450, width: 220, height: 30)
+        login.frame = CGRect(x: 80, y: 450, width: 220, height: 35)
         
         login.setTitle("Login", for: .normal)
         login.setTitleColor(UIColor.black, for: .normal)
         login.titleLabel?.font = UIFont.init(name: "Chalkboard SE", size: 17)
-        login.alpha = 0.7
+        login.alpha = 1
         
         login.layer.cornerRadius = 3
-        login.layer.borderWidth = 1
+        login.layer.borderWidth = 2
         login.layer.borderColor = UIColor.systemGray4.cgColor
         
         self.view.addSubview(login)
@@ -77,7 +77,7 @@ class LoginVC: UIViewController {
         //아이디 찾기 버튼
         let findID = UIButton()
     
-        findID.frame = CGRect(x: 87, y: 485, width: 64, height: 30)
+        findID.frame = CGRect(x: 87, y: 490, width: 64, height: 30)
         
         findID.setTitle("Find ID", for: .normal)
         findID.setTitleColor(UIColor.black, for: .normal)
@@ -89,7 +89,7 @@ class LoginVC: UIViewController {
         //비밀번호 찾기 버튼
         let findPW = UIButton()
         
-        findPW.frame = CGRect(x: 158, y: 485, width: 64, height: 30)
+        findPW.frame = CGRect(x: 158, y: 490, width: 64, height: 30)
         
         findPW.setTitle("Find PW", for: .normal)
         findPW.setTitleColor(UIColor.black, for: .normal)
@@ -101,7 +101,7 @@ class LoginVC: UIViewController {
         //회원가입 버튼
         let signUP = UIButton()
         
-        signUP.frame = CGRect(x: 229, y: 485, width: 64, height: 30)
+        signUP.frame = CGRect(x: 229, y: 490, width: 64, height: 30)
         
         signUP.setTitle("Sign Up", for: .normal)
         signUP.setTitleColor(UIColor.black, for: .normal)
