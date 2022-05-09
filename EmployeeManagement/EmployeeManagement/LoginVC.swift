@@ -61,7 +61,7 @@ class LoginVC: UIViewController {
         //로그인 버튼
         let login = UIButton()
         
-        login.frame = CGRect(x: 80, y: 450, width: 220, height: 35)
+        login.frame = CGRect(x: 80, y: 450, width: 220, height: 40)
         
         login.setTitle("Login", for: .normal)
         login.setTitleColor(UIColor.black, for: .normal)
@@ -74,34 +74,22 @@ class LoginVC: UIViewController {
         
         self.view.addSubview(login)
         
-        //아이디 찾기 버튼
-        let findID = UIButton()
+        //아이디,비밀번호 찾기 버튼
+        let find = UIButton()
     
-        findID.frame = CGRect(x: 87, y: 490, width: 64, height: 30)
+        find.frame = CGRect(x: 87, y: 495, width: 140, height: 30)
         
-        findID.setTitle("Find ID", for: .normal)
-        findID.setTitleColor(UIColor.black, for: .normal)
-        findID.titleLabel?.font = UIFont.init(name: "Chalkboard SE", size: 13)
-        findID.alpha = 0.7
+        find.setTitle("Find ID/Find Password", for: .normal)
+        find.setTitleColor(UIColor.black, for: .normal)
+        find.titleLabel?.font = UIFont.init(name: "Chalkboard SE", size: 13)
+        find.alpha = 0.7
         
-        self.view.addSubview(findID)
-        
-        //비밀번호 찾기 버튼
-        let findPW = UIButton()
-        
-        findPW.frame = CGRect(x: 158, y: 490, width: 64, height: 30)
-        
-        findPW.setTitle("Find PW", for: .normal)
-        findPW.setTitleColor(UIColor.black, for: .normal)
-        findPW.titleLabel?.font = UIFont.init(name: "Chalkboard SE", size: 13)
-        findPW.alpha = 0.7
-        
-        self.view.addSubview(findPW)
+        self.view.addSubview(find)
         
         //회원가입 버튼
         let signUP = UIButton()
         
-        signUP.frame = CGRect(x: 229, y: 490, width: 64, height: 30)
+        signUP.frame = CGRect(x: 229, y: 495, width: 64, height: 30)
         
         signUP.setTitle("Sign Up", for: .normal)
         signUP.setTitleColor(UIColor.black, for: .normal)
