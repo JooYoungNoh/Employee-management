@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FindIDVC: UIViewController {
+class FindVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

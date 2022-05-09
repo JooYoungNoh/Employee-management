@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="sJE-4f-8A4">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
@@ -24,10 +24,10 @@
             </objects>
             <point key="canvasLocation" x="34" y="82"/>
         </scene>
-        <!--아이디 찾기 화면-->
+        <!--아이디, 비밀번호 찾기 화면-->
         <scene sceneID="BZB-4U-xYH">
             <objects>
-                <viewController storyboardIdentifier="FindIDVC" title="아이디 찾기 화면" id="sJE-4f-8A4" customClass="FindIDVC" customModule="EmployeeManagement" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FindIDVC" title="아이디, 비밀번호 찾기 화면" id="sJE-4f-8A4" customClass="FindVC" customModule="EmployeeManagement" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hMH-p0-56z">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -39,21 +39,6 @@
             </objects>
             <point key="canvasLocation" x="-625" y="781"/>
         </scene>
-        <!--비밀번호 찾기 화면-->
-        <scene sceneID="t7m-eB-6XD">
-            <objects>
-                <viewController storyboardIdentifier="FindPasswordVC" title="비밀번호 찾기 화면" id="OVP-QX-fTT" customClass="FindPasswordVC" customModule="EmployeeManagement" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="EmP-hK-Zyg">
-                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="QhJ-YN-LV7"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="0Cy-Fr-fQT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="34" y="781"/>
-        </scene>
         <!--회원가입 화면-->
         <scene sceneID="G3w-7r-E4h">
             <objects>
@@ -61,16 +46,23 @@
                     <view key="view" contentMode="scaleToFill" id="KeQ-vU-FBO">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="phone" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="AmW-fX-Xwt">
+                                <rect key="frame" x="-35" y="335.33333333333326" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="6Vq-eR-MnD"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="U3H-pQ-1BX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="702" y="781"/>
+            <point key="canvasLocation" x="34" y="781"/>
         </scene>
     </scenes>
     <resources>
+        <image name="phone" catalog="system" width="128" height="115"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
