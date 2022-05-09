@@ -143,10 +143,13 @@ class FindVC: UIViewController {
         //비밀번호 질문 창
         let pwQuestionImage = UIImageView(image: UIImage(systemName: "questionmark.circle"))
         let pwLabel = UILabel()
+        let pwButton = UIButton()
         
+            //이미지
         pwQuestionImage.frame = CGRect(x: 70, y: 445, width: 30, height: 30)
         pwQuestionImage.tintColor = UIColor.systemGray2
         
+            //레이블
         pwLabel.frame = CGRect(x: 110, y: 445, width: 150, height: 30)
         pwLabel.text = " password Question"
         pwLabel.textColor = UIColor.systemGray2
@@ -155,8 +158,21 @@ class FindVC: UIViewController {
         pwLabel.layer.borderWidth = 1
         pwLabel.layer.borderColor = UIColor.systemGray2.cgColor
         
+            //버튼
+        pwButton.frame = CGRect(x: 270, y: 445, width: 40, height: 30)
+        
+        pwButton.setTitle("선택", for: .normal)
+        pwButton.setTitleColor(UIColor.black, for: .normal)
+        pwButton.titleLabel?.font = UIFont.init(name: "Chalkboard SE", size: 15)
+        pwButton.alpha = 0.7
+        
+        pwButton.layer.cornerRadius = 5
+        pwButton.layer.borderWidth = 1
+        pwButton.layer.borderColor = UIColor.systemGray.cgColor
+        
         self.view.addSubview(pwQuestionImage)
         self.view.addSubview(pwLabel)
+        self.view.addSubview(pwButton)
         
     }
 }
