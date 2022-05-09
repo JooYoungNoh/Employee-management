@@ -168,11 +168,44 @@ class FindVC: UIViewController {
         
         pwButton.layer.cornerRadius = 5
         pwButton.layer.borderWidth = 1
-        pwButton.layer.borderColor = UIColor.systemGray.cgColor
+        pwButton.layer.borderColor = UIColor.black.cgColor
         
         self.view.addSubview(pwQuestionImage)
         self.view.addSubview(pwLabel)
         self.view.addSubview(pwButton)
+        
+        //비밀번호 질문 답변 창
+        let pwAnswerImage = UIImageView(image: UIImage(systemName: "exclamationmark.circle"))
+        let pwAnswerTextField = UITextField()
+        
+        pwAnswerImage.frame = CGRect(x: 70, y: 485, width: 30, height: 30)
+        pwAnswerImage.tintColor = UIColor.systemGray2
+        
+        pwAnswerTextField.frame = CGRect(x: 110, y: 485, width: 200, height: 30)
+        pwAnswerTextField.placeholder = "password Qusetion Answer"
+        pwAnswerTextField.borderStyle = .roundedRect
+        pwAnswerTextField.layer.borderWidth = 1
+        pwAnswerTextField.layer.borderColor = UIColor.systemGray2.cgColor
+        pwAnswerTextField.font = UIFont.init(name: "Chalkboard SE", size: 15)
+        
+        self.view.addSubview(pwAnswerImage)
+        self.view.addSubview(pwAnswerTextField)
+        
+        //비밀번호 찾기 버튼
+        let findpwButton = UIButton()
+        
+        findpwButton.frame = CGRect(x: 260, y: 525, width: 50, height: 30)
+        
+        findpwButton.setTitle("Find", for: .normal)
+        findpwButton.setTitleColor(UIColor.black, for: .normal)
+        findpwButton.titleLabel?.font = UIFont.init(name: "Chalkboard SE", size: 15)
+        findpwButton.alpha = 0.7
+        
+        findpwButton.layer.cornerRadius = 5
+        findpwButton.layer.borderWidth = 1
+        findpwButton.layer.borderColor = UIColor.black.cgColor
+        
+        self.view.addSubview(findpwButton)
         
     }
 }
