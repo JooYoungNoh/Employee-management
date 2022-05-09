@@ -58,5 +58,21 @@ class FindIDVC: UIViewController {
         self.view.addSubview(nameImage)
         self.view.addSubview(nameTextField)
         
+        //생년월일
+        let birthImage = UIImageView(image: UIImage(systemName: "calendar"))
+        let birthTextField = UITextField()
+        
+        birthImage.frame = CGRect(x: 70, y: 260, width: 30, height: 30)
+        birthImage.tintColor = UIColor.systemGray2
+        
+        birthTextField.frame = CGRect(x: 110, y: 260, width: 200, height: 30)
+        birthTextField.placeholder = "Birth ex)990101"
+        birthTextField.borderStyle = .roundedRect
+        birthTextField.layer.borderWidth = 1
+        birthTextField.layer.borderColor = UIColor.systemGray2.cgColor
+        birthTextField.font = UIFont.init(name: "Chalkboard SE", size: 15)
+        
+        self.view.addSubview(birthImage)
+        self.view.addSubview(birthTextField)
     }
 }
