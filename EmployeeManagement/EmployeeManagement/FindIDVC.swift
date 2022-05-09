@@ -32,7 +32,7 @@ class FindIDVC: UIViewController {
         //아이디 찾기 레이블
         let findID = UILabel()
         
-        findID.frame = CGRect(x: self.view.frame.width/2 - 100, y: 100, width: 200, height: 100)
+        findID.frame = CGRect(x: self.view.frame.width/2 - 100, y: 60, width: 200, height: 100)
         
         findID.text = "Find  ID"
         findID.textColor = UIColor.black
@@ -45,10 +45,10 @@ class FindIDVC: UIViewController {
         let nameImage = UIImageView(image: UIImage(systemName: "face.smiling"))
         let nameTextField = UITextField()
         
-        nameImage.frame = CGRect(x: 70, y: 220, width: 30, height: 30)
+        nameImage.frame = CGRect(x: 70, y: 150, width: 30, height: 30)
         nameImage.tintColor = UIColor.systemGray2
         
-        nameTextField.frame = CGRect(x: 110, y: 220, width: 200, height: 30)
+        nameTextField.frame = CGRect(x: 110, y: 150, width: 200, height: 30)
         nameTextField.placeholder = "Name"
         nameTextField.borderStyle = .roundedRect
         nameTextField.layer.borderWidth = 1
@@ -62,10 +62,10 @@ class FindIDVC: UIViewController {
         let birthImage = UIImageView(image: UIImage(systemName: "calendar"))
         let birthTextField = UITextField()
         
-        birthImage.frame = CGRect(x: 70, y: 260, width: 30, height: 30)
+        birthImage.frame = CGRect(x: 70, y: 190, width: 30, height: 30)
         birthImage.tintColor = UIColor.systemGray2
         
-        birthTextField.frame = CGRect(x: 110, y: 260, width: 200, height: 30)
+        birthTextField.frame = CGRect(x: 110, y: 190, width: 200, height: 30)
         birthTextField.placeholder = "Birth ex)990101"
         birthTextField.borderStyle = .roundedRect
         birthTextField.layer.borderWidth = 1
