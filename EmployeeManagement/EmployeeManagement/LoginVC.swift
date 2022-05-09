@@ -11,7 +11,13 @@ class LoginVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        //MARK: UI 배치(No Storyboard)
+        //UI 배치
+        uiDeployment()
+        
+    }
+    
+    //MARK: UI 배치(No Storyboard)
+    func uiDeployment(){
         //로고 이미지
         let logo = UIImage(named: "management")
         let logoImage = UIImageView(image: logo)
@@ -51,8 +57,22 @@ class LoginVC: UIViewController {
         
         self.view.addSubview(pwImage)
         self.view.addSubview(pwTextField)
-
+        
+        //로그인 버튼
+        let login = UIButton()
+        
+        login.frame = CGRect(x: 80, y: 450, width: 220, height: 30)
+        
+        login.setTitle("Login", for: .normal)
+        login.setTitleColor(UIColor.black, for: .normal)
+        login.titleLabel?.font = UIFont.init(name: "Chalkboard SE", size: 17)
+        login.alpha = 0.7
+        
+        login.layer.cornerRadius = 3
+        login.layer.borderWidth = 1
+        login.layer.borderColor = UIColor.systemGray4.cgColor
+        
+        self.view.addSubview(login)
     }
-    
 
 }
