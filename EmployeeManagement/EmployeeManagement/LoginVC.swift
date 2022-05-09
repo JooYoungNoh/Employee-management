@@ -73,6 +73,42 @@ class LoginVC: UIViewController {
         login.layer.borderColor = UIColor.systemGray4.cgColor
         
         self.view.addSubview(login)
+        
+        //아이디 찾기 버튼
+        let findID = UIButton()
+    
+        findID.frame = CGRect(x: 87, y: 485, width: 64, height: 30)
+        
+        findID.setTitle("Find ID", for: .normal)
+        findID.setTitleColor(UIColor.black, for: .normal)
+        findID.titleLabel?.font = UIFont.init(name: "Chalkboard SE", size: 13)
+        findID.alpha = 0.7
+        
+        self.view.addSubview(findID)
+        
+        //비밀번호 찾기 버튼
+        let findPW = UIButton()
+        
+        findPW.frame = CGRect(x: 158, y: 485, width: 64, height: 30)
+        
+        findPW.setTitle("Find PW", for: .normal)
+        findPW.setTitleColor(UIColor.black, for: .normal)
+        findPW.titleLabel?.font = UIFont.init(name: "Chalkboard SE", size: 13)
+        findPW.alpha = 0.7
+        
+        self.view.addSubview(findPW)
+        
+        //회원가입 버튼
+        let signUP = UIButton()
+        
+        signUP.frame = CGRect(x: 229, y: 485, width: 64, height: 30)
+        
+        signUP.setTitle("Sign Up", for: .normal)
+        signUP.setTitleColor(UIColor.black, for: .normal)
+        signUP.titleLabel?.font = UIFont.init(name: "Chalkboard SE", size: 13)
+        signUP.alpha = 0.7
+        
+        self.view.addSubview(signUP)
     }
 
 }
