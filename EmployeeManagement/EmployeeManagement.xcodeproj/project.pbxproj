@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		731143B4282994EA00163A1B /* PickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731143B3282994EA00163A1B /* PickerController.swift */; };
 		73A3AAD828292BF9001283CD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A3AAD728292BF9001283CD /* AppDelegate.swift */; };
 		73A3AADA28292BF9001283CD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A3AAD928292BF9001283CD /* SceneDelegate.swift */; };
 		73A3AADF28292BF9001283CD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 73A3AADD28292BF9001283CD /* Main.storyboard */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		731143B3282994EA00163A1B /* PickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerController.swift; sourceTree = "<group>"; };
 		73A3AAD428292BF9001283CD /* EmployeeManagement.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EmployeeManagement.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		73A3AAD728292BF9001283CD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		73A3AAD928292BF9001283CD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -67,6 +69,7 @@
 				73A3AADD28292BF9001283CD /* Main.storyboard */,
 				73A3AAF4282969D1001283CD /* SignUpVC.swift */,
 				73A3AAF02829694E001283CD /* FindVC.swift */,
+				731143B3282994EA00163A1B /* PickerController.swift */,
 				73A3AAEE282944E1001283CD /* LoginVC.swift */,
 				73A3AAE328292BF9001283CD /* Assets.xcassets */,
 				73A3AAE528292BF9001283CD /* LaunchScreen.storyboard */,
@@ -147,6 +150,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				731143B4282994EA00163A1B /* PickerController.swift in Sources */,
 				73A3AAF5282969D1001283CD /* SignUpVC.swift in Sources */,
 				73A3AAE228292BF9001283CD /* EmployeeManagement.xcdatamodeld in Sources */,
 				73A3AAD828292BF9001283CD /* AppDelegate.swift in Sources */,
