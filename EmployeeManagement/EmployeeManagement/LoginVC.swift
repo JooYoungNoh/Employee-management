@@ -65,8 +65,8 @@ class LoginVC: UIViewController {
         
         login.setTitle("Login", for: .normal)
         login.setTitleColor(UIColor.black, for: .normal)
-        login.titleLabel?.font = UIFont.init(name: "Chalkboard SE", size: 17)
-        login.alpha = 1
+        login.titleLabel?.font = UIFont.init(name: "Chalkboard SE", size: 16)
+        login.alpha = 0.7
         
         login.layer.cornerRadius = 3
         login.layer.borderWidth = 2
