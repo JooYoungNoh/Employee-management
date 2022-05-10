@@ -36,6 +36,20 @@ class FindVC: UIViewController {
         self.present(alert, animated: true)
     }
     
+    @objc func doselectedQuesetion(_ sender: UIButton){
+        let alert = UIAlertController(title: nil, message: "비밀번호 질문", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "확인", style: .default){ (_) in
+            
+        })
+        alert.addAction(UIAlertAction(title: "취소", style: .cancel))
+        
+        let pickerVC = PickerController()
+        alert.setValue(pickerVC, forKey: "contentViewController")
+        
+        self.present(alert, animated: true)
+    }
+    
     //MARK: UI 배치(Find ID)
     func idUIDeployment(){
         //닫기 버튼
@@ -193,6 +207,8 @@ class FindVC: UIViewController {
         pwButton.layer.cornerRadius = 5
         pwButton.layer.borderWidth = 1
         pwButton.layer.borderColor = UIColor.black.cgColor
+        
+        pwButton.addTarget(self, action: #selector(doselectedQuesetion(_:)), for: .touchUpInside)
         
         self.view.addSubview(pwQuestionImage)
         self.view.addSubview(pwLabel)
