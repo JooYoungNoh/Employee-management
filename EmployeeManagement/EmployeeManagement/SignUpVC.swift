@@ -40,21 +40,21 @@ class SignUpVC: UIViewController {
         self.view.addSubview(signUp)
         
         //아이디
-        let nameImage = UIImageView(image: UIImage(systemName: "person.circle"))
-        let nameTextField = UITextField()
+        let idImage = UIImageView(image: UIImage(systemName: "person.circle"))
+        let idTextField = UITextField()
         
-        nameImage.frame = CGRect(x: 70, y: 160, width: 30, height: 30)
-        nameImage.tintColor = UIColor.systemGray2
+        idImage.frame = CGRect(x: 70, y: 160, width: 30, height: 30)
+        idImage.tintColor = UIColor.systemGray2
         
-        nameTextField.frame = CGRect(x: 110, y: 160, width: 200, height: 30)
-        nameTextField.placeholder = "Id"
-        nameTextField.borderStyle = .roundedRect
-        nameTextField.layer.borderWidth = 1
-        nameTextField.layer.borderColor = UIColor.systemGray2.cgColor
-        nameTextField.font = UIFont.init(name: "Chalkboard SE", size: 15)
+        idTextField.frame = CGRect(x: 110, y: 160, width: 200, height: 30)
+        idTextField.placeholder = "Id"
+        idTextField.borderStyle = .roundedRect
+        idTextField.layer.borderWidth = 1
+        idTextField.layer.borderColor = UIColor.systemGray2.cgColor
+        idTextField.font = UIFont.init(name: "Chalkboard SE", size: 15)
         
-        self.view.addSubview(nameImage)
-        self.view.addSubview(nameTextField)
+        self.view.addSubview(idImage)
+        self.view.addSubview(idTextField)
         
         //비밀번호
         let passwordImage = UIImageView(image: UIImage(systemName: "lock.circle"))
@@ -123,6 +123,57 @@ class SignUpVC: UIViewController {
         
         self.view.addSubview(pwAnswerImage)
         self.view.addSubview(pwAnswerTextField)
+        
+        //이름
+        let nameImage = UIImageView(image: UIImage(systemName: "face.smiling"))
+        let nameTextField = UITextField()
+        
+        nameImage.frame = CGRect(x: 70, y: 320, width: 30, height: 30)
+        nameImage.tintColor = UIColor.systemGray2
+        
+        nameTextField.frame = CGRect(x: 110, y: 320, width: 200, height: 30)
+        nameTextField.placeholder = "Name"
+        nameTextField.borderStyle = .roundedRect
+        nameTextField.layer.borderWidth = 1
+        nameTextField.layer.borderColor = UIColor.systemGray2.cgColor
+        nameTextField.font = UIFont.init(name: "Chalkboard SE", size: 15)
+        
+        self.view.addSubview(nameImage)
+        self.view.addSubview(nameTextField)
+        
+        //생년월일
+        let birthImage = UIImageView(image: UIImage(systemName: "calendar"))
+        let birthTextField = UITextField()
+        
+        birthImage.frame = CGRect(x: 70, y: 360, width: 30, height: 30)
+        birthImage.tintColor = UIColor.systemGray2
+        
+        birthTextField.frame = CGRect(x: 110, y: 360, width: 200, height: 30)
+        birthTextField.placeholder = "ex) 970101"
+        birthTextField.borderStyle = .roundedRect
+        birthTextField.layer.borderWidth = 1
+        birthTextField.layer.borderColor = UIColor.systemGray2.cgColor
+        birthTextField.font = UIFont.init(name: "Chalkboard SE", size: 15)
+        
+        self.view.addSubview(birthImage)
+        self.view.addSubview(birthTextField)
+        
+        //전화번호
+        let phoneImage = UIImageView(image: UIImage(systemName: "phone"))
+        let phoneTextField = UITextField()
+        
+        phoneImage.frame = CGRect(x: 70, y: 400, width: 30, height: 30)
+        phoneImage.tintColor = UIColor.systemGray2
+        
+        phoneTextField.frame = CGRect(x: 110, y: 400, width: 200, height: 30)
+        phoneTextField.placeholder = "ex) 010-0000-0000"
+        phoneTextField.borderStyle = .roundedRect
+        phoneTextField.layer.borderWidth = 1
+        phoneTextField.layer.borderColor = UIColor.systemGray2.cgColor
+        phoneTextField.font = UIFont.init(name: "Chalkboard SE", size: 15)
+        
+        self.view.addSubview(phoneImage)
+        self.view.addSubview(phoneTextField)
     }
 
 }
