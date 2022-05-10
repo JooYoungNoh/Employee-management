@@ -19,6 +19,10 @@ class SignUpVC: UIViewController {
         self.dismiss(animated: true)
     }
     
+    @objc func doJoin(_ sender: UIButton){
+        self.dismiss(animated: true)
+    }
+    
     //MARK: UI 배치(Find ID)
     func signUpUIDeployment(){
         //닫기 버튼
@@ -236,6 +240,9 @@ class SignUpVC: UIViewController {
         successButton.layer.cornerRadius = 3
         successButton.layer.borderWidth = 2
         successButton.layer.borderColor = UIColor.systemGray.cgColor
+        
+        //MARK: Join 버튼 이벤트
+        successButton.addTarget(self, action: #selector(doJoin(_:)), for: .touchUpInside)
         
         self.view.addSubview(successButton)
     }
