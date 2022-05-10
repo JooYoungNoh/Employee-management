@@ -15,6 +15,22 @@ class LoginVC: UIViewController {
         uiDeployment()
         
     }
+    //MARK: 액션 메소드
+    @objc func goFind(_ sender: UIButton){
+        let nv = self.storyboard?.instantiateViewController(withIdentifier: "FindVC")
+        nv?.modalPresentationStyle = .fullScreen
+        
+        self.present(nv!, animated: true)
+        
+    }
+    
+    @objc func goSignUp(_ sender: UIButton){
+        let nv = self.storyboard?.instantiateViewController(withIdentifier: "SignUpVC")
+        nv?.modalPresentationStyle = .fullScreen
+        
+        self.present(nv!, animated: true)
+    }
+    
     
     //MARK: UI 배치(No Storyboard)
     func uiDeployment(){
@@ -84,6 +100,9 @@ class LoginVC: UIViewController {
         find.titleLabel?.font = UIFont.init(name: "Chalkboard SE", size: 13)
         find.alpha = 0.7
         
+        //MARK: 아이디 비번 찾기 버튼 이벤트
+        find.addTarget(self, action: #selector(goFind(_:)), for: .touchUpInside)
+        
         self.view.addSubview(find)
         
         //회원가입 버튼
@@ -95,6 +114,9 @@ class LoginVC: UIViewController {
         signUP.setTitleColor(UIColor.black, for: .normal)
         signUP.titleLabel?.font = UIFont.init(name: "Chalkboard SE", size: 13)
         signUP.alpha = 0.7
+        
+        //MARK: 회원가입 버튼 이벤트
+        signUP.addTarget(self, action: #selector(goSignUp(_:)), for: .touchUpInside)
         
         self.view.addSubview(signUP)
     }
