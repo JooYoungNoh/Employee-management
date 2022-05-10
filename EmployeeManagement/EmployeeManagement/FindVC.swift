@@ -9,6 +9,8 @@ import UIKit
 
 class FindVC: UIViewController {
 
+    let pwLabel = UILabel()             //비밀번호 질문 레이블
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -40,7 +42,8 @@ class FindVC: UIViewController {
         let alert = UIAlertController(title: nil, message: "비밀번호 질문", preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "확인", style: .default){ (_) in
-            
+            //MARK: 피커뷰 선택 바꿀 곳
+            self.pwLabel.text = " 권정우"
         })
         alert.addAction(UIAlertAction(title: "취소", style: .cancel))
         
@@ -180,7 +183,6 @@ class FindVC: UIViewController {
         
         //비밀번호 질문 창
         let pwQuestionImage = UIImageView(image: UIImage(systemName: "questionmark.circle"))
-        let pwLabel = UILabel()
         let pwButton = UIButton()
         
             //이미지
