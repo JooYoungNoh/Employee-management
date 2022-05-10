@@ -151,7 +151,7 @@ class FindVC: UIViewController {
         
             //레이블
         pwLabel.frame = CGRect(x: 110, y: 445, width: 150, height: 30)
-        pwLabel.text = " password Question"
+        pwLabel.text = "Password Question"
         pwLabel.textColor = UIColor.systemGray2
         pwLabel.font = UIFont.init(name: "Chalkboard SE", size: 15)
         
@@ -182,7 +182,7 @@ class FindVC: UIViewController {
         pwAnswerImage.tintColor = UIColor.systemGray2
         
         pwAnswerTextField.frame = CGRect(x: 110, y: 485, width: 200, height: 30)
-        pwAnswerTextField.placeholder = "password Qusetion Answer"
+        pwAnswerTextField.placeholder = "Password Qusetion Answer"
         pwAnswerTextField.borderStyle = .roundedRect
         pwAnswerTextField.layer.borderWidth = 1
         pwAnswerTextField.layer.borderColor = UIColor.systemGray2.cgColor
