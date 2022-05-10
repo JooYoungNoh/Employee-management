@@ -35,7 +35,7 @@ class LoginVC: UIViewController {
         idImage.tintColor = UIColor.systemGray4
         
         idTextField.frame = CGRect(x: 120, y: 350, width: 180, height: 30)
-        idTextField.placeholder = "id"
+        idTextField.placeholder = "Id"
         idTextField.borderStyle = .roundedRect
         idTextField.font = UIFont.init(name: "Chalkboard SE", size: 15)
         
@@ -51,7 +51,7 @@ class LoginVC: UIViewController {
         pwImage.tintColor = UIColor.systemGray4
         
         pwTextField.frame = CGRect(x: 120, y: 400, width: 180, height: 30)
-        pwTextField.placeholder = "password"
+        pwTextField.placeholder = "Password"
         pwTextField.borderStyle = .roundedRect
         pwTextField.font = UIFont.init(name: "Chalkboard SE", size: 15)
         
