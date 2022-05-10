@@ -190,6 +190,48 @@ class SignUpVC: UIViewController {
         
         self.view.addSubview(phoneImage)
         self.view.addSubview(phoneTextField)
+        
+        //성별
+        let genderImage = UIImageView(image: UIImage(systemName: "person.fill.questionmark"))
+        let genderControl = UISegmentedControl(items: ["남자","여자"])
+        
+        genderImage.frame = CGRect(x: 70, y: 440, width: 30, height: 25)
+        genderImage.tintColor = UIColor.systemGray2
+        
+        genderControl.frame = CGRect(x: 110, y: 440, width: 200, height: 25)
+        genderControl.selectedSegmentIndex = 0
+            
+        self.view.addSubview(genderImage)
+        self.view.addSubview(genderControl)
+        
+        //직책
+        let jobImage = UIImageView(image: UIImage(systemName: "person.text.rectangle"))
+        let jobControl = UISegmentedControl(items: ["사장", "직원", "알바"])
+        
+        jobImage.frame = CGRect(x: 70, y: 475, width: 30, height: 25)
+        jobImage.tintColor = UIColor.systemGray2
+        
+        jobControl.frame = CGRect(x: 110, y: 475, width: 200, height: 25)
+        jobControl.selectedSegmentIndex = 0
+        
+        self.view.addSubview(jobImage)
+        self.view.addSubview(jobControl)
+        
+        //완료 버튼
+        let successButton = UIButton()
+        
+        successButton.frame = CGRect(x: 70, y: 520, width: 240, height: 50)
+        
+        successButton.setTitle("Join", for: .normal)
+        successButton.setTitleColor(UIColor.black, for: .normal)
+        successButton.titleLabel?.font = UIFont.init(name: "Chalkboard SE", size: 20)
+        successButton.alpha = 0.7
+        
+        successButton.layer.cornerRadius = 3
+        successButton.layer.borderWidth = 2
+        successButton.layer.borderColor = UIColor.systemGray.cgColor
+        
+        self.view.addSubview(successButton)
     }
 
 }
