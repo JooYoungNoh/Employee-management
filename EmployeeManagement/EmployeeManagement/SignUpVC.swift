@@ -8,7 +8,9 @@
 import UIKit
 
 class SignUpVC: UIViewController {
-
+    
+    let pwLabel = UILabel()         //비밀번호 질문 표시할 레이블
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -29,6 +31,21 @@ class SignUpVC: UIViewController {
         let alert = UIAlertController(title: nil, message: "사용가능한 ID입니다.", preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "OK", style: .default))
+        
+        self.present(alert, animated: true)
+    }
+    
+    @objc func doselectedQuesetion(_ sender: UIButton){
+        let alert = UIAlertController(title: nil, message: "비밀번호 질문", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "확인", style: .default){ (_) in
+            //MARK: 피커뷰 선택 바꿀 곳
+            self.pwLabel.text = " 이동희"
+        })
+        alert.addAction(UIAlertAction(title: "취소", style: .cancel))
+        
+        let pickerVC = PickerController()
+        alert.setValue(pickerVC, forKey: "contentViewController")
         
         self.present(alert, animated: true)
     }
@@ -114,7 +131,6 @@ class SignUpVC: UIViewController {
         
         //비밀번호 질문 창
         let pwQuestionImage = UIImageView(image: UIImage(systemName: "questionmark.circle"))
-        let pwLabel = UILabel()
         let pwButton = UIButton()
         
             //이미지
@@ -141,6 +157,9 @@ class SignUpVC: UIViewController {
         pwButton.layer.cornerRadius = 5
         pwButton.layer.borderWidth = 1
         pwButton.layer.borderColor = UIColor.black.cgColor
+        
+        //MARK: 비밀번호 질문 창 버튼 이벤트
+        pwButton.addTarget(self, action: #selector(doselectedQuesetion(_:)), for: .touchUpInside)
         
         self.view.addSubview(pwQuestionImage)
         self.view.addSubview(pwLabel)
