@@ -17,6 +17,7 @@
 		73A3AAEF282944E1001283CD /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A3AAEE282944E1001283CD /* LoginVC.swift */; };
 		73A3AAF12829694E001283CD /* FindVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A3AAF02829694E001283CD /* FindVC.swift */; };
 		73A3AAF5282969D1001283CD /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A3AAF4282969D1001283CD /* SignUpVC.swift */; };
+		73E084A6282AA3BA00AFC582 /* EmployeeListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E084A5282AA3BA00AFC582 /* EmployeeListVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		73A3AAEE282944E1001283CD /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		73A3AAF02829694E001283CD /* FindVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindVC.swift; sourceTree = "<group>"; };
 		73A3AAF4282969D1001283CD /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
+		73E084A5282AA3BA00AFC582 /* EmployeeListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeListVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +69,7 @@
 				73A3AAD728292BF9001283CD /* AppDelegate.swift */,
 				73A3AAD928292BF9001283CD /* SceneDelegate.swift */,
 				73A3AADD28292BF9001283CD /* Main.storyboard */,
+				73E084A5282AA3BA00AFC582 /* EmployeeListVC.swift */,
 				73A3AAF4282969D1001283CD /* SignUpVC.swift */,
 				73A3AAF02829694E001283CD /* FindVC.swift */,
 				731143B3282994EA00163A1B /* PickerController.swift */,
@@ -154,6 +157,7 @@
 				73A3AAF5282969D1001283CD /* SignUpVC.swift in Sources */,
 				73A3AAE228292BF9001283CD /* EmployeeManagement.xcdatamodeld in Sources */,
 				73A3AAD828292BF9001283CD /* AppDelegate.swift in Sources */,
+				73E084A6282AA3BA00AFC582 /* EmployeeListVC.swift in Sources */,
 				73A3AAEF282944E1001283CD /* LoginVC.swift in Sources */,
 				73A3AADA28292BF9001283CD /* SceneDelegate.swift in Sources */,
 				73A3AAF12829694E001283CD /* FindVC.swift in Sources */,
