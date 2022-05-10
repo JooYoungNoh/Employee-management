@@ -20,6 +20,22 @@ class FindVC: UIViewController {
         self.dismiss(animated: true)
     }
     
+    @objc func doIdFind(_ sender: UIButton){
+        let alert = UIAlertController(title: "아이디", message: "아이디들어올 부분", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel))
+        
+        self.present(alert, animated: true)
+    }
+    
+    @objc func doPasswordFind(_ sender: UIButton){
+        let alert = UIAlertController(title: "비밀번호", message: "비밀번호 들어갈 부분", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel))
+        
+        self.present(alert, animated: true)
+    }
+    
     //MARK: UI 배치(Find ID)
     func idUIDeployment(){
         //닫기 버튼
@@ -110,6 +126,9 @@ class FindVC: UIViewController {
         findIdButton.layer.cornerRadius = 5
         findIdButton.layer.borderWidth = 1
         findIdButton.layer.borderColor = UIColor.black.cgColor
+        
+        //MARK: 아이디 찾기 버튼 이벤트
+        findIdButton.addTarget(self, action: #selector(doIdFind(_:)), for: .touchUpInside)
         
         self.view.addSubview(findIdButton)
     }
@@ -209,6 +228,8 @@ class FindVC: UIViewController {
         findpwButton.layer.cornerRadius = 5
         findpwButton.layer.borderWidth = 1
         findpwButton.layer.borderColor = UIColor.black.cgColor
+        
+        findpwButton.addTarget(self, action: #selector(doPasswordFind(_:)), for: .touchUpInside)
         
         self.view.addSubview(findpwButton)
         
