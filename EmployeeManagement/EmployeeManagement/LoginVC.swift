@@ -31,6 +31,13 @@ class LoginVC: UIViewController {
         self.present(nv!, animated: true)
     }
     
+    @objc func goMain(_ sender: UIButton){
+        let nv = self.storyboard?.instantiateViewController(withIdentifier: "tapVC")
+        
+        self.navigationController?.pushViewController(nv!, animated: true)
+        
+    }
+    
     
     //MARK: UI 배치(No Storyboard)
     func uiDeployment(){
@@ -87,6 +94,9 @@ class LoginVC: UIViewController {
         login.layer.cornerRadius = 3
         login.layer.borderWidth = 2
         login.layer.borderColor = UIColor.systemGray.cgColor
+        
+        //MARK: 로그인 버튼 이벤트
+        login.addTarget(self, action: #selector(goMain(_:)), for: .touchUpInside)
         
         self.view.addSubview(login)
         
