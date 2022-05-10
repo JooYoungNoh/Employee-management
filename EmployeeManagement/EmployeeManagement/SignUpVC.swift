@@ -23,6 +23,16 @@ class SignUpVC: UIViewController {
         self.dismiss(animated: true)
     }
     
+    @objc func doCheckId(_ sender: UIButton){
+        //아이디 존재 여부 체크하는 코드 넣을 부분
+        
+        let alert = UIAlertController(title: nil, message: "사용가능한 ID입니다.", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        
+        self.present(alert, animated: true)
+    }
+    
     //MARK: UI 배치(Find ID)
     func signUpUIDeployment(){
         //닫기 버튼
@@ -77,6 +87,9 @@ class SignUpVC: UIViewController {
         idButton.layer.cornerRadius = 5
         idButton.layer.borderWidth = 1
         idButton.layer.borderColor = UIColor.black.cgColor
+        
+        //MARK: 아이디 확인 버튼 이벤트
+        idButton.addTarget(self, action: #selector(doCheckId(_:)), for: .touchUpInside)
         
         self.view.addSubview(idImage)
         self.view.addSubview(idTextField)
