@@ -14,6 +14,10 @@ class SignUpVC: UIViewController {
 
         signUpUIDeployment()
     }
+    //MARK: 액션 이벤트
+    @objc func doclose(_ sender: UIButton){
+        self.dismiss(animated: true)
+    }
     
     //MARK: UI 배치(Find ID)
     func signUpUIDeployment(){
@@ -25,6 +29,8 @@ class SignUpVC: UIViewController {
         closeButton.setTitle("Close", for: .normal)
         closeButton.setTitleColor(UIColor.black, for: .normal)
         closeButton.titleLabel?.font = UIFont.init(name: "Chalkboard SE", size: 20)
+        
+        closeButton.addTarget(self, action: #selector(doclose(_:)), for: .touchUpInside)
         
         self.view.addSubview(closeButton)
         
