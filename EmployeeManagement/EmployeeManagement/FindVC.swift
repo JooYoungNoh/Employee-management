@@ -15,6 +15,10 @@ class FindVC: UIViewController {
         idUIDeployment()
         passwordUIDeployment()
     }
+    //MARK: 액션 메소드
+    @objc func doclose(_ sender: UIButton){
+        self.dismiss(animated: true)
+    }
     
     //MARK: UI 배치(Find ID)
     func idUIDeployment(){
@@ -27,6 +31,7 @@ class FindVC: UIViewController {
         closeButton.setTitleColor(UIColor.black, for: .normal)
         closeButton.titleLabel?.font = UIFont.init(name: "Chalkboard SE", size: 20)
         
+        closeButton.addTarget(self, action: #selector(doclose(_:)), for: .touchUpInside)
         
         self.view.addSubview(closeButton)
         
