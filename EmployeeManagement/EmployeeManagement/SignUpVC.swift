@@ -42,19 +42,35 @@ class SignUpVC: UIViewController {
         //아이디
         let idImage = UIImageView(image: UIImage(systemName: "person.circle"))
         let idTextField = UITextField()
+        let idButton = UIButton()
         
+            //이미지
         idImage.frame = CGRect(x: 70, y: 160, width: 30, height: 30)
         idImage.tintColor = UIColor.systemGray2
         
-        idTextField.frame = CGRect(x: 110, y: 160, width: 200, height: 30)
+            //텍스트필드
+        idTextField.frame = CGRect(x: 110, y: 160, width: 150, height: 30)
         idTextField.placeholder = "Id"
         idTextField.borderStyle = .roundedRect
         idTextField.layer.borderWidth = 1
         idTextField.layer.borderColor = UIColor.systemGray2.cgColor
         idTextField.font = UIFont.init(name: "Chalkboard SE", size: 15)
         
+            //버튼
+        idButton.frame = CGRect(x: 270, y: 160, width: 40, height: 30)
+    
+        idButton.setTitle("확인", for: .normal)
+        idButton.setTitleColor(UIColor.black, for: .normal)
+        idButton.titleLabel?.font = UIFont.init(name: "Chalkboard SE", size: 15)
+        idButton.alpha = 0.7
+    
+        idButton.layer.cornerRadius = 5
+        idButton.layer.borderWidth = 1
+        idButton.layer.borderColor = UIColor.black.cgColor
+        
         self.view.addSubview(idImage)
         self.view.addSubview(idTextField)
+        self.view.addSubview(idButton)
         
         //비밀번호
         let passwordImage = UIImageView(image: UIImage(systemName: "lock.circle"))
