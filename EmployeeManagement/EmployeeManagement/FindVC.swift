@@ -175,7 +175,7 @@ class FindVC: UIViewController {
         
             //레이블
         pwLabel.frame = CGRect(x: 110, y: 445, width: 150, height: 30)
-        pwLabel.text = "Password Question"
+        pwLabel.text = " Password Question"
         pwLabel.textColor = UIColor.systemGray2
         pwLabel.font = UIFont.init(name: "Chalkboard SE", size: 15)
         
