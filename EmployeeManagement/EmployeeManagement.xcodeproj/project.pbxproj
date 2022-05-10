@@ -18,6 +18,7 @@
 		73A3AAF12829694E001283CD /* FindVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A3AAF02829694E001283CD /* FindVC.swift */; };
 		73A3AAF5282969D1001283CD /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A3AAF4282969D1001283CD /* SignUpVC.swift */; };
 		73E084A6282AA3BA00AFC582 /* EmployeeListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E084A5282AA3BA00AFC582 /* EmployeeListVC.swift */; };
+		73E084A8282AB80200AFC582 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 73E084A7282AB80200AFC582 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		73A3AAF02829694E001283CD /* FindVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindVC.swift; sourceTree = "<group>"; };
 		73A3AAF4282969D1001283CD /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
 		73E084A5282AA3BA00AFC582 /* EmployeeListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeListVC.swift; sourceTree = "<group>"; };
+		73E084A7282AB80200AFC582 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +80,7 @@
 				73A3AAE528292BF9001283CD /* LaunchScreen.storyboard */,
 				73A3AAE828292BF9001283CD /* Info.plist */,
 				73A3AAE028292BF9001283CD /* EmployeeManagement.xcdatamodeld */,
+				73E084A7282AB80200AFC582 /* GoogleService-Info.plist */,
 			);
 			path = EmployeeManagement;
 			sourceTree = "<group>";
@@ -141,6 +144,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				73A3AAE728292BF9001283CD /* LaunchScreen.storyboard in Resources */,
+				73E084A8282AB80200AFC582 /* GoogleService-Info.plist in Resources */,
 				73A3AAE428292BF9001283CD /* Assets.xcassets in Resources */,
 				73A3AADF28292BF9001283CD /* Main.storyboard in Resources */,
 			);
