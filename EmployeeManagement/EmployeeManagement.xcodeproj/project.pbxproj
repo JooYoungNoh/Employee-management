@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0BBB68D2886EC1A4A6BFABEC /* Pods_EmployeeManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F831427D605F8254116C8EA6 /* Pods_EmployeeManagement.framework */; };
 		731143B4282994EA00163A1B /* PickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731143B3282994EA00163A1B /* PickerController.swift */; };
 		73A3AAD828292BF9001283CD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A3AAD728292BF9001283CD /* AppDelegate.swift */; };
 		73A3AADA28292BF9001283CD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A3AAD928292BF9001283CD /* SceneDelegate.swift */; };
@@ -22,6 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		223BB1173FC2EC900D8BFC56 /* Pods-EmployeeManagement.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmployeeManagement.release.xcconfig"; path = "Target Support Files/Pods-EmployeeManagement/Pods-EmployeeManagement.release.xcconfig"; sourceTree = "<group>"; };
 		731143B3282994EA00163A1B /* PickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerController.swift; sourceTree = "<group>"; };
 		73A3AAD428292BF9001283CD /* EmployeeManagement.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EmployeeManagement.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		73A3AAD728292BF9001283CD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -36,6 +38,8 @@
 		73A3AAF4282969D1001283CD /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
 		73E084A5282AA3BA00AFC582 /* EmployeeListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeListVC.swift; sourceTree = "<group>"; };
 		73E084A7282AB80200AFC582 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		B003443FB7A613F54B614052 /* Pods-EmployeeManagement.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmployeeManagement.debug.xcconfig"; path = "Target Support Files/Pods-EmployeeManagement/Pods-EmployeeManagement.debug.xcconfig"; sourceTree = "<group>"; };
+		F831427D605F8254116C8EA6 /* Pods_EmployeeManagement.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EmployeeManagement.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,17 +47,38 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0BBB68D2886EC1A4A6BFABEC /* Pods_EmployeeManagement.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0EBA4094143DE73A8E5136DE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F831427D605F8254116C8EA6 /* Pods_EmployeeManagement.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		103497FE505BA87454955CEB /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B003443FB7A613F54B614052 /* Pods-EmployeeManagement.debug.xcconfig */,
+				223BB1173FC2EC900D8BFC56 /* Pods-EmployeeManagement.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		73A3AACB28292BF9001283CD = {
 			isa = PBXGroup;
 			children = (
 				73A3AAD628292BF9001283CD /* EmployeeManagement */,
 				73A3AAD528292BF9001283CD /* Products */,
+				103497FE505BA87454955CEB /* Pods */,
+				0EBA4094143DE73A8E5136DE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -92,9 +117,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 73A3AAEB28292BF9001283CD /* Build configuration list for PBXNativeTarget "EmployeeManagement" */;
 			buildPhases = (
+				04A7A845462C64A56C731F72 /* [CP] Check Pods Manifest.lock */,
 				73A3AAD028292BF9001283CD /* Sources */,
 				73A3AAD128292BF9001283CD /* Frameworks */,
 				73A3AAD228292BF9001283CD /* Resources */,
+				90F10F6FB6A4DCA751B48274 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -151,6 +178,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		04A7A845462C64A56C731F72 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-EmployeeManagement-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		90F10F6FB6A4DCA751B48274 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-EmployeeManagement/Pods-EmployeeManagement-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-EmployeeManagement/Pods-EmployeeManagement-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-EmployeeManagement/Pods-EmployeeManagement-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		73A3AAD028292BF9001283CD /* Sources */ = {
@@ -306,6 +375,7 @@
 		};
 		73A3AAEC28292BF9001283CD /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B003443FB7A613F54B614052 /* Pods-EmployeeManagement.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -333,6 +403,7 @@
 		};
 		73A3AAED28292BF9001283CD /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 223BB1173FC2EC900D8BFC56 /* Pods-EmployeeManagement.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
