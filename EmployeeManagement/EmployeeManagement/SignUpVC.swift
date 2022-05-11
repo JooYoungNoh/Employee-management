@@ -8,18 +8,35 @@
 import UIKit
 import FirebaseFirestore
 
-class SignUpVC: UIViewController {
+class SignUpVC: UIViewController, UITextFieldDelegate {
     
     let db = Firestore.firestore()  //데이터베이스
     
-    //MARK: UI 텍스트 정보들 저장해야되는 것
-    let idTextField = UITextField()         //아이디 텍스트필드
+    //아이디
+    let idImage = UIImageView(image: UIImage(systemName: "person.circle"))
+    let idTextField = UITextField()
+    //비밀번호
+    let passwordImage = UIImageView(image: UIImage(systemName: "lock.circle"))
     let passwordTextField = UITextField()
-    let pwLabel = UILabel()                 //비밀번호 질문 표시할 레이블
+    //비밀번호 질문 창
+    let pwQuestionImage = UIImageView(image: UIImage(systemName: "questionmark.circle"))
+    let pwLabel = UILabel()
+    //비밀번호 질문 답변 창
+    let pwAnswerImage = UIImageView(image: UIImage(systemName: "exclamationmark.circle"))
     let pwAnswerTextField = UITextField()
+    //이름
+    let nameImage = UIImageView(image: UIImage(systemName: "face.smiling"))
     let nameTextField = UITextField()
+    //생년월일
+    let birthImage = UIImageView(image: UIImage(systemName: "calendar"))
     let birthTextField = UITextField()
+    //전화번호
+    let phoneImage = UIImageView(image: UIImage(systemName: "phone"))
     let phoneTextField = UITextField()
+    //성별
+    let genderImage = UIImageView(image: UIImage(systemName: "person.fill.questionmark"))
+    //직책
+    let jobImage = UIImageView(image: UIImage(systemName: "person.text.rectangle"))
     
     //세그먼트 컨트롤 값 저장 변수들
     var userGender: Int!
@@ -27,8 +44,15 @@ class SignUpVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         signUpUIDeployment()
+        
+        self.idTextField.delegate = self
+        self.passwordTextField.delegate = self
+        self.pwAnswerTextField.delegate = self
+        self.nameTextField.delegate = self
+        self.birthTextField.delegate = self
+        self.phoneTextField.delegate = self
+        
     }
     //MARK: 액션 이벤트
     @objc func doclose(_ sender: UIButton){
@@ -69,6 +93,8 @@ class SignUpVC: UIViewController {
     }
     
     @objc func doselectedQuesetion(_ sender: UIButton){
+        self.pwQuestionImage.tintColor = UIColor.black
+        
         let pickerVC = PickerController()
         
         let alert = UIAlertController(title: nil, message: "비밀번호 질문", preferredStyle: .alert)
@@ -77,7 +103,13 @@ class SignUpVC: UIViewController {
             self.pwLabel.text = " \(pickerVC.selectedQuestion)"
             self.pwLabel.textColor = UIColor.black
         })
-        alert.addAction(UIAlertAction(title: "취소", style: .cancel))
+        alert.addAction(UIAlertAction(title: "취소", style: .cancel){ (_) in
+            if self.pwLabel.text == " Password Question"{
+                self.pwQuestionImage.tintColor = UIColor.systemGray2
+            } else {
+                self.pwQuestionImage.tintColor = UIColor.black
+            }
+        })
         
         alert.setValue(pickerVC, forKey: "contentViewController")
         
@@ -87,6 +119,7 @@ class SignUpVC: UIViewController {
     @objc func changeGender(_ sender: UISegmentedControl){
         let value = sender.selectedSegmentIndex     //0이면 남자, 1이면 여자
         
+        self.genderImage.tintColor = UIColor.black
         //성별 저장
         self.userGender = value
     }
@@ -94,8 +127,72 @@ class SignUpVC: UIViewController {
     @objc func changeJob(_ sender: UISegmentedControl){
         let value = sender.selectedSegmentIndex     //0이면 사장, 1이면 직원, 2면 알바
         
+        self.jobImage.tintColor = UIColor.black
         //직책저장
         self.userJob = value
+    }
+    
+    //MARK: 텍스트 필드 델리게이트 메소드
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        switch textField {
+        case self.nameTextField:
+            self.nameImage.tintColor = UIColor.black
+        case self.birthTextField:
+            self.birthImage.tintColor = UIColor.black
+        case self.phoneTextField:
+            self.phoneImage.tintColor = UIColor.black
+        case self.idTextField:
+            self.idImage.tintColor = UIColor.black
+        case self.pwAnswerTextField:
+            self.pwAnswerImage.tintColor = UIColor.black
+        case self.passwordTextField:
+            self.passwordImage.tintColor = UIColor.black
+        default:
+            ""
+        }
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        switch textField {
+        case self.nameTextField:
+            if self.nameTextField.text?.isEmpty == false {
+                self.nameImage.tintColor = UIColor.black
+            } else {
+                self.nameImage.tintColor = UIColor.systemGray2
+            }
+        case self.birthTextField:
+            if self.birthTextField.text?.isEmpty == false {
+                self.birthImage.tintColor = UIColor.black
+            } else {
+                self.birthImage.tintColor = UIColor.systemGray2
+            }
+        case self.phoneTextField:
+            if self.phoneTextField.text?.isEmpty == false {
+                self.phoneImage.tintColor = UIColor.black
+            } else {
+                self.phoneImage.tintColor = UIColor.systemGray2
+            }
+        case self.idTextField:
+            if self.idTextField.text?.isEmpty == false {
+                self.idImage.tintColor = UIColor.black
+            } else {
+                self.idImage.tintColor = UIColor.systemGray2
+            }
+        case self.pwAnswerTextField:
+            if self.pwAnswerTextField.text?.isEmpty == false {
+                self.pwAnswerImage.tintColor = UIColor.black
+            } else {
+                self.pwAnswerImage.tintColor = UIColor.systemGray2
+            }
+        case self.passwordTextField:
+            if self.passwordTextField.text?.isEmpty == false {
+                self.passwordImage.tintColor = UIColor.black
+            } else {
+                self.passwordImage.tintColor = UIColor.systemGray2
+            }
+        default:
+            ""
+        }
     }
     
     //MARK: UI 배치(Find ID)
@@ -125,7 +222,6 @@ class SignUpVC: UIViewController {
         self.view.addSubview(signUp)
         
         //아이디
-        let idImage = UIImageView(image: UIImage(systemName: "person.circle"))
         let idButton = UIButton()
         
             //이미지
@@ -160,8 +256,6 @@ class SignUpVC: UIViewController {
         self.view.addSubview(idButton)
         
         //비밀번호
-        let passwordImage = UIImageView(image: UIImage(systemName: "lock.circle"))
-        
         passwordImage.frame = CGRect(x: 70, y: 200, width: 30, height: 30)
         passwordImage.tintColor = UIColor.systemGray2
         
@@ -176,7 +270,6 @@ class SignUpVC: UIViewController {
         self.view.addSubview(passwordTextField)
         
         //비밀번호 질문 창
-        let pwQuestionImage = UIImageView(image: UIImage(systemName: "questionmark.circle"))
         let pwButton = UIButton()
         
             //이미지
@@ -212,8 +305,6 @@ class SignUpVC: UIViewController {
         self.view.addSubview(pwButton)
         
         //비밀번호 질문 답변 창
-        let pwAnswerImage = UIImageView(image: UIImage(systemName: "exclamationmark.circle"))
-        
         pwAnswerImage.frame = CGRect(x: 70, y: 280, width: 30, height: 30)
         pwAnswerImage.tintColor = UIColor.systemGray2
         
@@ -228,8 +319,6 @@ class SignUpVC: UIViewController {
         self.view.addSubview(pwAnswerTextField)
         
         //이름
-        let nameImage = UIImageView(image: UIImage(systemName: "face.smiling"))
-        
         nameImage.frame = CGRect(x: 70, y: 320, width: 30, height: 30)
         nameImage.tintColor = UIColor.systemGray2
         
@@ -244,8 +333,6 @@ class SignUpVC: UIViewController {
         self.view.addSubview(nameTextField)
         
         //생년월일
-        let birthImage = UIImageView(image: UIImage(systemName: "calendar"))
-        
         birthImage.frame = CGRect(x: 70, y: 360, width: 30, height: 30)
         birthImage.tintColor = UIColor.systemGray2
         
@@ -260,8 +347,6 @@ class SignUpVC: UIViewController {
         self.view.addSubview(birthTextField)
         
         //전화번호
-        let phoneImage = UIImageView(image: UIImage(systemName: "phone"))
-        
         phoneImage.frame = CGRect(x: 70, y: 400, width: 30, height: 30)
         phoneImage.tintColor = UIColor.systemGray2
         
@@ -276,14 +361,12 @@ class SignUpVC: UIViewController {
         self.view.addSubview(phoneTextField)
         
         //성별
-        let genderImage = UIImageView(image: UIImage(systemName: "person.fill.questionmark"))
         let genderControl = UISegmentedControl(items: ["남자","여자"])
         
         genderImage.frame = CGRect(x: 70, y: 440, width: 30, height: 25)
         genderImage.tintColor = UIColor.systemGray2
         
         genderControl.frame = CGRect(x: 110, y: 440, width: 200, height: 25)
-        genderControl.selectedSegmentIndex = 0
         
         //MARK: 성별 저장을 위한 값 변경 이벤트
         genderControl.addTarget(self, action: #selector(changeGender(_:)), for: .valueChanged)
@@ -292,14 +375,12 @@ class SignUpVC: UIViewController {
         self.view.addSubview(genderControl)
         
         //직책
-        let jobImage = UIImageView(image: UIImage(systemName: "person.text.rectangle"))
         let jobControl = UISegmentedControl(items: ["사장", "직원", "알바"])
         
         jobImage.frame = CGRect(x: 70, y: 475, width: 30, height: 25)
         jobImage.tintColor = UIColor.systemGray2
         
         jobControl.frame = CGRect(x: 110, y: 475, width: 200, height: 25)
-        jobControl.selectedSegmentIndex = 0
         
         //MARK: 직책 저장을 위한 값 변경 이벤트
         jobControl.addTarget(self, action: #selector(changeJob(_:)), for: .valueChanged)
