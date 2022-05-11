@@ -6,10 +6,12 @@
 //
 
 import UIKit
+import Firebase
 
 class SignUpVC: UIViewController {
     
     let pwLabel = UILabel()         //비밀번호 질문 표시할 레이블
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
