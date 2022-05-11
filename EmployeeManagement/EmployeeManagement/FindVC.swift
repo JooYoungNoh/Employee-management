@@ -39,15 +39,15 @@ class FindVC: UIViewController {
     }
     
     @objc func doselectedQuesetion(_ sender: UIButton){
+        let pickerVC = PickerController()
         let alert = UIAlertController(title: nil, message: "비밀번호 질문", preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "확인", style: .default){ (_) in
-            //MARK: 피커뷰 선택 바꿀 곳
-            self.pwLabel.text = " 권정우"
+            self.pwLabel.text = " \(pickerVC.selectedQuestion)"
+            self.pwLabel.textColor = UIColor.black
         })
         alert.addAction(UIAlertAction(title: "취소", style: .cancel))
         
-        let pickerVC = PickerController()
         alert.setValue(pickerVC, forKey: "contentViewController")
         
         self.present(alert, animated: true)
