@@ -74,7 +74,6 @@ class SignUpVC: UIViewController {
         let alert = UIAlertController(title: nil, message: "비밀번호 질문", preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "확인", style: .default){ (_) in
-            //MARK: 피커뷰 선택 바꿀 곳
             self.pwLabel.text = " \(pickerVC.selectedQuestion)"
             self.pwLabel.textColor = UIColor.black
         })

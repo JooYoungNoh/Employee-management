@@ -48,7 +48,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         
     }
     
-    //MARK: 택스트뷰 델리게이트 메소드
+    //MARK: 택스트 필드 델리게이트 메소드
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField == self.idTextField{
             self.idImage.tintColor = UIColor.black

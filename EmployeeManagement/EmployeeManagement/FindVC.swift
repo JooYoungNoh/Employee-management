@@ -7,9 +7,26 @@
 
 import UIKit
 
-class FindVC: UIViewController {
-
-    let pwLabel = UILabel()             //비밀번호 질문 레이블
+class FindVC: UIViewController, UITextFieldDelegate {
+    
+    //이름
+    let nameImage = UIImageView(image: UIImage(systemName: "face.smiling"))
+    let nameTextField = UITextField()
+    //생년월일
+    let birthImage = UIImageView(image: UIImage(systemName: "calendar"))
+    let birthTextField = UITextField()
+    //전화번호
+    let phoneImage = UIImageView(image: UIImage(systemName: "phone"))
+    let phoneTextField = UITextField()
+    //아이디
+    let idImage = UIImageView(image: UIImage(systemName: "person.circle"))
+    let idTextField = UITextField()
+    //비밀번호 질문 창
+    let pwQuestionImage = UIImageView(image: UIImage(systemName: "questionmark.circle"))
+    let pwLabel = UILabel()
+    //비밀번호 질문 답변 창
+    let pwAnswerImage = UIImageView(image: UIImage(systemName: "exclamationmark.circle"))
+    let pwAnswerTextField = UITextField()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,6 +70,8 @@ class FindVC: UIViewController {
         self.present(alert, animated: true)
     }
     
+    //MARK: 텍스트 필드 델리게이트 메소드
+    
     //MARK: UI 배치(Find ID)
     func idUIDeployment(){
         //닫기 버튼
@@ -80,9 +99,6 @@ class FindVC: UIViewController {
         self.view.addSubview(findID)
         
         //이름
-        let nameImage = UIImageView(image: UIImage(systemName: "face.smiling"))
-        let nameTextField = UITextField()
-        
         nameImage.frame = CGRect(x: 70, y: 150, width: 30, height: 30)
         nameImage.tintColor = UIColor.systemGray2
         
@@ -97,9 +113,6 @@ class FindVC: UIViewController {
         self.view.addSubview(nameTextField)
         
         //생년월일
-        let birthImage = UIImageView(image: UIImage(systemName: "calendar"))
-        let birthTextField = UITextField()
-        
         birthImage.frame = CGRect(x: 70, y: 190, width: 30, height: 30)
         birthImage.tintColor = UIColor.systemGray2
         
@@ -114,9 +127,6 @@ class FindVC: UIViewController {
         self.view.addSubview(birthTextField)
         
         //전화번호
-        let phoneImage = UIImageView(image: UIImage(systemName: "phone"))
-        let phoneTextField = UITextField()
-        
         phoneImage.frame = CGRect(x: 70, y: 230, width: 30, height: 30)
         phoneImage.tintColor = UIColor.systemGray2
         
@@ -165,9 +175,6 @@ class FindVC: UIViewController {
         self.view.addSubview(findPW)
         
         //아이디
-        let idImage = UIImageView(image: UIImage(systemName: "person.circle"))
-        let idTextField = UITextField()
-        
         idImage.frame = CGRect(x: 70, y: 405, width: 30, height: 30)
         idImage.tintColor = UIColor.systemGray2
         
@@ -182,7 +189,6 @@ class FindVC: UIViewController {
         self.view.addSubview(idTextField)
         
         //비밀번호 질문 창
-        let pwQuestionImage = UIImageView(image: UIImage(systemName: "questionmark.circle"))
         let pwButton = UIButton()
         
             //이미지
@@ -217,9 +223,6 @@ class FindVC: UIViewController {
         self.view.addSubview(pwButton)
         
         //비밀번호 질문 답변 창
-        let pwAnswerImage = UIImageView(image: UIImage(systemName: "exclamationmark.circle"))
-        let pwAnswerTextField = UITextField()
-        
         pwAnswerImage.frame = CGRect(x: 70, y: 485, width: 30, height: 30)
         pwAnswerImage.tintColor = UIColor.systemGray2
         
