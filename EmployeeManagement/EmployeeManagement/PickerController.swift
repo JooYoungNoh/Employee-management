@@ -10,11 +10,13 @@ import UIKit
 class PickerController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     var pickerView: UIPickerView!       //피커뷰 객체
     
+    var questionList = [(0,"나의 보물 1호는?"), (1,"내가 사는 곳은?"), (2,"내가 다녔던 고등학교는?")]
+    
     //피커 뷰에 선택되어 있는 질문 가져오기 p.1069
-   /* var selectedQuestion: Int{
+    var selectedQuestion: Int{
         let row = self.pickerView.selectedRow(inComponent: 0)
-        return self.departlist[row].departcd
-    }*/
+        return self.questionList[row].0
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +39,7 @@ class PickerController: UIViewController, UIPickerViewDelegate, UIPickerViewData
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return 3
+        return self.questionList.count
     }
     
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
@@ -47,7 +49,7 @@ class PickerController: UIViewController, UIPickerViewDelegate, UIPickerViewData
             titleView?.font = UIFont.init(name: "Chalkboard SE", size: 14)
             titleView?.textAlignment = .center
         }
-        titleView?.text = "질문 리스트 넣을 곳"
+        titleView?.text = "\(self.questionList[row].1)"
         
         return titleView!
     }
