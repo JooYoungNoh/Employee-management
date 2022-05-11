@@ -7,12 +7,22 @@
 
 import UIKit
 
-class LoginVC: UIViewController {
+class LoginVC: UIViewController, UITextFieldDelegate {
 
+    //아이디
+    let idImage = UIImageView(image: UIImage(systemName: "person.circle"))
+    let idTextField = UITextField()
+    
+    //비밀번호
+    let pwImage = UIImageView(image: UIImage(systemName: "lock.circle"))
+    let pwTextField = UITextField()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         //UI 배치
         uiDeployment()
+        self.idTextField.delegate = self
+        self.pwTextField.delegate = self
         
     }
     //MARK: 액션 메소드
@@ -38,6 +48,30 @@ class LoginVC: UIViewController {
         
     }
     
+    //MARK: 택스트뷰 델리게이트 메소드
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField == self.idTextField{
+            self.idImage.tintColor = UIColor.black
+        } else if textField == self.pwTextField{
+            self.pwImage.tintColor = UIColor.black
+        }
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField == self.idTextField{
+            if self.idTextField.text?.isEmpty == false{
+                self.idImage.tintColor = UIColor.black
+            } else {
+                self.idImage.tintColor = UIColor.systemGray3
+            }
+        } else if textField == self.pwTextField{
+            if self.pwTextField.text?.isEmpty == false{
+                self.pwImage.tintColor = UIColor.black
+            } else {
+                self.pwImage.tintColor = UIColor.systemGray3
+            }
+        }
+    }
     
     //MARK: UI 배치(No Storyboard)
     func uiDeployment(){
@@ -50,13 +84,8 @@ class LoginVC: UIViewController {
         self.view.addSubview(logoImage)
         
         //아이디
-        let id = UIImage(systemName: "person.circle")
-        let idImage = UIImageView(image: id)
-        let idTextField = UITextField()
-        
         idImage.frame = CGRect(x: 80, y: 350, width: 30, height: 30)
-        idImage.tintColor = UIColor.systemGray4
-        
+        idImage.tintColor = UIColor.systemGray3
         idTextField.frame = CGRect(x: 120, y: 350, width: 180, height: 30)
         idTextField.placeholder = "Id"
         idTextField.borderStyle = .roundedRect
@@ -66,12 +95,8 @@ class LoginVC: UIViewController {
         self.view.addSubview(idTextField)
         
         //비밀번호
-        let pw = UIImage(systemName: "lock.circle")
-        let pwImage = UIImageView(image: pw)
-        let pwTextField = UITextField()
-        
         pwImage.frame = CGRect(x: 80, y: 400, width: 30, height: 30)
-        pwImage.tintColor = UIColor.systemGray4
+        pwImage.tintColor = UIColor.systemGray3
         
         pwTextField.frame = CGRect(x: 120, y: 400, width: 180, height: 30)
         pwTextField.placeholder = "Password"
