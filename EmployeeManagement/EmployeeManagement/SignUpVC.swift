@@ -10,9 +10,20 @@ import FirebaseFirestore
 
 class SignUpVC: UIViewController {
     
-    let pwLabel = UILabel()         //비밀번호 질문 표시할 레이블
+    let db = Firestore.firestore()  //데이터베이스
     
-    let db = Firestore.firestore()
+    //MARK: UI 텍스트 정보들 저장해야되는 것
+    let idTextField = UITextField()         //아이디 텍스트필드
+    let passwordTextField = UITextField()
+    let pwLabel = UILabel()                 //비밀번호 질문 표시할 레이블
+    let pwAnswerTextField = UITextField()
+    let nameTextField = UITextField()
+    let birthTextField = UITextField()
+    let phoneTextField = UITextField()
+    
+    //세그먼트 컨트롤 값 저장 변수들
+    var userGender: Int!
+    var userJob: Int!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +39,18 @@ class SignUpVC: UIViewController {
         let alert = UIAlertController(title: nil, message: "회원가입이 완료되었습니다.", preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "OK", style: .default){ (_) in
+            
+            //파이어베이스로 넘겨주는 코드
+            self.db.collection("users").document("\(self.idTextField.text!)").setData([
+                "password" : "\(self.passwordTextField.text!)",
+                "question" : "\(self.pwLabel.text!)",
+                "answer" : "\(self.pwAnswerTextField.text!)",
+                "name" : "\(self.nameTextField.text!)",
+                "birth" : "\(self.birthTextField.text!)",
+                "phone" : "\(self.phoneTextField.text!)",
+                "gender" : "\(self.userGender!)",
+                "job" : "\(self.userJob!)"
+            ])
             
             self.dismiss(animated: true)
         })
@@ -46,18 +69,34 @@ class SignUpVC: UIViewController {
     }
     
     @objc func doselectedQuesetion(_ sender: UIButton){
+        let pickerVC = PickerController()
+        
         let alert = UIAlertController(title: nil, message: "비밀번호 질문", preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "확인", style: .default){ (_) in
             //MARK: 피커뷰 선택 바꿀 곳
-            self.pwLabel.text = " 이동희"
+            self.pwLabel.text = " \(pickerVC.selectedQuestion)"
+            self.pwLabel.textColor = UIColor.black
         })
         alert.addAction(UIAlertAction(title: "취소", style: .cancel))
         
-        let pickerVC = PickerController()
         alert.setValue(pickerVC, forKey: "contentViewController")
         
         self.present(alert, animated: true)
+    }
+    
+    @objc func changeGender(_ sender: UISegmentedControl){
+        let value = sender.selectedSegmentIndex     //0이면 남자, 1이면 여자
+        
+        //성별 저장
+        self.userGender = value
+    }
+    
+    @objc func changeJob(_ sender: UISegmentedControl){
+        let value = sender.selectedSegmentIndex     //0이면 사장, 1이면 직원, 2면 알바
+        
+        //직책저장
+        self.userJob = value
     }
     
     //MARK: UI 배치(Find ID)
@@ -88,7 +127,6 @@ class SignUpVC: UIViewController {
         
         //아이디
         let idImage = UIImageView(image: UIImage(systemName: "person.circle"))
-        let idTextField = UITextField()
         let idButton = UIButton()
         
             //이미지
@@ -124,7 +162,6 @@ class SignUpVC: UIViewController {
         
         //비밀번호
         let passwordImage = UIImageView(image: UIImage(systemName: "lock.circle"))
-        let passwordTextField = UITextField()
         
         passwordImage.frame = CGRect(x: 70, y: 200, width: 30, height: 30)
         passwordImage.tintColor = UIColor.systemGray2
@@ -150,8 +187,8 @@ class SignUpVC: UIViewController {
             //레이블
         pwLabel.frame = CGRect(x: 110, y: 240, width: 150, height: 30)
         pwLabel.text = " Password Question"
-        pwLabel.textColor = UIColor.systemGray2
-        pwLabel.font = UIFont.init(name: "Chalkboard SE", size: 15)
+        pwLabel.textColor = UIColor.systemGray3
+        pwLabel.font = UIFont.init(name: "Chalkboard SE", size: 14)
         
         pwLabel.layer.borderWidth = 1
         pwLabel.layer.borderColor = UIColor.systemGray2.cgColor
@@ -177,7 +214,6 @@ class SignUpVC: UIViewController {
         
         //비밀번호 질문 답변 창
         let pwAnswerImage = UIImageView(image: UIImage(systemName: "exclamationmark.circle"))
-        let pwAnswerTextField = UITextField()
         
         pwAnswerImage.frame = CGRect(x: 70, y: 280, width: 30, height: 30)
         pwAnswerImage.tintColor = UIColor.systemGray2
@@ -194,7 +230,6 @@ class SignUpVC: UIViewController {
         
         //이름
         let nameImage = UIImageView(image: UIImage(systemName: "face.smiling"))
-        let nameTextField = UITextField()
         
         nameImage.frame = CGRect(x: 70, y: 320, width: 30, height: 30)
         nameImage.tintColor = UIColor.systemGray2
@@ -211,7 +246,6 @@ class SignUpVC: UIViewController {
         
         //생년월일
         let birthImage = UIImageView(image: UIImage(systemName: "calendar"))
-        let birthTextField = UITextField()
         
         birthImage.frame = CGRect(x: 70, y: 360, width: 30, height: 30)
         birthImage.tintColor = UIColor.systemGray2
@@ -228,7 +262,6 @@ class SignUpVC: UIViewController {
         
         //전화번호
         let phoneImage = UIImageView(image: UIImage(systemName: "phone"))
-        let phoneTextField = UITextField()
         
         phoneImage.frame = CGRect(x: 70, y: 400, width: 30, height: 30)
         phoneImage.tintColor = UIColor.systemGray2
@@ -252,6 +285,9 @@ class SignUpVC: UIViewController {
         
         genderControl.frame = CGRect(x: 110, y: 440, width: 200, height: 25)
         genderControl.selectedSegmentIndex = 0
+        
+        //MARK: 성별 저장을 위한 값 변경 이벤트
+        genderControl.addTarget(self, action: #selector(changeGender(_:)), for: .valueChanged)
             
         self.view.addSubview(genderImage)
         self.view.addSubview(genderControl)
@@ -265,6 +301,9 @@ class SignUpVC: UIViewController {
         
         jobControl.frame = CGRect(x: 110, y: 475, width: 200, height: 25)
         jobControl.selectedSegmentIndex = 0
+        
+        //MARK: 직책 저장을 위한 값 변경 이벤트
+        jobControl.addTarget(self, action: #selector(changeJob(_:)), for: .valueChanged)
         
         self.view.addSubview(jobImage)
         self.view.addSubview(jobControl)
