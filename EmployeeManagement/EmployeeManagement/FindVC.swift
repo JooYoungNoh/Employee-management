@@ -33,6 +33,13 @@ class FindVC: UIViewController, UITextFieldDelegate {
 
         idUIDeployment()
         passwordUIDeployment()
+        
+        //델리게이트
+        self.nameTextField.delegate = self
+        self.birthTextField.delegate = self
+        self.phoneTextField.delegate = self
+        self.idTextField.delegate = self
+        self.pwAnswerTextField.delegate = self
     }
     //MARK: 액션 메소드
     @objc func doclose(_ sender: UIButton){
@@ -56,6 +63,8 @@ class FindVC: UIViewController, UITextFieldDelegate {
     }
     
     @objc func doselectedQuesetion(_ sender: UIButton){
+        self.pwQuestionImage.tintColor = UIColor.black
+        
         let pickerVC = PickerController()
         let alert = UIAlertController(title: nil, message: "비밀번호 질문", preferredStyle: .alert)
         
@@ -63,7 +72,13 @@ class FindVC: UIViewController, UITextFieldDelegate {
             self.pwLabel.text = " \(pickerVC.selectedQuestion)"
             self.pwLabel.textColor = UIColor.black
         })
-        alert.addAction(UIAlertAction(title: "취소", style: .cancel))
+        alert.addAction(UIAlertAction(title: "취소", style: .cancel){(_) in
+            if self.pwLabel.text == " Password Question"{
+                self.pwQuestionImage.tintColor = UIColor.systemGray2
+            } else {
+                self.pwQuestionImage.tintColor = UIColor.black
+            }
+        })
         
         alert.setValue(pickerVC, forKey: "contentViewController")
         
@@ -71,6 +86,59 @@ class FindVC: UIViewController, UITextFieldDelegate {
     }
     
     //MARK: 텍스트 필드 델리게이트 메소드
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        switch textField {
+        case self.nameTextField:
+            self.nameImage.tintColor = UIColor.black
+        case self.birthTextField:
+            self.birthImage.tintColor = UIColor.black
+        case self.phoneTextField:
+            self.phoneImage.tintColor = UIColor.black
+        case self.idTextField:
+            self.idImage.tintColor = UIColor.black
+        case self.pwAnswerTextField:
+            self.pwAnswerImage.tintColor = UIColor.black
+        default:
+            ""
+        }
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        switch textField {
+        case self.nameTextField:
+            if self.nameTextField.text?.isEmpty == false {
+                self.nameImage.tintColor = UIColor.black
+            } else {
+                self.nameImage.tintColor = UIColor.systemGray2
+            }
+        case self.birthTextField:
+            if self.birthTextField.text?.isEmpty == false {
+                self.birthImage.tintColor = UIColor.black
+            } else {
+                self.birthImage.tintColor = UIColor.systemGray2
+            }
+        case self.phoneTextField:
+            if self.phoneTextField.text?.isEmpty == false {
+                self.phoneImage.tintColor = UIColor.black
+            } else {
+                self.phoneImage.tintColor = UIColor.systemGray2
+            }
+        case self.idTextField:
+            if self.idTextField.text?.isEmpty == false {
+                self.idImage.tintColor = UIColor.black
+            } else {
+                self.idImage.tintColor = UIColor.systemGray2
+            }
+        case self.pwAnswerTextField:
+            if self.pwAnswerTextField.text?.isEmpty == false {
+                self.pwAnswerImage.tintColor = UIColor.black
+            } else {
+                self.pwAnswerImage.tintColor = UIColor.systemGray2
+            }
+        default:
+            ""
+        }
+    }
     
     //MARK: UI 배치(Find ID)
     func idUIDeployment(){
@@ -199,7 +267,7 @@ class FindVC: UIViewController, UITextFieldDelegate {
         pwLabel.frame = CGRect(x: 110, y: 445, width: 150, height: 30)
         pwLabel.text = " Password Question"
         pwLabel.textColor = UIColor.systemGray2
-        pwLabel.font = UIFont.init(name: "Chalkboard SE", size: 15)
+        pwLabel.font = UIFont.init(name: "Chalkboard SE", size: 14)
         
         pwLabel.layer.borderWidth = 1
         pwLabel.layer.borderColor = UIColor.systemGray2.cgColor
