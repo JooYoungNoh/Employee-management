@@ -6,12 +6,13 @@
 //
 
 import UIKit
-import Firebase
+import FirebaseFirestore
 
 class SignUpVC: UIViewController {
     
     let pwLabel = UILabel()         //비밀번호 질문 표시할 레이블
     
+    let db = Firestore.firestore()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,7 +25,14 @@ class SignUpVC: UIViewController {
     }
     
     @objc func doJoin(_ sender: UIButton){
-        self.dismiss(animated: true)
+        let alert = UIAlertController(title: nil, message: "회원가입이 완료되었습니다.", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "OK", style: .default){ (_) in
+            
+            self.dismiss(animated: true)
+        })
+        
+        self.present(alert, animated: true)
     }
     
     @objc func doCheckId(_ sender: UIButton){
