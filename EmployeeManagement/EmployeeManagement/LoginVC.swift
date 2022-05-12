@@ -6,9 +6,12 @@
 //
 
 import UIKit
+import FirebaseFirestore
 
 class LoginVC: UIViewController, UITextFieldDelegate {
-
+    
+    let db = Firestore.firestore()
+    
     //아이디
     let idImage = UIImageView(image: UIImage(systemName: "person.circle"))
     let idTextField = UITextField()
@@ -42,10 +45,34 @@ class LoginVC: UIViewController, UITextFieldDelegate {
     }
     
     @objc func goMain(_ sender: UIButton){
-        let nv = self.storyboard?.instantiateViewController(withIdentifier: "tapVC")
+        //documentID 저장
+        var dbResult: [String] = []
         
-        self.navigationController?.pushViewController(nv!, animated: true)
+        let query = db.collection("users").whereField("id", isEqualTo: self.idTextField.text!).whereField("password", isEqualTo: self.pwTextField.text!)
         
+        query.getDocuments { (snapshot, error) in
+                for doc in snapshot!.documents{
+                    dbResult.append(doc.documentID)
+                    print(dbResult)
+                }
+            if dbResult.isEmpty == true {
+                let alert2 = UIAlertController(title: "Login Failed", message: "다시 입력해주세요.", preferredStyle: .alert)
+                        
+                alert2.addAction(UIAlertAction(title: "OK", style: .default){ (_) in
+                    
+                })
+                self.present(alert2, animated: true)
+            } else {
+                let alert1 = UIAlertController(title: "Login Successful", message: "환영합니다.", preferredStyle: .alert)
+                        
+                alert1.addAction(UIAlertAction(title: "OK", style: .default){ (_) in
+                    let nv = self.storyboard?.instantiateViewController(withIdentifier: "tapVC")
+                    
+                    self.navigationController?.pushViewController(nv!, animated: true)
+                })
+                self.present(alert1, animated: true)
+            }
+        }
     }
     
     //MARK: 택스트 필드 델리게이트 메소드
