@@ -66,6 +66,7 @@ class SignUpVC: UIViewController, UITextFieldDelegate {
             
             //파이어베이스로 넘겨주는 코드
             self.db.collection("users").document("\(self.idTextField.text!)").setData([
+                "id" : "\(self.idTextField.text!)",
                 "password" : "\(self.passwordTextField.text!)",
                 "question" : "\(self.pwLabel.text!)",
                 "answer" : "\(self.pwAnswerTextField.text!)",
@@ -78,7 +79,7 @@ class SignUpVC: UIViewController, UITextFieldDelegate {
                 if error == nil{
                     self.dismiss(animated: true)
                 } else {
-                    print(error?.localizedDescription)
+                    print(error!.localizedDescription)
                 }
             }
         })
@@ -88,12 +89,32 @@ class SignUpVC: UIViewController, UITextFieldDelegate {
     
     @objc func doCheckId(_ sender: UIButton){
         //아이디 존재 여부 체크하는 코드 넣을 부분
+        var dbResult: [String] = []
         
-        let alert = UIAlertController(title: nil, message: "사용가능한 ID입니다.", preferredStyle: .alert)
-        
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
-        
-        self.present(alert, animated: true)
+        db.collection("users").whereField("id", isEqualTo: self.idTextField.text!).getDocuments { (snapshot, error) in
+                for doc in snapshot!.documents{
+                    dbResult.append(doc.documentID)
+                    print(dbResult)
+                }
+            
+            if dbResult.isEmpty == true {
+                let alert2 = UIAlertController(title: nil, message: "사용가능한 ID입니다.", preferredStyle: .alert)
+                        
+                alert2.addAction(UIAlertAction(title: "OK", style: .default){ (_) in
+                    
+                })
+                        
+                self.present(alert2, animated: true)
+            } else {
+                let alert1 = UIAlertController(title: nil, message: "이미 등록된 ID입니다.", preferredStyle: .alert)
+                        
+                alert1.addAction(UIAlertAction(title: "OK", style: .default){ (_) in
+                    self.idTextField.text = nil
+                })
+                        
+                self.present(alert1, animated: true)
+            }
+        }
     }
     
     @objc func doselectedQuesetion(_ sender: UIButton){
