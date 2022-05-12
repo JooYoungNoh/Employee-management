@@ -74,9 +74,13 @@ class SignUpVC: UIViewController, UITextFieldDelegate {
                 "phone" : "\(self.phoneTextField.text!)",
                 "gender" : "\(self.userGender!)",
                 "job" : "\(self.userJob!)"
-            ])
-            
-            self.dismiss(animated: true)
+            ]) { error in
+                if error == nil{
+                    self.dismiss(animated: true)
+                } else {
+                    print(error?.localizedDescription)
+                }
+            }
         })
         
         self.present(alert, animated: true)
