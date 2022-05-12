@@ -236,8 +236,8 @@ class SignUpVC: UIViewController, UITextFieldDelegate {
                 
                 let contents = textField.text as! NSString
                 
-                if contents.length != 10 {
-                    let alert = UIAlertController(title: "10자리의 전화번호가 아닙니다.", message: "다시 입력해주세요.", preferredStyle: .alert)
+                if contents.length != 11 {
+                    let alert = UIAlertController(title: "11자리의 전화번호가 아닙니다.", message: "다시 입력해주세요.", preferredStyle: .alert)
                     
                     alert.addAction(UIAlertAction(title: "OK", style: .default){ (_) in
                         self.phoneTextField.text = nil
