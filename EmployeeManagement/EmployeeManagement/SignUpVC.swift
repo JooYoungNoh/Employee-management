@@ -223,12 +223,38 @@ class SignUpVC: UIViewController, UITextFieldDelegate {
         case self.phoneTextField:
             if self.phoneTextField.text?.isEmpty == false {
                 self.phoneImage.tintColor = UIColor.black
+                
+                let contents = textField.text as! NSString
+                
+                if contents.length != 10 {
+                    let alert = UIAlertController(title: "10자리의 전화번호가 아닙니다.", message: "다시 입력해주세요.", preferredStyle: .alert)
+                    
+                    alert.addAction(UIAlertAction(title: "OK", style: .default){ (_) in
+                        self.phoneTextField.text = nil
+                        self.phoneImage.tintColor = UIColor.systemGray2
+                    })
+                    
+                    self.present(alert, animated: true)
+                }
             } else {
                 self.phoneImage.tintColor = UIColor.systemGray2
             }
         case self.idTextField:
             if self.idTextField.text?.isEmpty == false {
                 self.idImage.tintColor = UIColor.black
+                
+                let contents = textField.text as! NSString
+                
+                if contents.length <= 1 {
+                    let alert = UIAlertController(title: "아이디는 최소 2자리입니다.", message: "다시 입력해주세요.", preferredStyle: .alert)
+                    
+                    alert.addAction(UIAlertAction(title: "OK", style: .default){ (_) in
+                        self.idTextField.text = nil
+                        self.idImage.tintColor = UIColor.systemGray2
+                    })
+                    
+                    self.present(alert, animated: true)
+                }
             } else {
                 self.idImage.tintColor = UIColor.systemGray2
             }
@@ -241,6 +267,19 @@ class SignUpVC: UIViewController, UITextFieldDelegate {
         case self.passwordTextField:
             if self.passwordTextField.text?.isEmpty == false {
                 self.passwordImage.tintColor = UIColor.black
+                
+                let contents = textField.text as! NSString
+                
+                if contents.length <= 3 {
+                    let alert = UIAlertController(title: "비밀번호는 최소 4자리입니다.", message: "다시 입력해주세요.", preferredStyle: .alert)
+                    
+                    alert.addAction(UIAlertAction(title: "OK", style: .default){ (_) in
+                        self.passwordTextField.text = nil
+                        self.passwordImage.tintColor = UIColor.systemGray2
+                    })
+                    
+                    self.present(alert, animated: true)
+                }
             } else {
                 self.passwordImage.tintColor = UIColor.systemGray2
             }
