@@ -372,18 +372,33 @@ class SignUpVC: UIViewController, UITextFieldDelegate {
         self.view.addSubview(birthTextField)
         
         //전화번호
+        let phoneButton = UIButton()
+        
         phoneImage.frame = CGRect(x: 70, y: 400, width: 30, height: 30)
         phoneImage.tintColor = UIColor.systemGray2
         
-        phoneTextField.frame = CGRect(x: 110, y: 400, width: 200, height: 30)
+        phoneTextField.frame = CGRect(x: 110, y: 400, width: 150, height: 30)
         phoneTextField.placeholder = "ex) 010-0000-0000"
         phoneTextField.borderStyle = .roundedRect
         phoneTextField.layer.borderWidth = 1
         phoneTextField.layer.borderColor = UIColor.systemGray2.cgColor
-        phoneTextField.font = UIFont.init(name: "Chalkboard SE", size: 15)
+        phoneTextField.font = UIFont.init(name: "Chalkboard SE", size: 14)
+        
+        //버튼
+        phoneButton.frame = CGRect(x: 270, y: 400, width: 40, height: 30)
+
+        phoneButton.setTitle("확인", for: .normal)
+        phoneButton.setTitleColor(UIColor.black, for: .normal)
+        phoneButton.titleLabel?.font = UIFont.init(name: "Chalkboard SE", size: 15)
+        phoneButton.alpha = 0.7
+
+        phoneButton.layer.cornerRadius = 5
+        phoneButton.layer.borderWidth = 1
+        phoneButton.layer.borderColor = UIColor.black.cgColor
         
         self.view.addSubview(phoneImage)
         self.view.addSubview(phoneTextField)
+        self.view.addSubview(phoneButton)
         
         //성별
         let genderControl = UISegmentedControl(items: ["남자","여자"])
