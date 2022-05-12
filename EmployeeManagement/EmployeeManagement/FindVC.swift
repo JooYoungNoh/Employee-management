@@ -66,6 +66,7 @@ class FindVC: UIViewController, UITextFieldDelegate {
                     
                     alert1.addAction(UIAlertAction(title: "OK", style: .cancel){ (_) in
                         self.idTextField.text = dbResultID
+                        self.idImage.tintColor = UIColor.black
                     })
                     
                     self.present(alert1, animated: true)
@@ -259,7 +260,7 @@ class FindVC: UIViewController, UITextFieldDelegate {
         phoneImage.tintColor = UIColor.systemGray2
         
         phoneTextField.frame = CGRect(x: 110, y: 230, width: 200, height: 30)
-        phoneTextField.placeholder = "ex) 010-0000-0000"
+        phoneTextField.placeholder = "ex) 01000000000"
         phoneTextField.borderStyle = .roundedRect
         phoneTextField.layer.borderWidth = 1
         phoneTextField.layer.borderColor = UIColor.systemGray2.cgColor
