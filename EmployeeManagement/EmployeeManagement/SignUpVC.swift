@@ -117,6 +117,35 @@ class SignUpVC: UIViewController, UITextFieldDelegate {
         }
     }
     
+    @objc func doCheckPhone(_ sender: UIButton){
+        var dbResult: [String] = []
+        
+        db.collection("users").whereField("phone", isEqualTo: self.phoneTextField.text!).getDocuments { (snapshot, error) in
+                for doc in snapshot!.documents{
+                    dbResult.append(doc.documentID)
+                    print(dbResult)
+                }
+            
+            if dbResult.isEmpty == true {
+                let alert2 = UIAlertController(title: nil, message: "사용가능한 전화번호입니다.", preferredStyle: .alert)
+                        
+                alert2.addAction(UIAlertAction(title: "OK", style: .default){ (_) in
+                    
+                })
+                        
+                self.present(alert2, animated: true)
+            } else {
+                let alert1 = UIAlertController(title: "이미 등록된 전화번호입니다.", message: "아이디 찾기를 이용해주세요.", preferredStyle: .alert)
+                        
+                alert1.addAction(UIAlertAction(title: "OK", style: .default){ (_) in
+                    self.phoneTextField.text = nil
+                })
+                        
+                self.present(alert1, animated: true)
+            }
+        }
+    }
+    
     @objc func doselectedQuesetion(_ sender: UIButton){
         self.pwQuestionImage.tintColor = UIColor.black
         
@@ -378,7 +407,7 @@ class SignUpVC: UIViewController, UITextFieldDelegate {
         phoneImage.tintColor = UIColor.systemGray2
         
         phoneTextField.frame = CGRect(x: 110, y: 400, width: 150, height: 30)
-        phoneTextField.placeholder = "ex) 010-0000-0000"
+        phoneTextField.placeholder = "ex) 01012345678"
         phoneTextField.borderStyle = .roundedRect
         phoneTextField.layer.borderWidth = 1
         phoneTextField.layer.borderColor = UIColor.systemGray2.cgColor
@@ -395,6 +424,9 @@ class SignUpVC: UIViewController, UITextFieldDelegate {
         phoneButton.layer.cornerRadius = 5
         phoneButton.layer.borderWidth = 1
         phoneButton.layer.borderColor = UIColor.black.cgColor
+        
+        //MARK: 전화번호 확인 버튼 액션 이벤트
+        phoneButton.addTarget(self, action: #selector(doCheckPhone(_:)), for: .touchUpInside)
         
         self.view.addSubview(phoneImage)
         self.view.addSubview(phoneTextField)
