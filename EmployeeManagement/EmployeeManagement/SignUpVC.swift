@@ -60,31 +60,41 @@ class SignUpVC: UIViewController, UITextFieldDelegate {
     }
     
     @objc func doJoin(_ sender: UIButton){
-        let alert = UIAlertController(title: nil, message: "회원가입이 완료되었습니다.", preferredStyle: .alert)
-        
-        alert.addAction(UIAlertAction(title: "OK", style: .default){ (_) in
+        //정보가 다 입력되어 있다면
+        if self.idTextField.text?.isEmpty == false && self.passwordTextField.text?.isEmpty == false && self.pwLabel.text?.isEmpty == false && self.pwAnswerTextField.text?.isEmpty == false && self.nameTextField.text?.isEmpty == false && self.birthTextField.text?.isEmpty == false && self.phoneTextField.text?.isEmpty == false && self.userGender != nil && self.userJob != nil {
+            let alert1 = UIAlertController(title: nil, message: "회원가입이 완료되었습니다.", preferredStyle: .alert)
             
-            //파이어베이스로 넘겨주는 코드
-            self.db.collection("users").document("\(self.idTextField.text!)").setData([
-                "id" : "\(self.idTextField.text!)",
-                "password" : "\(self.passwordTextField.text!)",
-                "question" : "\(self.pwLabel.text!)",
-                "answer" : "\(self.pwAnswerTextField.text!)",
-                "name" : "\(self.nameTextField.text!)",
-                "birth" : "\(self.birthTextField.text!)",
-                "phone" : "\(self.phoneTextField.text!)",
-                "gender" : "\(self.userGender!)",
-                "job" : "\(self.userJob!)"
-            ]) { error in
-                if error == nil{
-                    self.dismiss(animated: true)
-                } else {
-                    print(error!.localizedDescription)
+            alert1.addAction(UIAlertAction(title: "OK", style: .default){ (_) in
+                
+                //파이어베이스로 넘겨주는 코드
+                self.db.collection("users").document("\(self.idTextField.text!)").setData([
+                    "id" : "\(self.idTextField.text!)",
+                    "password" : "\(self.passwordTextField.text!)",
+                    "question" : "\(self.pwLabel.text!)",
+                    "answer" : "\(self.pwAnswerTextField.text!)",
+                    "name" : "\(self.nameTextField.text!)",
+                    "birth" : "\(self.birthTextField.text!)",
+                    "phone" : "\(self.phoneTextField.text!)",
+                    "gender" : "\(self.userGender!)",
+                    "job" : "\(self.userJob!)"
+                ]) { error in
+                    if error == nil{
+                        self.dismiss(animated: true)
+                    } else {
+                        print(error!.localizedDescription)
+                    }
                 }
-            }
-        })
-        
-        self.present(alert, animated: true)
+            })
+            self.present(alert1, animated: true)
+            
+        } else {        //정보가 다 입력되지 않은 격우
+            let alert2 = UIAlertController(title: "모든 정보가 입력되지않았습니다.", message: "다시 입력해주세요", preferredStyle: .alert)
+            
+            alert2.addAction(UIAlertAction(title: "OK", style: .default))
+            
+            self.present(alert2, animated: true)
+        }
+
     }
     
     @objc func doCheckId(_ sender: UIButton){
