@@ -6,8 +6,13 @@
 //
 
 import UIKit
+import FirebaseFirestore
 
 class FindVC: UIViewController, UITextFieldDelegate {
+    
+    let db =  Firestore.firestore()
+    
+    var dbResult: String = ""         //문서 아이디 저장
     
     //이름
     let nameImage = UIImageView(image: UIImage(systemName: "face.smiling"))
@@ -47,11 +52,42 @@ class FindVC: UIViewController, UITextFieldDelegate {
     }
     
     @objc func doIdFind(_ sender: UIButton){
-        let alert = UIAlertController(title: "아이디", message: "아이디들어올 부분", preferredStyle: .alert)
+        var dbResultID: String = ""
         
-        alert.addAction(UIAlertAction(title: "OK", style: .cancel))
+        let query = db.collection("users").whereField("name", isEqualTo: self.nameTextField.text!).whereField("birth", isEqualTo: self.birthTextField.text!).whereField("phone", isEqualTo: self.phoneTextField.text!)
         
-        self.present(alert, animated: true)
+        query.getDocuments { (snapshot, error) in
+            for doc in snapshot!.documents{
+                dbResultID = doc.documentID
+                print(dbResultID)
+            }
+            
+            if self.nameTextField.text?.isEmpty == false && self.birthTextField.text?.isEmpty == false && self.phoneTextField.text?.isEmpty == false {
+                if dbResultID != "" {
+                    let alert1 = UIAlertController(title: "아이디", message: "\(dbResultID)", preferredStyle: .alert)
+                    
+                    alert1.addAction(UIAlertAction(title: "OK", style: .cancel){ (_) in
+                        self.idTextField.text = dbResultID
+                    })
+                    
+                    self.present(alert1, animated: true)
+                } else {
+                
+                    let alert2 = UIAlertController(title: "정보가 올바르지 않거나 찾지 못하였습니다.", message: nil, preferredStyle: .alert)
+                
+                    alert2.addAction(UIAlertAction(title: "OK", style: .cancel){ (_) in
+                    })
+                
+                    self.present(alert2, animated: true)
+                }
+            } else {
+                let alert3 = UIAlertController(title: "모든 정보가 입력되지않았습니다.", message: "다시 입력해주세요", preferredStyle: .alert)
+            
+                alert3.addAction(UIAlertAction(title: "OK", style: .cancel))
+            
+                self.present(alert3, animated: true)
+            }
+        }
     }
     
     @objc func doPasswordFind(_ sender: UIButton){
