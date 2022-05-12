@@ -12,8 +12,6 @@ class FindVC: UIViewController, UITextFieldDelegate {
     
     let db =  Firestore.firestore()
     
-    var dbResult: String = ""         //문서 아이디 저장
-    
     //이름
     let nameImage = UIImageView(image: UIImage(systemName: "face.smiling"))
     let nameTextField = UITextField()
@@ -52,7 +50,7 @@ class FindVC: UIViewController, UITextFieldDelegate {
     }
     
     @objc func doIdFind(_ sender: UIButton){
-        var dbResultID: String = ""
+        var dbResultID: String = ""       //문서 아이디 저장
         
         let query = db.collection("users").whereField("name", isEqualTo: self.nameTextField.text!).whereField("birth", isEqualTo: self.birthTextField.text!).whereField("phone", isEqualTo: self.phoneTextField.text!)
         
@@ -91,11 +89,37 @@ class FindVC: UIViewController, UITextFieldDelegate {
     }
     
     @objc func doPasswordFind(_ sender: UIButton){
-        let alert = UIAlertController(title: "비밀번호", message: "비밀번호 들어갈 부분", preferredStyle: .alert)
+        var dbResultPW: String = ""
         
-        alert.addAction(UIAlertAction(title: "OK", style: .cancel))
+        let query = self.db.collection("users").whereField("id", isEqualTo: self.idTextField.text!).whereField("question", isEqualTo: self.pwLabel.text!).whereField("answer", isEqualTo: self.pwAnswerTextField.text!)
         
-        self.present(alert, animated: true)
+        query.getDocuments{ (snapshot, error) in
+            for doc in snapshot!.documents{
+                dbResultPW = doc.data()["password"] as! String
+            }
+
+            if self.idTextField.text?.isEmpty == false && self.pwLabel.text?.isEmpty == false && self.pwAnswerTextField.text?.isEmpty == false {
+                if dbResultPW != "" {
+                    let alert1 = UIAlertController(title: "비밀번호", message: "\(dbResultPW)", preferredStyle: .alert)
+                    
+                    alert1.addAction(UIAlertAction(title: "OK", style: .cancel))
+                    
+                    self.present(alert1, animated: true)
+                } else {
+                
+                    let alert2 = UIAlertController(title: "정보가 올바르지 않거나 찾지 못하였습니다.", message: nil, preferredStyle: .alert)
+                
+                    alert2.addAction(UIAlertAction(title: "OK", style: .cancel))
+                    self.present(alert2, animated: true)
+                }
+            } else {
+                let alert3 = UIAlertController(title: "모든 정보가 입력되지않았습니다.", message: "다시 입력해주세요", preferredStyle: .alert)
+            
+                alert3.addAction(UIAlertAction(title: "OK", style: .cancel))
+            
+                self.present(alert3, animated: true)
+            }
+        }
     }
     
     @objc func doselectedQuesetion(_ sender: UIButton){
