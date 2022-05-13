@@ -234,7 +234,7 @@ class SignUpVC: UIViewController, UITextFieldDelegate {
             if self.phoneTextField.text?.isEmpty == false {
                 self.phoneImage.tintColor = UIColor.black
                 
-                let contents = textField.text as! NSString
+                let contents = textField.text! as NSString
                 
                 if contents.length != 11 {
                     let alert = UIAlertController(title: "11자리의 전화번호가 아닙니다.", message: "다시 입력해주세요.", preferredStyle: .alert)
@@ -253,7 +253,7 @@ class SignUpVC: UIViewController, UITextFieldDelegate {
             if self.idTextField.text?.isEmpty == false {
                 self.idImage.tintColor = UIColor.black
                 
-                let contents = textField.text as! NSString
+                let contents = textField.text! as NSString
                 
                 if contents.length <= 1 {
                     let alert = UIAlertController(title: "아이디는 최소 2자리입니다.", message: "다시 입력해주세요.", preferredStyle: .alert)
@@ -278,7 +278,7 @@ class SignUpVC: UIViewController, UITextFieldDelegate {
             if self.passwordTextField.text?.isEmpty == false {
                 self.passwordImage.tintColor = UIColor.black
                 
-                let contents = textField.text as! NSString
+                let contents = textField.text! as NSString
                 
                 if contents.length <= 3 {
                     let alert = UIAlertController(title: "비밀번호는 최소 4자리입니다.", message: "다시 입력해주세요.", preferredStyle: .alert)
@@ -296,6 +296,11 @@ class SignUpVC: UIViewController, UITextFieldDelegate {
         default:
             ""
         }
+    }
+    
+    //MARK: tap 제스쳐
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
     }
     
     //MARK: UI 배치(Find ID)

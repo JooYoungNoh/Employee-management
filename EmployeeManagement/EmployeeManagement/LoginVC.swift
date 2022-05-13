@@ -107,6 +107,11 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         }
     }
     
+    //MARK: tap 제스쳐
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
     //MARK: UI 배치(No Storyboard)
     func uiDeployment(){
         //로고 이미지

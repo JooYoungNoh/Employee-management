@@ -201,6 +201,11 @@ class FindVC: UIViewController, UITextFieldDelegate {
         }
     }
     
+    //MARK: tap 제스쳐
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
     //MARK: UI 배치(Find ID)
     func idUIDeployment(){
         //닫기 버튼
