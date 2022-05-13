@@ -20,6 +20,13 @@ class LoginVC: UIViewController, UITextFieldDelegate {
     let pwImage = UIImageView(image: UIImage(systemName: "lock.circle"))
     let pwTextField = UITextField()
     
+    //아이디,비밀번호 찾기 버튼
+    let find = UIButton()
+    //회원가입 버튼
+    let signUP = UIButton()
+    //로그인 버튼
+    let login = UIButton()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         //UI 배치
@@ -134,8 +141,6 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         self.view.addSubview(pwTextField)
         
         //로그인 버튼
-        let login = UIButton()
-        
         login.frame = CGRect(x: 80, y: 450, width: 220, height: 40)
         
         login.setTitle("Login", for: .normal)
@@ -153,8 +158,6 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         self.view.addSubview(login)
         
         //아이디,비밀번호 찾기 버튼
-        let find = UIButton()
-    
         find.frame = CGRect(x: 87, y: 495, width: 140, height: 30)
         
         find.setTitle("Find ID/Find Password", for: .normal)
@@ -168,8 +171,6 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         self.view.addSubview(find)
         
         //회원가입 버튼
-        let signUP = UIButton()
-        
         signUP.frame = CGRect(x: 229, y: 495, width: 64, height: 30)
         
         signUP.setTitle("Sign Up", for: .normal)
