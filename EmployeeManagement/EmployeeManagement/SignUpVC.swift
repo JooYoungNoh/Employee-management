@@ -440,6 +440,7 @@ class SignUpVC: UIViewController, UITextFieldDelegate {
         birthImage.tintColor = UIColor.systemGray2
         
         birthTextField.frame = CGRect(x: 110, y: 360, width: 200, height: 30)
+        birthTextField.keyboardType = .phonePad
         birthTextField.placeholder = "ex) 970101"
         birthTextField.borderStyle = .roundedRect
         birthTextField.layer.borderWidth = 1
@@ -456,6 +457,7 @@ class SignUpVC: UIViewController, UITextFieldDelegate {
         phoneImage.tintColor = UIColor.systemGray2
         
         phoneTextField.frame = CGRect(x: 110, y: 400, width: 150, height: 30)
+        phoneTextField.keyboardType = .phonePad
         phoneTextField.placeholder = "ex) 01012345678"
         phoneTextField.borderStyle = .roundedRect
         phoneTextField.layer.borderWidth = 1
