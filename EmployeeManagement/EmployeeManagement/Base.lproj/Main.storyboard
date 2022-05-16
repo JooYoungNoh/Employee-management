@@ -193,7 +193,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="T6P-wu-g9a">
             <objects>
-                <tabBarController storyboardIdentifier="tapVC" automaticallyAdjustsScrollViewInsets="NO" id="V5r-IB-8LF" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="tapVC" automaticallyAdjustsScrollViewInsets="NO" id="V5r-IB-8LF" customClass="CSTabBarController" customModule="EmployeeManagement" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="xTg-u2-Owp">
                         <autoresizingMask key="autoresizingMask"/>
