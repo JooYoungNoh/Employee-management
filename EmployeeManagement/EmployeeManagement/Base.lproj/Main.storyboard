@@ -27,7 +27,7 @@
         <!--채팅 화면-->
         <scene sceneID="HzT-Dh-Txm">
             <objects>
-                <tableViewController title="채팅 화면" id="HOC-bu-j77" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="ChattingVC" title="채팅 화면" id="HOC-bu-j77" customClass="ChattingVC" customModule="EmployeeManagement" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="GLN-mC-n0X">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -115,7 +115,7 @@
         <!--스케줄 화면-->
         <scene sceneID="o1s-QI-GP4">
             <objects>
-                <viewController title="스케줄 화면" id="N6A-XL-km6" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ScheduleVC" title="스케줄 화면" id="N6A-XL-km6" customClass="ScheduleVC" customModule="EmployeeManagement" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Tva-ky-cRl">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -131,7 +131,7 @@
         <!--매장 찾기 화면-->
         <scene sceneID="x71-ja-KXf">
             <objects>
-                <tableViewController title="매장 찾기 화면" id="ugw-Zi-vj2" customClass="ShopVC" customModule="EmployeeManagement" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="ShopVC" title="매장 찾기 화면" id="ugw-Zi-vj2" customClass="ShopVC" customModule="EmployeeManagement" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="yhp-XR-mD2">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -160,7 +160,7 @@
         <!--인수인계 화면-->
         <scene sceneID="JfM-qz-PVA">
             <objects>
-                <viewController title="인수인계 화면" id="bEi-LD-ZS0" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TransitionVC" title="인수인계 화면" id="bEi-LD-ZS0" customClass="TransitionVC" customModule="EmployeeManagement" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1kA-Yq-x2U">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

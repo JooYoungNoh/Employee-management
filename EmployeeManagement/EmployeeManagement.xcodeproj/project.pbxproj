@@ -21,6 +21,9 @@
 		73E084A6282AA3BA00AFC582 /* EmployeeListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E084A5282AA3BA00AFC582 /* EmployeeListVC.swift */; };
 		73E084A8282AB80200AFC582 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 73E084A7282AB80200AFC582 /* GoogleService-Info.plist */; };
 		73E088E0283114B20015A46D /* ShopVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E088DF283114B20015A46D /* ShopVC.swift */; };
+		73E2DA992832688100C4CF25 /* ChattingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E2DA982832688100C4CF25 /* ChattingVC.swift */; };
+		73E2DA9B283268C100C4CF25 /* ScheduleVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E2DA9A283268C100C4CF25 /* ScheduleVC.swift */; };
+		73E2DA9D283268EC00C4CF25 /* TransitionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E2DA9C283268EC00C4CF25 /* TransitionVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +43,9 @@
 		73E084A5282AA3BA00AFC582 /* EmployeeListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeListVC.swift; sourceTree = "<group>"; };
 		73E084A7282AB80200AFC582 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		73E088DF283114B20015A46D /* ShopVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopVC.swift; sourceTree = "<group>"; };
+		73E2DA982832688100C4CF25 /* ChattingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingVC.swift; sourceTree = "<group>"; };
+		73E2DA9A283268C100C4CF25 /* ScheduleVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleVC.swift; sourceTree = "<group>"; };
+		73E2DA9C283268EC00C4CF25 /* TransitionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionVC.swift; sourceTree = "<group>"; };
 		B003443FB7A613F54B614052 /* Pods-EmployeeManagement.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmployeeManagement.debug.xcconfig"; path = "Target Support Files/Pods-EmployeeManagement/Pods-EmployeeManagement.debug.xcconfig"; sourceTree = "<group>"; };
 		F831427D605F8254116C8EA6 /* Pods_EmployeeManagement.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EmployeeManagement.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -97,12 +103,15 @@
 				73A3AAD728292BF9001283CD /* AppDelegate.swift */,
 				73A3AAD928292BF9001283CD /* SceneDelegate.swift */,
 				73A3AADD28292BF9001283CD /* Main.storyboard */,
-				73E084A5282AA3BA00AFC582 /* EmployeeListVC.swift */,
+				73A3AAEE282944E1001283CD /* LoginVC.swift */,
 				73A3AAF4282969D1001283CD /* SignUpVC.swift */,
 				73A3AAF02829694E001283CD /* FindVC.swift */,
 				731143B3282994EA00163A1B /* PickerController.swift */,
-				73A3AAEE282944E1001283CD /* LoginVC.swift */,
+				73E084A5282AA3BA00AFC582 /* EmployeeListVC.swift */,
+				73E2DA982832688100C4CF25 /* ChattingVC.swift */,
+				73E2DA9A283268C100C4CF25 /* ScheduleVC.swift */,
 				73E088DF283114B20015A46D /* ShopVC.swift */,
+				73E2DA9C283268EC00C4CF25 /* TransitionVC.swift */,
 				73A3AAE328292BF9001283CD /* Assets.xcassets */,
 				73A3AAE528292BF9001283CD /* LaunchScreen.storyboard */,
 				73A3AAE828292BF9001283CD /* Info.plist */,
@@ -234,8 +243,11 @@
 			files = (
 				731143B4282994EA00163A1B /* PickerController.swift in Sources */,
 				73A3AAF5282969D1001283CD /* SignUpVC.swift in Sources */,
+				73E2DA9B283268C100C4CF25 /* ScheduleVC.swift in Sources */,
 				73A3AAE228292BF9001283CD /* EmployeeManagement.xcdatamodeld in Sources */,
 				73A3AAD828292BF9001283CD /* AppDelegate.swift in Sources */,
+				73E2DA9D283268EC00C4CF25 /* TransitionVC.swift in Sources */,
+				73E2DA992832688100C4CF25 /* ChattingVC.swift in Sources */,
 				73E088E0283114B20015A46D /* ShopVC.swift in Sources */,
 				73E084A6282AA3BA00AFC582 /* EmployeeListVC.swift in Sources */,
 				73A3AAEF282944E1001283CD /* LoginVC.swift in Sources */,
