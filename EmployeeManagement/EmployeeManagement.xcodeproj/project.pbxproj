@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0BBB68D2886EC1A4A6BFABEC /* Pods_EmployeeManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F831427D605F8254116C8EA6 /* Pods_EmployeeManagement.framework */; };
 		731143B4282994EA00163A1B /* PickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731143B3282994EA00163A1B /* PickerController.swift */; };
+		73502E182832BAB000920E3C /* Shopcell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73502E172832BAB000920E3C /* Shopcell.swift */; };
 		73A3AAD828292BF9001283CD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A3AAD728292BF9001283CD /* AppDelegate.swift */; };
 		73A3AADA28292BF9001283CD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A3AAD928292BF9001283CD /* SceneDelegate.swift */; };
 		73A3AADF28292BF9001283CD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 73A3AADD28292BF9001283CD /* Main.storyboard */; };
@@ -30,6 +31,7 @@
 /* Begin PBXFileReference section */
 		223BB1173FC2EC900D8BFC56 /* Pods-EmployeeManagement.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmployeeManagement.release.xcconfig"; path = "Target Support Files/Pods-EmployeeManagement/Pods-EmployeeManagement.release.xcconfig"; sourceTree = "<group>"; };
 		731143B3282994EA00163A1B /* PickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerController.swift; sourceTree = "<group>"; };
+		73502E172832BAB000920E3C /* Shopcell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shopcell.swift; sourceTree = "<group>"; };
 		73A3AAD428292BF9001283CD /* EmployeeManagement.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EmployeeManagement.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		73A3AAD728292BF9001283CD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		73A3AAD928292BF9001283CD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 				73E2DAA02832A5D000C4CF25 /* ShopVC.swift */,
 				73E2DA9C283268EC00C4CF25 /* TransitionVC.swift */,
 				73E2DA9E2832697000C4CF25 /* CSTabBarController.swift */,
+				73502E172832BAB000920E3C /* Shopcell.swift */,
 				73A3AAE328292BF9001283CD /* Assets.xcassets */,
 				73A3AAE528292BF9001283CD /* LaunchScreen.storyboard */,
 				73A3AAE828292BF9001283CD /* Info.plist */,
@@ -247,6 +250,7 @@
 				731143B4282994EA00163A1B /* PickerController.swift in Sources */,
 				73A3AAF5282969D1001283CD /* SignUpVC.swift in Sources */,
 				73E2DA9B283268C100C4CF25 /* ScheduleVC.swift in Sources */,
+				73502E182832BAB000920E3C /* Shopcell.swift in Sources */,
 				73A3AAE228292BF9001283CD /* EmployeeManagement.xcdatamodeld in Sources */,
 				73E2DA9F2832697000C4CF25 /* CSTabBarController.swift in Sources */,
 				73A3AAD828292BF9001283CD /* AppDelegate.swift in Sources */,

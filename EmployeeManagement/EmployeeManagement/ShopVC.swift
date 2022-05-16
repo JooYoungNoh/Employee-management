@@ -8,7 +8,10 @@
 import UIKit
 import FirebaseFirestore
 
-class ShopVC: UIViewController {
+class ShopVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
+    var shopListName = [String]()
+    var shopListBoss = [String]()
     
     let db = Firestore.firestore()
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -20,10 +23,78 @@ class ShopVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        uiDeployment()
+        self.tableview.delegate = self
+        self.tableview.dataSource =  self
+        self.tableview.register(Shopcell.self, forCellReuseIdentifier: Shopcell.identifier)
+        self.tableview.rowHeight = 50
+        
+        self.db.collection("shop").getDocuments { (snapshot, error) in
+            if error == nil && snapshot != nil {
+                for doc in snapshot!.documents{
+                    self.shopListName.append(doc.data()["name"] as! String)
+                    self.shopListBoss.append(doc.data()["boss"] as! String)
+                }
+                self.uiDeployment()
+                
+            } else {
+                print(error!.localizedDescription)
+            }
+        }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+    }
+    
+    //MARK: 테이블 뷰 메소드
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: Shopcell.identifier, for: indexPath) as? Shopcell else { return  UITableViewCell() }
+        
+        let shopName = self.shopListName[indexPath.row]
+        let shopBoss = self.shopListBoss[indexPath.row]
+        
+        cell.nameLabel.text = shopName
+        cell.bossLabel.text = shopBoss
+        
+        cell.accessoryType = .disclosureIndicator
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.shopListName.count
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let csview = UIView()
+        let listTitle = UILabel()
+        let bossTitle = UILabel()
+        
+        csview.backgroundColor = UIColor.systemGray5
+        
+        listTitle.frame = CGRect(x: 20, y: 0, width: self.view.frame.width / 2, height: 30)
+        listTitle.font = UIFont.init(name: "Chalkboard SE", size: 20)
+        listTitle.text = "Company"
+        listTitle.textColor = UIColor.blue
+        
+        bossTitle.frame = CGRect(x: self.view.frame.width / 2 + 20, y: 0, width: 128, height: 30)
+        bossTitle.font = UIFont.init(name: "Chalkboard SE", size: 20)
+        bossTitle.text = "Boss"
+        bossTitle.textColor = UIColor.blue
+        bossTitle.textAlignment = .right
+        
+        csview.addSubview(listTitle)
+        csview.addSubview(bossTitle)
+        
+        return csview
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 35
+    }
+    
+    //MARK: 메소드
     func uiDeployment(){
         //타이틀 UI
         self.titleLabel.frame = CGRect(x: 20, y: 60, width: 80, height: 40)
