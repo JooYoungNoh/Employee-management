@@ -128,35 +128,6 @@
             </objects>
             <point key="canvasLocation" x="2584.6153846153843" y="81.753554502369667"/>
         </scene>
-        <!--매장 찾기 화면-->
-        <scene sceneID="x71-ja-KXf">
-            <objects>
-                <tableViewController storyboardIdentifier="ShopVC" title="매장 찾기 화면" id="ugw-Zi-vj2" customClass="ShopVC" customModule="EmployeeManagement" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="yhp-XR-mD2">
-                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="7Pj-C5-0dT">
-                                <rect key="frame" x="0.0" y="44.666666030883789" width="390" height="43.666667938232422"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="7Pj-C5-0dT" id="CMS-D6-2i4">
-                                    <rect key="frame" x="0.0" y="0.0" width="390" height="43.666667938232422"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="ugw-Zi-vj2" id="21v-fb-qPL"/>
-                            <outlet property="delegate" destination="ugw-Zi-vj2" id="hJT-e8-LOV"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" id="DIN-0r-Ze5"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="lAB-zi-HMQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3302" y="783"/>
-        </scene>
         <!--인수인계 화면-->
         <scene sceneID="JfM-qz-PVA">
             <objects>
@@ -223,12 +194,28 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="ugw-Zi-vj2" kind="relationship" relationship="rootViewController" id="BfB-cp-167"/>
+                        <segue destination="grj-9a-HkM" kind="relationship" relationship="rootViewController" id="vcW-C5-r1w"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wmC-fv-q9t" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2584.6153846153843" y="782.70142180094786"/>
+        </scene>
+        <!--매장 찾기 화면-->
+        <scene sceneID="Efm-Zy-Y26">
+            <objects>
+                <viewController storyboardIdentifier="ShopVC" title="매장 찾기 화면" id="grj-9a-HkM" customClass="ShopVC" customModule="EmployeeManagement" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="FIL-tg-2Ye">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="JV5-iP-hAx"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="6P2-rX-h8Z"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wwc-6b-ICF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3295" y="783"/>
         </scene>
     </scenes>
     <resources>
