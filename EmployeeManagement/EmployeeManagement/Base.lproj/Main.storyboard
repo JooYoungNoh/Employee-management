@@ -51,7 +51,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="81g-vW-OfQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2465" y="-643"/>
+            <point key="canvasLocation" x="2585" y="-579"/>
         </scene>
         <!--직원 목록 화면-->
         <scene sceneID="B0g-ab-00s">
@@ -80,7 +80,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MOc-9b-8Eb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2466" y="-1333"/>
+            <point key="canvasLocation" x="2585" y="-1251"/>
         </scene>
         <!--아이디, 비밀번호 찾기 화면-->
         <scene sceneID="BZB-4U-xYH">
@@ -112,25 +112,21 @@
             </objects>
             <point key="canvasLocation" x="963" y="749"/>
         </scene>
-        <!--Tab Bar Controller-->
-        <scene sceneID="6xM-Ip-sCT">
+        <!--스케줄 화면-->
+        <scene sceneID="o1s-QI-GP4">
             <objects>
-                <tabBarController storyboardIdentifier="tapVC" automaticallyAdjustsScrollViewInsets="NO" id="db5-sb-OP1" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ePH-xQ-kEj">
-                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    </tabBar>
-                    <connections>
-                        <segue destination="Kce-To-UYs" kind="relationship" relationship="viewControllers" id="QWX-1S-Wj6"/>
-                        <segue destination="HOC-bu-j77" kind="relationship" relationship="viewControllers" id="Shy-gZ-DDp"/>
-                        <segue destination="ugw-Zi-vj2" kind="relationship" relationship="viewControllers" id="UWo-Zg-tSy"/>
-                    </connections>
-                </tabBarController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="YIS-bt-1PS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <viewController title="스케줄 화면" id="N6A-XL-km6" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Tva-ky-cRl">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="Uxa-Cb-0aG"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="gcg-V4-4ey"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1vO-oX-tAe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1653.8461538461538" y="81.753554502369667"/>
+            <point key="canvasLocation" x="2586" y="82"/>
         </scene>
         <!--매장 찾기 화면-->
         <scene sceneID="x71-ja-KXf">
@@ -159,7 +155,23 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lAB-zi-HMQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2465" y="82"/>
+            <point key="canvasLocation" x="2585" y="783"/>
+        </scene>
+        <!--인수인계 화면-->
+        <scene sceneID="JfM-qz-PVA">
+            <objects>
+                <viewController title="인수인계 화면" id="bEi-LD-ZS0" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="1kA-Yq-x2U">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="TnO-qt-KtG"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="NLs-T2-VEq"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YKI-XH-O1r" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2585" y="1452"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="QF2-SE-D8B">
@@ -177,6 +189,27 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pze-Jz-7oe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="254" y="82"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="T6P-wu-g9a">
+            <objects>
+                <tabBarController storyboardIdentifier="tapVC" automaticallyAdjustsScrollViewInsets="NO" id="V5r-IB-8LF" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="xTg-u2-Owp">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="Kce-To-UYs" kind="relationship" relationship="viewControllers" id="sf7-LD-KRd"/>
+                        <segue destination="HOC-bu-j77" kind="relationship" relationship="viewControllers" id="CQq-gh-vLp"/>
+                        <segue destination="N6A-XL-km6" kind="relationship" relationship="viewControllers" id="NbG-PC-JsY"/>
+                        <segue destination="ugw-Zi-vj2" kind="relationship" relationship="viewControllers" id="J6P-W9-2rw"/>
+                        <segue destination="bEi-LD-ZS0" kind="relationship" relationship="viewControllers" id="7Xg-PJ-Cml"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YP7-7l-HYe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1765" y="82"/>
         </scene>
     </scenes>
     <resources>
