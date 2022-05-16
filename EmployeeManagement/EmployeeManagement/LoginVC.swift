@@ -12,6 +12,8 @@ class LoginVC: UIViewController, UITextFieldDelegate {
     
     let db = Firestore.firestore()
     
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    
     //아이디
     let idImage = UIImageView(image: UIImage(systemName: "person.circle"))
     let idTextField = UITextField()
@@ -60,7 +62,8 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         query.getDocuments { (snapshot, error) in
                 for doc in snapshot!.documents{
                     dbResult.append(doc.documentID)
-                    print(dbResult)
+                    self.appDelegate.idInfo = doc.data()["id"] as! String
+                    self.appDelegate.jobInfo = doc.data()["job"] as! String
                 }
             if dbResult.isEmpty == true {
                 let alert2 = UIAlertController(title: "Login Failed", message: "다시 입력해주세요.", preferredStyle: .alert)
