@@ -33,7 +33,7 @@ class CSTabBarController: UITabBarController{
         
         //탭바 속성 설정
         self.csView.frame = CGRect(x: 0, y: self.view.frame.height - 90, width: self.view.frame.width, height: 90)
-        self.csView.backgroundColor = UIColor.systemGray4
+        self.csView.backgroundColor = UIColor.systemGray5
         
         self.view.addSubview(self.csView)
         
