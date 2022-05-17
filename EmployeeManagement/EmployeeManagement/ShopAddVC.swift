@@ -12,7 +12,29 @@ class ShopAddVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        
+    }
+    
+    //MARK: 액션 메소드
+    @objc func doclose(_ sender: UIButton){
+        self.dismiss(animated: true)
+    }
+    
+    //MARK: 메소드
+    func uiDeployment(){
+        //닫기 버튼
+        let closeButton = UIButton()
+        
+        closeButton.frame = CGRect(x: 20, y: 50, width: 50, height: 40)
+        
+        closeButton.setTitle("Close", for: .normal)
+        closeButton.setTitleColor(UIColor.black, for: .normal)
+        closeButton.titleLabel?.font = UIFont.init(name: "Chalkboard SE", size: 20)
+        
+        closeButton.addTarget(self, action: #selector(doclose(_:)), for: .touchUpInside)
+        
+        self.view.addSubview(closeButton)
+        
     }
     
 
