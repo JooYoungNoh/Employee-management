@@ -18,6 +18,8 @@ class ShopVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     //화면 구성 객체
     let titleLabel = UILabel()
+    let addButton = UIButton()
+    let settingButton = UIButton()
     let searchBar = UISearchBar()
     let tableview = UITableView()
     
@@ -94,6 +96,15 @@ class ShopVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         return 35
     }
     
+    //MARK: 액션 메소드
+    @objc func addShop(_ sender: UIButton){
+        
+    }
+    
+    @objc func goSetting(_ sender: UIButton){
+        
+    }
+    
     //MARK: 메소드
     func uiDeployment(){
         //타이틀 UI
@@ -104,7 +115,19 @@ class ShopVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         self.view.addSubview(self.titleLabel)
         
+        //매장 추가 버튼 UI
+        self.addButton.frame = CGRect(x: 305, y: 70, width: 30, height: 30)
+        self.addButton.setImage(UIImage(systemName: "plus"), for: .normal)
+        self.addButton.tintColor = UIColor.black
         
+        self.view.addSubview(self.addButton)
+        
+        //설정 버튼 UI
+        self.settingButton.frame = CGRect(x: 340, y: 70, width: 30, height: 30)
+        self.settingButton.setImage(UIImage(systemName: "gearshape"), for: .normal)
+        self.settingButton.tintColor = UIColor.black
+        
+        self.view.addSubview(self.settingButton)
         
         //서치 바 UI
         self.searchBar.frame = CGRect(x: 0, y: 105, width: self.view.frame.width, height: 45)
@@ -113,7 +136,7 @@ class ShopVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         self.view.addSubview(self.searchBar)
         
         //테이블 뷰 UI
-        self.tableview.frame = CGRect(x: 0, y: 150, width: self.view.frame.width, height: 654)
+        self.tableview.frame = CGRect(x: 0, y: 150, width: self.view.frame.width, height: 604)
         self.tableview.backgroundColor = UIColor.systemGray5
         
         self.view.addSubview(tableview)
