@@ -15,7 +15,7 @@ class ShopVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     let db = Firestore.firestore()
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
-
+    
     //화면 구성 객체
     let titleLabel = UILabel()
     let addButton = UIButton()
@@ -97,10 +97,12 @@ class ShopVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     //MARK: 액션 메소드
     @objc func addShop(_ sender: UIButton){
+        appDelegate.jobInfo = "0"       //연습용
+        
         if appDelegate.jobInfo == "0" {
             let uv = self.storyboard?.instantiateViewController(withIdentifier: "ShopAddVC")
             
-         //   uv?.modalPresentationStyle = .fullScreen
+            uv?.modalPresentationStyle = .fullScreen
             
             self.present(uv!, animated: true)
             
