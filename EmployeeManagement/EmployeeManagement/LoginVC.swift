@@ -62,8 +62,10 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         query.getDocuments { (snapshot, error) in
                 for doc in snapshot!.documents{
                     dbResult.append(doc.documentID)
-                    self.appDelegate.idInfo = doc.data()["id"] as! String
-                    self.appDelegate.jobInfo = doc.data()["job"] as! String
+                    self.appDelegate.idInfo = doc.data()["id"] as? String
+                    self.appDelegate.jobInfo = doc.data()["job"] as? String
+                    self.appDelegate.nameInfo = doc.data()["name"] as? String
+                    self.appDelegate.phoneInfo = doc.data()["phone"] as? String
                 }
             if dbResult.isEmpty == true {
                 let alert2 = UIAlertController(title: "Login Failed", message: "다시 입력해주세요.", preferredStyle: .alert)
