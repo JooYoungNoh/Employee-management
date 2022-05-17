@@ -28,7 +28,6 @@ class ShopVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         self.tableview.delegate = self
         self.tableview.dataSource =  self
         self.tableview.register(Shopcell.self, forCellReuseIdentifier: Shopcell.identifier)
-        self.tableview.rowHeight = 50
         
         self.db.collection("shop").getDocuments { (snapshot, error) in
             if error == nil && snapshot != nil {
@@ -82,7 +81,7 @@ class ShopVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         bossTitle.frame = CGRect(x: self.view.frame.width / 2 + 20, y: 0, width: 128, height: 30)
         bossTitle.font = UIFont.init(name: "Chalkboard SE", size: 20)
-        bossTitle.text = "Boss"
+        bossTitle.text = "CEO"
         bossTitle.textColor = UIColor.blue
         bossTitle.textAlignment = .right
         
@@ -98,12 +97,26 @@ class ShopVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     //MARK: 액션 메소드
     @objc func addShop(_ sender: UIButton){
-        
+        if appDelegate.jobInfo == "0" {
+            let uv = self.storyboard?.instantiateViewController(withIdentifier: "ShopAddVC")
+            
+         //   uv?.modalPresentationStyle = .fullScreen
+            
+            self.present(uv!, animated: true)
+            
+        } else {
+            let alert = UIAlertController(title: nil, message: "Only the CEO can use it", preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            
+            self.present(alert, animated: true)
+        }
     }
     
-    @objc func goSetting(_ sender: UIButton){
-        
-    }
+    /*@objc func goSetting(_ sender: UIButton){
+        let actionsheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+      
+    } */
     
     //MARK: 메소드
     func uiDeployment(){
@@ -116,16 +129,22 @@ class ShopVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         self.view.addSubview(self.titleLabel)
         
         //매장 추가 버튼 UI
-        self.addButton.frame = CGRect(x: 305, y: 70, width: 30, height: 30)
+        self.addButton.frame = CGRect(x: 305, y: 65, width: 40, height: 40)
         self.addButton.setImage(UIImage(systemName: "plus"), for: .normal)
         self.addButton.tintColor = UIColor.black
+     
+        self.addButton.addTarget(self, action: #selector(addShop(_:)), for: .touchUpInside)
         
+
         self.view.addSubview(self.addButton)
         
         //설정 버튼 UI
-        self.settingButton.frame = CGRect(x: 340, y: 70, width: 30, height: 30)
+        self.settingButton.frame = CGRect(x: 340, y: 65, width: 40, height: 40)
         self.settingButton.setImage(UIImage(systemName: "gearshape"), for: .normal)
+        
         self.settingButton.tintColor = UIColor.black
+        
+        self.settingButton.addTarget(self, action: #selector(addShop(_:)), for: .touchUpInside)
         
         self.view.addSubview(self.settingButton)
         
