@@ -161,6 +161,7 @@ class ShopAddVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
                 
                 alert1.addAction(UIAlertAction(title: "OK", style: .default) { (_) in
                     
+                    self.dismiss(animated: true)
                 })
                 
                 self.present(alert1, animated: true)
@@ -193,6 +194,8 @@ class ShopAddVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
                 }
                 
                 self.uploadimage(img: self.logoImage.image!)
+                
+                self.dismiss(animated: true)
             })
             
             self.present(alert1, animated: true)
