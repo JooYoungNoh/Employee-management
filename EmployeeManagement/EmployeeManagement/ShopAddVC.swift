@@ -7,14 +7,13 @@
 
 import UIKit
 
-class ShopAddVC: UIViewController {
+class ShopAddVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate  {
     
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     let background = UILabel()              //명함 배경
     
     let logoImage = UIImageView()           //로고 이미지
-    let logoButton = UIButton()             //로고 버튼
     
     let companyTextfield = UITextField()    //회사 이름
     let ceoNameLabel = UILabel()            //대표자 이름
@@ -31,6 +30,27 @@ class ShopAddVC: UIViewController {
 
         uiDeployment()
         
+    }
+    
+    //MARK: 이미지 피커 메소드
+    // 이미지를 가져올 장소(?) 카메라 앨범 등 선택 메소드
+    func imgPicker(_ source: UIImagePickerController.SourceType){
+        let picker = UIImagePickerController()
+        picker.sourceType = source
+        picker.delegate = self
+        picker.allowsEditing = true
+        self.present(picker, animated: true)
+        
+    }
+    //이미지 선택하면 호출될 메소드
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        let img = info[UIImagePickerController.InfoKey.editedImage] as? UIImage
+        
+        self.logoImage.image = img
+        
+        //이미지 피커 컨트롤창 닫기
+        picker.dismiss(animated: true)
     }
     
     //MARK: 액션 메소드
@@ -52,6 +72,37 @@ class ShopAddVC: UIViewController {
         
         alert.setValue(pickerVC, forKey: "contentViewController")
         
+        self.present(alert, animated: true)
+    }
+    
+    @objc func selectlogo(_ sender: UIButton){
+        
+        let alert = UIAlertController(title: nil, message: "사진을 가져올 곳을 선택해주세요", preferredStyle: .actionSheet)
+        
+        //카메라를 사용할 수 있으면 (시뮬레이터 불가)
+        if UIImagePickerController.isSourceTypeAvailable(.camera){
+            alert.addAction(UIAlertAction(title: "카메라", style: .default){(_) in
+                self.imgPicker(.camera)
+            })
+        }
+        
+        //저장된 앨범을 사용할 수 있으면
+        if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum){
+            alert.addAction(UIAlertAction(title: "앨범", style: .default){(_) in
+                self.imgPicker(.savedPhotosAlbum)
+            })
+        }
+        
+        //포토 라이브러리를 사용할 수 있으면
+        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary){
+            alert.addAction(UIAlertAction(title: "포토 라이브러리", style: .default){(_) in
+                self.imgPicker(.photoLibrary)
+            })
+        }
+        //취소 버튼 추가
+        alert.addAction(UIAlertAction(title: "취소", style: .cancel))
+        
+        //액션시트 창 실행
         self.present(alert, animated: true)
     }
     
@@ -86,19 +137,12 @@ class ShopAddVC: UIViewController {
         self.logoImage.frame = CGRect(x: 40, y: self.view.frame.height / 2 - 80, width: 100, height: 100)
         self.logoImage.backgroundColor = UIColor.systemGray3
         
+        //이미지 터치 시 이미지 변경
+        let tap = UITapGestureRecognizer(target: self, action: #selector(selectlogo(_:)))
+        self.logoImage.addGestureRecognizer(tap)
+        self.logoImage.isUserInteractionEnabled = true
+        
         self.view.addSubview(self.logoImage)
-        
-        //로고 버튼 UI
-        self.logoButton.frame = CGRect(x: 60, y: self.view.frame.height / 2 + 25, width: 60, height: 30)
-        self.logoButton.setTitle("선택", for: .normal)
-        self.logoButton.setTitleColor(UIColor.black, for: .normal)
-        self.logoButton.titleLabel?.font = UIFont.init(name: "Chalkboard SE", size: 14)
-        
-        self.logoButton.layer.cornerRadius = 5
-        self.logoButton.layer.borderColor = UIColor.systemGray2.cgColor
-        self.logoButton.layer.borderWidth = 1
-        
-        self.view.addSubview(self.logoButton)
         
         //회사명 텍스트 필드 UI
         self.companyTextfield.frame = CGRect(x: 160, y: self.view.frame.height / 2 - 80, width: 190, height: 30)
