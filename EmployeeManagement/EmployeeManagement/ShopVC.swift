@@ -32,8 +32,8 @@ class ShopVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         self.db.collection("shop").getDocuments { (snapshot, error) in
             if error == nil && snapshot != nil {
                 for doc in snapshot!.documents{
-                    self.shopListName.append(doc.data()["name"] as! String)
-                    self.shopListBoss.append(doc.data()["boss"] as! String)
+                    self.shopListName.append(doc.data()["company"] as! String)
+                    self.shopListBoss.append(doc.data()["name"] as! String)
                 }
                 self.uiDeployment()
                 
