@@ -6,12 +6,14 @@
 //
 
 import UIKit
+import FirebaseFirestore
 
 class ShopAddVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate  {
     
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    let db = Firestore.firestore()
     
-    var imgExistence: Bool = false
+    var imgExistence: Bool = false          //이미지 유무
     
     let background = UILabel()              //명함 배경
     
@@ -133,6 +135,8 @@ class ShopAddVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
             let alert = UIAlertController(title: "로고 사진이 없습니다.", message: "그대로 진행하시겠습니까?", preferredStyle: .alert)
             
             alert.addAction(UIAlertAction(title: "OK", style: .default) { (_) in
+                self.imgExistence = false   // 이미지 여부
+                
                 let alert1 = UIAlertController(title: nil, message: "등록 완료", preferredStyle: .alert)
                 
                 alert1.addAction(UIAlertAction(title: "OK", style: .default) { (_) in
@@ -148,10 +152,25 @@ class ShopAddVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
             self.present(alert, animated: true)
             
         } else {
+            self.imgExistence = true        //이미지 유무
+            
             let alert1 = UIAlertController(title: nil, message: "등록 완료", preferredStyle: .alert)
             
             alert1.addAction(UIAlertAction(title: "OK", style: .default) { (_) in
                 
+                self.db.collection("shop").document("\(self.companyTextfield.text!)").setData([
+                    "company" : "\(self.companyTextfield.text!)",
+                    "name" : "\(self.appDelegate.nameInfo!)",
+                    "phone" : "\(self.appDelegate.phoneInfo!)",
+                    "businessType" : "\(self.businessType.text!)",
+                    "img" : self.imgExistence
+                ]) { error in
+                    if error == nil{
+                        print("성공")         //모달 내리기 넣을 곳
+                    } else {
+                        print(error!.localizedDescription)
+                    }
+                }
             })
             
             self.present(alert1, animated: true)
