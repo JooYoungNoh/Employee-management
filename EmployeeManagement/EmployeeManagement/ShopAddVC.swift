@@ -205,9 +205,6 @@ class ShopAddVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
     
     //MARK: 메소드
     func uiDeployment(){
-        appDelegate.phoneInfo = "01031201798"        //연습용
-        appDelegate.nameInfo = "노주영"                //연습용
-        
         //닫기 버튼 UI
         let closeButton = UIButton()
         
