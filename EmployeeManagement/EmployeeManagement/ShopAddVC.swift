@@ -161,6 +161,20 @@ class ShopAddVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
                 
                 alert1.addAction(UIAlertAction(title: "OK", style: .default) { (_) in
                     
+                    self.db.collection("shop").document("\(self.companyTextfield.text!)").setData([
+                        "company" : "\(self.companyTextfield.text!)",
+                        "name" : "\(self.appDelegate.nameInfo!)",
+                        "phone" : "\(self.appDelegate.phoneInfo!)",
+                        "businessType" : "\(self.businessType.text!)",
+                        "img" : self.imgExistence
+                    ]) { error in
+                        if error == nil{
+                            print("성공")         //모달 내리기 넣을 곳
+                        } else {
+                            print(error!.localizedDescription)
+                        }
+                    }
+                    
                     self.dismiss(animated: true)
                 })
                 
