@@ -115,6 +115,29 @@ class ShopVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         }
     }
     
+    //새로고침 메소드
+    @objc func pullToRefresh(_ sender: Any){
+        self.shopListName = []
+        self.shopListBoss = []
+        
+        //새로고침 시 갱신되어야 할 내용들
+        self.db.collection("shop").getDocuments { (snapshot, error) in
+            if error == nil && snapshot != nil {
+                for doc in snapshot!.documents{
+                    self.shopListName.append(doc.data()["company"] as! String)
+                    self.shopListBoss.append(doc.data()["name"] as! String)
+                }
+                self.tableview.reloadData()
+                
+            } else {
+                print(error!.localizedDescription)
+            }
+        }
+        
+        //당겨서 새로고침 기능 종료
+        self.tableview.refreshControl?.endRefreshing()
+    }
+    
     /*@objc func goSetting(_ sender: UIButton){
         let actionsheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
       
@@ -162,8 +185,11 @@ class ShopVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         self.view.addSubview(tableview)
         
+        //새로고침 UI
+        self.tableview.refreshControl = UIRefreshControl()
+        
+        self.tableview.refreshControl?.tintColor = .systemGray
+        
+        self.tableview.refreshControl?.addTarget(self, action: #selector(pullToRefresh(_:)), for: .valueChanged)
     }
-    
-
-
 }
