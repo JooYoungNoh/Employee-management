@@ -12,7 +12,9 @@ class ShopAddVC: UIViewController {
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     let background = UILabel()              //명함 배경
+    
     let logoImage = UIImageView()           //로고 이미지
+    let logoButton = UIButton()             //로고 버튼
     
     let companyTextfield = UITextField()    //회사 이름
     let ceoNameLabel = UILabel()            //대표자 이름
@@ -38,8 +40,8 @@ class ShopAddVC: UIViewController {
     
     //MARK: 메소드
     func uiDeployment(){
-        appDelegate.phoneInfo = "01031201798"
-        appDelegate.nameInfo = "노주영"
+        appDelegate.phoneInfo = "01031201798"        //연습용
+        appDelegate.nameInfo = "노주영"                //연습용
         
         //닫기 버튼 UI
         let closeButton = UIButton()
@@ -68,6 +70,18 @@ class ShopAddVC: UIViewController {
         self.logoImage.backgroundColor = UIColor.systemGray3
         
         self.view.addSubview(self.logoImage)
+        
+        //로고 버튼 UI
+        self.logoButton.frame = CGRect(x: 60, y: self.view.frame.height / 2 + 25, width: 60, height: 30)
+        self.logoButton.setTitle("선택", for: .normal)
+        self.logoButton.setTitleColor(UIColor.black, for: .normal)
+        self.logoButton.titleLabel?.font = UIFont.init(name: "Chalkboard SE", size: 14)
+        
+        self.logoButton.layer.cornerRadius = 5
+        self.logoButton.layer.borderColor = UIColor.systemGray2.cgColor
+        self.logoButton.layer.borderWidth = 1
+        
+        self.view.addSubview(self.logoButton)
         
         //회사명 텍스트 필드 UI
         self.companyTextfield.frame = CGRect(x: 160, y: self.view.frame.height / 2 - 80, width: 190, height: 30)
@@ -102,7 +116,7 @@ class ShopAddVC: UIViewController {
         
         //업종 레이블 UI
         self.businessType.frame = CGRect(x: 160, y: self.view.frame.height / 2 + 40, width: 140, height: 30)
-        self.businessType.text = " Select busineesType"
+        self.businessType.text = " Select businessType"
         self.businessType.font = UIFont.init(name: "Chalkboard SE", size: 14)
         self.businessType.alpha = 0.7
         

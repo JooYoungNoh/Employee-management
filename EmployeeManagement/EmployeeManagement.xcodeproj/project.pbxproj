@@ -20,6 +20,7 @@
 		73A3AAF12829694E001283CD /* FindVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A3AAF02829694E001283CD /* FindVC.swift */; };
 		73A3AAF5282969D1001283CD /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A3AAF4282969D1001283CD /* SignUpVC.swift */; };
 		73BCD85F2833DBCD00DF6F74 /* ShopAddVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BCD85E2833DBCD00DF6F74 /* ShopAddVC.swift */; };
+		73C411B2283520A6001EC8F6 /* BusinessTypePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C411B1283520A6001EC8F6 /* BusinessTypePicker.swift */; };
 		73E084A6282AA3BA00AFC582 /* EmployeeListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E084A5282AA3BA00AFC582 /* EmployeeListVC.swift */; };
 		73E084A8282AB80200AFC582 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 73E084A7282AB80200AFC582 /* GoogleService-Info.plist */; };
 		73E2DA992832688100C4CF25 /* ChattingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E2DA982832688100C4CF25 /* ChattingVC.swift */; };
@@ -45,6 +46,7 @@
 		73A3AAF02829694E001283CD /* FindVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindVC.swift; sourceTree = "<group>"; };
 		73A3AAF4282969D1001283CD /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
 		73BCD85E2833DBCD00DF6F74 /* ShopAddVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopAddVC.swift; sourceTree = "<group>"; };
+		73C411B1283520A6001EC8F6 /* BusinessTypePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessTypePicker.swift; sourceTree = "<group>"; };
 		73E084A5282AA3BA00AFC582 /* EmployeeListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeListVC.swift; sourceTree = "<group>"; };
 		73E084A7282AB80200AFC582 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		73E2DA982832688100C4CF25 /* ChattingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingVC.swift; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 				73E2DA9A283268C100C4CF25 /* ScheduleVC.swift */,
 				73E2DAA02832A5D000C4CF25 /* ShopVC.swift */,
 				73BCD85E2833DBCD00DF6F74 /* ShopAddVC.swift */,
+				73C411B1283520A6001EC8F6 /* BusinessTypePicker.swift */,
 				73E2DA9C283268EC00C4CF25 /* TransitionVC.swift */,
 				73E2DA9E2832697000C4CF25 /* CSTabBarController.swift */,
 				73502E172832BAB000920E3C /* Shopcell.swift */,
@@ -265,6 +268,7 @@
 				73E2DAA12832A5D000C4CF25 /* ShopVC.swift in Sources */,
 				73A3AADA28292BF9001283CD /* SceneDelegate.swift in Sources */,
 				73A3AAF12829694E001283CD /* FindVC.swift in Sources */,
+				73C411B2283520A6001EC8F6 /* BusinessTypePicker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
