@@ -38,6 +38,23 @@ class ShopAddVC: UIViewController {
         self.dismiss(animated: true)
     }
     
+    @objc func selectBusinessType(_ sender: UIButton){
+        let pickerVC = BusinessTypePicker()
+        
+        let alert = UIAlertController(title: "업종 선택", message: nil, preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "확인", style: .default){ (_) in
+            self.businessType.text = " \(pickerVC.selectedQuestion)"
+            self.businessType.textColor = UIColor.black
+            self.businessType.alpha = 1
+        })
+        alert.addAction(UIAlertAction(title: "취소", style: .cancel))
+        
+        alert.setValue(pickerVC, forKey: "contentViewController")
+        
+        self.present(alert, animated: true)
+    }
+    
     //MARK: 메소드
     func uiDeployment(){
         appDelegate.phoneInfo = "01031201798"        //연습용
@@ -134,6 +151,8 @@ class ShopAddVC: UIViewController {
         self.businessButton.layer.cornerRadius = 5
         self.businessButton.layer.borderColor = UIColor.systemGray2.cgColor
         self.businessButton.layer.borderWidth = 1
+        
+        self.businessButton.addTarget(self, action: #selector(selectBusinessType(_:)), for: .touchUpInside)
         
         self.view.addSubview(self.businessButton)
         
