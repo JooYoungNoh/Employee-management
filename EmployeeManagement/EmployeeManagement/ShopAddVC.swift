@@ -11,6 +11,8 @@ class ShopAddVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
     
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
+    var imgExistence: Bool = false
+    
     let background = UILabel()              //명함 배경
     
     let logoImage = UIImageView()           //로고 이미지
@@ -77,7 +79,7 @@ class ShopAddVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
     
     @objc func selectlogo(_ sender: UIButton){
         
-        let alert = UIAlertController(title: nil, message: "사진을 가져올 곳을 선택해주세요", preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: nil, message: "선택해주세요", preferredStyle: .actionSheet)
         
         //카메라를 사용할 수 있으면 (시뮬레이터 불가)
         if UIImagePickerController.isSourceTypeAvailable(.camera){
@@ -99,11 +101,62 @@ class ShopAddVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
                 self.imgPicker(.photoLibrary)
             })
         }
+        
+        //이미지 삭제
+        alert.addAction(UIAlertAction(title: "로고 이미지 삭제", style: .default) { (_) in
+            if self.logoImage.image == nil {
+                let alert = UIAlertController(title: nil, message: "삭제할 로고 이미지가 없습니다.", preferredStyle: .alert)
+                
+                alert.addAction(UIAlertAction(title: "OK", style: .default))
+                self.present(alert, animated: true)
+            } else {
+                self.logoImage.image = nil
+            }
+        })
+        
         //취소 버튼 추가
         alert.addAction(UIAlertAction(title: "취소", style: .cancel))
         
         //액션시트 창 실행
         self.present(alert, animated: true)
+    }
+    
+    @objc func doregister(_ sender: UIButton){
+        if self.companyTextfield.text == "" || self.businessType.text == " Select businessType" {
+            let alert = UIAlertController(title: "모든 정보가 입력되지않았습니다.", message: "다시 입력해주세요", preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            
+            self.present(alert, animated: true)
+            
+        } else if self.logoImage.image == nil {
+            let alert = UIAlertController(title: "로고 사진이 없습니다.", message: "그대로 진행하시겠습니까?", preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "OK", style: .default) { (_) in
+                let alert1 = UIAlertController(title: nil, message: "등록 완료", preferredStyle: .alert)
+                
+                alert1.addAction(UIAlertAction(title: "OK", style: .default) { (_) in
+                    
+                })
+                
+                self.present(alert1, animated: true)
+                
+            })
+            
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+            
+            self.present(alert, animated: true)
+            
+        } else {
+            let alert1 = UIAlertController(title: nil, message: "등록 완료", preferredStyle: .alert)
+            
+            alert1.addAction(UIAlertAction(title: "OK", style: .default) { (_) in
+                
+            })
+            
+            self.present(alert1, animated: true)
+        }
+        
     }
     
     //MARK: 메소드
@@ -210,6 +263,8 @@ class ShopAddVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         self.registerButton.layer.cornerRadius = 3
         self.registerButton.layer.borderColor = UIColor.systemGray.cgColor
         self.registerButton.layer.borderWidth = 2
+        
+        self.registerButton.addTarget(self, action: #selector(doregister(_:)), for: .touchUpInside)
         
         self.view.addSubview(self.registerButton)
     }
