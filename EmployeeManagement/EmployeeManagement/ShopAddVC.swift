@@ -7,11 +7,13 @@
 
 import UIKit
 import FirebaseFirestore
+import FirebaseStorage
 
 class ShopAddVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate  {
     
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     let db = Firestore.firestore()
+    let storage = Storage.storage()
     
     var imgExistence: Bool = false          //이미지 유무
     
@@ -34,6 +36,24 @@ class ShopAddVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
 
         uiDeployment()
         
+    }
+    //MARK: Firestorage 메소드
+    //이미지 업로드
+    func uploadimage(img: UIImage){
+        var data = Data()
+        data = img.jpegData(compressionQuality: 0.8)!
+        
+        let filePath = self.companyTextfield.text!
+        let metaData = StorageMetadata()
+        metaData.contentType = "image/png"
+        
+        storage.reference().child(filePath).putData(data, metadata: metaData) { (metaData,error) in
+            if error != nil {
+                print(error!.localizedDescription)
+            } else {
+                print("성공")
+            }
+        }
     }
     
     //MARK: 이미지 피커 메소드
@@ -171,6 +191,8 @@ class ShopAddVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
                         print(error!.localizedDescription)
                     }
                 }
+                
+                self.uploadimage(img: self.logoImage.image!)
             })
             
             self.present(alert1, animated: true)
