@@ -130,28 +130,34 @@ class SignUpVC: UIViewController, UITextFieldDelegate {
     @objc func doCheckPhone(_ sender: UIButton){
         var dbResult: [String] = []
         
-        db.collection("users").whereField("phone", isEqualTo: self.phoneTextField.text!).getDocuments { (snapshot, error) in
-                for doc in snapshot!.documents{
-                    dbResult.append(doc.documentID)
-                    print(dbResult)
-                }
+        if self.phoneTextField.text?.isEmpty == true {
+            let alert = UIAlertController(title: "전화번호가 없습니다.", message: "다시 입력해주세요.", preferredStyle: .alert)
             
-            if dbResult.isEmpty == true {
-                let alert2 = UIAlertController(title: nil, message: "사용가능한 전화번호입니다.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            
+            self.present(alert, animated: true)
+        } else {
+            db.collection("users").whereField("phone", isEqualTo: self.phoneTextField.text!).getDocuments { (snapshot, error) in
+                    for doc in snapshot!.documents{
+                        dbResult.append(doc.documentID)
+                        print(dbResult)
+                    }
+            
+                if dbResult.isEmpty == true {
+                    let alert2 = UIAlertController(title: nil, message: "사용가능한 전화번호입니다.", preferredStyle: .alert)
                         
-                alert2.addAction(UIAlertAction(title: "OK", style: .default){ (_) in
+                    alert2.addAction(UIAlertAction(title: "OK", style: .default){ (_) in
                     
-                })
+                    })
+                    self.present(alert2, animated: true)
+                } else {
+                    let alert1 = UIAlertController(title: "이미 등록된 전화번호입니다.", message: "아이디 찾기를 이용해주세요.", preferredStyle: .alert)
                         
-                self.present(alert2, animated: true)
-            } else {
-                let alert1 = UIAlertController(title: "이미 등록된 전화번호입니다.", message: "아이디 찾기를 이용해주세요.", preferredStyle: .alert)
-                        
-                alert1.addAction(UIAlertAction(title: "OK", style: .default){ (_) in
-                    self.phoneTextField.text = nil
-                })
-                        
-                self.present(alert1, animated: true)
+                    alert1.addAction(UIAlertAction(title: "OK", style: .default){ (_) in
+                        self.phoneTextField.text = nil
+                    })
+                    self.present(alert1, animated: true)
+                }
             }
         }
     }
