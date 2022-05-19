@@ -233,6 +233,17 @@ class ShopAddVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         
         self.view.addSubview(closeButton)
         
+        //화면 타이틀 UI
+        let uiTitle = UILabel()
+        
+        uiTitle.frame = CGRect(x: self.view.frame.width / 2 - 100, y: 230, width: 200, height: 50)
+        
+        uiTitle.text = "Create Company"
+        uiTitle.font = UIFont.init(name: "Chalkboard SE", size: 25)
+        uiTitle.textColor = UIColor.black
+        
+        self.view.addSubview(uiTitle)
+        
         //명함 배경 UI
         self.background.frame = CGRect(x: 20, y: self.view.frame.height / 2 - 100, width: 350, height: 200)
         self.background.backgroundColor = UIColor.white
@@ -265,6 +276,9 @@ class ShopAddVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         self.view.addSubview(self.companyTextfield)
         
         //대표자 레이블 UI
+        self.appDelegate.nameInfo = "dd"           //연습용
+        self.appDelegate.phoneInfo = "00"
+        
         self.ceoNameLabel.frame = CGRect(x: 160, y: self.view.frame.height / 2 - 40, width: 190, height: 30)
         self.ceoNameLabel.text = " \(self.appDelegate.nameInfo!)"
         self.ceoNameLabel.font = UIFont.init(name: "Chalkboard SE", size: 14)
