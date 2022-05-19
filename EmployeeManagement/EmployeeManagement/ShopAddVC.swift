@@ -166,7 +166,8 @@ class ShopAddVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
                         "name" : "\(self.appDelegate.nameInfo!)",
                         "phone" : "\(self.appDelegate.phoneInfo!)",
                         "businessType" : "\(self.businessType.text!)",
-                        "img" : self.imgExistence
+                        "img" : self.imgExistence,
+                        "employeeCount" : 1
                     ]) { error in
                         if error == nil{
                             print("성공")         //모달 내리기 넣을 곳
