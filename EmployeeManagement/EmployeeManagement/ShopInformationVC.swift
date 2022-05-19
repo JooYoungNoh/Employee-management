@@ -15,7 +15,7 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
     let db = Firestore.firestore()
     let storage = Storage.storage()
     
-    let companyOnTable: String! = "네이버"
+    var companyOnTable: String!
     var dbResultPhone: String!
     
     var imgExistence: Bool!                 //이미지 유무
@@ -37,6 +37,26 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.db.collection("shop").document("\(self.companyOnTable!)").getDocument { (snapshot, error) in
+            if error == nil && snapshot != nil {
+                self.companyName.text = self.companyOnTable
+                self.ceoNameLabel.text = snapshot?.data()?["name"] as? String
+                self.ceoPhoneLabel.text = snapshot?.data()?["phone"] as? String
+                self.businessType.text = snapshot?.data()?["businessType"] as? String
+                self.employeeNumber.text = "\(snapshot?.data()?["employeeCount"] as! Int)명"
+                
+                if (snapshot?.data()?["img"] as? Bool) == true {
+                    self.downloadimage(imgview: self.logoImage)
+                } else {
+                    self.logoImage.image = nil
+                }
+                
+            } else {
+                print(error!.localizedDescription)
+            }
+            
+        }
 
         uiDeployment()
     }
@@ -71,12 +91,8 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
     }
     
     @objc func doRequestJoin(_ sender: UIButton){
-        self.appDelegate.phoneInfo = "01011111112"  //연습
-        self.appDelegate.nameInfo = "이준희"
         
         let query = self.db.collection("shop").document("\(self.companyOnTable!)")
-        
-            
             
         query.collection("employeeControl").document("\(self.appDelegate.phoneInfo!)").getDocument { (snapshot, error) in
             if error == nil && snapshot != nil {
@@ -118,7 +134,6 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
                             print(error!.localizedDescription)
                         }
                     }
-                    
                 }
             } else {
                 print(error!.localizedDescription)
@@ -187,6 +202,16 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
     }
     
     //MARK: 메소드
+    //이미지 다운로드 메소드
+    func downloadimage(imgview: UIImageView){
+        storage.reference(forURL: "gs://employeemanagement-9d6eb.appspot.com/\(self.companyOnTable!)").downloadURL { (url, error) in
+            let data = NSData(contentsOf: url!)
+            let image = UIImage(data: data! as Data)
+            
+            imgview.image = image
+        }
+    }
+    
     func uiDeployment(){
         //닫기 버튼 UI
         let backButton = UIButton()
@@ -253,7 +278,7 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
         //회사명 UI
         self.companyName.frame = CGRect(x: 160, y: self.view.frame.height / 2 - 90, width: 190, height: 50)
         
-        self.companyName.text = "네이버"
+        //self.companyName.text = "네이버"
         //self.companyName.textAlignment = .right
         self.companyName.font = UIFont.init(name: "Chalkboard SE", size: 30)
         
@@ -261,7 +286,7 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
         
         //대표자 레이블 UI
         self.ceoNameLabel.frame = CGRect(x: 160, y: self.view.frame.height / 2 - 10, width: 190, height: 40)
-        self.ceoNameLabel.text = "CEO 노주영"
+       // self.ceoNameLabel.text = "CEO 노주영"
         self.ceoNameLabel.font = UIFont.init(name: "Chalkboard SE", size: 25)
         self.ceoNameLabel.textAlignment = .right
         
@@ -270,15 +295,15 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
         
         //전화번호 레이블 UI
         self.ceoPhoneLabel.frame = CGRect(x: 160, y: self.view.frame.height / 2 + 35, width: 190, height: 20)
-        self.ceoPhoneLabel.text = "01011111111"
+      //  self.ceoPhoneLabel.text = "01011111111"
         self.ceoPhoneLabel.font = UIFont.init(name: "Chalkboard SE", size: 15)
         self.ceoPhoneLabel.textAlignment = .right
         
         self.view.addSubview(self.ceoPhoneLabel)
         
         //업종 레이블 UI
-        self.businessType.frame = CGRect(x: 170, y: self.view.frame.height / 2 + 50, width: 140, height: 30)
-        self.businessType.text = "서비스업"
+        self.businessType.frame = CGRect(x: 140, y: self.view.frame.height / 2 + 50, width: 170, height: 30)
+      //  self.businessType.text = "서비스업"
         self.businessType.textAlignment = .right
         self.businessType.font = UIFont.init(name: "Chalkboard SE", size: 15)
         
@@ -287,7 +312,7 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
         //사원수 레이블 UI
         self.employeeNumber.frame = CGRect(x: 310, y: self.view.frame.height / 2 + 50, width: 40, height: 30)
         
-        self.employeeNumber.text = "1명"
+       // self.employeeNumber.text = "1명"
         self.employeeNumber.textAlignment = .right
         self.employeeNumber.font = UIFont.init(name: "Chalkboard SE", size: 15)
         
