@@ -9,13 +9,15 @@ import UIKit
 import FirebaseFirestore
 import FirebaseStorage
 
-class ShopInformationVC: UIViewController {
+class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     let db = Firestore.firestore()
     let storage = Storage.storage()
     
-    var imgExistence: Bool!                  //이미지 유무
+    var imgExistence: Bool!                 //이미지 유무
+    
+    let saveButton = UIButton()             //저장 버튼
     
     let background = UILabel()              //명함 배경
     
@@ -35,9 +37,92 @@ class ShopInformationVC: UIViewController {
 
         uiDeployment()
     }
+    //MARK: 이미지 피커 메소드
+    // 이미지를 가져올 장소(?) 카메라 앨범 등 선택 메소드
+    func imgPicker(_ source: UIImagePickerController.SourceType){
+        let picker = UIImagePickerController()
+        picker.sourceType = source
+        picker.delegate = self
+        picker.allowsEditing = true
+        self.present(picker, animated: true)
+        
+    }
+    //이미지 선택하면 호출될 메소드
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        let img = info[UIImagePickerController.InfoKey.editedImage] as? UIImage
+        
+        self.logoImage.image = img
+        
+        //저장 버튼 보이게 하기
+        self.saveButton.isHidden = false
+        //저장버튼 누르면 경우 메모장 보기
+        
+        //이미지 피커 컨트롤창 닫기
+        picker.dismiss(animated: true)
+    }
+    
     //MARK: 액션 메소드
     @objc func doclose(_ sender: UIButton){
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    @objc func doEdit(_ sender: UIButton){
+        let alert = UIAlertController(title: nil, message: "선택해주세요.", preferredStyle: .actionSheet)
+        
+        alert.addAction(UIAlertAction(title: "로고 변경", style: .default) { (_) in
+            
+            let alert = UIAlertController(title: nil, message: "선택해주세요", preferredStyle: .actionSheet)
+            
+            //카메라를 사용할 수 있으면 (시뮬레이터 불가)
+            if UIImagePickerController.isSourceTypeAvailable(.camera){
+                alert.addAction(UIAlertAction(title: "카메라", style: .default){(_) in
+                    self.imgPicker(.camera)
+                })
+            }
+            //저장된 앨범을 사용할 수 있으면
+            if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum){
+                alert.addAction(UIAlertAction(title: "앨범", style: .default){(_) in
+                    self.imgPicker(.savedPhotosAlbum)
+                })
+            }
+            //포토 라이브러리를 사용할 수 있으면
+            if UIImagePickerController.isSourceTypeAvailable(.photoLibrary){
+                alert.addAction(UIAlertAction(title: "포토 라이브러리", style: .default){(_) in
+                    self.imgPicker(.photoLibrary)
+                })
+            }
+            //이미지 삭제
+            alert.addAction(UIAlertAction(title: "로고 이미지 삭제", style: .default) { (_) in
+                if self.logoImage.image == nil {
+                    let alert = UIAlertController(title: nil, message: "삭제할 로고 이미지가 없습니다.", preferredStyle: .alert)
+                    
+                    alert.addAction(UIAlertAction(title: "OK", style: .default))
+                    self.present(alert, animated: true)
+                } else {
+                    self.logoImage.image = nil
+                    
+                    //저장버튼 활성화
+                    self.saveButton.isHidden = false
+                    //파이어스토리지에 저장된 이미지도 삭제해야됨
+                }
+            })
+            
+            //취소 버튼 추가
+            alert.addAction(UIAlertAction(title: "취소", style: .cancel))
+            
+            //액션시트 창 실행
+            self.present(alert, animated: true)
+            
+        })
+        
+        alert.addAction(UIAlertAction(title: "회사 삭제", style: .default) { (_) in
+            
+        })
+        
+        alert.addAction(UIAlertAction(title: "취소", style: .cancel))
+        
+        self.present(alert, animated: true)
     }
     
     //MARK: 메소드
@@ -55,6 +140,16 @@ class ShopInformationVC: UIViewController {
         
         self.view.addSubview(backButton)
         
+        //저장 버튼 UI
+        self.saveButton.frame = CGRect(x: 260, y: 50, width: 60, height: 40)
+        
+        self.saveButton.setTitle("Save", for: .normal)
+        saveButton.setTitleColor(UIColor.black, for: .normal)
+        self.saveButton.titleLabel?.font = UIFont.init(name: "Chalkboard SE", size: 20)
+        self.saveButton.isHidden = true
+        
+        self.view.addSubview(self.saveButton)
+        
         //편집 버튼 UI
         let editButton = UIButton()
         
@@ -63,6 +158,8 @@ class ShopInformationVC: UIViewController {
         editButton.setTitle("Edit", for: .normal)
         editButton.setTitleColor(UIColor.black, for: .normal)
         editButton.titleLabel?.font = UIFont.init(name: "Chalkboard SE", size: 20)
+        
+        editButton.addTarget(self, action: #selector(doEdit(_:)), for: .touchUpInside)
         
         self.view.addSubview(editButton)
         
@@ -90,11 +187,6 @@ class ShopInformationVC: UIViewController {
         self.logoImage.frame = CGRect(x: 40, y: self.view.frame.height / 2 - 80, width: 100, height: 100)
         self.logoImage.backgroundColor = UIColor.systemGray3
         
-      /*  //이미지 터치 시 이미지 변경
-        let tap = UITapGestureRecognizer(target: self, action: #selector(selectlogo(_:)))
-        self.logoImage.addGestureRecognizer(tap)
-        self.logoImage.isUserInteractionEnabled = true
-        */
         self.view.addSubview(self.logoImage)
         
         //회사명 UI
@@ -151,7 +243,7 @@ class ShopInformationVC: UIViewController {
         self.requestButton.layer.borderColor = UIColor.systemGray.cgColor
         self.requestButton.layer.borderWidth = 2
         
-       // self.registerButton.addTarget(self, action: #selector(doregister(_:)), for: .touchUpInside)
+        //self.requestButton.addTarget(self, action: #selector()), for: .touchUpInside)
         
         self.view.addSubview(self.requestButton)
     }
