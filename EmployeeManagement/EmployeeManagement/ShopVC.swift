@@ -63,6 +63,19 @@ class ShopVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //전달할 내용
+        let companyName = self.shopListName[indexPath.row]
+        
+        //이동할 화면
+        let nv = self.storyboard?.instantiateViewController(withIdentifier: "ShopInformationVC") as! ShopInformationVC
+        
+        nv.companyOnTable = companyName
+        
+        self.navigationController?.pushViewController(nv, animated: true)
+
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.shopListName.count
     }
@@ -97,8 +110,7 @@ class ShopVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     //MARK: 액션 메소드
     @objc func addShop(_ sender: UIButton){
-        appDelegate.jobInfo = "0"       //연습용
-        
+  
         if appDelegate.jobInfo == "0" {
             let uv = self.storyboard?.instantiateViewController(withIdentifier: "ShopAddVC")
             
