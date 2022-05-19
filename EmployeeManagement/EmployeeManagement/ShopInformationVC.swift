@@ -15,6 +15,9 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
     let db = Firestore.firestore()
     let storage = Storage.storage()
     
+    let companyOnTable: String! = "네이버"
+    var dbResultPhone: String!
+    
     var imgExistence: Bool!                 //이미지 유무
     
     let saveButton = UIButton()             //저장 버튼
@@ -66,6 +69,64 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
     @objc func doclose(_ sender: UIButton){
         self.navigationController?.popViewController(animated: true)
     }
+    
+    @objc func doRequestJoin(_ sender: UIButton){
+        self.appDelegate.phoneInfo = "01011111112"  //연습
+        self.appDelegate.nameInfo = "이준희"
+        
+        let query = self.db.collection("shop").document("\(self.companyOnTable!)")
+        
+            
+            
+        query.collection("employeeControl").document("\(self.appDelegate.phoneInfo!)").getDocument { (snapshot, error) in
+            if error == nil && snapshot != nil {
+                //이미 회사에 가입되어 있을 경우
+                if self.appDelegate.phoneInfo! == snapshot?.data()?["phone"] as? String {
+                    let alert = UIAlertController(title: nil, message: "이미 가입되어있습니다.", preferredStyle: .alert)
+                    
+                    alert.addAction(UIAlertAction(title: "OK", style: .default))
+                    
+                    self.present(alert, animated: true)
+                } else {
+                    print("성공")
+                    //가입은 되어있지 않은데 신청은 되있는 상태
+                    query.collection("requestJoin").document("\(self.appDelegate.phoneInfo!)").getDocument { (snapshot,error) in
+                        if error == nil && snapshot != nil {
+                            
+                            if self.appDelegate.phoneInfo! == snapshot?.data()?["phone"] as? String {
+                                let alert = UIAlertController(title: nil, message: "이미 신청되어있습니다.", preferredStyle: .alert)
+                                
+                                alert.addAction(UIAlertAction(title: "OK", style: .default))
+                                
+                                self.present(alert, animated: true)
+                            } else {
+                                //둘다 안된 상태
+                                let alert1 = UIAlertController(title: "가입 신청 완료되었습니다.", message: "CEO가 승인하면 가입됩니다.", preferredStyle: .alert)
+                                
+                                alert1.addAction(UIAlertAction(title: "OK", style: .default){ (_) in
+                                    query.collection("requestJoin").document("\(self.appDelegate.phoneInfo!)").setData([
+                                        "phone" : "\(self.appDelegate.phoneInfo!)",
+                                        "name" : "\(self.appDelegate.nameInfo!)"
+                                    ])
+                                
+                                    self.navigationController?.popViewController(animated: true)
+                                
+                                })
+                                self.present(alert1, animated: true)
+                            }
+                        } else {
+                            print(error!.localizedDescription)
+                        }
+                    }
+                    
+                }
+            } else {
+                print(error!.localizedDescription)
+            }
+        }
+        
+    }
+    
     
     @objc func doEdit(_ sender: UIButton){
         let alert = UIAlertController(title: nil, message: "선택해주세요.", preferredStyle: .actionSheet)
@@ -243,7 +304,7 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
         self.requestButton.layer.borderColor = UIColor.systemGray.cgColor
         self.requestButton.layer.borderWidth = 2
         
-        //self.requestButton.addTarget(self, action: #selector()), for: .touchUpInside)
+        self.requestButton.addTarget(self, action: #selector(doRequestJoin(_:)), for: .touchUpInside)
         
         self.view.addSubview(self.requestButton)
     }
