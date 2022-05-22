@@ -176,8 +176,6 @@ class ShopVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         self.settingButton.tintColor = UIColor.black
         
-        self.settingButton.addTarget(self, action: #selector(addShop(_:)), for: .touchUpInside)
-        
         self.view.addSubview(self.settingButton)
         
         //서치 바 UI
