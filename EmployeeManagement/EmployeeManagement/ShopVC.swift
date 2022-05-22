@@ -12,7 +12,6 @@ class ShopVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var shopListName = [String]()
     var shopListBoss = [String]()
-    var shopListPhone = [String]()
     
     let db = Firestore.firestore()
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -35,7 +34,6 @@ class ShopVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 for doc in snapshot!.documents{
                     self.shopListName.append(doc.data()["company"] as! String)
                     self.shopListBoss.append(doc.data()["name"] as! String)
-                    self.shopListPhone.append(doc.data()["phone"] as! String)
                 }
                 self.uiDeployment()
                 
@@ -63,13 +61,11 @@ class ShopVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //전달할 내용
         let companyName = self.shopListName[indexPath.row]
-        let companyPhone = self.shopListPhone[indexPath.row]
         
         //이동할 화면
         let nv = self.storyboard?.instantiateViewController(withIdentifier: "ShopInformationVC") as! ShopInformationVC
         
         nv.companyOnTable = companyName
-        nv.phoneOnTable = companyPhone
         
         self.navigationController?.pushViewController(nv, animated: true)
 

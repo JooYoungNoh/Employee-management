@@ -16,7 +16,6 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
     let storage = Storage.storage()
     
     var companyOnTable: String!
-    var phoneOnTable: String!
     var dbResultPhone: String!
     var dbResultImage: UIImage!
     
@@ -144,7 +143,7 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
     }
     
     @objc func doEdit(_ sender: UIButton){
-        if self.phoneOnTable! == self.appDelegate.phoneInfo {          //본인 회사
+        if self.ceoPhoneLabel.text! == self.appDelegate.phoneInfo! {          //본인 회사
             let alert = UIAlertController(title: nil, message: "선택해주세요.", preferredStyle: .actionSheet)
             
             alert.addAction(UIAlertAction(title: "로고 변경", style: .default) { (_) in
