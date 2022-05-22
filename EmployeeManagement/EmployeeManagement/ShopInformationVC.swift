@@ -17,6 +17,7 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
     
     var companyOnTable: String!
     var dbResultPhone: String!
+    var dbResultImage: UIImage!
     
     var imgExistence: Bool!                 //이미지 유무
     
@@ -207,15 +208,60 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
         let alert = UIAlertController(title: "변경 사항이 저장됩니다.", message: "진행하시겠습니까?", preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "OK", style: .default){ (_) in
-            
-            
+            if self.logoImage.image == UIImage(named: "logonil") {
+                if self.imgExistence == true {                  //이미지 없는데 true
+                    //firestorage에 이미지 삭제 firestore에 img false로 변경
+                    self.deleteImage()
+                    self.db.collection("shop").document("\(self.companyOnTable!)").updateData(["img" : false])
+                    self.imgExistence = false
+                } else {                                        //이미지 없는데 false
+                    //변경 없음
+                }
+            } else {
+                if self.imgExistence == true {                  //이미지 있는데 true
+                    //이미지가 변경된 경우
+                    if self.logoImage.image != self.dbResultImage{
+                        //첨 이미지 삭제 후 변경된 이미지 저장
+                        self.deleteImage()
+                        self.uploadimage(img: self.logoImage.image!)
+                    } else {
+                        //이미지 변경 없음(변화없음)
+                    }
+                } else {                                        //이미지 있는데 false
+                    //firestorage에 이미지 추가 firestore에 img true로 변경
+                    self.uploadimage(img: self.logoImage.image!)
+                    self.db.collection("shop").document("\(self.companyOnTable!)").updateData(["img" : true])
+                    self.imgExistence = true
+                }
+            }
+            self.saveButton.isHidden = true
         })
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         
+        self.present(alert, animated: true)
+        
     }
     
-    //MARK: 메소드
+    //MARK: FireStorage메소드
+    //이미지 업로드
+    func uploadimage(img: UIImage){
+        var data = Data()
+        data = img.jpegData(compressionQuality: 0.8)!
+        
+        let filePath = self.companyOnTable!
+        let metaData = StorageMetadata()
+        metaData.contentType = "image/png"
+        
+        storage.reference().child(filePath).putData(data, metadata: metaData) { (metaData,error) in
+            if error != nil {
+                print(error!.localizedDescription)
+            } else {
+                print("성공")
+            }
+        }
+    }
+    
     //이미지 있을 떄 다운로드 메소드
     func downloadimage(imgview: UIImageView){
         storage.reference(forURL: "gs://employeemanagement-9d6eb.appspot.com/\(self.companyOnTable!)").downloadURL { (url, error) in
@@ -223,6 +269,7 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
                 let data = NSData(contentsOf: url!)
                 let image = UIImage(data: data! as Data)
                 
+                self.dbResultImage = image
                 imgview.image = image
             } else {
                 print(error!.localizedDescription)
@@ -242,9 +289,20 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
                 print(error!.localizedDescription)
             }
         }
-        
     }
     
+    //FireStorage에서 이미지 삭제 메소드
+    func deleteImage() {
+        storage.reference(forURL: "gs://employeemanagement-9d6eb.appspot.com/\(self.companyOnTable!)").delete { (error) in
+            if let error = error{
+                print(error.localizedDescription)
+            } else {
+                print("이미지 삭제 성공")
+            }
+        }
+    }
+    
+    //MARK: 화면 메소드
     func uiDeployment(){
         //닫기 버튼 UI
         let backButton = UIButton()
@@ -266,6 +324,8 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
         saveButton.setTitleColor(UIColor.black, for: .normal)
         self.saveButton.titleLabel?.font = UIFont.init(name: "Chalkboard SE", size: 20)
         self.saveButton.isHidden = true
+        
+        self.saveButton.addTarget(self, action: #selector(dosave(_:)), for: .touchUpInside)
         
         self.view.addSubview(self.saveButton)
         
