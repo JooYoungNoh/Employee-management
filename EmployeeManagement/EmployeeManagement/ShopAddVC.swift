@@ -170,7 +170,10 @@ class ShopAddVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
                         "employeeCount" : 1
                     ]) { error in
                         if error == nil{
-                            print("성공")         //모달 내리기 넣을 곳
+                            self.db.collection("shop").document("\(self.companyTextfield.text!)").collection("employeeControl").document("\(self.appDelegate.phoneInfo!)").setData([
+                                "phone" : "\(self.appDelegate.phoneInfo!)",
+                                "name" : "\(self.appDelegate.nameInfo!)"
+                                ])
                         } else {
                             print(error!.localizedDescription)
                         }
@@ -199,10 +202,14 @@ class ShopAddVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
                     "name" : "\(self.appDelegate.nameInfo!)",
                     "phone" : "\(self.appDelegate.phoneInfo!)",
                     "businessType" : "\(self.businessType.text!)",
-                    "img" : self.imgExistence
+                    "img" : self.imgExistence,
+                    "employeeCount" : 1
                 ]) { error in
                     if error == nil{
-                        print("성공")         //모달 내리기 넣을 곳
+                        self.db.collection("shop").document("\(self.companyTextfield.text!)").collection("employeeControl").document("\(self.appDelegate.phoneInfo!)").setData([
+                            "phone" : "\(self.appDelegate.phoneInfo!)",
+                            "name" : "\(self.appDelegate.nameInfo!)"
+                        ])
                     } else {
                         print(error!.localizedDescription)
                     }
@@ -276,9 +283,6 @@ class ShopAddVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         self.view.addSubview(self.companyTextfield)
         
         //대표자 레이블 UI
-        self.appDelegate.nameInfo = "dd"           //연습용
-        self.appDelegate.phoneInfo = "00"
-        
         self.ceoNameLabel.frame = CGRect(x: 160, y: self.view.frame.height / 2 - 40, width: 190, height: 30)
         self.ceoNameLabel.text = " \(self.appDelegate.nameInfo!)"
         self.ceoNameLabel.font = UIFont.init(name: "Chalkboard SE", size: 14)
