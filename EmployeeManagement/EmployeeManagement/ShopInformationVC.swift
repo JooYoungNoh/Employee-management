@@ -141,9 +141,7 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
                 print(error!.localizedDescription)
             }
         }
-        
     }
-    
     
     @objc func doEdit(_ sender: UIButton){
         if self.phoneOnTable! == self.appDelegate.phoneInfo {          //본인 회사
@@ -195,7 +193,45 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
             })
             
             alert.addAction(UIAlertAction(title: "회사 삭제", style: .default) { (_) in
+                let alert = UIAlertController(title: "정말 삭제하시겠습니까?", message: "복구가 불가능합니다.", preferredStyle: .alert)
                 
+                alert.addTextField(){ (tf) in
+                    tf.placeholder = "Write 'Delete'"
+                    tf.font = UIFont(name: "Chalkboard SE", size: 16)
+                    tf.textColor = UIColor.red
+                }
+                
+                alert.addAction(UIAlertAction(title: "OK", style: .default){ (_) in
+                    if alert.textFields?[0].text == "Delete" {
+                        let query2 =  self.db.collection("shop").document("\(self.companyOnTable!)")
+                        
+                        query2.collection("employeeControl").getDocuments{ (snapshot, error) in
+                            for doc in snapshot!.documents{
+                                query2.collection("employeeControl").document("\(doc.documentID)").delete()
+                            }
+                        }
+                        query2.collection("requestJoin").getDocuments{ (snapshot, error) in
+                            for doc in snapshot!.documents{
+                                query2.collection("requestJoin").document("\(doc.documentID)").delete()
+                            }
+                        }
+                        query2.delete()
+                        if self.imgExistence == true {
+                            self.deleteImage()
+                        }
+                        
+                        self.navigationController?.popViewController(animated: true)
+                    } else {
+                        let alert1 = UIAlertController(title: "입력이 정확하지않습니다.", message: "다시 시도해주세요.", preferredStyle: .alert)
+                        
+                        alert1.addAction(UIAlertAction(title: "OK", style: .default))
+                        self.present(alert1, animated: true)
+                    }
+                })
+                
+                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+                
+                self.present(alert, animated: true)
             })
             
             alert.addAction(UIAlertAction(title: "취소", style: .cancel))
