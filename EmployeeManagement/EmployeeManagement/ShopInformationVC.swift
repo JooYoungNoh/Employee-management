@@ -16,6 +16,7 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
     let storage = Storage.storage()
     
     var companyOnTable: String!
+    var phoneOnTable: String!
     var dbResultPhone: String!
     var dbResultImage: UIImage!
     
@@ -145,63 +146,69 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
     
     
     @objc func doEdit(_ sender: UIButton){
-        print(self.imgExistence!)
-        
-        let alert = UIAlertController(title: nil, message: "선택해주세요.", preferredStyle: .actionSheet)
-        
-        alert.addAction(UIAlertAction(title: "로고 변경", style: .default) { (_) in
+        if self.phoneOnTable! == self.appDelegate.phoneInfo {          //본인 회사
+            let alert = UIAlertController(title: nil, message: "선택해주세요.", preferredStyle: .actionSheet)
             
-            let alert = UIAlertController(title: nil, message: "선택해주세요", preferredStyle: .actionSheet)
-            
-            //카메라를 사용할 수 있으면 (시뮬레이터 불가)
-            if UIImagePickerController.isSourceTypeAvailable(.camera){
-                alert.addAction(UIAlertAction(title: "카메라", style: .default){(_) in
-                    self.imgPicker(.camera)
-                })
-            }
-            //저장된 앨범을 사용할 수 있으면
-            if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum){
-                alert.addAction(UIAlertAction(title: "앨범", style: .default){(_) in
-                    self.imgPicker(.savedPhotosAlbum)
-                })
-            }
-            //포토 라이브러리를 사용할 수 있으면
-            if UIImagePickerController.isSourceTypeAvailable(.photoLibrary){
-                alert.addAction(UIAlertAction(title: "포토 라이브러리", style: .default){(_) in
-                    self.imgPicker(.photoLibrary)
-                })
-            }
-            //이미지 삭제
-            alert.addAction(UIAlertAction(title: "로고 이미지 삭제", style: .default) { (_) in
-                if self.logoImage.image == UIImage(named: "logonil") {
-                    let alert = UIAlertController(title: nil, message: "삭제할 로고 이미지가 없습니다.", preferredStyle: .alert)
-                    
-                    alert.addAction(UIAlertAction(title: "OK", style: .default))
-                    self.present(alert, animated: true)
-                } else {
-                    self.logoImage.image = UIImage(named: "logonil")
-                    
-                    //저장버튼 활성화
-                    self.saveButton.isHidden = false
-                    //파이어스토리지에 저장된 이미지도 삭제해야됨
+            alert.addAction(UIAlertAction(title: "로고 변경", style: .default) { (_) in
+                
+                let alert = UIAlertController(title: nil, message: "선택해주세요", preferredStyle: .actionSheet)
+                
+                //카메라를 사용할 수 있으면 (시뮬레이터 불가)
+                if UIImagePickerController.isSourceTypeAvailable(.camera){
+                    alert.addAction(UIAlertAction(title: "카메라", style: .default){(_) in
+                        self.imgPicker(.camera)
+                    })
                 }
+                //저장된 앨범을 사용할 수 있으면
+                if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum){
+                    alert.addAction(UIAlertAction(title: "앨범", style: .default){(_) in
+                        self.imgPicker(.savedPhotosAlbum)
+                    })
+                }
+                //포토 라이브러리를 사용할 수 있으면
+                if UIImagePickerController.isSourceTypeAvailable(.photoLibrary){
+                    alert.addAction(UIAlertAction(title: "포토 라이브러리", style: .default){(_) in
+                        self.imgPicker(.photoLibrary)
+                    })
+                }
+                //이미지 삭제
+                alert.addAction(UIAlertAction(title: "로고 이미지 삭제", style: .default) { (_) in
+                    if self.logoImage.image == UIImage(named: "logonil") {
+                        let alert = UIAlertController(title: nil, message: "삭제할 로고 이미지가 없습니다.", preferredStyle: .alert)
+                        
+                        alert.addAction(UIAlertAction(title: "OK", style: .default))
+                        self.present(alert, animated: true)
+                    } else {
+                        self.logoImage.image = UIImage(named: "logonil")
+                        
+                        //저장버튼 활성화
+                        self.saveButton.isHidden = false
+                        //파이어스토리지에 저장된 이미지도 삭제해야됨
+                    }
+                })
+                //취소 버튼 추가
+                alert.addAction(UIAlertAction(title: "취소", style: .cancel))
+                
+                //액션시트 창 실행
+                self.present(alert, animated: true)
+                
             })
             
-            //취소 버튼 추가
+            alert.addAction(UIAlertAction(title: "회사 삭제", style: .default) { (_) in
+                
+            })
+            
             alert.addAction(UIAlertAction(title: "취소", style: .cancel))
             
-            //액션시트 창 실행
             self.present(alert, animated: true)
+
+        } else {                                                       //남 회사
+            let alert = UIAlertController(title: nil, message: "다른 사람의 회사는 변경할 수 없습니다.", preferredStyle: .alert)
             
-        })
-        
-        alert.addAction(UIAlertAction(title: "회사 삭제", style: .default) { (_) in
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
             
-        })
-        
-        alert.addAction(UIAlertAction(title: "취소", style: .cancel))
-        
-        self.present(alert, animated: true)
+            self.present(alert, animated: true)
+        }
     }
     
     @objc func dosave(_ sender: UIButton){
