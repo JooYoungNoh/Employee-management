@@ -37,6 +37,7 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        uiDeployment()
         
         self.db.collection("shop").document("\(self.companyOnTable!)").getDocument { (snapshot, error) in
             if error == nil && snapshot != nil {
@@ -48,8 +49,10 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
                 
                 if (snapshot?.data()?["img"] as? Bool) == true {
                     self.downloadimage(imgview: self.logoImage)
+                    self.imgExistence = true
                 } else {
-                    self.logoImage.image = nil
+                    self.downloadNilimage(imgview: self.logoImage)
+                    self.imgExistence = false
                 }
                 
             } else {
@@ -57,8 +60,6 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
             }
             
         }
-
-        uiDeployment()
     }
     //MARK: 이미지 피커 메소드
     // 이미지를 가져올 장소(?) 카메라 앨범 등 선택 메소드
@@ -79,7 +80,6 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
         
         //저장 버튼 보이게 하기
         self.saveButton.isHidden = false
-        //저장버튼 누르면 경우 메모장 보기
         
         //이미지 피커 컨트롤창 닫기
         picker.dismiss(animated: true)
@@ -144,6 +144,8 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
     
     
     @objc func doEdit(_ sender: UIButton){
+        print(self.imgExistence!)
+        
         let alert = UIAlertController(title: nil, message: "선택해주세요.", preferredStyle: .actionSheet)
         
         alert.addAction(UIAlertAction(title: "로고 변경", style: .default) { (_) in
@@ -170,13 +172,13 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
             }
             //이미지 삭제
             alert.addAction(UIAlertAction(title: "로고 이미지 삭제", style: .default) { (_) in
-                if self.logoImage.image == nil {
+                if self.logoImage.image == UIImage(named: "logonil") {
                     let alert = UIAlertController(title: nil, message: "삭제할 로고 이미지가 없습니다.", preferredStyle: .alert)
                     
                     alert.addAction(UIAlertAction(title: "OK", style: .default))
                     self.present(alert, animated: true)
                 } else {
-                    self.logoImage.image = nil
+                    self.logoImage.image = UIImage(named: "logonil")
                     
                     //저장버튼 활성화
                     self.saveButton.isHidden = false
@@ -201,15 +203,46 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
         self.present(alert, animated: true)
     }
     
+    @objc func dosave(_ sender: UIButton){
+        let alert = UIAlertController(title: "변경 사항이 저장됩니다.", message: "진행하시겠습니까?", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "OK", style: .default){ (_) in
+            
+            
+        })
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        
+    }
+    
     //MARK: 메소드
-    //이미지 다운로드 메소드
+    //이미지 있을 떄 다운로드 메소드
     func downloadimage(imgview: UIImageView){
         storage.reference(forURL: "gs://employeemanagement-9d6eb.appspot.com/\(self.companyOnTable!)").downloadURL { (url, error) in
-            let data = NSData(contentsOf: url!)
-            let image = UIImage(data: data! as Data)
-            
-            imgview.image = image
+            if error == nil && url != nil {
+                let data = NSData(contentsOf: url!)
+                let image = UIImage(data: data! as Data)
+                
+                imgview.image = image
+            } else {
+                print(error!.localizedDescription)
+            }
         }
+    }
+    
+    //이미지 없을 때 다운로드 메소드
+    func downloadNilimage(imgview: UIImageView){
+        storage.reference(forURL: "gs://employeemanagement-9d6eb.appspot.com/logonil.png").downloadURL { (url, error) in
+            if error == nil && url != nil {
+                let data = NSData(contentsOf: url!)
+                let image = UIImage(data: data! as Data)
+                
+                imgview.image = image
+            } else {
+                print(error!.localizedDescription)
+            }
+        }
+        
     }
     
     func uiDeployment(){
@@ -271,7 +304,7 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
         
         //회사 로고 이미지 뷰 UI
         self.logoImage.frame = CGRect(x: 40, y: self.view.frame.height / 2 - 80, width: 100, height: 100)
-        self.logoImage.backgroundColor = UIColor.systemGray3
+
         
         self.view.addSubview(self.logoImage)
         
