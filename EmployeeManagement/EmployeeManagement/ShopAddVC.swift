@@ -19,7 +19,7 @@ class ShopAddVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
     
     let background = UILabel()              //명함 배경
     
-    let logoImage = UIImageView()           //로고 이미지
+    let logoImage = UIImageView(image: UIImage(named: "logonil"))           //로고 이미지
     
     let companyTextfield = UITextField()    //회사 이름
     let ceoNameLabel = UILabel()            //대표자 이름
@@ -126,13 +126,13 @@ class ShopAddVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         
         //이미지 삭제
         alert.addAction(UIAlertAction(title: "로고 이미지 삭제", style: .default) { (_) in
-            if self.logoImage.image == nil {
+            if self.logoImage.image == UIImage(named: "logonil") {
                 let alert = UIAlertController(title: nil, message: "삭제할 로고 이미지가 없습니다.", preferredStyle: .alert)
                 
                 alert.addAction(UIAlertAction(title: "OK", style: .default))
                 self.present(alert, animated: true)
             } else {
-                self.logoImage.image = nil
+                self.logoImage.image = UIImage(named: "logonil")
             }
         })
         
@@ -151,7 +151,7 @@ class ShopAddVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
             
             self.present(alert, animated: true)
             
-        } else if self.logoImage.image == nil {
+        } else if self.logoImage.image == UIImage(named: "logonil") {
             let alert = UIAlertController(title: "로고 사진이 없습니다.", message: "그대로 진행하시겠습니까?", preferredStyle: .alert)
             
             alert.addAction(UIAlertAction(title: "OK", style: .default) { (_) in
@@ -262,7 +262,6 @@ class ShopAddVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         
         //회사 로고 이미지 뷰 UI
         self.logoImage.frame = CGRect(x: 40, y: self.view.frame.height / 2 - 80, width: 100, height: 100)
-        self.logoImage.backgroundColor = UIColor.systemGray3
         
         //이미지 터치 시 이미지 변경
         let tap = UITapGestureRecognizer(target: self, action: #selector(selectlogo(_:)))
