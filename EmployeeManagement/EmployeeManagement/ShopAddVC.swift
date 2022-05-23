@@ -16,6 +16,7 @@ class ShopAddVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
     let storage = Storage.storage()
     
     var imgExistence: Bool = false          //이미지 유무
+    var companyExistence: String = ""       //회사 유무
     
     let background = UILabel()              //명함 배경
     
@@ -151,78 +152,87 @@ class ShopAddVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
             
             self.present(alert, animated: true)
             
-        } else if self.logoImage.image == UIImage(named: "logonil") {
-            let alert = UIAlertController(title: "로고 사진이 없습니다.", message: "그대로 진행하시겠습니까?", preferredStyle: .alert)
-            
-            alert.addAction(UIAlertAction(title: "OK", style: .default) { (_) in
-                self.imgExistence = false   // 이미지 여부
-                
-                let alert1 = UIAlertController(title: nil, message: "등록 완료", preferredStyle: .alert)
-                
-                alert1.addAction(UIAlertAction(title: "OK", style: .default) { (_) in
-                    
-                    self.db.collection("shop").document("\(self.companyTextfield.text!)").setData([
-                        "company" : "\(self.companyTextfield.text!)",
-                        "name" : "\(self.appDelegate.nameInfo!)",
-                        "phone" : "\(self.appDelegate.phoneInfo!)",
-                        "businessType" : "\(self.businessType.text!)",
-                        "img" : self.imgExistence,
-                        "employeeCount" : 1
-                    ]) { error in
-                        if error == nil{
-                            self.db.collection("shop").document("\(self.companyTextfield.text!)").collection("employeeControl").document("\(self.appDelegate.phoneInfo!)").setData([
-                                "phone" : "\(self.appDelegate.phoneInfo!)",
-                                "name" : "\(self.appDelegate.nameInfo!)"
-                                ])
-                        } else {
-                            print(error!.localizedDescription)
-                        }
-                    }
-                    
-                    self.dismiss(animated: true)
-                })
-                
-                self.present(alert1, animated: true)
-                
-            })
-            
-            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-            
-            self.present(alert, animated: true)
-            
-        } else {
-            self.imgExistence = true        //이미지 유무
-            
-            let alert1 = UIAlertController(title: nil, message: "등록 완료", preferredStyle: .alert)
-            
-            alert1.addAction(UIAlertAction(title: "OK", style: .default) { (_) in
-                
-                self.db.collection("shop").document("\(self.companyTextfield.text!)").setData([
-                    "company" : "\(self.companyTextfield.text!)",
-                    "name" : "\(self.appDelegate.nameInfo!)",
-                    "phone" : "\(self.appDelegate.phoneInfo!)",
-                    "businessType" : "\(self.businessType.text!)",
-                    "img" : self.imgExistence,
-                    "employeeCount" : 1
-                ]) { error in
-                    if error == nil{
-                        self.db.collection("shop").document("\(self.companyTextfield.text!)").collection("employeeControl").document("\(self.appDelegate.phoneInfo!)").setData([
-                            "phone" : "\(self.appDelegate.phoneInfo!)",
-                            "name" : "\(self.appDelegate.nameInfo!)"
-                        ])
+        } else{
+            self.db.collection("shop").whereField("company", isEqualTo: self.companyTextfield.text!).getDocuments{ (snapshot,error) in
+                for doc in snapshot!.documents{
+                    self.companyExistence = doc.documentID
+                }
+                if self.companyExistence == self.companyTextfield.text! {
+                    let alert2 = UIAlertController(title: "이미 등록된 회사입니다.", message: "다시 입력해주세요.", preferredStyle: .alert)
+                    alert2.addAction(UIAlertAction(title: "OK", style: .default))
+                    self.present(alert2, animated: true)
+                } else {
+                    if self.logoImage.image == UIImage(named: "logonil") {
+                        let alert = UIAlertController(title: "로고 사진이 없습니다.", message: "그대로 진행하시겠습니까?", preferredStyle: .alert)
+                        
+                        alert.addAction(UIAlertAction(title: "OK", style: .default) { (_) in
+                            self.imgExistence = false   // 이미지 여부
+                            
+                            let alert1 = UIAlertController(title: nil, message: "등록 완료", preferredStyle: .alert)
+                            
+                            alert1.addAction(UIAlertAction(title: "OK", style: .default) { (_) in
+                                self.db.collection("shop").document("\(self.companyTextfield.text!)").setData([
+                                    "company" : "\(self.companyTextfield.text!)",
+                                    "name" : "\(self.appDelegate.nameInfo!)",
+                                    "phone" : "\(self.appDelegate.phoneInfo!)",
+                                    "businessType" : "\(self.businessType.text!)",
+                                    "img" : self.imgExistence,
+                                    "employeeCount" : 1
+                                ]) { error in
+                                    if error == nil{
+                                        self.db.collection("shop").document("\(self.companyTextfield.text!)").collection("employeeControl").document("\(self.appDelegate.phoneInfo!)").setData([
+                                            "phone" : "\(self.appDelegate.phoneInfo!)",
+                                            "name" : "\(self.appDelegate.nameInfo!)"
+                                            ])
+                                    } else {
+                                        print(error!.localizedDescription)
+                                    }
+                                }
+                                
+                                self.dismiss(animated: true)
+                            })
+                            self.present(alert1, animated: true)
+                            
+                        })
+                        
+                        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+                        
+                        self.present(alert, animated: true)
+                        
                     } else {
-                        print(error!.localizedDescription)
+                        self.imgExistence = true        //이미지 유무
+                        
+                        let alert1 = UIAlertController(title: nil, message: "등록 완료", preferredStyle: .alert)
+                        
+                        alert1.addAction(UIAlertAction(title: "OK", style: .default) { (_) in
+                            
+                            self.db.collection("shop").document("\(self.companyTextfield.text!)").setData([
+                                "company" : "\(self.companyTextfield.text!)",
+                                "name" : "\(self.appDelegate.nameInfo!)",
+                                "phone" : "\(self.appDelegate.phoneInfo!)",
+                                "businessType" : "\(self.businessType.text!)",
+                                "img" : self.imgExistence,
+                                "employeeCount" : 1
+                            ]) { error in
+                                if error == nil{
+                                    self.db.collection("shop").document("\(self.companyTextfield.text!)").collection("employeeControl").document("\(self.appDelegate.phoneInfo!)").setData([
+                                        "phone" : "\(self.appDelegate.phoneInfo!)",
+                                        "name" : "\(self.appDelegate.nameInfo!)"
+                                    ])
+                                } else {
+                                    print(error!.localizedDescription)
+                                }
+                            }
+                                   
+                            self.uploadimage(img: self.logoImage.image!)
+                            self.dismiss(animated: true)
+                        })
+                               
+                        self.present(alert1, animated: true)
                     }
                 }
-                
-                self.uploadimage(img: self.logoImage.image!)
-                
-                self.dismiss(animated: true)
-            })
-            
-            self.present(alert1, animated: true)
+            }
         }
-        
     }
     
     //MARK: 메소드
