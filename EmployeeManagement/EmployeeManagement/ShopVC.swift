@@ -8,7 +8,7 @@
 import UIKit
 import FirebaseFirestore
 
-class ShopVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ShopVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating, UISearchBarDelegate {
     
     var shopListName = [String]()
     var shopListBoss = [String]()
@@ -18,13 +18,29 @@ class ShopVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     //화면 구성 객체
     let titleLabel = UILabel()
-    let addButton = UIButton()
-    let settingButton = UIButton()
-    let searchBar = UISearchBar()
+    var searchBarController = UISearchController(searchResultsController: nil)
     let tableview = UITableView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //내비게이션 아이템 UI
+        self.navigationItem.title = "Shop"
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.font : UIFont(name: "Chalkboard SE", size: 30)!]
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font : UIFont(name: "Chalkboard SE", size: 20)!]
+        self.navigationItem.largeTitleDisplayMode = .always
+        self.navigationItem.hidesSearchBarWhenScrolling = false
+        self.navigationItem.searchController = self.searchBarController
+        //바 버튼 아이템 UI
+        let settingButton = UIBarButtonItem(image: UIImage(systemName: "gearshape"), style: .plain, target: self, action: #selector(goSetting(_:)))
+        let addButton = UIBarButtonItem.init(barButtonSystemItem: .add, target: self, action: #selector(addShop(_:)))
+        
+        self.navigationItem.rightBarButtonItems = [settingButton, addButton]
+    
+        addButton.tintColor = UIColor.black
+        settingButton.tintColor = UIColor.black
+        
         self.tableview.delegate = self
         self.tableview.dataSource =  self
         self.tableview.register(Shopcell.self, forCellReuseIdentifier: Shopcell.identifier)
@@ -80,7 +96,7 @@ class ShopVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         let listTitle = UILabel()
         let bossTitle = UILabel()
         
-        csview.backgroundColor = UIColor.systemGray5
+        csview.backgroundColor = UIColor.white
         
         listTitle.frame = CGRect(x: 20, y: 0, width: self.view.frame.width / 2, height: 30)
         listTitle.font = UIFont.init(name: "Chalkboard SE", size: 20)
@@ -103,8 +119,13 @@ class ShopVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         return 35
     }
     
+    //MARK: 서치바 메소드
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let text = searchController.searchBar.text else { return }
+    }
+    
     //MARK: 액션 메소드
-    @objc func addShop(_ sender: UIButton){
+    @objc func addShop(_ sender: Any){
   
         if appDelegate.jobInfo == "0" {
             let uv = self.storyboard?.instantiateViewController(withIdentifier: "ShopAddVC")
@@ -145,48 +166,21 @@ class ShopVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         self.tableview.refreshControl?.endRefreshing()
     }
     
-    /*@objc func goSetting(_ sender: UIButton){
+    @objc func goSetting(_ sender: Any){
         let actionsheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
       
-    } */
+    }
     
     //MARK: 메소드
     func uiDeployment(){
-        //타이틀 UI
-        self.titleLabel.frame = CGRect(x: 20, y: 60, width: 80, height: 40)
-        self.titleLabel.text = "Shop"
-        self.titleLabel.textColor = UIColor.black
-        self.titleLabel.font = UIFont.init(name: "Chalkboard SE", size: 25)
-        
-        self.view.addSubview(self.titleLabel)
-        
-        //매장 추가 버튼 UI
-        self.addButton.frame = CGRect(x: 305, y: 65, width: 40, height: 40)
-        self.addButton.setImage(UIImage(systemName: "plus"), for: .normal)
-        self.addButton.tintColor = UIColor.black
-     
-        self.addButton.addTarget(self, action: #selector(addShop(_:)), for: .touchUpInside)
-        
-
-        self.view.addSubview(self.addButton)
-        
-        //설정 버튼 UI
-        self.settingButton.frame = CGRect(x: 340, y: 65, width: 40, height: 40)
-        self.settingButton.setImage(UIImage(systemName: "gearshape"), for: .normal)
-        
-        self.settingButton.tintColor = UIColor.black
-        
-        self.view.addSubview(self.settingButton)
-        
-        //서치 바 UI
-        self.searchBar.frame = CGRect(x: 0, y: 105, width: self.view.frame.width, height: 45)
-        self.searchBar.placeholder = "매장 검색"
-        
-        self.view.addSubview(self.searchBar)
+        //서치바 UI
+        self.searchBarController.searchBar.placeholder = "회사명을 입력해주세요."
+        self.searchBarController.obscuresBackgroundDuringPresentation = false
+        self.searchBarController.searchResultsUpdater = self
         
         //테이블 뷰 UI
-        self.tableview.frame = CGRect(x: 0, y: 150, width: self.view.frame.width, height: 604)
-        self.tableview.backgroundColor = UIColor.systemGray5
+        self.tableview.frame = CGRect(x: 0, y:  self.navigationController!.navigationBar.frame.height, width: self.view.frame.width, height: 658)
+        self.tableview.backgroundColor = UIColor.white
         
         self.view.addSubview(tableview)
         

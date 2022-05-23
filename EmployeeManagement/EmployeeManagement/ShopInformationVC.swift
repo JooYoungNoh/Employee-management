@@ -38,6 +38,7 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.isNavigationBarHidden = true
         uiDeployment()
         
         self.db.collection("shop").document("\(self.companyOnTable!)").getDocument { (snapshot, error) in
@@ -88,6 +89,7 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
     
     //MARK: 액션 메소드
     @objc func doclose(_ sender: UIButton){
+        self.navigationController?.isNavigationBarHidden = false
         self.navigationController?.popViewController(animated: true)
     }
     

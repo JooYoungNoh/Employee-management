@@ -186,10 +186,11 @@
         <!--Item-->
         <scene sceneID="woX-aG-iD9">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="9zW-Jd-fIv" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="9zW-Jd-fIv" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="VBh-oG-QMk"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Mcz-lQ-ujP">
+                        <rect key="frame" x="0.0" y="44" width="390" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
