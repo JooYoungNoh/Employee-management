@@ -128,6 +128,7 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
                                         "name" : "\(self.appDelegate.nameInfo!)"
                                     ])
                                 
+                                    self.navigationController?.isNavigationBarHidden = false
                                     self.navigationController?.popViewController(animated: true)
                                 
                                 })
@@ -221,6 +222,7 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
                             self.deleteImage()
                         }
                         
+                        self.navigationController?.isNavigationBarHidden = false
                         self.navigationController?.popViewController(animated: true)
                     } else {
                         let alert1 = UIAlertController(title: "입력이 정확하지않습니다.", message: "다시 시도해주세요.", preferredStyle: .alert)

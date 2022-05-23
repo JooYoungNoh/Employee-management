@@ -8,10 +8,27 @@
 import UIKit
 import FirebaseFirestore
 
+struct List{
+    var name: String
+    var businessType: String
+    var company: String
+    var phone: String
+    var img: Bool
+    var employeeCount: Int
+}
+
 class ShopVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating, UISearchBarDelegate {
+                    //업종, 회사명,사원수, 이미지 여부, 사장이름, 전화번호
+    var shopList = [List]()
     
-    var shopListName = [String]()
-    var shopListBoss = [String]()
+    var dataList = [List]()
+    
+    var isFiltering: Bool{
+        let searchController = self.navigationItem.searchController
+        let isActive = searchController?.isActive ?? false
+        let isSearchBarHasText = searchController?.searchBar.text?.isEmpty == false
+        return isActive && isSearchBarHasText
+    }
     
     let db = Firestore.firestore()
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -48,10 +65,16 @@ class ShopVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISe
         self.db.collection("shop").getDocuments { (snapshot, error) in
             if error == nil && snapshot != nil {
                 for doc in snapshot!.documents{
-                    self.shopListName.append(doc.data()["company"] as! String)
-                    self.shopListBoss.append(doc.data()["name"] as! String)
+                    self.shopList.append( List.init(
+                        name: doc.data()["name"] as! String,
+                        businessType: doc.data()["businessType"] as! String,
+                        company: doc.data()["company"] as! String,
+                        phone: doc.data()["phone"] as! String,
+                        img: doc.data()["img"] as! Bool,
+                        employeeCount: doc.data()["employeeCount"] as! Int))
                 }
                 self.uiDeployment()
+                print(self.shopList)
                 
             } else {
                 print(error!.localizedDescription)
@@ -63,11 +86,16 @@ class ShopVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISe
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: Shopcell.identifier, for: indexPath) as? Shopcell else { return  UITableViewCell() }
         
-        let shopName = self.shopListName[indexPath.row]
-        let shopBoss = self.shopListBoss[indexPath.row]
+        let shopName = self.shopList[indexPath.row].company
+        let shopBoss = self.shopList[indexPath.row].name
         
-        cell.nameLabel.text = shopName
-        cell.bossLabel.text = shopBoss
+        if self.isFiltering == false {
+            cell.nameLabel.text = shopName
+            cell.bossLabel.text = shopBoss
+        } else {
+            cell.nameLabel.text = self.dataList[indexPath.row].company
+            cell.bossLabel.text = self.dataList[indexPath.row].name
+        }
         
         cell.accessoryType = .disclosureIndicator
         
@@ -76,7 +104,7 @@ class ShopVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISe
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //전달할 내용
-        let companyName = self.shopListName[indexPath.row]
+        let companyName = self.shopList[indexPath.row].company
         
         //이동할 화면
         let nv = self.storyboard?.instantiateViewController(withIdentifier: "ShopInformationVC") as! ShopInformationVC
@@ -88,7 +116,7 @@ class ShopVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISe
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.shopListName.count
+        return self.isFiltering ? self.dataList.count : self.shopList.count
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -122,6 +150,12 @@ class ShopVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISe
     //MARK: 서치바 메소드
     func updateSearchResults(for searchController: UISearchController) {
         guard let text = searchController.searchBar.text else { return }
+        
+        self.dataList = self.shopList.filter( { (list: List) -> Bool in
+            return list.company.lowercased().contains(text.lowercased())
+        })
+        
+        self.tableview.reloadData()
     }
     
     //MARK: 액션 메소드
@@ -145,15 +179,19 @@ class ShopVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISe
     
     //새로고침 메소드
     @objc func pullToRefresh(_ sender: Any){
-        self.shopListName = []
-        self.shopListBoss = []
+        self.shopList = []
         
         //새로고침 시 갱신되어야 할 내용들
         self.db.collection("shop").getDocuments { (snapshot, error) in
             if error == nil && snapshot != nil {
                 for doc in snapshot!.documents{
-                    self.shopListName.append(doc.data()["company"] as! String)
-                    self.shopListBoss.append(doc.data()["name"] as! String)
+                    self.shopList.append( List.init(
+                        name: doc.data()["name"] as! String,
+                        businessType: doc.data()["businessType"] as! String,
+                        company: doc.data()["company"] as! String,
+                        phone: doc.data()["phone"] as! String,
+                        img: doc.data()["img"] as! Bool,
+                        employeeCount: doc.data()["employeeCount"] as! Int))
                 }
                 self.tableview.reloadData()
                 
