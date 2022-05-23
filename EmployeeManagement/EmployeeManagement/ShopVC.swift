@@ -103,14 +103,26 @@ class ShopVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISe
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //전달할 내용
-        let companyName = self.shopList[indexPath.row].company
-        
         //이동할 화면
         let nv = self.storyboard?.instantiateViewController(withIdentifier: "ShopInformationVC") as! ShopInformationVC
         
-        nv.companyOnTable = companyName
-        
+        //전달할 내용
+        if self.isFiltering == false{
+            nv.companyOnTable = self.shopList[indexPath.row].company
+            nv.nameOnTable = self.shopList[indexPath.row].name
+            nv.businessTypeOnTable = self.shopList[indexPath.row].businessType
+            nv.phoneOnTable = self.shopList[indexPath.row].phone
+            nv.imgOnTable = self.shopList[indexPath.row].img
+            nv.employeeCountOnTable = self.shopList[indexPath.row].employeeCount
+        } else {
+            nv.companyOnTable = self.dataList[indexPath.row].company
+            nv.nameOnTable = self.dataList[indexPath.row].name
+            nv.businessTypeOnTable = self.dataList[indexPath.row].businessType
+            nv.phoneOnTable = self.dataList[indexPath.row].phone
+            nv.imgOnTable = self.dataList[indexPath.row].img
+            nv.employeeCountOnTable = self.dataList[indexPath.row].employeeCount
+        }
+
         self.navigationController?.pushViewController(nv, animated: true)
 
     }

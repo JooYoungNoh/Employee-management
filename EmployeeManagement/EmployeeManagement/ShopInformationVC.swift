@@ -16,6 +16,12 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
     let storage = Storage.storage()
     
     var companyOnTable: String!
+    var nameOnTable: String!
+    var businessTypeOnTable: String!
+    var phoneOnTable: String!
+    var employeeCountOnTable: Int!
+    var imgOnTable: Bool!
+    
     var dbResultPhone: String!
     var dbResultImage: UIImage!
     
@@ -41,26 +47,18 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
         self.navigationController?.isNavigationBarHidden = true
         uiDeployment()
         
-        self.db.collection("shop").document("\(self.companyOnTable!)").getDocument { (snapshot, error) in
-            if error == nil && snapshot != nil {
-                self.companyName.text = self.companyOnTable
-                self.ceoNameLabel.text = snapshot?.data()?["name"] as? String
-                self.ceoPhoneLabel.text = snapshot?.data()?["phone"] as? String
-                self.businessType.text = snapshot?.data()?["businessType"] as? String
-                self.employeeNumber.text = "\(snapshot?.data()?["employeeCount"] as! Int)명"
-                
-                if (snapshot?.data()?["img"] as? Bool) == true {
-                    self.downloadimage(imgview: self.logoImage)
-                    self.imgExistence = true
-                } else {
-                    self.downloadNilimage(imgview: self.logoImage)
-                    self.imgExistence = false
-                }
-                
-            } else {
-                print(error!.localizedDescription)
-            }
-            
+        self.companyName.text = self.companyOnTable!
+        self.ceoNameLabel.text = self.nameOnTable!
+        self.ceoPhoneLabel.text = self.phoneOnTable!
+        self.businessType.text = self.businessTypeOnTable!
+        self.employeeNumber.text = "\(self.employeeCountOnTable!)명"
+        
+        if self.imgOnTable == true {
+            self.downloadimage(imgview: self.logoImage)
+            self.imgExistence = true
+        } else {
+            self.downloadNilimage(imgview: self.logoImage)
+            self.imgExistence = false
         }
     }
     //MARK: 이미지 피커 메소드
