@@ -57,7 +57,7 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
             self.downloadimage(imgview: self.logoImage)
             self.imgExistence = true
         } else {
-            self.downloadNilimage(imgview: self.logoImage)
+            self.logoImage.image = UIImage(named: "logonil")
             self.imgExistence = false
         }
     }
@@ -314,20 +314,6 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
                 let image = UIImage(data: data! as Data)
                 
                 self.dbResultImage = image
-                imgview.image = image
-            } else {
-                print(error!.localizedDescription)
-            }
-        }
-    }
-    
-    //이미지 없을 때 다운로드 메소드
-    func downloadNilimage(imgview: UIImageView){
-        storage.reference(forURL: "gs://employeemanagement-9d6eb.appspot.com/logonil.png").downloadURL { (url, error) in
-            if error == nil && url != nil {
-                let data = NSData(contentsOf: url!)
-                let image = UIImage(data: data! as Data)
-                
                 imgview.image = image
             } else {
                 print(error!.localizedDescription)
