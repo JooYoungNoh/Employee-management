@@ -47,7 +47,6 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
         //내비게이션 UI
         self.navigationItem.title = "Information"
         self.navigationController?.navigationBar.tintColor = UIColor.black
-        self.navigationController?.navigationBar.prefersLargeTitles = false
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font : UIFont(name: "Chalkboard SE", size: 20)!]
         
         let editButton = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(doEdit(_:)))
@@ -75,6 +74,12 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
         self.employeeNumber.text = "\(self.employeeCountOnTable!)명"
 
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.prefersLargeTitles = false
+    }
+    
     //MARK: 이미지 피커 메소드
     // 이미지를 가져올 장소(?) 카메라 앨범 등 선택 메소드
     func imgPicker(_ source: UIImagePickerController.SourceType){

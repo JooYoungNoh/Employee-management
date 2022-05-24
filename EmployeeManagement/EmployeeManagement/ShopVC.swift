@@ -43,12 +43,12 @@ class ShopVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISe
         
         //내비게이션 아이템 UI
         self.navigationItem.title = "Shop"
-        self.navigationController?.navigationBar.prefersLargeTitles = true
         self.navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.font : UIFont(name: "Chalkboard SE", size: 30)!]
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font : UIFont(name: "Chalkboard SE", size: 20)!]
         self.navigationItem.largeTitleDisplayMode = .always
         self.navigationItem.hidesSearchBarWhenScrolling = false
         self.navigationItem.searchController = self.searchBarController
+        
         //바 버튼 아이템 UI
         let settingButton = UIBarButtonItem(image: UIImage(systemName: "gearshape"), style: .plain, target: self, action: #selector(goSetting(_:)))
         let addButton = UIBarButtonItem.init(barButtonSystemItem: .add, target: self, action: #selector(addShop(_:)))
@@ -66,6 +66,7 @@ class ShopVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISe
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.prefersLargeTitles = true
         
         self.db.collection("shop").getDocuments { (snapshot, error) in
             if error == nil && snapshot != nil {
@@ -85,6 +86,7 @@ class ShopVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISe
             }
         }
     }
+    
     //MARK: 테이블 뷰 메소드
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: Shopcell.identifier, for: indexPath) as? Shopcell else { return  UITableViewCell() }
