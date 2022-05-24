@@ -47,7 +47,7 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
         //내비게이션 UI
         self.navigationItem.title = "Information"
         self.navigationController?.navigationBar.tintColor = UIColor.black
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font : UIFont(name: "Chalkboard SE", size: 20)!]
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font : UIFont(name: "CookieRun", size: 20)!]
         
         let editButton = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(doEdit(_:)))
         
@@ -211,7 +211,7 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
                 
                 alert.addTextField(){ (tf) in
                     tf.placeholder = "Write 'Delete'"
-                    tf.font = UIFont(name: "Chalkboard SE", size: 16)
+                    tf.font = UIFont(name: "CookieRun", size: 16)
                     tf.textColor = UIColor.red
                 }
                 
@@ -358,17 +358,15 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
         
         //회사명 UI
         self.companyName.frame = CGRect(x: 160, y: self.view.frame.height / 2 - 90, width: 190, height: 50)
-        
-        //self.companyName.text = "네이버"
-        //self.companyName.textAlignment = .right
-        self.companyName.font = UIFont.init(name: "Chalkboard SE", size: 30)
+
+        self.companyName.font = UIFont.init(name: "CookieRun", size: 30)
         
         self.view.addSubview(self.companyName)
         
         //대표자 레이블 UI
         self.ceoNameLabel.frame = CGRect(x: 160, y: self.view.frame.height / 2 - 10, width: 190, height: 40)
        // self.ceoNameLabel.text = "CEO 노주영"
-        self.ceoNameLabel.font = UIFont.init(name: "Chalkboard SE", size: 25)
+        self.ceoNameLabel.font = UIFont.init(name: "CookieRun", size: 25)
         self.ceoNameLabel.textAlignment = .right
         
         
@@ -377,7 +375,7 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
         //전화번호 레이블 UI
         self.ceoPhoneLabel.frame = CGRect(x: 160, y: self.view.frame.height / 2 + 35, width: 190, height: 20)
       //  self.ceoPhoneLabel.text = "01011111111"
-        self.ceoPhoneLabel.font = UIFont.init(name: "Chalkboard SE", size: 15)
+        self.ceoPhoneLabel.font = UIFont.init(name: "CookieRun", size: 15)
         self.ceoPhoneLabel.textAlignment = .right
         
         self.view.addSubview(self.ceoPhoneLabel)
@@ -386,7 +384,7 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
         self.businessType.frame = CGRect(x: 140, y: self.view.frame.height / 2 + 50, width: 170, height: 30)
       //  self.businessType.text = "서비스업"
         self.businessType.textAlignment = .right
-        self.businessType.font = UIFont.init(name: "Chalkboard SE", size: 15)
+        self.businessType.font = UIFont.init(name: "CookieRun", size: 15)
         
         self.view.addSubview(self.businessType)
         
@@ -395,7 +393,7 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
         
        // self.employeeNumber.text = "1명"
         self.employeeNumber.textAlignment = .right
-        self.employeeNumber.font = UIFont.init(name: "Chalkboard SE", size: 15)
+        self.employeeNumber.font = UIFont.init(name: "CookieRun", size: 15)
         
         self.view.addSubview(self.employeeNumber)
 
@@ -403,7 +401,7 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
         self.requestButton.frame = CGRect(x: self.view.frame.width / 2 - 60, y: self.view.frame.height / 2 + 130, width: 120, height: 40)
         self.requestButton.setTitle("Request Join", for: .normal)
         self.requestButton.setTitleColor(UIColor.black, for: .normal)
-        self.requestButton.titleLabel?.font = UIFont.init(name: "Chalkboard SE", size: 16)
+        self.requestButton.titleLabel?.font = UIFont.init(name: "CookieRun", size: 16)
         self.requestButton.alpha = 0.7
         
         self.requestButton.layer.cornerRadius = 3
@@ -419,7 +417,7 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
         
         self.saveButton.setTitle("Save", for: .normal)
         saveButton.setTitleColor(UIColor.black, for: .normal)
-        self.saveButton.titleLabel?.font = UIFont.init(name: "Chalkboard SE", size: 16)
+        self.saveButton.titleLabel?.font = UIFont.init(name: "CookieRun", size: 16)
         self.saveButton.isHidden = true
         self.saveButton.alpha = 0.7
         

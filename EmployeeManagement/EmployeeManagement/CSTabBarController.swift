@@ -129,7 +129,7 @@ class CSTabBarController: UITabBarController{
         //리스트 레이블
         self.listLabel.frame = CGRect(x: 30, y: 50, width: 50, height: 20)
         self.listLabel.text = "employees"
-        self.listLabel.font = UIFont.init(name: "Chalkboard SE", size: 10)
+        self.listLabel.font = UIFont.init(name: "CookieRun", size: 9)
         self.listLabel.textAlignment = .center
         
         self.csView.addSubview(self.listLabel)
@@ -137,7 +137,7 @@ class CSTabBarController: UITabBarController{
         //채팅 레이블
         self.chattingLabel.frame = CGRect(x: 105, y: 50, width: 40, height: 20)
         self.chattingLabel.text = "chatting"
-        self.chattingLabel.font = UIFont.init(name: "Chalkboard SE", size: 10)
+        self.chattingLabel.font = UIFont.init(name: "CookieRun", size: 9)
         self.chattingLabel.textAlignment = .center
         
         self.csView.addSubview(self.chattingLabel)
@@ -145,7 +145,7 @@ class CSTabBarController: UITabBarController{
         //스케줄 레이블
         self.scheduleLabel.frame = CGRect(x: 175, y: 50, width: 40, height: 20)
         self.scheduleLabel.text = "schedule"
-        self.scheduleLabel.font = UIFont.init(name: "Chalkboard SE", size: 10)
+        self.scheduleLabel.font = UIFont.init(name: "CookieRun", size: 9)
         self.chattingLabel.textAlignment = .center
         
         self.csView.addSubview(self.scheduleLabel)
@@ -153,7 +153,7 @@ class CSTabBarController: UITabBarController{
         //매장 레이블
         self.shopLabel.frame = CGRect(x: 245, y: 50, width: 40, height: 20)
         self.shopLabel.text = "shop"
-        self.shopLabel.font = UIFont.init(name: "Chalkboard SE", size: 10)
+        self.shopLabel.font = UIFont.init(name: "CookieRun", size: 10)
         self.shopLabel.textAlignment = .center
         
         self.csView.addSubview(self.shopLabel)
@@ -161,7 +161,7 @@ class CSTabBarController: UITabBarController{
         //레시피 레이블
         self.transitionLabel.frame = CGRect(x: 315, y: 50, width: 40, height: 20)
         self.transitionLabel.text = "recipe"
-        self.transitionLabel.font = UIFont.init(name: "Chalkboard SE", size: 10)
+        self.transitionLabel.font = UIFont.init(name: "CookieRun", size: 10)
         self.transitionLabel.textAlignment = .center
         
         self.csView.addSubview(self.transitionLabel)

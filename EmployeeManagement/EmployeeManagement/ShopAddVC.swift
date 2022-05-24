@@ -240,11 +240,11 @@ class ShopAddVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         //닫기 버튼 UI
         let closeButton = UIButton()
         
-        closeButton.frame = CGRect(x: 20, y: 50, width: 50, height: 40)
+        closeButton.frame = CGRect(x: 20, y: 50, width: 80, height: 40)
         
         closeButton.setTitle("Close", for: .normal)
         closeButton.setTitleColor(UIColor.black, for: .normal)
-        closeButton.titleLabel?.font = UIFont.init(name: "Chalkboard SE", size: 20)
+        closeButton.titleLabel?.font = UIFont.init(name: "CookieRun", size: 20)
         
         closeButton.addTarget(self, action: #selector(doclose(_:)), for: .touchUpInside)
         
@@ -256,7 +256,7 @@ class ShopAddVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         uiTitle.frame = CGRect(x: self.view.frame.width / 2 - 100, y: 230, width: 200, height: 50)
         
         uiTitle.text = "Create Company"
-        uiTitle.font = UIFont.init(name: "Chalkboard SE", size: 25)
+        uiTitle.font = UIFont.init(name: "CookieRun", size: 25)
         uiTitle.textColor = UIColor.black
         
         self.view.addSubview(uiTitle)
@@ -283,7 +283,7 @@ class ShopAddVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         //회사명 텍스트 필드 UI
         self.companyTextfield.frame = CGRect(x: 160, y: self.view.frame.height / 2 - 80, width: 190, height: 30)
         self.companyTextfield.placeholder = "Company"
-        self.companyTextfield.font = UIFont.init(name: "Chalkboard SE", size: 14)
+        self.companyTextfield.font = UIFont.init(name: "CookieRun", size: 14)
         
         self.companyTextfield.layer.borderWidth = 1
         self.companyTextfield.layer.borderColor = UIColor.systemGray2.cgColor
@@ -294,7 +294,7 @@ class ShopAddVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         //대표자 레이블 UI
         self.ceoNameLabel.frame = CGRect(x: 160, y: self.view.frame.height / 2 - 40, width: 190, height: 30)
         self.ceoNameLabel.text = " \(self.appDelegate.nameInfo!)"
-        self.ceoNameLabel.font = UIFont.init(name: "Chalkboard SE", size: 14)
+        self.ceoNameLabel.font = UIFont.init(name: "CookieRun", size: 14)
         
         self.ceoNameLabel.layer.borderWidth = 1
         self.ceoNameLabel.layer.borderColor = UIColor.systemGray2.cgColor
@@ -304,7 +304,7 @@ class ShopAddVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         //대표자 레이블 UI
         self.ceoPhoneLabel.frame = CGRect(x: 160, y: self.view.frame.height / 2, width: 190, height: 30)
         self.ceoPhoneLabel.text = " \(self.appDelegate.phoneInfo!)"
-        self.ceoPhoneLabel.font = UIFont.init(name: "Chalkboard SE", size: 14)
+        self.ceoPhoneLabel.font = UIFont.init(name: "CookieRun", size: 14)
         
         self.ceoPhoneLabel.layer.borderWidth = 1
         self.ceoPhoneLabel.layer.borderColor = UIColor.systemGray2.cgColor
@@ -314,7 +314,7 @@ class ShopAddVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         //업종 레이블 UI
         self.businessType.frame = CGRect(x: 160, y: self.view.frame.height / 2 + 40, width: 140, height: 30)
         self.businessType.text = " Select businessType"
-        self.businessType.font = UIFont.init(name: "Chalkboard SE", size: 14)
+        self.businessType.font = UIFont.init(name: "CookieRun", size: 13)
         self.businessType.alpha = 0.7
         
         self.businessType.layer.borderWidth = 1
@@ -326,7 +326,7 @@ class ShopAddVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         self.businessButton.frame = CGRect(x: 310, y: self.view.frame.height / 2 + 40, width: 40, height: 30)
         self.businessButton.setTitle("선택", for: .normal)
         self.businessButton.setTitleColor(UIColor.black, for: .normal)
-        self.businessButton.titleLabel?.font = UIFont.init(name: "Chalkboard SE", size: 14)
+        self.businessButton.titleLabel?.font = UIFont.init(name: "CookieRun", size: 14)
         
         self.businessButton.layer.cornerRadius = 5
         self.businessButton.layer.borderColor = UIColor.systemGray2.cgColor
@@ -340,7 +340,7 @@ class ShopAddVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         self.registerButton.frame = CGRect(x: self.view.frame.width / 2 - 60, y: self.view.frame.height / 2 + 130, width: 120, height: 40)
         self.registerButton.setTitle("register", for: .normal)
         self.registerButton.setTitleColor(UIColor.black, for: .normal)
-        self.registerButton.titleLabel?.font = UIFont.init(name: "Chalkboard SE", size: 16)
+        self.registerButton.titleLabel?.font = UIFont.init(name: "CookieRun", size: 16)
         self.registerButton.alpha = 0.7
         
         self.registerButton.layer.cornerRadius = 3

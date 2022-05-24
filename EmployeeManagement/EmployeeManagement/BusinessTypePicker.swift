@@ -46,7 +46,7 @@ class BusinessTypePicker: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         var titleView = view as? UILabel
         if titleView == nil {
             titleView = UILabel()
-            titleView?.font = UIFont.init(name: "Chalkboard SE", size: 14)
+            titleView?.font = UIFont.init(name: "CookieRun", size: 14)
             titleView?.textAlignment = .center
         }
         titleView?.text = "\(self.questionList[row].1)"

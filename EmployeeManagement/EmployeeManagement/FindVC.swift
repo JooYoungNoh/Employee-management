@@ -211,11 +211,11 @@ class FindVC: UIViewController, UITextFieldDelegate {
         //닫기 버튼
         let closeButton = UIButton()
         
-        closeButton.frame = CGRect(x: 20, y: 50, width: 50, height: 40)
+        closeButton.frame = CGRect(x: 20, y: 50, width: 80, height: 40)
         
         closeButton.setTitle("Close", for: .normal)
         closeButton.setTitleColor(UIColor.black, for: .normal)
-        closeButton.titleLabel?.font = UIFont.init(name: "Chalkboard SE", size: 20)
+        closeButton.titleLabel?.font = UIFont.init(name: "CookieRun", size: 20)
         
         closeButton.addTarget(self, action: #selector(doclose(_:)), for: .touchUpInside)
         
@@ -227,7 +227,7 @@ class FindVC: UIViewController, UITextFieldDelegate {
         findID.frame = CGRect(x: self.view.frame.width/2 - 80, y: 90, width: 160, height: 50)
         findID.text = "Find ID"
         findID.textColor = UIColor.black
-        findID.font = UIFont.init(name: "Chalkboard SE", size: 30)
+        findID.font = UIFont.init(name: "CookieRun", size: 30)
         findID.textAlignment = .center
         
         self.view.addSubview(findID)
@@ -241,7 +241,7 @@ class FindVC: UIViewController, UITextFieldDelegate {
         nameTextField.borderStyle = .roundedRect
         nameTextField.layer.borderWidth = 1
         nameTextField.layer.borderColor = UIColor.systemGray2.cgColor
-        nameTextField.font = UIFont.init(name: "Chalkboard SE", size: 15)
+        nameTextField.font = UIFont.init(name: "CookieRun", size: 15)
         
         self.view.addSubview(nameImage)
         self.view.addSubview(nameTextField)
@@ -256,7 +256,7 @@ class FindVC: UIViewController, UITextFieldDelegate {
         birthTextField.borderStyle = .roundedRect
         birthTextField.layer.borderWidth = 1
         birthTextField.layer.borderColor = UIColor.systemGray2.cgColor
-        birthTextField.font = UIFont.init(name: "Chalkboard SE", size: 15)
+        birthTextField.font = UIFont.init(name: "CookieRun", size: 15)
         
         self.view.addSubview(birthImage)
         self.view.addSubview(birthTextField)
@@ -271,7 +271,7 @@ class FindVC: UIViewController, UITextFieldDelegate {
         phoneTextField.borderStyle = .roundedRect
         phoneTextField.layer.borderWidth = 1
         phoneTextField.layer.borderColor = UIColor.systemGray2.cgColor
-        phoneTextField.font = UIFont.init(name: "Chalkboard SE", size: 15)
+        phoneTextField.font = UIFont.init(name: "CookieRun", size: 15)
         
         self.view.addSubview(phoneImage)
         self.view.addSubview(phoneTextField)
@@ -283,7 +283,7 @@ class FindVC: UIViewController, UITextFieldDelegate {
         
         findIdButton.setTitle("Find", for: .normal)
         findIdButton.setTitleColor(UIColor.black, for: .normal)
-        findIdButton.titleLabel?.font = UIFont.init(name: "Chalkboard SE", size: 15)
+        findIdButton.titleLabel?.font = UIFont.init(name: "CookieRun", size: 15)
         findIdButton.alpha = 0.7
         
         findIdButton.layer.cornerRadius = 5
@@ -305,7 +305,7 @@ class FindVC: UIViewController, UITextFieldDelegate {
         
         findPW.text = "Find Password"
         findPW.textColor = UIColor.black
-        findPW.font = UIFont.init(name: "Chalkboard SE", size: 30)
+        findPW.font = UIFont.init(name: "CookieRun", size: 30)
         findPW.textAlignment = .center
         
         self.view.addSubview(findPW)
@@ -319,7 +319,7 @@ class FindVC: UIViewController, UITextFieldDelegate {
         idTextField.borderStyle = .roundedRect
         idTextField.layer.borderWidth = 1
         idTextField.layer.borderColor = UIColor.systemGray2.cgColor
-        idTextField.font = UIFont.init(name: "Chalkboard SE", size: 15)
+        idTextField.font = UIFont.init(name: "CookieRun", size: 15)
         
         self.view.addSubview(idImage)
         self.view.addSubview(idTextField)
@@ -335,7 +335,7 @@ class FindVC: UIViewController, UITextFieldDelegate {
         pwLabel.frame = CGRect(x: 110, y: 445, width: 150, height: 30)
         pwLabel.text = " Password Question"
         pwLabel.textColor = UIColor.systemGray2
-        pwLabel.font = UIFont.init(name: "Chalkboard SE", size: 14)
+        pwLabel.font = UIFont.init(name: "CookieRun", size: 14)
         
         pwLabel.layer.borderWidth = 1
         pwLabel.layer.borderColor = UIColor.systemGray2.cgColor
@@ -345,7 +345,7 @@ class FindVC: UIViewController, UITextFieldDelegate {
         
         pwButton.setTitle("선택", for: .normal)
         pwButton.setTitleColor(UIColor.black, for: .normal)
-        pwButton.titleLabel?.font = UIFont.init(name: "Chalkboard SE", size: 15)
+        pwButton.titleLabel?.font = UIFont.init(name: "CookieRun", size: 15)
         pwButton.alpha = 0.7
         
         pwButton.layer.cornerRadius = 5
@@ -367,7 +367,7 @@ class FindVC: UIViewController, UITextFieldDelegate {
         pwAnswerTextField.borderStyle = .roundedRect
         pwAnswerTextField.layer.borderWidth = 1
         pwAnswerTextField.layer.borderColor = UIColor.systemGray2.cgColor
-        pwAnswerTextField.font = UIFont.init(name: "Chalkboard SE", size: 15)
+        pwAnswerTextField.font = UIFont.init(name: "CookieRun", size: 14)
         
         self.view.addSubview(pwAnswerImage)
         self.view.addSubview(pwAnswerTextField)
@@ -379,7 +379,7 @@ class FindVC: UIViewController, UITextFieldDelegate {
         
         findpwButton.setTitle("Find", for: .normal)
         findpwButton.setTitleColor(UIColor.black, for: .normal)
-        findpwButton.titleLabel?.font = UIFont.init(name: "Chalkboard SE", size: 15)
+        findpwButton.titleLabel?.font = UIFont.init(name: "CookieRun", size: 15)
         findpwButton.alpha = 0.7
         
         findpwButton.layer.cornerRadius = 5

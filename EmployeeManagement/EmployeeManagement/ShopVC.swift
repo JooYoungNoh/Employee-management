@@ -43,8 +43,8 @@ class ShopVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISe
         
         //내비게이션 아이템 UI
         self.navigationItem.title = "Shop"
-        self.navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.font : UIFont(name: "Chalkboard SE", size: 30)!]
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font : UIFont(name: "Chalkboard SE", size: 20)!]
+        self.navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.font : UIFont(name: "CookieRun", size: 30)!]
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font : UIFont(name: "CookieRun", size: 20)!]
         self.navigationItem.largeTitleDisplayMode = .always
         self.navigationItem.hidesSearchBarWhenScrolling = false
         self.navigationItem.searchController = self.searchBarController
@@ -147,12 +147,12 @@ class ShopVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISe
         csview.backgroundColor = UIColor.white
         
         listTitle.frame = CGRect(x: 20, y: 0, width: self.view.frame.width / 2, height: 30)
-        listTitle.font = UIFont.init(name: "Chalkboard SE", size: 20)
+        listTitle.font = UIFont.init(name: "CookieRun", size: 20)
         listTitle.text = "Company"
         listTitle.textColor = UIColor.blue
         
         bossTitle.frame = CGRect(x: self.view.frame.width / 2 + 20, y: 0, width: 128, height: 30)
-        bossTitle.font = UIFont.init(name: "Chalkboard SE", size: 20)
+        bossTitle.font = UIFont.init(name: "CookieRun", size: 20)
         bossTitle.text = "CEO"
         bossTitle.textColor = UIColor.blue
         bossTitle.textAlignment = .right

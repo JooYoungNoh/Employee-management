@@ -133,7 +133,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         idTextField.frame = CGRect(x: 120, y: 350, width: 180, height: 30)
         idTextField.placeholder = "Id"
         idTextField.borderStyle = .roundedRect
-        idTextField.font = UIFont.init(name: "Chalkboard SE", size: 15)
+        idTextField.font = UIFont.init(name: "CookieRun", size: 15)
         
         self.view.addSubview(idImage)
         self.view.addSubview(idTextField)
@@ -145,7 +145,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         pwTextField.frame = CGRect(x: 120, y: 400, width: 180, height: 30)
         pwTextField.placeholder = "Password"
         pwTextField.borderStyle = .roundedRect
-        pwTextField.font = UIFont.init(name: "Chalkboard SE", size: 15)
+        pwTextField.font = UIFont.init(name: "CookieRun", size: 15)
         
         self.view.addSubview(pwImage)
         self.view.addSubview(pwTextField)
@@ -155,7 +155,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         
         login.setTitle("Login", for: .normal)
         login.setTitleColor(UIColor.black, for: .normal)
-        login.titleLabel?.font = UIFont.init(name: "Chalkboard SE", size: 16)
+        login.titleLabel?.font = UIFont.init(name: "CookieRun", size: 16)
         login.alpha = 0.7
         
         login.layer.cornerRadius = 3
@@ -172,7 +172,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         
         find.setTitle("Find ID/Find Password", for: .normal)
         find.setTitleColor(UIColor.black, for: .normal)
-        find.titleLabel?.font = UIFont.init(name: "Chalkboard SE", size: 13)
+        find.titleLabel?.font = UIFont.init(name: "CookieRun", size: 13)
         find.alpha = 0.7
         
         //MARK: 아이디 비번 찾기 버튼 이벤트
@@ -185,7 +185,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         
         signUP.setTitle("Sign Up", for: .normal)
         signUP.setTitleColor(UIColor.black, for: .normal)
-        signUP.titleLabel?.font = UIFont.init(name: "Chalkboard SE", size: 13)
+        signUP.titleLabel?.font = UIFont.init(name: "CookieRun", size: 13)
         signUP.alpha = 0.7
         
         //MARK: 회원가입 버튼 이벤트
