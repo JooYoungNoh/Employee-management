@@ -68,6 +68,9 @@ class ShopVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISe
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.prefersLargeTitles = true
         
+        self.shopList.removeAll()
+        self.dataList.removeAll()
+        
         self.db.collection("shop").getDocuments { (snapshot, error) in
             if error == nil && snapshot != nil {
                 for doc in snapshot!.documents{
