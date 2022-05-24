@@ -44,7 +44,20 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.isNavigationBarHidden = true
+        //내비게이션 UI
+        self.navigationItem.title = "Information"
+        self.navigationController?.navigationBar.tintColor = UIColor.black
+        self.navigationController?.navigationBar.prefersLargeTitles = false
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font : UIFont(name: "Chalkboard SE", size: 20)!]
+        
+        let editButton = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(doEdit(_:)))
+        
+        self.navigationItem.rightBarButtonItem = editButton
+        
+        self.navigationItem.backBarButtonItem?.tintColor = UIColor.black
+        editButton.tintColor = UIColor.black
+        
+        
         uiDeployment()
         
         if self.imgOnTable == true {
@@ -87,11 +100,6 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
     }
     
     //MARK: 액션 메소드
-    @objc func doclose(_ sender: UIButton){
-        self.navigationController?.isNavigationBarHidden = false
-        self.navigationController?.popViewController(animated: true)
-    }
-    
     @objc func doRequestJoin(_ sender: UIButton){
         
         let query = self.db.collection("shop").document("\(self.companyOnTable!)")
@@ -144,7 +152,7 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
         }
     }
     
-    @objc func doEdit(_ sender: UIButton){
+    @objc func doEdit(_ sender: UIBarButtonItem){
         if self.ceoPhoneLabel.text! == self.appDelegate.phoneInfo! {          //본인 회사
             let alert = UIAlertController(title: nil, message: "선택해주세요.", preferredStyle: .actionSheet)
             
@@ -221,7 +229,6 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
                             self.deleteImage()
                         }
                         
-                        self.navigationController?.isNavigationBarHidden = false
                         self.navigationController?.popViewController(animated: true)
                     } else {
                         let alert1 = UIAlertController(title: "입력이 정확하지않습니다.", message: "다시 시도해주세요.", preferredStyle: .alert)
@@ -230,21 +237,15 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
                         self.present(alert1, animated: true)
                     }
                 })
-                
                 alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-                
                 self.present(alert, animated: true)
             })
-            
             alert.addAction(UIAlertAction(title: "취소", style: .cancel))
-            
             self.present(alert, animated: true)
-
         } else {                                                       //남 회사
             let alert = UIAlertController(title: nil, message: "다른 사람의 회사는 변경할 수 없습니다.", preferredStyle: .alert)
             
             alert.addAction(UIAlertAction(title: "OK", style: .default))
-            
             self.present(alert, animated: true)
         }
     }
@@ -335,55 +336,6 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
     
     //MARK: 화면 메소드
     func uiDeployment(){
-        //닫기 버튼 UI
-        let backButton = UIButton()
-        
-        backButton.frame = CGRect(x: 20, y: 50, width: 60, height: 40)
-        
-        backButton.setTitle("< Back", for: .normal)
-        backButton.setTitleColor(UIColor.black, for: .normal)
-        backButton.titleLabel?.font = UIFont.init(name: "Chalkboard SE", size: 20)
-        
-        backButton.addTarget(self, action: #selector(doclose(_:)), for: .touchUpInside)
-        
-        self.view.addSubview(backButton)
-        
-        //저장 버튼 UI
-        self.saveButton.frame = CGRect(x: 260, y: 50, width: 60, height: 40)
-        
-        self.saveButton.setTitle("Save", for: .normal)
-        saveButton.setTitleColor(UIColor.black, for: .normal)
-        self.saveButton.titleLabel?.font = UIFont.init(name: "Chalkboard SE", size: 20)
-        self.saveButton.isHidden = true
-        
-        self.saveButton.addTarget(self, action: #selector(dosave(_:)), for: .touchUpInside)
-        
-        self.view.addSubview(self.saveButton)
-        
-        //편집 버튼 UI
-        let editButton = UIButton()
-        
-        editButton.frame = CGRect(x: 320, y: 50, width: 60, height: 40)
-        
-        editButton.setTitle("Edit", for: .normal)
-        editButton.setTitleColor(UIColor.black, for: .normal)
-        editButton.titleLabel?.font = UIFont.init(name: "Chalkboard SE", size: 20)
-        
-        editButton.addTarget(self, action: #selector(doEdit(_:)), for: .touchUpInside)
-        
-        self.view.addSubview(editButton)
-        
-        //화면 타이틀 UI
-        let uiTitle = UILabel()
-        
-        uiTitle.frame = CGRect(x: self.view.frame.width / 2 - 130, y: 230, width: 260, height: 50)
-        
-        uiTitle.text = "Company Information"
-        uiTitle.font = UIFont.init(name: "Chalkboard SE", size: 25)
-        uiTitle.textColor = UIColor.black
-        
-        self.view.addSubview(uiTitle)
-        
         //명함 배경 UI
         self.background.frame = CGRect(x: 20, y: self.view.frame.height / 2 - 100, width: 350, height: 200)
         self.background.backgroundColor = UIColor.white
@@ -456,6 +408,23 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
         self.requestButton.addTarget(self, action: #selector(doRequestJoin(_:)), for: .touchUpInside)
         
         self.view.addSubview(self.requestButton)
+        
+        //저장 버튼 UI
+        self.saveButton.frame = CGRect(x: self.view.frame.width / 2 - 60, y: self.view.frame.height / 2 + 180, width: 120, height: 40)
+        
+        self.saveButton.setTitle("Save", for: .normal)
+        saveButton.setTitleColor(UIColor.black, for: .normal)
+        self.saveButton.titleLabel?.font = UIFont.init(name: "Chalkboard SE", size: 16)
+        self.saveButton.isHidden = true
+        self.saveButton.alpha = 0.7
+        
+        self.saveButton.layer.cornerRadius = 3
+        self.saveButton.layer.borderColor = UIColor.systemGray.cgColor
+        self.saveButton.layer.borderWidth = 2
+        
+        self.saveButton.addTarget(self, action: #selector(dosave(_:)), for: .touchUpInside)
+        
+        self.view.addSubview(self.saveButton)
     }
 
 }

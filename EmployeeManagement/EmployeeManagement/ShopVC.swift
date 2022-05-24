@@ -62,6 +62,11 @@ class ShopVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISe
         self.tableview.dataSource =  self
         self.tableview.register(Shopcell.self, forCellReuseIdentifier: Shopcell.identifier)
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         self.db.collection("shop").getDocuments { (snapshot, error) in
             if error == nil && snapshot != nil {
                 for doc in snapshot!.documents{
@@ -74,14 +79,12 @@ class ShopVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISe
                         employeeCount: doc.data()["employeeCount"] as! Int))
                 }
                 self.uiDeployment()
-                print(self.shopList)
-                
+                self.tableview.reloadData()
             } else {
                 print(error!.localizedDescription)
             }
         }
     }
-    
     //MARK: 테이블 뷰 메소드
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: Shopcell.identifier, for: indexPath) as? Shopcell else { return  UITableViewCell() }
@@ -121,8 +124,8 @@ class ShopVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISe
             nv.phoneOnTable = self.dataList[indexPath.row].phone
             nv.imgOnTable = self.dataList[indexPath.row].img
             nv.employeeCountOnTable = self.dataList[indexPath.row].employeeCount
+            nv.navigationController?.isNavigationBarHidden = true
         }
-
         self.navigationController?.pushViewController(nv, animated: true)
 
     }
@@ -229,7 +232,7 @@ class ShopVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISe
         self.searchBarController.searchResultsUpdater = self
         
         //테이블 뷰 UI
-        self.tableview.frame = CGRect(x: 0, y:  self.navigationController!.navigationBar.frame.height, width: self.view.frame.width, height: 658)
+        self.tableview.frame = CGRect(x: 0, y:  self.navigationController!.navigationBar.frame.height, width: self.view.frame.width, height: self.view.frame.height - self.navigationController!.navigationBar.frame.height - 90)
         self.tableview.backgroundColor = UIColor.white
         
         self.view.addSubview(tableview)
