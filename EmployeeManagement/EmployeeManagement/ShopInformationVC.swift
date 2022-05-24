@@ -47,12 +47,6 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
         self.navigationController?.isNavigationBarHidden = true
         uiDeployment()
         
-        self.companyName.text = self.companyOnTable!
-        self.ceoNameLabel.text = self.nameOnTable!
-        self.ceoPhoneLabel.text = self.phoneOnTable!
-        self.businessType.text = self.businessTypeOnTable!
-        self.employeeNumber.text = "\(self.employeeCountOnTable!)명"
-        
         if self.imgOnTable == true {
             self.downloadimage(imgview: self.logoImage)
             self.imgExistence = true
@@ -60,6 +54,13 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
             self.logoImage.image = UIImage(named: "logonil")
             self.imgExistence = false
         }
+        
+        self.companyName.text = self.companyOnTable!
+        self.ceoNameLabel.text = self.nameOnTable!
+        self.ceoPhoneLabel.text = self.phoneOnTable!
+        self.businessType.text = self.businessTypeOnTable!
+        self.employeeNumber.text = "\(self.employeeCountOnTable!)명"
+
     }
     //MARK: 이미지 피커 메소드
     // 이미지를 가져올 장소(?) 카메라 앨범 등 선택 메소드
