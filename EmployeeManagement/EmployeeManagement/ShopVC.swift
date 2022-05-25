@@ -20,8 +20,9 @@ struct List{
 class ShopVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating, UISearchBarDelegate {
                     //업종, 회사명,사원수, 이미지 여부, 사장이름, 전화번호
     var shopList = [List]()
-    
     var dataList = [List]()
+    
+    var getCompany: [String] = []     //사장인데 회사를 가지고 있냐 없냐
     
     var isFiltering: Bool{
         let searchController = self.navigationItem.searchController
@@ -224,7 +225,30 @@ class ShopVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISe
     }
     
     @objc func goSetting(_ sender: Any){
-        let actionsheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let actionsheet = UIAlertController(title: nil, message: "선택해주세요.", preferredStyle: .actionSheet)
+        
+        actionsheet.addAction(UIAlertAction(title: "회사 가입신청", style: .default) { (_) in
+            self.db.collection("shop").whereField("phone", isEqualTo: self.appDelegate.phoneInfo!).getDocuments { (snapshot, error) in
+                for doc in snapshot!.documents{
+                    self.getCompany.append(doc.documentID)
+                }
+                if self.getCompany == [] {
+                    let alert = UIAlertController(title: nil, message: "회사를 등록하지 않았거나 CEO가 아닙니다.", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default))
+                    self.present(alert, animated: true)
+                } else {
+                    guard let uv = self.storyboard?.instantiateViewController(withIdentifier: "RequestJoinVC") as? RequestJoinVC else { return }
+                    uv.modalPresentationStyle = .fullScreen
+                    
+                    self.present(uv, animated: true)
+                }
+            }
+        })
+        //TODO: 추후에 설정 추가 예정
+        
+        actionsheet.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        
+        self.present(actionsheet, animated: true)
       
     }
     
