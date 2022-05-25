@@ -10,6 +10,7 @@
 		731143B4282994EA00163A1B /* PickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731143B3282994EA00163A1B /* PickerController.swift */; };
 		7313A484283D831400057273 /* CookieRun.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7313A483283D82FD00057273 /* CookieRun.ttf */; };
 		732D4019283E6FD200E40F48 /* RequestJoinVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732D4018283E6FD200E40F48 /* RequestJoinVC.swift */; };
+		732D401B283E73E000E40F48 /* RequestJoincell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732D401A283E73E000E40F48 /* RequestJoincell.swift */; };
 		73502E182832BAB000920E3C /* Shopcell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73502E172832BAB000920E3C /* Shopcell.swift */; };
 		736ECC6428367E1A0092F7F7 /* ShopInformationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736ECC6328367E1A0092F7F7 /* ShopInformationVC.swift */; };
 		73A3AAD828292BF9001283CD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A3AAD728292BF9001283CD /* AppDelegate.swift */; };
@@ -38,6 +39,7 @@
 		731143B3282994EA00163A1B /* PickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerController.swift; sourceTree = "<group>"; };
 		7313A483283D82FD00057273 /* CookieRun.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = CookieRun.ttf; sourceTree = "<group>"; };
 		732D4018283E6FD200E40F48 /* RequestJoinVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestJoinVC.swift; sourceTree = "<group>"; };
+		732D401A283E73E000E40F48 /* RequestJoincell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestJoincell.swift; sourceTree = "<group>"; };
 		73502E172832BAB000920E3C /* Shopcell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shopcell.swift; sourceTree = "<group>"; };
 		736ECC6328367E1A0092F7F7 /* ShopInformationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopInformationVC.swift; sourceTree = "<group>"; };
 		73A3AAD428292BF9001283CD /* EmployeeManagement.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EmployeeManagement.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -126,13 +128,14 @@
 				73E2DA982832688100C4CF25 /* ChattingVC.swift */,
 				73E2DA9A283268C100C4CF25 /* ScheduleVC.swift */,
 				73E2DAA02832A5D000C4CF25 /* ShopVC.swift */,
+				73502E172832BAB000920E3C /* Shopcell.swift */,
 				73BCD85E2833DBCD00DF6F74 /* ShopAddVC.swift */,
 				736ECC6328367E1A0092F7F7 /* ShopInformationVC.swift */,
 				732D4018283E6FD200E40F48 /* RequestJoinVC.swift */,
+				732D401A283E73E000E40F48 /* RequestJoincell.swift */,
 				73C411B1283520A6001EC8F6 /* BusinessTypePicker.swift */,
 				73E2DA9C283268EC00C4CF25 /* TransitionVC.swift */,
 				73E2DA9E2832697000C4CF25 /* CSTabBarController.swift */,
-				73502E172832BAB000920E3C /* Shopcell.swift */,
 				73A3AAE328292BF9001283CD /* Assets.xcassets */,
 				73A3AAE528292BF9001283CD /* LaunchScreen.storyboard */,
 				73A3AAE828292BF9001283CD /* Info.plist */,
@@ -264,6 +267,7 @@
 				73A3AAF5282969D1001283CD /* SignUpVC.swift in Sources */,
 				73E2DA9B283268C100C4CF25 /* ScheduleVC.swift in Sources */,
 				732D4019283E6FD200E40F48 /* RequestJoinVC.swift in Sources */,
+				732D401B283E73E000E40F48 /* RequestJoincell.swift in Sources */,
 				73502E182832BAB000920E3C /* Shopcell.swift in Sources */,
 				73A3AAE228292BF9001283CD /* EmployeeManagement.xcdatamodeld in Sources */,
 				73E2DA9F2832697000C4CF25 /* CSTabBarController.swift in Sources */,

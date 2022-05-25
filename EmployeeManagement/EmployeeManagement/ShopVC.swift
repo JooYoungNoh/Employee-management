@@ -34,7 +34,6 @@ class ShopVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISe
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     //화면 구성 객체
-    let titleLabel = UILabel()
     var searchBarController = UISearchController(searchResultsController: nil)
     let tableview = UITableView()
     
