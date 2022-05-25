@@ -27,7 +27,7 @@ class RequestJoinVC: UIViewController, UITableViewDataSource, UITableViewDelegat
     
     //MARK: 테이블 뷰 메소드
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return 20
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -40,24 +40,16 @@ class RequestJoinVC: UIViewController, UITableViewDataSource, UITableViewDelegat
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let csview = UIView()
-        let nameTitle = UILabel()
-        let requestTitle = UILabel()
+        let companyLabel = UILabel()
         
-        csview.backgroundColor = UIColor.white
+        csview.backgroundColor = UIColor.systemGray5
         
-        nameTitle.frame = CGRect(x: 20, y: 0, width: self.view.frame.width / 2, height: 30)
-        nameTitle.font = UIFont.init(name: "CookieRun", size: 20)
-        nameTitle.text = "이름"
-        nameTitle.textColor = UIColor.blue
+        companyLabel.frame = CGRect(x: 20, y: 0, width: self.view.frame.width / 2, height: 30)
+        companyLabel.font = UIFont.init(name: "CookieRun", size: 20)
+        companyLabel.text = "라인 <- 회사명"
+        companyLabel.textColor = UIColor.blue
         
-        requestTitle.frame = CGRect(x: self.view.frame.width / 2 + 20, y: 0, width: 128, height: 30)
-        requestTitle.font = UIFont.init(name: "CookieRun", size: 20)
-        requestTitle.text = "선택"
-        requestTitle.textColor = UIColor.blue
-        requestTitle.textAlignment = .right
-        
-        csview.addSubview(nameTitle)
-        csview.addSubview(requestTitle)
+        csview.addSubview(companyLabel)
         
         return csview
     }
@@ -104,7 +96,7 @@ class RequestJoinVC: UIViewController, UITableViewDataSource, UITableViewDelegat
         self.view.addSubview(self.titleLabel)
         
         //테이블 뷰 UI
-        self.tableview.frame = CGRect(x: 0, y: 150, width: self.view.frame.width - 20, height: self.view.frame.height - 150)
+        self.tableview.frame = CGRect(x: 0, y: 150, width: self.view.frame.width, height: self.view.frame.height - 150)
         self.tableview.backgroundColor = UIColor.white
         
         self.view.addSubview(tableview)
