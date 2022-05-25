@@ -34,20 +34,28 @@ class RequestJoincell: UITableViewCell {
     
     let yesButton: UIButton = {
        let yesButton = UIButton()
-        yesButton.frame = CGRect(x: 290, y: 10, width: 30, height: 30)
+        yesButton.frame = CGRect(x: 280, y: 10, width: 40, height: 30)
         yesButton.setTitle("수락", for: .normal)
         yesButton.setTitleColor(UIColor.black, for: .normal)
         yesButton.titleLabel?.font = UIFont.init(name: "CookieRun", size: 14)
+        
+        yesButton.layer.cornerRadius = 5
+        yesButton.layer.borderWidth = 1
+        yesButton.layer.borderColor = UIColor.black.cgColor
         
         return yesButton
     }()
     
     let noButton: UIButton = {
        let noButton = UIButton()
-        noButton.frame = CGRect(x: 330, y: 10, width: 30, height: 30)
+        noButton.frame = CGRect(x: 330, y: 10, width: 40, height: 30)
         noButton.setTitle("거절", for: .normal)
         noButton.setTitleColor(UIColor.black, for: .normal)
         noButton.titleLabel?.font = UIFont.init(name: "CookieRun", size: 14)
+        
+        noButton.layer.cornerRadius = 5
+        noButton.layer.borderWidth = 1
+        noButton.layer.borderColor = UIColor.black.cgColor
         
         return noButton
     }()
