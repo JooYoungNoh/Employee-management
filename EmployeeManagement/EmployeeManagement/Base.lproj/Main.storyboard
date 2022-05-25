@@ -233,6 +233,21 @@
             </objects>
             <point key="canvasLocation" x="4011" y="783"/>
         </scene>
+        <!--가입 신청 관리 화면-->
+        <scene sceneID="jVO-Gs-loE">
+            <objects>
+                <viewController storyboardIdentifier="RequestJoinVC" title="가입 신청 관리 화면" id="wkZ-1T-StH" customClass="RequestJoinVC" customModule="EmployeeManagement" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="aHe-1c-yem">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="Ued-DY-bgy"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Qmn-Zc-GWn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4703" y="783"/>
+        </scene>
         <!--매장 추가 화면-->
         <scene sceneID="Zsh-LO-D4y">
             <objects>
