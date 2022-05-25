@@ -10,15 +10,27 @@ import UIKit
 class RequestJoincell: UITableViewCell {
     static let identifier = "RequestJoincell"
     
-    let nameLabel: UILabel = {
-        let nameLabel = UILabel()
-        nameLabel.frame = CGRect(x: 20, y: 10, width: 200, height: 30)
-        nameLabel.font = UIFont.init(name: "CookieRun", size: 14)
-        nameLabel.textColor = UIColor.black
-        nameLabel.textAlignment = .left
+    let company: UILabel = {
+        let company = UILabel()
+        company.frame = CGRect(x: 20, y: 10, width: 100, height: 30)
+        company.font = UIFont.init(name: "CookieRun", size: 14)
+        company.textColor = UIColor.black
+        company.textAlignment = .left
         
-        return nameLabel
+        return company
     }()
+    
+    let name: UILabel = {
+       let name = UILabel()
+        name.frame = CGRect(x: 140, y: 10, width: 100, height: 30)
+        name.font = UIFont.init(name: "CookieRun", size: 14)
+        name.textColor = UIColor.black
+        name.textAlignment = .left
+        
+        return name
+    }()
+    
+    
     
     let yesButton: UIButton = {
        let yesButton = UIButton()
@@ -42,7 +54,8 @@ class RequestJoincell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?){
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        contentView.addSubview(nameLabel)
+        contentView.addSubview(company)
+        contentView.addSubview(name)
         contentView.addSubview(noButton)
         contentView.addSubview(yesButton)
     }
