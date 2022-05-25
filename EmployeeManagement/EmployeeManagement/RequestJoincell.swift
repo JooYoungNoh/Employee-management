@@ -9,6 +9,8 @@ import UIKit
 
 class RequestJoincell: UITableViewCell {
     static let identifier = "RequestJoincell"
+    var yesButtonAction : (() -> ())?
+    var noButtonAction : (() -> ())?
     
     let company: UILabel = {
         let company = UILabel()
@@ -62,10 +64,21 @@ class RequestJoincell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?){
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.yesButton.addTarget(self, action: #selector(doYes(_:)), for: .touchUpInside)
+        self.noButton.addTarget(self, action: #selector(doNo(_:)), for: .touchUpInside)
+        
         contentView.addSubview(company)
         contentView.addSubview(name)
         contentView.addSubview(noButton)
         contentView.addSubview(yesButton)
+    }
+    
+    @objc func doYes(_ sender: UIButton){
+        yesButtonAction?()
+    }
+    
+    @objc func doNo(_ sender: UIButton){
+        noButtonAction?()
     }
     
     required init?(coder: NSCoder) {

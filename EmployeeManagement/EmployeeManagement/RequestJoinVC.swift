@@ -22,6 +22,7 @@ class RequestJoinVC: UIViewController, UITableViewDataSource, UITableViewDelegat
     
     var companyName = [reList]()
     var resultRequestJoin = [reList]()
+    var employeeCount: Int = 0              //인원 수 받아오는 변수
     
     //화면 구성 객체
     let titleLabel = UILabel()
@@ -69,6 +70,44 @@ class RequestJoinVC: UIViewController, UITableViewDataSource, UITableViewDelegat
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: RequestJoincell.identifier, for: indexPath) as? RequestJoincell else { return  UITableViewCell() }
+        
+        cell.yesButtonAction = { [unowned self] in
+            let query = self.db.collection("shop").document("\(cell.company.text!)")
+            
+            //가입 요청 삭제
+            query.collection("requestJoin").document("\(self.resultRequestJoin[indexPath.row].phone)").delete()
+        
+            //회사원 목록에 넣기
+            query.collection("employeeControl").document("\(self.resultRequestJoin[indexPath.row].phone)").setData([
+                "name" : "\(self.resultRequestJoin[indexPath.row].name)",
+                "phone" : "\(self.resultRequestJoin[indexPath.row].phone)"
+            ])
+            
+            //회사 인원 수 추가
+            self.db.collection("shop").whereField("company", isEqualTo: cell.company.text!).getDocuments{ (snapshot, error) in
+                if error == nil && snapshot != nil {
+                    for doc in snapshot!.documents{
+                        self.employeeCount = doc.data()["employeeCount"] as! Int
+                    }
+                } else {
+                    print(error!.localizedDescription)
+                }
+                query.updateData(["employeeCount" : self.employeeCount + 1])
+                
+                self.resultRequestJoin.remove(at: indexPath.row)
+                self.tableview.reloadData()
+            }
+        }
+        
+        cell.noButtonAction = { [unowned self] in
+            let query = self.db.collection("shop").document("\(cell.company.text!)")
+            
+            //가입 요청 삭제
+            query.collection("requestJoin").document("\(self.resultRequestJoin[indexPath.row].phone)").delete()
+            
+            self.resultRequestJoin.remove(at: indexPath.row)
+            self.tableview.reloadData()
+        }
         
         if self.resultRequestJoin.count == 0{
             cell.name.text = "가입신청이 없습니다."
