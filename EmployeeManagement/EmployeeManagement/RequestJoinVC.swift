@@ -8,13 +8,20 @@
 import UIKit
 import FirebaseFirestore
 
+struct reList{
+    var name: String
+    var ceoPhone: String
+    var phone: String
+    var requestCompany: String
+}
+
 class RequestJoinVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     let db = Firestore.firestore()
     
-    var companyName = [String]()
-    var requestName = [String]()
+    var companyName = [reList]()
+    var resultRequestJoin = [reList]()
     
     //화면 구성 객체
     let titleLabel = UILabel()
@@ -26,26 +33,43 @@ class RequestJoinVC: UIViewController, UITableViewDataSource, UITableViewDelegat
         self.tableview.delegate = self
         self.tableview.dataSource = self
         self.tableview.register(RequestJoincell.self, forCellReuseIdentifier: RequestJoincell.identifier)
-
-        uiDeployment()
+        
+        self.appDelegate.phoneInfo = "01031201798"
+        
+        self.db.collectionGroup("requestJoin").getDocuments{ (snapshot, error) in
+            for doc in snapshot!.documents{
+                self.companyName.append(reList.init(name: doc.data()["name"] as! String, ceoPhone: doc.data()["ceoPhone"] as! String, phone: doc.data()["phone"] as! String, requestCompany: doc.data()["requestCompany"] as! String))
+            }
+            while true{
+                let index = self.companyName.firstIndex(where: {$0.ceoPhone == self.appDelegate.phoneInfo!})
+                
+                if index == nil {
+                    break
+                }
+                self.resultRequestJoin.append(self.companyName[index!])
+                self.companyName.remove(at: index!)
+                
+            }
+            self.uiDeployment()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.appDelegate.phoneInfo = "01031201798"
         
     }
     
     //MARK: 테이블 뷰 메소드
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            return 20
+        return self.resultRequestJoin.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: RequestJoincell.identifier, for: indexPath) as? RequestJoincell else { return  UITableViewCell() }
-        cell.company.text = "실험용1"
-        cell.name.text = "이름용"
+        
+            cell.company.text = self.resultRequestJoin[indexPath.row].requestCompany
+            cell.name.text = self.resultRequestJoin[indexPath.row].name
         
         return cell
     }
@@ -95,7 +119,7 @@ class RequestJoinVC: UIViewController, UITableViewDataSource, UITableViewDelegat
     }
     
     @objc func doYes(_ sender: UIButton){
-        print("Yes")
+        
     }
     
     @objc func doNo(_ sender: UIButton){
