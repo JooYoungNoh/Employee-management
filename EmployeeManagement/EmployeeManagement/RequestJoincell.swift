@@ -22,7 +22,7 @@ class RequestJoincell: UITableViewCell {
     
     let name: UILabel = {
        let name = UILabel()
-        name.frame = CGRect(x: 140, y: 10, width: 100, height: 30)
+        name.frame = CGRect(x: 140, y: 10, width: 130, height: 30)
         name.font = UIFont.init(name: "CookieRun", size: 14)
         name.textColor = UIColor.black
         name.textAlignment = .left
