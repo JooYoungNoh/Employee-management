@@ -34,8 +34,6 @@ class RequestJoinVC: UIViewController, UITableViewDataSource, UITableViewDelegat
         self.tableview.dataSource = self
         self.tableview.register(RequestJoincell.self, forCellReuseIdentifier: RequestJoincell.identifier)
         
-        self.appDelegate.phoneInfo = "01031201798"
-        
         self.db.collectionGroup("requestJoin").getDocuments{ (snapshot, error) in
             for doc in snapshot!.documents{
                 self.companyName.append(reList.init(name: doc.data()["name"] as! String, ceoPhone: doc.data()["ceoPhone"] as! String, phone: doc.data()["phone"] as! String, requestCompany: doc.data()["requestCompany"] as! String))
@@ -62,15 +60,29 @@ class RequestJoinVC: UIViewController, UITableViewDataSource, UITableViewDelegat
     //MARK: 테이블 뷰 메소드
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.resultRequestJoin.count
+        if self.resultRequestJoin.count == 0{
+            return 1
+        } else{
+            return self.resultRequestJoin.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: RequestJoincell.identifier, for: indexPath) as? RequestJoincell else { return  UITableViewCell() }
         
+        if self.resultRequestJoin.count == 0{
+            cell.name.text = "가입신청이 없습니다."
+            cell.name.textColor = UIColor.red
+            cell.name.frame = CGRect(x: self.view.frame.width / 2 - 65, y: 10, width: 130, height: 30)
+            cell.yesButton.isHidden = true
+            cell.noButton.isHidden = true
+            
+        } else {
             cell.company.text = self.resultRequestJoin[indexPath.row].requestCompany
             cell.name.text = self.resultRequestJoin[indexPath.row].name
-        
+            cell.yesButton.isHidden = false
+            cell.noButton.isHidden = false
+        }
         return cell
     }
     
