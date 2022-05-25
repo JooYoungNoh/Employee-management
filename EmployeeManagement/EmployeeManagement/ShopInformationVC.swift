@@ -137,7 +137,9 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
                                 alert1.addAction(UIAlertAction(title: "OK", style: .default){ (_) in
                                     query.collection("requestJoin").document("\(self.appDelegate.phoneInfo!)").setData([
                                         "phone" : "\(self.appDelegate.phoneInfo!)",
-                                        "name" : "\(self.appDelegate.nameInfo!)"
+                                        "name" : "\(self.appDelegate.nameInfo!)",
+                                        "requestCompany" : "\(self.companyOnTable!)",
+                                        "ceoPhone" : "\(self.phoneOnTable!)"
                                     ])
                                 
                                     self.navigationController?.isNavigationBarHidden = false
