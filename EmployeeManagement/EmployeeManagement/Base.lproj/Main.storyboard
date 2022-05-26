@@ -24,64 +24,6 @@
             </objects>
             <point key="canvasLocation" x="963.07692307692309" y="81.753554502369667"/>
         </scene>
-        <!--채팅 화면-->
-        <scene sceneID="HzT-Dh-Txm">
-            <objects>
-                <tableViewController title="채팅 화면" id="HOC-bu-j77" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="GLN-mC-n0X">
-                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="8Fx-fI-BiC">
-                                <rect key="frame" x="0.0" y="44.666666030883789" width="390" height="43.666667938232422"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8Fx-fI-BiC" id="LCh-r2-NWa">
-                                    <rect key="frame" x="0.0" y="0.0" width="390" height="43.666667938232422"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="HOC-bu-j77" id="fAU-aU-HKu"/>
-                            <outlet property="delegate" destination="HOC-bu-j77" id="Vfe-eN-mYx"/>
-                        </connections>
-                    </tableView>
-                    <tabBarItem key="tabBarItem" title="Item" id="gG3-Jb-0mq"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="81g-vW-OfQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2466.1538461538462" y="-60.426540284360186"/>
-        </scene>
-        <!--직원 목록 화면-->
-        <scene sceneID="B0g-ab-00s">
-            <objects>
-                <tableViewController storyboardIdentifier="EmployeeListVC" title="직원 목록 화면" id="Kce-To-UYs" customClass="EmployeeListVC" customModule="EmployeeManagement" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="h1d-Fk-cFz">
-                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="3s2-dW-eFd">
-                                <rect key="frame" x="0.0" y="44.666666030883789" width="390" height="43.666667938232422"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3s2-dW-eFd" id="MbH-ZQ-Vri">
-                                    <rect key="frame" x="0.0" y="0.0" width="390" height="43.666667938232422"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="Kce-To-UYs" id="T5x-p6-c5V"/>
-                            <outlet property="delegate" destination="Kce-To-UYs" id="Dfv-kU-ema"/>
-                        </connections>
-                    </tableView>
-                    <tabBarItem key="tabBarItem" title="Item" id="f0Q-SY-gH9"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="MOc-9b-8Eb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2466" y="-741"/>
-        </scene>
         <!--아이디, 비밀번호 찾기 화면-->
         <scene sceneID="BZB-4U-xYH">
             <objects>
@@ -112,23 +54,69 @@
             </objects>
             <point key="canvasLocation" x="963" y="749"/>
         </scene>
-        <!--Tab Bar Controller-->
-        <scene sceneID="6xM-Ip-sCT">
+        <!--직원 목록 화면-->
+        <scene sceneID="f0n-Z3-yiu">
             <objects>
-                <tabBarController storyboardIdentifier="tapVC" automaticallyAdjustsScrollViewInsets="NO" id="db5-sb-OP1" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ePH-xQ-kEj">
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    </tabBar>
-                    <connections>
-                        <segue destination="Kce-To-UYs" kind="relationship" relationship="viewControllers" id="QWX-1S-Wj6"/>
-                        <segue destination="HOC-bu-j77" kind="relationship" relationship="viewControllers" id="Shy-gZ-DDp"/>
-                    </connections>
-                </tabBarController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="YIS-bt-1PS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <viewController storyboardIdentifier="EmployeeListVC" title="직원 목록 화면" id="a8X-HO-ivj" customClass="EmployeeListVC" customModule="EmployeeManagement" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="sqJ-lH-3PL">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="q8o-Ma-fvi"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="Jco-tG-tcT"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8kn-rB-iqI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1653.8461538461538" y="81.753554502369667"/>
+            <point key="canvasLocation" x="2577" y="-1244"/>
+        </scene>
+        <!--채팅 화면-->
+        <scene sceneID="8mV-YX-VhN">
+            <objects>
+                <viewController storyboardIdentifier="ChattingVC" title="채팅 화면" id="6I6-0A-82w" customClass="ChattingVC" customModule="EmployeeManagement" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="lPP-ZA-k1U">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="FRA-xT-XWq"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="oSD-eg-NB9"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Lsk-Jd-Wi3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2578" y="-575"/>
+        </scene>
+        <!--스케줄 화면-->
+        <scene sceneID="o1s-QI-GP4">
+            <objects>
+                <viewController storyboardIdentifier="ScheduleVC" title="스케줄 화면" id="N6A-XL-km6" customClass="ScheduleVC" customModule="EmployeeManagement" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Tva-ky-cRl">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="Uxa-Cb-0aG"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="gcg-V4-4ey"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1vO-oX-tAe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2584.6153846153843" y="81.753554502369667"/>
+        </scene>
+        <!--인수인계 화면-->
+        <scene sceneID="JfM-qz-PVA">
+            <objects>
+                <viewController storyboardIdentifier="TransitionVC" title="인수인계 화면" id="bEi-LD-ZS0" customClass="TransitionVC" customModule="EmployeeManagement" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="1kA-Yq-x2U">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="TnO-qt-KtG"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="NLs-T2-VEq"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YKI-XH-O1r" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1765" y="1561"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="QF2-SE-D8B">
@@ -146,6 +134,116 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pze-Jz-7oe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="254" y="82"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="T6P-wu-g9a">
+            <objects>
+                <tabBarController storyboardIdentifier="tapVC" automaticallyAdjustsScrollViewInsets="NO" id="V5r-IB-8LF" customClass="CSTabBarController" customModule="EmployeeManagement" customModuleProvider="target" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="xTg-u2-Owp">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="a8X-HO-ivj" kind="relationship" relationship="viewControllers" id="9sV-aL-ToN"/>
+                        <segue destination="6I6-0A-82w" kind="relationship" relationship="viewControllers" id="FcA-06-Qku"/>
+                        <segue destination="N6A-XL-km6" kind="relationship" relationship="viewControllers" id="9yi-pb-A9F"/>
+                        <segue destination="9zW-Jd-fIv" kind="relationship" relationship="viewControllers" id="OeS-tg-O7h"/>
+                        <segue destination="bEi-LD-ZS0" kind="relationship" relationship="viewControllers" id="WnV-2D-Jnh"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YP7-7l-HYe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1765" y="82"/>
+        </scene>
+        <!--Item-->
+        <scene sceneID="woX-aG-iD9">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="9zW-Jd-fIv" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="VBh-oG-QMk"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Mcz-lQ-ujP">
+                        <rect key="frame" x="0.0" y="44" width="390" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="grj-9a-HkM" kind="relationship" relationship="rootViewController" id="vcW-C5-r1w"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wmC-fv-q9t" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2584.6153846153843" y="782.70142180094786"/>
+        </scene>
+        <!--매장 찾기 화면-->
+        <scene sceneID="Efm-Zy-Y26">
+            <objects>
+                <viewController storyboardIdentifier="ShopVC" title="매장 찾기 화면" id="grj-9a-HkM" customClass="ShopVC" customModule="EmployeeManagement" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="FIL-tg-2Ye">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="JV5-iP-hAx"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="6P2-rX-h8Z"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wwc-6b-ICF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3295" y="783"/>
+        </scene>
+        <!--매장 정보 화면-->
+        <scene sceneID="tma-z6-jY1">
+            <objects>
+                <viewController storyboardIdentifier="ShopInformationVC" title="매장 정보 화면" id="r7D-7T-f6Y" customClass="ShopInformationVC" customModule="EmployeeManagement" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="lpg-ym-ToB">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="b3h-4C-Okd"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="O2s-Jn-uG0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4011" y="783"/>
+        </scene>
+        <!--가입 신청 관리 화면-->
+        <scene sceneID="jVO-Gs-loE">
+            <objects>
+                <viewController storyboardIdentifier="RequestJoinVC" title="가입 신청 관리 화면" id="wkZ-1T-StH" customClass="RequestJoinVC" customModule="EmployeeManagement" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="aHe-1c-yem">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="Ued-DY-bgy"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Qmn-Zc-GWn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4703" y="783"/>
+        </scene>
+        <!--매장 추가 화면-->
+        <scene sceneID="Zsh-LO-D4y">
+            <objects>
+                <viewController storyboardIdentifier="ShopAddVC" title="매장 추가 화면" id="Q2B-Vf-iZ1" customClass="ShopAddVC" customModule="EmployeeManagement" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="vSM-AO-ac5">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hBz-w9-WKq">
+                                <rect key="frame" x="176" y="355" width="44" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain"/>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="vll-45-wEA"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rhC-6T-b69" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4010.7692307692305" y="1428.909952606635"/>
         </scene>
     </scenes>
     <resources>

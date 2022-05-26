@@ -130,28 +130,34 @@ class SignUpVC: UIViewController, UITextFieldDelegate {
     @objc func doCheckPhone(_ sender: UIButton){
         var dbResult: [String] = []
         
-        db.collection("users").whereField("phone", isEqualTo: self.phoneTextField.text!).getDocuments { (snapshot, error) in
-                for doc in snapshot!.documents{
-                    dbResult.append(doc.documentID)
-                    print(dbResult)
-                }
+        if self.phoneTextField.text?.isEmpty == true {
+            let alert = UIAlertController(title: "전화번호가 없습니다.", message: "다시 입력해주세요.", preferredStyle: .alert)
             
-            if dbResult.isEmpty == true {
-                let alert2 = UIAlertController(title: nil, message: "사용가능한 전화번호입니다.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            
+            self.present(alert, animated: true)
+        } else {
+            db.collection("users").whereField("phone", isEqualTo: self.phoneTextField.text!).getDocuments { (snapshot, error) in
+                    for doc in snapshot!.documents{
+                        dbResult.append(doc.documentID)
+                        print(dbResult)
+                    }
+            
+                if dbResult.isEmpty == true {
+                    let alert2 = UIAlertController(title: nil, message: "사용가능한 전화번호입니다.", preferredStyle: .alert)
                         
-                alert2.addAction(UIAlertAction(title: "OK", style: .default){ (_) in
+                    alert2.addAction(UIAlertAction(title: "OK", style: .default){ (_) in
                     
-                })
+                    })
+                    self.present(alert2, animated: true)
+                } else {
+                    let alert1 = UIAlertController(title: "이미 등록된 전화번호입니다.", message: "아이디 찾기를 이용해주세요.", preferredStyle: .alert)
                         
-                self.present(alert2, animated: true)
-            } else {
-                let alert1 = UIAlertController(title: "이미 등록된 전화번호입니다.", message: "아이디 찾기를 이용해주세요.", preferredStyle: .alert)
-                        
-                alert1.addAction(UIAlertAction(title: "OK", style: .default){ (_) in
-                    self.phoneTextField.text = nil
-                })
-                        
-                self.present(alert1, animated: true)
+                    alert1.addAction(UIAlertAction(title: "OK", style: .default){ (_) in
+                        self.phoneTextField.text = nil
+                    })
+                    self.present(alert1, animated: true)
+                }
             }
         }
     }
@@ -308,11 +314,11 @@ class SignUpVC: UIViewController, UITextFieldDelegate {
         //닫기 버튼
         let closeButton = UIButton()
         
-        closeButton.frame = CGRect(x: 20, y: 50, width: 50, height: 40)
+        closeButton.frame = CGRect(x: 20, y: 50, width: 80, height: 40)
         
         closeButton.setTitle("Close", for: .normal)
         closeButton.setTitleColor(UIColor.black, for: .normal)
-        closeButton.titleLabel?.font = UIFont.init(name: "Chalkboard SE", size: 20)
+        closeButton.titleLabel?.font = UIFont.init(name: "CookieRun", size: 20)
         
         closeButton.addTarget(self, action: #selector(doclose(_:)), for: .touchUpInside)
         
@@ -324,7 +330,7 @@ class SignUpVC: UIViewController, UITextFieldDelegate {
         signUp.frame = CGRect(x: self.view.frame.width/2 - 80, y: 90, width: 160, height: 50)
         signUp.text = "Sign Up"
         signUp.textColor = UIColor.black
-        signUp.font = UIFont.init(name: "Chalkboard SE", size: 30)
+        signUp.font = UIFont.init(name: "CookieRun", size: 30)
         signUp.textAlignment = .center
         
         self.view.addSubview(signUp)
@@ -342,14 +348,14 @@ class SignUpVC: UIViewController, UITextFieldDelegate {
         idTextField.borderStyle = .roundedRect
         idTextField.layer.borderWidth = 1
         idTextField.layer.borderColor = UIColor.systemGray2.cgColor
-        idTextField.font = UIFont.init(name: "Chalkboard SE", size: 15)
+        idTextField.font = UIFont.init(name: "CookieRun", size: 15)
         
             //버튼
         idButton.frame = CGRect(x: 270, y: 160, width: 40, height: 30)
     
         idButton.setTitle("확인", for: .normal)
         idButton.setTitleColor(UIColor.black, for: .normal)
-        idButton.titleLabel?.font = UIFont.init(name: "Chalkboard SE", size: 15)
+        idButton.titleLabel?.font = UIFont.init(name: "CookieRun", size: 15)
         idButton.alpha = 0.7
     
         idButton.layer.cornerRadius = 5
@@ -372,7 +378,7 @@ class SignUpVC: UIViewController, UITextFieldDelegate {
         passwordTextField.borderStyle = .roundedRect
         passwordTextField.layer.borderWidth = 1
         passwordTextField.layer.borderColor = UIColor.systemGray2.cgColor
-        passwordTextField.font = UIFont.init(name: "Chalkboard SE", size: 15)
+        passwordTextField.font = UIFont.init(name: "CookieRun", size: 15)
         
         self.view.addSubview(passwordImage)
         self.view.addSubview(passwordTextField)
@@ -388,7 +394,7 @@ class SignUpVC: UIViewController, UITextFieldDelegate {
         pwLabel.frame = CGRect(x: 110, y: 240, width: 150, height: 30)
         pwLabel.text = " Password Question"
         pwLabel.textColor = UIColor.systemGray3
-        pwLabel.font = UIFont.init(name: "Chalkboard SE", size: 14)
+        pwLabel.font = UIFont.init(name: "CookieRun", size: 14)
         
         pwLabel.layer.borderWidth = 1
         pwLabel.layer.borderColor = UIColor.systemGray2.cgColor
@@ -398,7 +404,7 @@ class SignUpVC: UIViewController, UITextFieldDelegate {
         
         pwButton.setTitle("선택", for: .normal)
         pwButton.setTitleColor(UIColor.black, for: .normal)
-        pwButton.titleLabel?.font = UIFont.init(name: "Chalkboard SE", size: 15)
+        pwButton.titleLabel?.font = UIFont.init(name: "CookieRun", size: 15)
         pwButton.alpha = 0.7
         
         pwButton.layer.cornerRadius = 5
@@ -421,7 +427,7 @@ class SignUpVC: UIViewController, UITextFieldDelegate {
         pwAnswerTextField.borderStyle = .roundedRect
         pwAnswerTextField.layer.borderWidth = 1
         pwAnswerTextField.layer.borderColor = UIColor.systemGray2.cgColor
-        pwAnswerTextField.font = UIFont.init(name: "Chalkboard SE", size: 15)
+        pwAnswerTextField.font = UIFont.init(name: "CookieRun", size: 14)
         
         self.view.addSubview(pwAnswerImage)
         self.view.addSubview(pwAnswerTextField)
@@ -435,7 +441,7 @@ class SignUpVC: UIViewController, UITextFieldDelegate {
         nameTextField.borderStyle = .roundedRect
         nameTextField.layer.borderWidth = 1
         nameTextField.layer.borderColor = UIColor.systemGray2.cgColor
-        nameTextField.font = UIFont.init(name: "Chalkboard SE", size: 15)
+        nameTextField.font = UIFont.init(name: "CookieRun", size: 15)
         
         self.view.addSubview(nameImage)
         self.view.addSubview(nameTextField)
@@ -450,7 +456,7 @@ class SignUpVC: UIViewController, UITextFieldDelegate {
         birthTextField.borderStyle = .roundedRect
         birthTextField.layer.borderWidth = 1
         birthTextField.layer.borderColor = UIColor.systemGray2.cgColor
-        birthTextField.font = UIFont.init(name: "Chalkboard SE", size: 15)
+        birthTextField.font = UIFont.init(name: "CookieRun", size: 15)
         
         self.view.addSubview(birthImage)
         self.view.addSubview(birthTextField)
@@ -467,14 +473,14 @@ class SignUpVC: UIViewController, UITextFieldDelegate {
         phoneTextField.borderStyle = .roundedRect
         phoneTextField.layer.borderWidth = 1
         phoneTextField.layer.borderColor = UIColor.systemGray2.cgColor
-        phoneTextField.font = UIFont.init(name: "Chalkboard SE", size: 14)
+        phoneTextField.font = UIFont.init(name: "CookieRun", size: 14)
         
         //버튼
         phoneButton.frame = CGRect(x: 270, y: 400, width: 40, height: 30)
 
         phoneButton.setTitle("확인", for: .normal)
         phoneButton.setTitleColor(UIColor.black, for: .normal)
-        phoneButton.titleLabel?.font = UIFont.init(name: "Chalkboard SE", size: 15)
+        phoneButton.titleLabel?.font = UIFont.init(name: "CookieRun", size: 15)
         phoneButton.alpha = 0.7
 
         phoneButton.layer.cornerRadius = 5
@@ -523,7 +529,7 @@ class SignUpVC: UIViewController, UITextFieldDelegate {
         
         successButton.setTitle("Join", for: .normal)
         successButton.setTitleColor(UIColor.black, for: .normal)
-        successButton.titleLabel?.font = UIFont.init(name: "Chalkboard SE", size: 20)
+        successButton.titleLabel?.font = UIFont.init(name: "CookieRun", size: 20)
         successButton.alpha = 0.7
         
         successButton.layer.cornerRadius = 3
