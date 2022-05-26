@@ -78,6 +78,11 @@ class ShopAddVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         picker.dismiss(animated: true)
     }
     
+    //MARK: tap 제스쳐
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
     //MARK: 액션 메소드
     @objc func doclose(_ sender: UIButton){
         self.dismiss(animated: true)
