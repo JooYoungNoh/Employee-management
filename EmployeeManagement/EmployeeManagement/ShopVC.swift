@@ -232,7 +232,7 @@ class ShopVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISe
     @objc func goSetting(_ sender: Any){
         let actionsheet = UIAlertController(title: nil, message: "선택해주세요.", preferredStyle: .actionSheet)
         
-        actionsheet.addAction(UIAlertAction(title: "회사 가입신청", style: .default) { (_) in
+        actionsheet.addAction(UIAlertAction(title: "내 회사 가입신청 관리", style: .default) { (_) in
             self.db.collection("shop").whereField("phone", isEqualTo: self.appDelegate.phoneInfo!).getDocuments { (snapshot, error) in
                 for doc in snapshot!.documents{
                     self.getCompany.append(doc.documentID)
