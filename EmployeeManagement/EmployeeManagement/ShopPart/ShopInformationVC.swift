@@ -139,7 +139,8 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
                                         "phone" : "\(self.appDelegate.phoneInfo!)",
                                         "name" : "\(self.appDelegate.nameInfo!)",
                                         "requestCompany" : "\(self.companyOnTable!)",
-                                        "ceoPhone" : "\(self.phoneOnTable!)"
+                                        "ceoPhone" : "\(self.phoneOnTable!)",
+                                        "comment" : "\(self.appDelegate.comment!)"
                                     ])
                                 
                                     self.navigationController?.isNavigationBarHidden = false

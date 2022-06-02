@@ -66,6 +66,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
                     self.appDelegate.jobInfo = doc.data()["job"] as? String
                     self.appDelegate.nameInfo = doc.data()["name"] as? String
                     self.appDelegate.phoneInfo = doc.data()["phone"] as? String
+                    self.appDelegate.comment = doc.data()["comment"] as? String
                 }
             if dbResult.isEmpty == true {
                 let alert2 = UIAlertController(title: "Login Failed", message: "다시 입력해주세요.", preferredStyle: .alert)
