@@ -117,7 +117,9 @@
 		7328F8872847D23A00571452 /* EmployListPart */ = {
 			isa = PBXGroup;
 			children = (
-				73E084A5282AA3BA00AFC582 /* EmployeeListVC.swift */,
+				7331C5E228491406009F5210 /* Model */,
+				7331C5E1284913FE009F5210 /* ViewModel */,
+				7331C5E0284913EA009F5210 /* ViewController */,
 			);
 			path = EmployListPart;
 			sourceTree = "<group>";
@@ -158,6 +160,28 @@
 				73E2DA9C283268EC00C4CF25 /* TransitionVC.swift */,
 			);
 			path = TransitionPart;
+			sourceTree = "<group>";
+		};
+		7331C5E0284913EA009F5210 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				73E084A5282AA3BA00AFC582 /* EmployeeListVC.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		7331C5E1284913FE009F5210 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		7331C5E228491406009F5210 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		73A3AACB28292BF9001283CD = {
