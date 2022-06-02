@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="JhD-OK-IF7">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="V5r-IB-8LF">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
@@ -64,11 +64,11 @@
                         <viewLayoutGuide key="safeArea" id="q8o-Ma-fvi"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="Jco-tG-tcT"/>
+                    <navigationItem key="navigationItem" id="1jX-zs-0BC"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8kn-rB-iqI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2577" y="-1244"/>
+            <point key="canvasLocation" x="3294" y="-1244"/>
         </scene>
         <!--채팅 화면-->
         <scene sceneID="8mV-YX-VhN">
@@ -146,7 +146,7 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
-                        <segue destination="a8X-HO-ivj" kind="relationship" relationship="viewControllers" id="9sV-aL-ToN"/>
+                        <segue destination="lm9-EW-ejx" kind="relationship" relationship="viewControllers" id="9sV-aL-ToN"/>
                         <segue destination="6I6-0A-82w" kind="relationship" relationship="viewControllers" id="FcA-06-Qku"/>
                         <segue destination="N6A-XL-km6" kind="relationship" relationship="viewControllers" id="9yi-pb-A9F"/>
                         <segue destination="9zW-Jd-fIv" kind="relationship" relationship="viewControllers" id="OeS-tg-O7h"/>
@@ -244,6 +244,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rhC-6T-b69" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4010.7692307692305" y="1428.909952606635"/>
+        </scene>
+        <!--Item-->
+        <scene sceneID="J7Q-B5-uIa">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="lm9-EW-ejx" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="Jco-tG-tcT"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="LuX-pL-gE5">
+                        <rect key="frame" x="0.0" y="44" width="390" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="a8X-HO-ivj" kind="relationship" relationship="rootViewController" id="s2A-rG-vIR"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2dc-Ax-ReF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2576.9230769230767" y="-1244.0758293838862"/>
         </scene>
     </scenes>
     <resources>
