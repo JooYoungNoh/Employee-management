@@ -187,7 +187,8 @@ class ShopAddVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
                                     if error == nil{
                                         self.db.collection("shop").document("\(self.companyTextfield.text!)").collection("employeeControl").document("\(self.appDelegate.phoneInfo!)").setData([
                                             "phone" : "\(self.appDelegate.phoneInfo!)",
-                                            "name" : "\(self.appDelegate.nameInfo!)"
+                                            "name" : "\(self.appDelegate.nameInfo!)",
+                                            "comment" : "\(self.appDelegate.comment!)"
                                             ])
                                     } else {
                                         print(error!.localizedDescription)
@@ -222,13 +223,13 @@ class ShopAddVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
                                 if error == nil{
                                     self.db.collection("shop").document("\(self.companyTextfield.text!)").collection("employeeControl").document("\(self.appDelegate.phoneInfo!)").setData([
                                         "phone" : "\(self.appDelegate.phoneInfo!)",
-                                        "name" : "\(self.appDelegate.nameInfo!)"
+                                        "name" : "\(self.appDelegate.nameInfo!)",
+                                        "comment" : "\(self.appDelegate.comment!)"
                                     ])
                                 } else {
                                     print(error!.localizedDescription)
                                 }
                             }
-                                   
                             self.uploadimage(img: self.logoImage.image!)
                             self.dismiss(animated: true)
                         })
