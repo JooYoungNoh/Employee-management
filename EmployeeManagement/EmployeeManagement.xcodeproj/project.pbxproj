@@ -11,6 +11,7 @@
 		7313A484283D831400057273 /* CookieRun.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7313A483283D82FD00057273 /* CookieRun.ttf */; };
 		732D4019283E6FD200E40F48 /* RequestJoinVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732D4018283E6FD200E40F48 /* RequestJoinVC.swift */; };
 		732D401B283E73E000E40F48 /* RequestJoincell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732D401A283E73E000E40F48 /* RequestJoincell.swift */; };
+		7331C5E428491457009F5210 /* EmployeeListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7331C5E328491457009F5210 /* EmployeeListVM.swift */; };
 		73502E182832BAB000920E3C /* Shopcell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73502E172832BAB000920E3C /* Shopcell.swift */; };
 		736ECC6428367E1A0092F7F7 /* ShopInformationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736ECC6328367E1A0092F7F7 /* ShopInformationVC.swift */; };
 		73A3AAD828292BF9001283CD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A3AAD728292BF9001283CD /* AppDelegate.swift */; };
@@ -40,6 +41,7 @@
 		7313A483283D82FD00057273 /* CookieRun.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = CookieRun.ttf; sourceTree = "<group>"; };
 		732D4018283E6FD200E40F48 /* RequestJoinVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestJoinVC.swift; sourceTree = "<group>"; };
 		732D401A283E73E000E40F48 /* RequestJoincell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestJoincell.swift; sourceTree = "<group>"; };
+		7331C5E328491457009F5210 /* EmployeeListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeListVM.swift; sourceTree = "<group>"; };
 		73502E172832BAB000920E3C /* Shopcell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shopcell.swift; sourceTree = "<group>"; };
 		736ECC6328367E1A0092F7F7 /* ShopInformationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopInformationVC.swift; sourceTree = "<group>"; };
 		73A3AAD428292BF9001283CD /* EmployeeManagement.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EmployeeManagement.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -173,6 +175,7 @@
 		7331C5E1284913FE009F5210 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				7331C5E328491457009F5210 /* EmployeeListVM.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -356,6 +359,7 @@
 				73E2DA9D283268EC00C4CF25 /* TransitionVC.swift in Sources */,
 				73E2DA992832688100C4CF25 /* ChattingVC.swift in Sources */,
 				73E084A6282AA3BA00AFC582 /* EmployeeListVC.swift in Sources */,
+				7331C5E428491457009F5210 /* EmployeeListVM.swift in Sources */,
 				73A3AAEF282944E1001283CD /* LoginVC.swift in Sources */,
 				73E2DAA12832A5D000C4CF25 /* ShopVC.swift in Sources */,
 				73A3AADA28292BF9001283CD /* SceneDelegate.swift in Sources */,
