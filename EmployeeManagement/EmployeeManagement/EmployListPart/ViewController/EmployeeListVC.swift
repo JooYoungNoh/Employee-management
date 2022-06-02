@@ -15,8 +15,9 @@ class EmployeeListVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //uiCreate()
+        self.tableView.dataSource = self
+        self.tableView.delegate = self
+        self.tableView.register(EmployeeListCell.self, forCellReuseIdentifier: EmployeeListCell.identifier)
 
     }
     
@@ -35,6 +36,7 @@ class EmployeeListVC: UIViewController {
         
     }
     
+    //MARK: 화면 UI 메소드
     func uiCreate(){
         //내비게이션
         self.navigationItem.title = "Employees"
@@ -65,4 +67,27 @@ class EmployeeListVC: UIViewController {
         
     }
 
+}
+
+//MARK: 테이블 뷰 메소드
+extension EmployeeListVC: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 10
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 70
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: EmployeeListCell.identifier, for: indexPath) as? EmployeeListCell else { return UITableViewCell() }
+        
+        cell.userImageView.image = UIImage(named: "account")
+        cell.nameLabel.text = "장세웅"
+        cell.commentLabel.text = "Comment 입니다"
+        
+        return cell
+    }
+    
+    
 }

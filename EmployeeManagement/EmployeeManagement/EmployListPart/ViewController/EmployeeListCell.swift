@@ -14,7 +14,9 @@ class EmployeeListCell: UITableViewCell {
     
     let userImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.layer.cornerRadius = imageView.frame.width / 2 - 10
+        imageView.layer.cornerRadius = 20
+        imageView.layer.borderWidth = 0
+        imageView.layer.masksToBounds = true
         
         return imageView
     }()
@@ -43,23 +45,23 @@ class EmployeeListCell: UITableViewCell {
         
         userImageView.snp.makeConstraints { make in
             make.leading.equalTo(20)
-            make.top.equalTo(20)
+            make.top.equalTo(10)
             make.width.equalTo(50)
             make.height.equalTo(50)
         }
         
         nameLabel.snp.makeConstraints { make in
             make.leading.equalTo(self.userImageView.snp.trailing).offset(10)
-            make.top.equalTo(5)
+            make.top.equalTo(8)
             make.width.equalTo(100)
             make.height.equalTo(30)
         }
         
         commentLabel.snp.makeConstraints { make in
             make.leading.equalTo(self.nameLabel.snp.leading)
-            make.top.equalTo(self.nameLabel.snp.bottom).offset(5)
+            make.top.equalTo(self.nameLabel.snp.bottom)
             make.width.equalTo(200)
-            make.height.equalTo(30)
+            make.height.equalTo(20)
         }
     }
     
