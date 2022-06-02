@@ -16,8 +16,14 @@ class EmployeeListVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        uiCreate()
+        //uiCreate()
 
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        uiCreate()
     }
     
     //액션 메소드
@@ -47,6 +53,15 @@ class EmployeeListVC: UIViewController {
     
         addButton.tintColor = UIColor.black
         settingButton.tintColor = UIColor.black
+        
+        //테이블 뷰 UI
+        self.view.addSubview(self.tableView)
+        
+        self.tableView.snp.makeConstraints { make in
+            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
+            make.leading.trailing.equalToSuperview()
+            make.bottom.equalTo(self.view.snp.bottom).offset(-90)
+        }
         
     }
 
