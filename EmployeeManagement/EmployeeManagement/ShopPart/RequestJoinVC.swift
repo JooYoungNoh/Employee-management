@@ -112,6 +112,7 @@ class RequestJoinVC: UIViewController, UITableViewDataSource, UITableViewDelegat
         }
         
         if self.resultRequestJoin.count == 0{
+            cell.company.text = ""
             cell.name.text = "가입신청이 없습니다."
             cell.name.textColor = UIColor.red
             cell.name.frame = CGRect(x: self.view.frame.width / 2 - 65, y: 10, width: 130, height: 30)
