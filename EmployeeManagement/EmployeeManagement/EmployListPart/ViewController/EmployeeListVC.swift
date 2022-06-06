@@ -87,8 +87,8 @@ extension EmployeeListVC: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: EmployeeListCell.identifier, for: indexPath) as? EmployeeListCell else { return UITableViewCell() }
         
         cell.userImageView.image = UIImage(named: "account")
-        cell.nameLabel.text = self.viewModel.employeeList[indexPath.row].name
-        cell.commentLabel.text = self.viewModel.employeeList[indexPath.row].comment
+        cell.nameLabel.text = self.viewModel.employeeResult[indexPath.row].name
+        cell.commentLabel.text = self.viewModel.employeeResult[indexPath.row].comment
         
         return cell
     }
