@@ -14,6 +14,7 @@ struct reList{
     var phone: String
     var requestCompany: String
     var comment: String
+    var id: String
 }
 
 class RequestJoinVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
@@ -38,7 +39,7 @@ class RequestJoinVC: UIViewController, UITableViewDataSource, UITableViewDelegat
         
         self.db.collectionGroup("requestJoin").getDocuments{ (snapshot, error) in
             for doc in snapshot!.documents{
-                self.companyName.append(reList.init(name: doc.data()["name"] as! String, ceoPhone: doc.data()["ceoPhone"] as! String, phone: doc.data()["phone"] as! String, requestCompany: doc.data()["requestCompany"] as! String, comment: doc.data()["comment"] as! String))
+                self.companyName.append(reList.init(name: doc.data()["name"] as! String, ceoPhone: doc.data()["ceoPhone"] as! String, phone: doc.data()["phone"] as! String, requestCompany: doc.data()["requestCompany"] as! String, comment: doc.data()["comment"] as! String, id: doc.data()["id"] as! String))
             }
             while true{
                 let index = self.companyName.firstIndex(where: {$0.ceoPhone == self.appDelegate.phoneInfo!})
@@ -83,6 +84,11 @@ class RequestJoinVC: UIViewController, UITableViewDataSource, UITableViewDelegat
                 "name" : "\(self.resultRequestJoin[indexPath.row].name)",
                 "phone" : "\(self.resultRequestJoin[indexPath.row].phone)",
                 "comment": "\(self.resultRequestJoin[indexPath.row].comment)"
+            ])
+            
+            //개인정보에 회사 이름 넣기
+            self.db.collection("users").document("\(self.resultRequestJoin[indexPath.row].id)").collection("myCompany").document("\(self.resultRequestJoin[indexPath.row].requestCompany)").setData([
+                "company" : "\(self.resultRequestJoin[indexPath.row].requestCompany)"
             ])
             
             //회사 인원 수 추가
@@ -170,14 +176,6 @@ class RequestJoinVC: UIViewController, UITableViewDataSource, UITableViewDelegat
     //MARK: 액션 메소드
     @objc func doclose(_ sender: UIButton){
         self.dismiss(animated: true)
-    }
-    
-    @objc func doYes(_ sender: UIButton){
-        
-    }
-    
-    @objc func doNo(_ sender: UIButton){
-        
     }
     
     //MARK: 화면 구성 메소드

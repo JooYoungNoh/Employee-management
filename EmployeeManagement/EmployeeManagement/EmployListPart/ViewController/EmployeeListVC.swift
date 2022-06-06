@@ -10,6 +10,8 @@ import SnapKit
 
 class EmployeeListVC: UIViewController {
     
+    var viewModel = EmployeeListVM()
+    
     let tableView = UITableView()                         //테이블 뷰
     var searchBarController = UISearchController(searchResultsController: nil)  //서치 바
 
@@ -20,11 +22,13 @@ class EmployeeListVC: UIViewController {
         self.tableView.register(EmployeeListCell.self, forCellReuseIdentifier: EmployeeListCell.identifier)
 
     }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        uiCreate()
+    
+        self.uiCreate()
+        self.viewModel.findEmployList(){ (completion2) in
+            self.tableView.reloadData()
+        }
     }
     
     //액션 메소드
@@ -72,7 +76,7 @@ class EmployeeListVC: UIViewController {
 //MARK: 테이블 뷰 메소드
 extension EmployeeListVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return self.viewModel.numberOfRowsInSection(section: section)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -83,8 +87,8 @@ extension EmployeeListVC: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: EmployeeListCell.identifier, for: indexPath) as? EmployeeListCell else { return UITableViewCell() }
         
         cell.userImageView.image = UIImage(named: "account")
-        cell.nameLabel.text = "장세웅"
-        cell.commentLabel.text = "Comment 입니다"
+        cell.nameLabel.text = self.viewModel.employeeList[indexPath.row].name
+        cell.commentLabel.text = self.viewModel.employeeList[indexPath.row].comment
         
         return cell
     }

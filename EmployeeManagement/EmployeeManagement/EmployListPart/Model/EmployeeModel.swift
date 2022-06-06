@@ -8,7 +8,14 @@
 import Foundation
 
 
-struct EmployeeModel {
+class EmployeeModel {
     var name: String
     var phone: String
+    var comment: String
+    
+    init(name: String, phone: String, comment: String){
+        self.name = name
+        self.phone = phone
+        self.comment = comment
+    }
 }
