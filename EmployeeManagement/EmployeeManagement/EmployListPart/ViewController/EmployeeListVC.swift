@@ -95,6 +95,8 @@ extension EmployeeListVC: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: EmployeeListCell.identifier, for: indexPath) as? EmployeeListCell else { return UITableViewCell() }
         
         if indexPath.section == 0{
+            
+            print("이미지 상태 : \(self.viewModel.myProfileImg)")
             cell.userImageView.image = UIImage(named: "account")
             cell.nameLabel.text = self.viewModel.myName
             cell.commentLabel.text = self.viewModel.myComment

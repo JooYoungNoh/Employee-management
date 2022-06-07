@@ -15,6 +15,7 @@ struct reList{
     var requestCompany: String
     var comment: String
     var id: String
+    var profileImg: Bool
 }
 
 class RequestJoinVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
@@ -39,7 +40,7 @@ class RequestJoinVC: UIViewController, UITableViewDataSource, UITableViewDelegat
         
         self.db.collectionGroup("requestJoin").getDocuments{ (snapshot, error) in
             for doc in snapshot!.documents{
-                self.companyName.append(reList.init(name: doc.data()["name"] as! String, ceoPhone: doc.data()["ceoPhone"] as! String, phone: doc.data()["phone"] as! String, requestCompany: doc.data()["requestCompany"] as! String, comment: doc.data()["comment"] as! String, id: doc.data()["id"] as! String))
+                self.companyName.append(reList.init(name: doc.data()["name"] as! String, ceoPhone: doc.data()["ceoPhone"] as! String, phone: doc.data()["phone"] as! String, requestCompany: doc.data()["requestCompany"] as! String, comment: doc.data()["comment"] as! String, id: doc.data()["id"] as! String, profileImg: doc.data()["profileImg"] as! Bool))
             }
             while true{
                 let index = self.companyName.firstIndex(where: {$0.ceoPhone == self.appDelegate.phoneInfo!})
@@ -83,7 +84,8 @@ class RequestJoinVC: UIViewController, UITableViewDataSource, UITableViewDelegat
             query.collection("employeeControl").document("\(self.resultRequestJoin[indexPath.row].phone)").setData([
                 "name" : "\(self.resultRequestJoin[indexPath.row].name)",
                 "phone" : "\(self.resultRequestJoin[indexPath.row].phone)",
-                "comment": "\(self.resultRequestJoin[indexPath.row].comment)"
+                "comment": "\(self.resultRequestJoin[indexPath.row].comment)",
+                "profileImg" : self.resultRequestJoin[indexPath.row].profileImg
             ])
             
             //개인정보에 회사 이름 넣기

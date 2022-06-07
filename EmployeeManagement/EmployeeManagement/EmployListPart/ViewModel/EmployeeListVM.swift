@@ -17,6 +17,7 @@ class EmployeeListVM {
     //section 0
     var myName: String = ""
     var myComment: String = ""
+    var myProfileImg: Bool = false
     
     //section 1
     var myCompany: [String] = []
@@ -32,7 +33,10 @@ class EmployeeListVM {
         
         self.db.collection("users").document("\(self.appDelegate.idInfo!)").getDocument { (snapshot, error) in
             self.myComment = snapshot!.data()!["comment"] as! String
+            self.myProfileImg = snapshot!.data()!["profileImg"] as! Bool
             
+            //로그인 후 첫 화면 이므로 가입요청할 때 넣기위해 프로필 상태 가져옴
+            self.appDelegate.profileState = self.myProfileImg
             completion(self.myComment)
         }
         
@@ -69,7 +73,7 @@ class EmployeeListVM {
                     
                     //DB에서 정보 가져오기
                     for doc2 in snapshot2!.documents{
-                        self.employeeList.append( EmployeeModel.init(name: doc2.data()["name"] as! String, phone: doc2.data()["phone"] as! String, comment: doc2.data()["comment"] as! String))
+                        self.employeeList.append( EmployeeModel.init(name: doc2.data()["name"] as! String, phone: doc2.data()["phone"] as! String, comment: doc2.data()["comment"] as! String, profileImg: doc2.data()["profileImg"] as! Bool))
                         self.employeePhoneList.append(doc2.data()["phone"] as! String)
                     }
                     //MARK: 중복 제거
