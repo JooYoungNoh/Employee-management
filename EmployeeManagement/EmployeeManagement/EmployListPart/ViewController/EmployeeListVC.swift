@@ -95,22 +95,39 @@ extension EmployeeListVC: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: EmployeeListCell.identifier, for: indexPath) as? EmployeeListCell else { return UITableViewCell() }
         
         if indexPath.section == 0{
-            
+            //프로필 이미지
             print("이미지 상태 : \(self.viewModel.myProfileImg)")
-            cell.userImageView.image = UIImage(named: "account")
+            
+            if self.viewModel.myProfileImg == true {
+                self.viewModel.downloadimage(imgView: cell.userImageView, phone: self.viewModel.myPhone)
+            } else {
+                cell.userImageView.image = UIImage(named: "account")
+            }
+            
             cell.nameLabel.text = self.viewModel.myName
             cell.commentLabel.text = self.viewModel.myComment
             return cell
         } else {
-            cell.userImageView.image = UIImage(named: "account")
+            //프로필 이미지
+            if self.viewModel.employeeResult[indexPath.row].profileImg == true {
+                self.viewModel.downloadimage(imgView: cell.userImageView, phone: self.viewModel.employeeResult[indexPath.row].phone)
+            } else {
+                cell.userImageView.image = UIImage(named: "account")
+            }
+            
             cell.nameLabel.text = self.viewModel.employeeResult[indexPath.row].name
             cell.commentLabel.text = self.viewModel.employeeResult[indexPath.row].comment
+            
             return cell
         }
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 35
     }
     
     //MARK: 섹션 타이틀
@@ -137,10 +154,5 @@ extension EmployeeListVC: UITableViewDelegate, UITableViewDataSource {
             return csview
         }
     }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 35
-    }
-    
-    
+
 }

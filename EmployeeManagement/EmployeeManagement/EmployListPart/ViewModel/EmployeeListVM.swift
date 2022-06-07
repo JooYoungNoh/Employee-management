@@ -7,17 +7,19 @@
 
 import UIKit
 import FirebaseFirestore
-import SystemConfiguration
+import FirebaseStorage
 
 class EmployeeListVM {
     
     let db = Firestore.firestore()
+    let storage = Storage.storage()
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     //section 0
     var myName: String = ""
     var myComment: String = ""
     var myProfileImg: Bool = false
+    var myPhone: String = ""
     
     //section 1
     var myCompany: [String] = []
@@ -30,6 +32,7 @@ class EmployeeListVM {
     //내 정보 가져오기
     func findMe(completion: @escaping(String) -> () ){
         self.myName = self.appDelegate.nameInfo!
+        self.myPhone = self.appDelegate.phoneInfo!
         
         self.db.collection("users").document("\(self.appDelegate.idInfo!)").getDocument { (snapshot, error) in
             self.myComment = snapshot!.data()!["comment"] as! String
@@ -97,6 +100,21 @@ class EmployeeListVM {
     
                     completion2(self.employeeResult)    // == return
                 }
+            }
+        }
+    }
+    
+    //MARK: 이미지 있을 떄 다운로드 메소드
+    //TODO: 나중에 jpg 빼기
+    func downloadimage(imgView: UIImageView, phone: String){
+        storage.reference(forURL: "gs://employeemanagement-9d6eb.appspot.com/\(phone).jpg").downloadURL { (url, error) in
+            if error == nil && url != nil {
+                let data = NSData(contentsOf: url!)
+                let dbImage = UIImage(data: data! as Data)
+                
+                imgView.image = dbImage
+            } else {
+                print(error!.localizedDescription)
             }
         }
     }
