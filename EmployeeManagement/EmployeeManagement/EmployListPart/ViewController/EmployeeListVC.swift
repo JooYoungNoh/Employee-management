@@ -96,10 +96,8 @@ extension EmployeeListVC: UITableViewDelegate, UITableViewDataSource {
         
         if indexPath.section == 0{
             //프로필 이미지
-            print("이미지 상태 : \(self.viewModel.myProfileImg)")
-            
             if self.viewModel.myProfileImg == true {
-                self.viewModel.downloadimage(imgView: cell.userImageView, phone: self.viewModel.myPhone)
+                self.viewModel.myDownloadimage(imgView: cell.userImageView)
             } else {
                 cell.userImageView.image = UIImage(named: "account")
             }
@@ -109,14 +107,14 @@ extension EmployeeListVC: UITableViewDelegate, UITableViewDataSource {
             return cell
         } else {
             //프로필 이미지
-            if self.viewModel.employeeResult[indexPath.row].profileImg == true {
-                self.viewModel.downloadimage(imgView: cell.userImageView, phone: self.viewModel.employeeResult[indexPath.row].phone)
+            if self.viewModel.employeeRealResult[indexPath.row].profileImg == true {
+                self.viewModel.employeeDownloadimage(imgView: cell.userImageView, phone: self.viewModel.employeeRealResult[indexPath.row].phone)
             } else {
                 cell.userImageView.image = UIImage(named: "account")
             }
             
-            cell.nameLabel.text = self.viewModel.employeeResult[indexPath.row].name
-            cell.commentLabel.text = self.viewModel.employeeResult[indexPath.row].comment
+            cell.nameLabel.text = self.viewModel.employeeRealResult[indexPath.row].name
+            cell.commentLabel.text = self.viewModel.employeeRealResult[indexPath.row].comment
             
             return cell
         }

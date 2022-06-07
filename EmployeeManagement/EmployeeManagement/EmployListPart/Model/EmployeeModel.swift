@@ -8,7 +8,8 @@
 import Foundation
 
 
-class EmployeeModel {
+struct EmployeeModel: Hashable {
+    
     var name: String
     var phone: String
     var comment: String
@@ -19,5 +20,13 @@ class EmployeeModel {
         self.phone = phone
         self.comment = comment
         self.profileImg = profileImg
+    }
+    
+    func hash(into hasher: inout Hasher) {
+      hasher.combine(self.phone.hashValue)
+    }
+
+    static func == (lhs: Self, rhs: Self) -> Bool {
+      lhs.hashValue == rhs.hashValue
     }
 }
