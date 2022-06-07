@@ -22,6 +22,9 @@ class EmployeeListVM {
     
     //내가 속한 회사 정보 불러오기
     func findCompany(completion: @escaping([String]) ->() ){
+        //최종 직원 리스트 결과 초기화
+        self.employeeResult.removeAll()
+        
         self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("myCompany").getDocuments { (snapshot, error) in
             //회사 이름 배열 초기화
             self.myCompany.removeAll()
@@ -38,9 +41,9 @@ class EmployeeListVM {
         self.findCompany{ completion in
             for i in completion {
                 self.db.collection("shop").document("\(i)").collection("employeeControl").getDocuments{ snapshot2, error in
-                    //구조체 배열들 초기화
+                    //구조체 배열 초기화
                     self.employeeList.removeAll()
-                    self.employeeResult.removeAll()
+                  
                     //"phone" 배열들 초기화
                     self.employeePhoneList.removeAll()
                     self.employeePhoneResult.removeAll()
