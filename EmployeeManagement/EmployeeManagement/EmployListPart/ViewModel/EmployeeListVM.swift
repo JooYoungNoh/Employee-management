@@ -14,12 +14,31 @@ class EmployeeListVM {
     let db = Firestore.firestore()
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
+    //section 0
+    var myName: String = ""
+    var myComment: String = ""
+    
+    //section 1
     var myCompany: [String] = []
     var employeeList: [EmployeeModel] = []
     var employeeResult: [EmployeeModel] = []
     var employeePhoneList: [String] = []
     var employeePhoneResult: [String] = []
     
+    //MARK: section 0
+    //내 정보 가져오기
+    func findMe(completion: @escaping(String) -> () ){
+        self.myName = self.appDelegate.nameInfo!
+        
+        self.db.collection("users").document("\(self.appDelegate.idInfo!)").getDocument { (snapshot, error) in
+            self.myComment = snapshot!.data()!["comment"] as! String
+            
+            completion(self.myComment)
+        }
+        
+    }
+    
+    //MARK: section 1
     //내가 속한 회사 정보 불러오기
     func findCompany(completion: @escaping([String]) ->() ){
         //최종 직원 리스트 결과 초기화

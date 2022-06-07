@@ -26,6 +26,10 @@ class EmployeeListVC: UIViewController {
         super.viewWillAppear(animated)
     
         self.uiCreate()
+        self.viewModel.findMe{ (completion) in
+            self.tableView.reloadData()
+        }
+        
         self.viewModel.findEmployList(){ (completion2) in
             self.tableView.reloadData()
         }
@@ -92,8 +96,8 @@ extension EmployeeListVC: UITableViewDelegate, UITableViewDataSource {
         
         if indexPath.section == 0{
             cell.userImageView.image = UIImage(named: "account")
-            cell.nameLabel.text = "노주영"
-            cell.commentLabel.text = "빨리빨리 되라 ㅡㅡ"
+            cell.nameLabel.text = self.viewModel.myName
+            cell.commentLabel.text = self.viewModel.myComment
             return cell
         } else {
             cell.userImageView.image = UIImage(named: "account")
