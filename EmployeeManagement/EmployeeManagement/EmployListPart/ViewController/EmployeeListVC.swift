@@ -20,19 +20,22 @@ class EmployeeListVC: UIViewController {
         self.tableView.dataSource = self
         self.tableView.delegate = self
         self.tableView.register(EmployeeListCell.self, forCellReuseIdentifier: EmployeeListCell.identifier)
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1){
+            self.tableView.reloadData()
+        }
 
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     
         self.uiCreate()
-        self.viewModel.findMe{ (completion) in
+        self.viewModel.findMe{ () in
             self.tableView.reloadData()
         }
         
         self.viewModel.findEmployList(){ (completion2) in
-            self.tableView.reloadData()
         }
+
     }
     
     //액션 메소드
@@ -96,17 +99,14 @@ extension EmployeeListVC: UITableViewDelegate, UITableViewDataSource {
         
         if indexPath.section == 0{
             //프로필 이미지
-            if self.viewModel.myProfileImg == true {
-                self.viewModel.myDownloadimage(imgView: cell.userImageView)
-            } else {
-                cell.userImageView.image = UIImage(named: "account")
-            }
             
+            cell.userImageView.image = self.viewModel.myDownloadimage(choose: self.viewModel.myProfileImg)
             cell.nameLabel.text = self.viewModel.myName
             cell.commentLabel.text = self.viewModel.myComment
             return cell
         } else {
             //프로필 이미지
+            cell.userImageView.image = nil
             if self.viewModel.employeeRealResult[indexPath.row].profileImg == true {
                 self.viewModel.employeeDownloadimage(imgView: cell.userImageView, phone: self.viewModel.employeeRealResult[indexPath.row].phone)
             } else {

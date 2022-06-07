@@ -20,6 +20,8 @@ class EmployeeListVM {
     var myComment: String = ""
     var myProfileImg: Bool = false
     var myPhone: String = ""
+    var myImage: UIImage!
+    
     
     //section 1
     var myCompany: [String] = []
@@ -31,7 +33,7 @@ class EmployeeListVM {
     
     //MARK: section 0
     //내 정보 가져오기
-    func findMe(completion: @escaping(String) -> () ){
+    func findMe(completion: @escaping() -> () ){
         self.myName = self.appDelegate.nameInfo!
         self.myPhone = self.appDelegate.phoneInfo!
         
@@ -40,8 +42,8 @@ class EmployeeListVM {
             self.myProfileImg = snapshot!.data()!["profileImg"] as! Bool
             
             //로그인 후 첫 화면 이므로 가입요청할 때 넣기위해 프로필 상태 가져옴
-            self.appDelegate.profileState = self.myProfileImg
-            completion(self.myComment)
+   
+            completion()
         }
         
     }
@@ -97,18 +99,24 @@ class EmployeeListVM {
     }
     
     //MARK: 이미지 있을 떄 다운로드 메소드
-    //TODO: 나중에 jpg 빼기
-    func myDownloadimage(imgView: UIImageView){
-        storage.reference(forURL: "gs://employeemanagement-9d6eb.appspot.com/\(self.appDelegate.phoneInfo!).png").downloadURL { (url, error) in
-            if error == nil && url != nil {
-                let data = NSData(contentsOf: url!)
-                let dbImage = UIImage(data: data! as Data)
-                
-                imgView.image = dbImage
-            } else {
-                print(error!.localizedDescription)
+    //TODO: 나중에 png 빼기
+    func myDownloadimage(choose: Bool) -> UIImage{
+        
+        if choose == true {
+            storage.reference(forURL: "gs://employeemanagement-9d6eb.appspot.com/\(self.appDelegate.phoneInfo!).png").downloadURL { [self] (url, error) in
+                if error == nil && url != nil {
+                    let data = NSData(contentsOf: url!)
+                    let dbImage = UIImage(data: data! as Data)
+                    
+                    self.myImage = dbImage!
+                } else {
+                    print(error!.localizedDescription)
+                }
             }
+        } else {
+            self.myImage = UIImage(named: "account")
         }
+        return self.myImage!
     }
     
     func employeeDownloadimage(imgView: UIImageView, phone: String){
@@ -127,7 +135,10 @@ class EmployeeListVM {
     
     //테이블 뷰 섹션에 나타낼 로우 갯수
     func numberOfRowsInSection(section: Int) -> Int {
-        return self.employeeRealResult.count
+        if section == 0{
+            return 1
+        } else {
+            return self.employeeRealResult.count
+        }
     }
-    
 }
