@@ -76,7 +76,11 @@ class EmployeeListVC: UIViewController {
 //MARK: 테이블 뷰 메소드
 extension EmployeeListVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.viewModel.numberOfRowsInSection(section: section)
+        if section == 0{
+            return 1
+        } else {
+            return self.viewModel.numberOfRowsInSection(section: section)
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -86,11 +90,50 @@ extension EmployeeListVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: EmployeeListCell.identifier, for: indexPath) as? EmployeeListCell else { return UITableViewCell() }
         
-        cell.userImageView.image = UIImage(named: "account")
-        cell.nameLabel.text = self.viewModel.employeeResult[indexPath.row].name
-        cell.commentLabel.text = self.viewModel.employeeResult[indexPath.row].comment
+        if indexPath.section == 0{
+            cell.userImageView.image = UIImage(named: "account")
+            cell.nameLabel.text = "노주영"
+            cell.commentLabel.text = "빨리빨리 되라 ㅡㅡ"
+            return cell
+        } else {
+            cell.userImageView.image = UIImage(named: "account")
+            cell.nameLabel.text = self.viewModel.employeeResult[indexPath.row].name
+            cell.commentLabel.text = self.viewModel.employeeResult[indexPath.row].comment
+            return cell
+        }
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
+    //MARK: 섹션 타이틀
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let csview = UIView()
+        let listTitle = UILabel()
         
-        return cell
+        csview.backgroundColor = UIColor.white
+        if section == 0 {
+            listTitle.frame = CGRect(x: 20, y: 0, width: self.view.frame.width / 2, height: 30)
+            listTitle.font = UIFont.init(name: "CookieRun", size: 20)
+            listTitle.text = "내 프로필"
+            listTitle.textColor = UIColor.blue
+            
+            csview.addSubview(listTitle)
+            return csview
+        } else {
+            listTitle.frame = CGRect(x: 20, y: 0, width: self.view.frame.width / 2, height: 30)
+            listTitle.font = UIFont.init(name: "CookieRun", size: 20)
+            listTitle.text = "동료 프로필"
+            listTitle.textColor = UIColor.blue
+            
+            csview.addSubview(listTitle)
+            return csview
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 35
     }
     
     
