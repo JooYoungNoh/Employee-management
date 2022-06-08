@@ -14,6 +14,15 @@ class ProfileInfoVC: UIViewController {
     var phoneOnTable: String = ""               //전 화면 셀에 있는 번호
     var imageChooseOnTable: Bool = false        //전 화면 셀에 있는 사진유무
     
+    //닫기 버튼
+    let closeButton: UIButton = {
+        let close = UIButton()
+        close.setTitle("Close", for: .normal)
+        close.setTitleColor(UIColor.black, for: .normal)
+        close.titleLabel?.font = UIFont.init(name: "CookieRun", size: 20)
+        return close
+    }()
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,17 +31,26 @@ class ProfileInfoVC: UIViewController {
         print(commentOnTable)
         print(imageChooseOnTable)
         print(phoneOnTable)
+        uiCreate()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    //MARK: 화면 UI 메소드
+    func uiCreate(){
+        //닫기 버튼 UI
+        closeButton.addTarget(self, action: #selector(doclose(_:)), for: .touchUpInside)
+        self.view.addSubview(closeButton)
+        
+        closeButton.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(10)
+            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
+            make.width.equalTo(80)
+            make.height.equalTo(40)
+        }
     }
-    */
+    
+    //MARK: 엑션 메소드
+    @objc func doclose(_ sender: UIButton) {
+        self.dismiss(animated: true)
+    }
 
 }
