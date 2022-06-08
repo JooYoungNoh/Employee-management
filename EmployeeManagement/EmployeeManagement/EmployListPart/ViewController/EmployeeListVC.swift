@@ -68,6 +68,8 @@ class EmployeeListVC: UIViewController {
         settingButton.tintColor = UIColor.black
         
         //테이블 뷰 UI
+        self.tableView.separatorStyle = .none
+        
         self.view.addSubview(self.tableView)
         
         self.tableView.snp.makeConstraints { make in
@@ -138,6 +140,7 @@ extension EmployeeListVC: UITableViewDelegate, UITableViewDataSource {
             myNV.imageOnTable = self.viewModel.myImage
             myNV.commentOnTable = self.viewModel.myComment
             myNV.nameOnTable = self.viewModel.myName
+            myNV.modalPresentationStyle = .fullScreen
             
             self.present(myNV, animated: true)
             
@@ -146,6 +149,7 @@ extension EmployeeListVC: UITableViewDelegate, UITableViewDataSource {
             nv.phoneOnTable = self.viewModel.employeeRealResult[indexPath.row].phone
             nv.commentOnTable = self.viewModel.employeeRealResult[indexPath.row].comment
             nv.nameOnTable = self.viewModel.employeeRealResult[indexPath.row].name
+            nv.modalPresentationStyle = .fullScreen
             
             self.present(nv, animated: true)
         }
