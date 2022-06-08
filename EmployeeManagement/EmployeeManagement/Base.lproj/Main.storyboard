@@ -70,6 +70,21 @@
             </objects>
             <point key="canvasLocation" x="3294" y="-1244"/>
         </scene>
+        <!--프로필 정보-->
+        <scene sceneID="GOd-im-B0l">
+            <objects>
+                <viewController storyboardIdentifier="ProfileInfoVC" title="프로필 정보" id="qh5-FY-oKF" customClass="ProfileInfoVC" customModule="EmployeeManagement" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="lVL-C7-ztk">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="Y42-yA-RGw"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3eb-gJ-teV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4011" y="-1244"/>
+        </scene>
         <!--채팅 화면-->
         <scene sceneID="8mV-YX-VhN">
             <objects>
