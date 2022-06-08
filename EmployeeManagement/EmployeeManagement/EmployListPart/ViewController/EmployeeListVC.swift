@@ -128,6 +128,11 @@ extension EmployeeListVC: UITableViewDelegate, UITableViewDataSource {
         return 35
     }
     
+    //MARK: 셀 선택
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        <#code#>
+    }
+    
     //MARK: 섹션 타이틀
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let csview = UIView()
