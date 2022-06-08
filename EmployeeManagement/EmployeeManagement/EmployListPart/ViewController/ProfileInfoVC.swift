@@ -8,11 +8,20 @@
 import UIKit
 
 class ProfileInfoVC: UIViewController {
+    
+    var nameOnTable: String = ""                //전 화면 셀에 있는 이름
+    var commentOnTable: String = ""             //전 회면 셀에 있는 코멘트
+    var phoneOnTable: String = ""               //전 화면 셀에 있는 번호
+    var imageChooseOnTable: Bool = false        //전 화면 셀에 있는 사진유무
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        print(nameOnTable)
+        print(commentOnTable)
+        print(imageChooseOnTable)
+        print(phoneOnTable)
     }
     
 

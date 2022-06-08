@@ -130,7 +130,25 @@ extension EmployeeListVC: UITableViewDelegate, UITableViewDataSource {
     
     //MARK: 셀 선택
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        <#code#>
+        let myNV = self.storyboard?.instantiateViewController(withIdentifier: "MyProfileInfoVC") as! MyProfileInfoVC
+        let nv = self.storyboard?.instantiateViewController(withIdentifier: "ProfileInfoVC") as! ProfileInfoVC
+        
+        
+        if indexPath.section == 0{
+            myNV.imageOnTable = self.viewModel.myImage
+            myNV.commentOnTable = self.viewModel.myComment
+            myNV.nameOnTable = self.viewModel.myName
+            
+            self.present(myNV, animated: true)
+            
+        } else {
+            nv.imageChooseOnTable = self.viewModel.employeeRealResult[indexPath.row].profileImg
+            nv.phoneOnTable = self.viewModel.employeeRealResult[indexPath.row].phone
+            nv.commentOnTable = self.viewModel.employeeRealResult[indexPath.row].comment
+            nv.nameOnTable = self.viewModel.employeeRealResult[indexPath.row].name
+            
+            self.present(nv, animated: true)
+        }
     }
     
     //MARK: 섹션 타이틀
