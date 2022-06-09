@@ -14,7 +14,7 @@ class MyProfileInfoVC: UIViewController {
     var commentOnTable: String = ""     //전 회면 셀에 있는 코멘트
     var imageOnTable: UIImage!          //전 화면 셀에 있는 사진
     
-    let sectionInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+    var viewModel = ProfileVM()
     
     //닫기 버튼
     let closeButton: UIButton = {
@@ -131,12 +131,15 @@ class MyProfileInfoVC: UIViewController {
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
         self.collectionView.register(ProfileInfoCVCell.self, forCellWithReuseIdentifier: ProfileInfoCVCell.identifier)
-        uiCreate()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        uiCreate()
         self.view.backgroundColor = .systemGray6
+        self.viewModel.findMyCompany{ completion in
+            self.collectionView.reloadData()
+        }
     }
     
     //MARK: 화면 UI 메소드
@@ -270,13 +273,12 @@ extension MyProfileInfoVC: UICollectionViewDelegate,UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProfileInfoCVCell.identifier, for: indexPath) as? ProfileInfoCVCell else { return UICollectionViewCell() }
         
-        cell.titleLabel.text = "실험"
-    
+        cell.titleLabel.text = self.viewModel.dbmyCompany[indexPath.row]
         
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 15
+        return self.viewModel.dbmyCompany.count
     }
 }
 
