@@ -234,6 +234,10 @@ class ShopAddVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
                                     print(error!.localizedDescription)
                                 }
                             }
+                            self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("myCompany").document("\(self.companyTextfield.text!)").setData([
+                                "company" : "\(self.companyTextfield.text!)"
+                            ])
+                            
                             self.uploadimage(img: self.logoImage.image!)
                             self.dismiss(animated: true)
                         })
