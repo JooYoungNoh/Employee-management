@@ -14,6 +14,8 @@ class MyProfileInfoVC: UIViewController {
     var commentOnTable: String = ""     //전 회면 셀에 있는 코멘트
     var imageOnTable: UIImage!          //전 화면 셀에 있는 사진
     
+    let sectionInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+    
     //닫기 버튼
     let closeButton: UIButton = {
         let close = UIButton()
@@ -50,7 +52,7 @@ class MyProfileInfoVC: UIViewController {
         comment.numberOfLines = 0
         return comment
     }()
-    //코멘트 밑 쪽 선 표시
+    //컬렉션 뷰 위쪽 선 표시
     let commentUnderView: UIView = {
        let view = UIView()
         view.backgroundColor = .white
@@ -112,10 +114,23 @@ class MyProfileInfoVC: UIViewController {
         label.font = UIFont(name: "CookieRun", size: 15)
         return label
     }()
+    //컬렉션 뷰
+    let collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = 10
+        layout.itemSize = CGSize(width: 100, height: 120)
+        let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collection.backgroundColor = .systemGray6
+        return collection
+    }()
 
     //MARK: viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.collectionView.delegate = self
+        self.collectionView.dataSource = self
+        self.collectionView.register(ProfileInfoCVCell.self, forCellWithReuseIdentifier: ProfileInfoCVCell.identifier)
         uiCreate()
     }
     
@@ -168,13 +183,7 @@ class MyProfileInfoVC: UIViewController {
             make.width.equalTo(200)
             make.height.lessThanOrEqualTo(60)
         }
-        //코멘트 밑 선 UI
-        self.view.addSubview(self.commentUnderView)
-        commentUnderView.snp.makeConstraints { make in
-            make.width.equalToSuperview()
-            make.height.equalTo(2)
-            make.top.equalTo(self.commentLabel.snp.bottom).offset(15)
-        }
+
         
         //MARK: 버튼 선택 부분
         //메모 UI
@@ -190,7 +199,7 @@ class MyProfileInfoVC: UIViewController {
         myMemoButton.snp.makeConstraints { make in
             make.centerX.equalTo(self.myMemoLabel.snp.centerX)
             make.bottom.equalTo(self.myMemoLabel.snp.top).offset(-5)
-            make.width.height.equalTo(50)
+            make.width.height.equalTo(30)
         }
         
         //프로필 관리 UI
@@ -206,7 +215,7 @@ class MyProfileInfoVC: UIViewController {
         penButton.snp.makeConstraints { make in
             make.centerX.equalTo(self.penLabel.snp.centerX)
             make.bottom.equalTo(self.penLabel.snp.top).offset(-5)
-            make.width.height.equalTo(50)
+            make.width.height.equalTo(30)
         }
         
         //급여 계산 UI
@@ -222,7 +231,7 @@ class MyProfileInfoVC: UIViewController {
         calculatorButton.snp.makeConstraints { make in
             make.centerX.equalTo(self.calculatorLabel.snp.centerX)
             make.bottom.equalTo(self.calculatorLabel.snp.top).offset(-5)
-            make.width.height.equalTo(50)
+            make.width.height.equalTo(30)
         }
         
         //버튼 위쪽 선 UI
@@ -232,11 +241,42 @@ class MyProfileInfoVC: UIViewController {
             make.height.equalTo(2)
             make.bottom.equalTo(self.myMemoButton.snp.top).offset(-15)
         }
+        
+        //MARK: 컬렉션 뷰
+        self.view.addSubview(self.collectionView)
+        collectionView.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview()
+            make.bottom.equalTo(self.buttonUpView.snp.top).offset(-20)
+            make.height.equalTo(150)
+        }
+        
+        //컬렉션 뷰 위 선 UI
+        self.view.addSubview(self.commentUnderView)
+        commentUnderView.snp.makeConstraints { make in
+            make.width.equalToSuperview()
+            make.height.equalTo(2)
+            make.bottom.equalTo(self.collectionView.snp.top).offset(-20)
+        }
     }
     
     //MARK: 엑션 메소드
     @objc func doclose(_ sender: UIButton) {
         self.dismiss(animated: true)
     }
-
 }
+
+//MARK: collectionView 메소드
+extension MyProfileInfoVC: UICollectionViewDelegate,UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProfileInfoCVCell.identifier, for: indexPath) as? ProfileInfoCVCell else { return UICollectionViewCell() }
+        
+        cell.titleLabel.text = "실험"
+    
+        
+        return cell
+    }
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 15
+    }
+}
+
