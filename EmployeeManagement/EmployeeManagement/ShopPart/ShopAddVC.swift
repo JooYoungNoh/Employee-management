@@ -188,7 +188,8 @@ class ShopAddVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
                                         self.db.collection("shop").document("\(self.companyTextfield.text!)").collection("employeeControl").document("\(self.appDelegate.phoneInfo!)").setData([
                                             "phone" : "\(self.appDelegate.phoneInfo!)",
                                             "name" : "\(self.appDelegate.nameInfo!)",
-                                            "comment" : "\(self.appDelegate.comment!)"
+                                            "comment" : "\(self.appDelegate.comment!)",
+                                            "profileImg" : self.appDelegate.profileState!
                                             ])
                                     } else {
                                         print(error!.localizedDescription)
@@ -228,7 +229,8 @@ class ShopAddVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
                                     self.db.collection("shop").document("\(self.companyTextfield.text!)").collection("employeeControl").document("\(self.appDelegate.phoneInfo!)").setData([
                                         "phone" : "\(self.appDelegate.phoneInfo!)",
                                         "name" : "\(self.appDelegate.nameInfo!)",
-                                        "comment" : "\(self.appDelegate.comment!)"
+                                        "comment" : "\(self.appDelegate.comment!)",
+                                        "profileImg" : self.appDelegate.profileState!
                                     ])
                                 } else {
                                     print(error!.localizedDescription)
