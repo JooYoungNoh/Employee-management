@@ -23,8 +23,6 @@ class ProfileInfoCVCell: UICollectionViewCell {
     
     var imageView: UIImageView = {
         let  img = UIImageView()
-        img.image = UIImage(named: "logonil")
-       // img.layer.cornerRadius = 25
         img.layer.borderWidth = 0
         img.layer.masksToBounds = true
         return img

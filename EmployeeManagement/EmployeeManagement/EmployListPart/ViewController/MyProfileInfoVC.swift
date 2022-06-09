@@ -272,9 +272,10 @@ class MyProfileInfoVC: UIViewController {
 extension MyProfileInfoVC: UICollectionViewDelegate,UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProfileInfoCVCell.identifier, for: indexPath) as? ProfileInfoCVCell else { return UICollectionViewCell() }
+    
         
         cell.titleLabel.text = self.viewModel.dbmyCompany[indexPath.row]
-        
+        self.viewModel.employeeDownloadimage(imgView: cell.imageView, company: cell.titleLabel.text!)
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
