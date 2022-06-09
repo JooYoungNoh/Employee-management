@@ -195,6 +195,10 @@ class ShopAddVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
                                     }
                                 }
                                 
+                                self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("myCompany").document("\(self.companyTextfield.text!)").setData([
+                                    "company" : "\(self.companyTextfield.text!)"
+                                ])
+                                
                                 self.dismiss(animated: true)
                             })
                             self.present(alert1, animated: true)
