@@ -51,4 +51,20 @@ class ProfileVM {
             }
         }
     }
+    
+    func profileChange() -> UIAlertController{
+        let alert = UIAlertController(title: "선택해주세요", message: nil, preferredStyle: .actionSheet)
+        
+        alert.addAction(UIAlertAction(title: "프로필 이미지 변경", style: .default) { (_) in
+            
+        })
+        
+        alert.addAction(UIAlertAction(title: "상태메시지 변경", style: .default) { (_) in
+            
+        })
+        
+        alert.addAction(UIAlertAction(title: "취소", style: .cancel))
+        
+        return alert
+    }
 }

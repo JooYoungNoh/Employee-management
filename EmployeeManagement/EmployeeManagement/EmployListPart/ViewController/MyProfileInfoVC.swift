@@ -213,7 +213,7 @@ class MyProfileInfoVC: UIViewController {
             make.width.equalTo(80)
             make.height.equalTo(30)
         }
-        
+        penButton.addTarget(self, action: #selector(doProfile(_:)), for: .touchUpInside)
         self.view.addSubview(penButton)
         penButton.snp.makeConstraints { make in
             make.centerX.equalTo(self.penLabel.snp.centerX)
@@ -265,6 +265,10 @@ class MyProfileInfoVC: UIViewController {
     //MARK: 엑션 메소드
     @objc func doclose(_ sender: UIButton) {
         self.dismiss(animated: true)
+    }
+    
+    @objc func doProfile(_ sender: UIButton){
+        self.present(self.viewModel.profileChange(), animated: true)
     }
 }
 
