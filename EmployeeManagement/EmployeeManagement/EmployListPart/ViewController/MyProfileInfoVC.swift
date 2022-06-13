@@ -163,7 +163,7 @@ class MyProfileInfoVC: UIViewController {
         self.view.addSubview(closeButton)
         
         closeButton.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(10)
+            make.leading.equalToSuperview().offset(5)
             make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
             make.width.equalTo(80)
             make.height.equalTo(40)
@@ -174,7 +174,7 @@ class MyProfileInfoVC: UIViewController {
         self.view.addSubview(saveButton)
         
         saveButton.snp.makeConstraints { make in
-            make.trailing.equalToSuperview().offset(-10)
+            make.trailing.equalToSuperview().offset(-5)
             make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
             make.width.equalTo(80)
             make.height.equalTo(40)
