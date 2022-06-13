@@ -371,6 +371,9 @@ class MyProfileInfoVC: UIViewController, UITextViewDelegate {
             self.viewModel.changeValueSave(imgView: self.profileImage, tableImg: self.imageOnTable!)
             self.cancelButton.isHidden = true
             self.saveButton.isHidden = true
+            self.commentTF.isHidden = true
+            self.countLabel.isHidden = true
+            self.commentLabel.isHidden = false
         })
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
