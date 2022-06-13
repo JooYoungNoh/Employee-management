@@ -19,6 +19,7 @@ class ProfileVM {
     var dbmyCompany: [String] = []              //내 회사
     var dbmyCompanyLogo: Bool = false           //회사 로고 유무
     
+    //MARK: 회사 컬렉션 뷰
     //회사 찾기
     func findMyCompany(completion: @escaping([String]) -> ()) {
         self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("myCompany").getDocuments { (snapshot, error) in
@@ -55,7 +56,8 @@ class ProfileVM {
             }
         }
     }
-    
+    //MARK: 프로필 이미지
+    //프로필 이미지 삭제
     func imageDelete(imgView: UIImageView) -> UIAlertController {
         if imgView.image == UIImage(named: "account") {
             let alert3 = UIAlertController(title: nil, message: "삭제할 로고 이미지가 없습니다", preferredStyle: .alert)
@@ -76,6 +78,9 @@ class ProfileVM {
     
     //변경 사항 저장 메소드
     func changeValueSave(imgView: UIImageView, tableImg: UIImage){
+        
+        
+        
         if imgView.image == UIImage(named: "account") {
             if self.appDelegate.profileState == true {                  //이미지 없는데 true
                 //스토리지에서 삭제
@@ -161,4 +166,51 @@ class ProfileVM {
         }
     }
     
+    //MARK: 내 상태메시지 변경
+    func changeCommentSave(commentTF: UITextView, commentLabel: UILabel){
+        if commentTF.text != commentLabel.text {
+            commentLabel.text = commentTF.text
+            self.appDelegate.comment = commentTF.text
+            //스토어에서 코멘트 변경
+            self.db.collection("users").document("\(self.appDelegate.idInfo!)").updateData(["comment" : "\(String(describing: commentTF.text!))"])
+            
+            //회사마다 코멘트 유무 바꾸기
+            self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("myCompany").getDocuments { (snapshot, error) in
+                if error == nil {
+                    for doc in snapshot!.documents{
+                        self.changeImageStateCompany.append(doc.documentID)
+                    }
+                    for dic in self.changeImageStateCompany{
+                        self.db.collection("shop").document("\(dic)").collection("employeeControl").document("\(self.appDelegate.phoneInfo!)").updateData(["comment" : "\(String(describing: commentTF.text!))"])
+                    }
+                } else {
+                    print(error!.localizedDescription)
+                }
+            }
+        }
+    }
+    
+    //텍스트 필드
+    func changeMessage(textView: UITextView, countLabel: UILabel, commentLabel: UILabel, saveButton: UIButton, cancelButton: UIButton){
+        let contents = textView.text as NSString
+        countLabel.text = "\(String(describing: contents.length))/40"
+        if contents != commentLabel.text! as NSString {
+            saveButton.isHidden = false
+            cancelButton.isHidden = false
+        } else {
+            saveButton.isHidden = true
+            cancelButton.isHidden = true
+        }
+    }
+    
+    //취소버튼 클릭
+    func cancelMessage(commentTF: UITextView, countLabel: UILabel, commentLabel: UILabel, saveButton: UIButton, cancelButton: UIButton){
+        commentTF.isHidden = true
+        countLabel.isHidden = true
+        saveButton.isHidden = true
+        cancelButton.isHidden = true
+        commentLabel.isHidden = false
+        commentTF.text = commentLabel.text
+        countLabel.text = "\(commentLabel.text!.count)/40"
+    }
 }

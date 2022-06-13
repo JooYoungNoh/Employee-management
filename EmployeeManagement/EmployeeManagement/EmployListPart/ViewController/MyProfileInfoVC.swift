@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class MyProfileInfoVC: UIViewController {
+class MyProfileInfoVC: UIViewController, UITextViewDelegate {
     
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
@@ -35,6 +35,15 @@ class MyProfileInfoVC: UIViewController {
         save.titleLabel?.font = UIFont.init(name: "CookieRun", size: 20)
         save.isHidden = true
         return save
+    }()
+    //취소 버튼
+    let cancelButton: UIButton = {
+        let cancel = UIButton()
+        cancel.setTitle("Cancel", for: .normal)
+        cancel.setTitleColor(UIColor.black, for: .normal)
+        cancel.titleLabel?.font = UIFont.init(name: "CookieRun", size: 20)
+        cancel.isHidden = true
+        return cancel
     }()
     
     //프로필 이미지
@@ -65,6 +74,30 @@ class MyProfileInfoVC: UIViewController {
         comment.numberOfLines = 0
         return comment
     }()
+    
+    //코멘트 변경 텍스트 뷰
+    let commentTF: UITextView = {
+        let text = UITextView()
+        text.isHidden = true
+        text.textColor = UIColor.black
+        text.alpha = 0.5
+        text.font = UIFont(name: "CookieRun", size: 18)
+        text.textAlignment = .center
+        text.backgroundColor = .white
+        return text
+    }()
+    
+    //코멘트 숫자 변경 레이블
+    let countLabel: UILabel = {
+       let label = UILabel()
+        label.isHidden = true
+        label.backgroundColor = .systemGray6
+        label.alpha = 0.5
+        label.font = UIFont(name: "CookieRun", size: 15)
+        label.textAlignment = .center
+        return label
+    }()
+    
     //컬렉션 뷰 위쪽 선 표시
     let commentUnderView: UIView = {
        let view = UIView()
@@ -141,6 +174,7 @@ class MyProfileInfoVC: UIViewController {
     //MARK: viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.commentTF.delegate = self
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
         self.collectionView.register(ProfileInfoCVCell.self, forCellWithReuseIdentifier: ProfileInfoCVCell.identifier)
@@ -176,7 +210,18 @@ class MyProfileInfoVC: UIViewController {
         saveButton.snp.makeConstraints { make in
             make.trailing.equalToSuperview().offset(-5)
             make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
-            make.width.equalTo(80)
+            make.width.equalTo(75)
+            make.height.equalTo(40)
+        }
+        
+        //취소 버튼 UI
+        cancelButton.addTarget(self, action: #selector(docancel(_:)), for: .touchUpInside)
+        self.view.addSubview(cancelButton)
+        
+        cancelButton.snp.makeConstraints { make in
+            make.trailing.equalTo(self.saveButton.snp.leading)
+            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
+            make.width.equalTo(75)
             make.height.equalTo(40)
         }
         
@@ -210,6 +255,27 @@ class MyProfileInfoVC: UIViewController {
             make.top.equalTo(self.nameLabel.snp.bottom).offset(20)
             make.width.equalTo(200)
             make.height.lessThanOrEqualTo(60)
+        }
+        //코멘트 변경 텍스트뷰 UI
+        self.commentTF.text = self.commentLabel.text
+        self.view.addSubview(self.commentTF)
+        
+        commentTF.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(self.nameLabel.snp.bottom).offset(20)
+            make.width.equalTo(200)
+            make.height.lessThanOrEqualTo(60)
+        }
+        
+        //코멘트 숫자 레이블 UI
+        self.countLabel.text = "\(self.commentTF.text.count)/40"
+        self.view.addSubview(self.countLabel)
+        
+        countLabel.snp.makeConstraints { make in
+            make.leading.equalTo(self.commentTF.snp.trailing)
+            make.bottom.equalTo(self.commentTF.snp.bottom)
+            make.width.equalTo(60)
+            make.height.equalTo(20)
         }
 
         
@@ -291,11 +357,19 @@ class MyProfileInfoVC: UIViewController {
     @objc func doclose(_ sender: UIButton) {
         self.dismiss(animated: true)
     }
+    
+    @objc func docancel(_ sender: UIButton){
+        self.viewModel.cancelMessage(commentTF: self.commentTF, countLabel: self.countLabel, commentLabel: self.commentLabel, saveButton: self.saveButton, cancelButton: self.cancelButton)
+    }
     @objc func dosave(_ sender: UIButton){
         let alert = UIAlertController(title: "변경 사항이 저장됩니다.", message: "진행하시겠습니까?", preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "OK", style: .default){ (_) in
+            //상태메시지 변경
+            self.viewModel.changeCommentSave(commentTF: self.commentTF, commentLabel: self.commentLabel)
+            //이미지 변경
             self.viewModel.changeValueSave(imgView: self.profileImage, tableImg: self.imageOnTable!)
+            self.cancelButton.isHidden = true
             self.saveButton.isHidden = true
         })
         
@@ -314,12 +388,20 @@ class MyProfileInfoVC: UIViewController {
         })
         
         alert.addAction(UIAlertAction(title: "상태메시지 변경", style: .default) { (_) in
-  
+            self.commentTF.isHidden = false
+            self.countLabel.isHidden = false
+            self.commentLabel.isHidden = true
+           
         })
         
         
         alert.addAction(UIAlertAction(title: "취소", style: .cancel))
         self.present(alert, animated: true)
+    }
+    
+    //MARK: 텍스트 뷰 메소드
+    func textViewDidChange(_ textView: UITextView) {
+        self.viewModel.changeMessage(textView: textView, countLabel: self.countLabel, commentLabel: self.commentLabel, saveButton: self.saveButton, cancelButton: self.cancelButton)
     }
     
 }
