@@ -20,9 +20,6 @@ class EmployeeListVC: UIViewController {
         self.tableView.dataSource = self
         self.tableView.delegate = self
         self.tableView.register(EmployeeListCell.self, forCellReuseIdentifier: EmployeeListCell.identifier)
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1){
-            self.tableView.reloadData()
-        }
 
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -34,6 +31,9 @@ class EmployeeListVC: UIViewController {
         }
         
         self.viewModel.findEmployList(){ (completion2) in
+        }
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1){
+            self.tableView.reloadData()
         }
 
     }

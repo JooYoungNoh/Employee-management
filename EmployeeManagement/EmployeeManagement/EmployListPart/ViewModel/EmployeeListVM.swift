@@ -103,7 +103,7 @@ class EmployeeListVM {
     func myDownloadimage(choose: Bool) -> UIImage{
         
         if choose == true {
-            storage.reference(forURL: "gs://employeemanagement-9d6eb.appspot.com/\(self.appDelegate.phoneInfo!).png").downloadURL { [self] (url, error) in
+            storage.reference(forURL: "gs://employeemanagement-9d6eb.appspot.com/\(self.appDelegate.phoneInfo!)").downloadURL { [self] (url, error) in
                 if error == nil && url != nil {
                     let data = NSData(contentsOf: url!)
                     let dbImage = UIImage(data: data! as Data)
@@ -120,7 +120,7 @@ class EmployeeListVM {
     }
     
     func employeeDownloadimage(imgView: UIImageView, phone: String){
-        storage.reference(forURL: "gs://employeemanagement-9d6eb.appspot.com/\(phone).png").downloadURL { (url, error) in
+        storage.reference(forURL: "gs://employeemanagement-9d6eb.appspot.com/\(phone)").downloadURL { (url, error) in
             if error == nil && url != nil {
                 let data = NSData(contentsOf: url!)
                 let dbImage = UIImage(data: data! as Data)

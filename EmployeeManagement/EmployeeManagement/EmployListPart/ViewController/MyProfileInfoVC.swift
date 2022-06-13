@@ -10,9 +10,12 @@ import SnapKit
 
 class MyProfileInfoVC: UIViewController {
     
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    
     var nameOnTable: String = ""        //전 화면 셀에 있는 이름
     var commentOnTable: String = ""     //전 회면 셀에 있는 코멘트
     var imageOnTable: UIImage!          //전 화면 셀에 있는 사진
+    
     
     var viewModel = ProfileVM()
     
@@ -24,6 +27,16 @@ class MyProfileInfoVC: UIViewController {
         close.titleLabel?.font = UIFont.init(name: "CookieRun", size: 20)
         return close
     }()
+    //저장 버튼
+    let saveButton: UIButton = {
+        let save = UIButton()
+        save.setTitle("Save", for: .normal)
+        save.setTitleColor(UIColor.black, for: .normal)
+        save.titleLabel?.font = UIFont.init(name: "CookieRun", size: 20)
+        save.isHidden = true
+        return save
+    }()
+    
     //프로필 이미지
     let profileImage: UIImageView = {
         let imageView = UIImageView()
@@ -140,6 +153,7 @@ class MyProfileInfoVC: UIViewController {
         self.viewModel.findMyCompany{ completion in
             self.collectionView.reloadData()
         }
+
     }
     
     //MARK: 화면 UI 메소드
@@ -150,6 +164,17 @@ class MyProfileInfoVC: UIViewController {
         
         closeButton.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(10)
+            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
+            make.width.equalTo(80)
+            make.height.equalTo(40)
+        }
+        
+        //저장 버튼 UI
+        saveButton.addTarget(self, action: #selector(dosave(_:)), for: .touchUpInside)
+        self.view.addSubview(saveButton)
+        
+        saveButton.snp.makeConstraints { make in
+            make.trailing.equalToSuperview().offset(-10)
             make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
             make.width.equalTo(80)
             make.height.equalTo(40)
@@ -266,10 +291,37 @@ class MyProfileInfoVC: UIViewController {
     @objc func doclose(_ sender: UIButton) {
         self.dismiss(animated: true)
     }
+    @objc func dosave(_ sender: UIButton){
+        let alert = UIAlertController(title: "변경 사항이 저장됩니다.", message: "진행하시겠습니까?", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "OK", style: .default){ (_) in
+            self.viewModel.changeValueSave(imgView: self.profileImage, tableImg: self.imageOnTable!)
+            self.saveButton.isHidden = true
+        })
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        
+        self.present(alert, animated: true)
+    }
     
     @objc func doProfile(_ sender: UIButton){
-        self.present(self.viewModel.profileChange(), animated: true)
+        let alert = UIAlertController(title: "선택해주세요", message: nil, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "프로필 이미지 변경", style: .default) { (_) in
+            let alert2 = UIAlertController(title: "선택해주세요", message: nil, preferredStyle: .actionSheet)
+            self.profileImageChange(alert2: alert2)
+            
+            self.present(alert2, animated: true)
+        })
+        
+        alert.addAction(UIAlertAction(title: "상태메시지 변경", style: .default) { (_) in
+  
+        })
+        
+        
+        alert.addAction(UIAlertAction(title: "취소", style: .cancel))
+        self.present(alert, animated: true)
     }
+    
 }
 
 //MARK: collectionView 메소드
@@ -279,11 +331,61 @@ extension MyProfileInfoVC: UICollectionViewDelegate,UICollectionViewDataSource {
     
         
         cell.titleLabel.text = self.viewModel.dbmyCompany[indexPath.row]
-        self.viewModel.employeeDownloadimage(imgView: cell.imageView, company: cell.titleLabel.text!)
+        self.viewModel.companyDownloadimage(imgView: cell.imageView, company: cell.titleLabel.text!)
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.viewModel.dbmyCompany.count
+    }
+}
+
+//MARK: ImagePicker 메소드
+extension MyProfileInfoVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+    // 이미지를 가져올 장소(?) 카메라 앨범 등 선택 메소드
+    func imgPicker(_ source: UIImagePickerController.SourceType){
+        let picker = UIImagePickerController()
+        picker.sourceType = source
+        picker.delegate = self
+        picker.allowsEditing = true
+        self.present(picker, animated: true)
+        
+    }
+    //이미지 선택하면 호출될 메소드
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        let img = info[UIImagePickerController.InfoKey.editedImage] as? UIImage
+        self.profileImage.image = img
+        self.saveButton.isHidden = false
+        //이미지 피커 컨트롤창 닫기
+        picker.dismiss(animated: true)
+    }
+    
+    func profileImageChange(alert2: UIAlertController){
+        //카메라를 사용할 수 있으면 (시뮬레이터 불가)
+        if UIImagePickerController.isSourceTypeAvailable(.camera){
+            alert2.addAction(UIAlertAction(title: "카메라", style: .default){(_) in
+                self.imgPicker(.camera)
+            })
+        }
+        //저장된 앨범을 사용할 수 있으면
+        if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum){
+            alert2.addAction(UIAlertAction(title: "앨범", style: .default){(_) in
+                self.imgPicker(.savedPhotosAlbum)
+            })
+        }
+        //포토 라이브러리를 사용할 수 있으면
+        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary){
+            alert2.addAction(UIAlertAction(title: "포토 라이브러리", style: .default){(_) in
+                self.imgPicker(.photoLibrary)
+            })
+        }
+        //이미지 삭제
+        alert2.addAction(UIAlertAction(title: "프로필 이미지 삭제", style: .default) { (_) in
+            self.saveButton.isHidden = false
+            self.present(self.viewModel.imageDelete(imgView: self.profileImage), animated: true)
+        })
+        //취소 버튼 추가
+        alert2.addAction(UIAlertAction(title: "취소", style: .cancel))
     }
 }
 
