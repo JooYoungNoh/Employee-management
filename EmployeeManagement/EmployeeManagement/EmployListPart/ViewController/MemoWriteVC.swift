@@ -26,7 +26,7 @@ class MemoWriteVC: UIViewController, UITextViewDelegate {
         label.text = "Write Memo"
         label.textAlignment = .center
         label.textColor = .black
-        label.font = UIFont(name: "CookieRun", size: 25)
+        label.font = UIFont(name: "CookieRun", size: 20)
         return label
     }()
     
@@ -130,7 +130,13 @@ class MemoWriteVC: UIViewController, UITextViewDelegate {
     }
 
     @objc func dosave(_ sender: UIButton) {
+        let alert = UIAlertController(title: "저장 완료", message: nil, preferredStyle: .alert)
         
+        alert.addAction(UIAlertAction(title: "OK", style: .default) { (_) in
+            self.viewModel.saveMemo(writeTV: self.writeTV, countLabel: self.countLabel)
+            self.dismiss(animated: true)
+        })
+        self.present(alert, animated: true)
     }
     
     //MARK: tap 제스쳐

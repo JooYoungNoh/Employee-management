@@ -194,11 +194,11 @@
 				73E084A5282AA3BA00AFC582 /* EmployeeListVC.swift */,
 				7331C5E528491CA6009F5210 /* EmployeeListCell.swift */,
 				73CDD2AA28511E5900E9EB32 /* MyProfileInfoVC.swift */,
-				7390F3EB2858E0D10036B632 /* MemoVC.swift */,
-				73179DE52858F37F00086DBD /* MemoWriteVC.swift */,
-				7390F3EF2858ED470036B632 /* MemoCell.swift */,
 				73CDD2A828511C5D00E9EB32 /* ProfileInfoVC.swift */,
 				7373BEA72852487100336B0B /* ProfileInfoCVCell.swift */,
+				7390F3EB2858E0D10036B632 /* MemoVC.swift */,
+				7390F3EF2858ED470036B632 /* MemoCell.swift */,
+				73179DE52858F37F00086DBD /* MemoWriteVC.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
