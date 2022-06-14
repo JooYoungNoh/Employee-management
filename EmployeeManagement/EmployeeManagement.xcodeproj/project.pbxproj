@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7309389028593EA8005B812E /* MemoReadVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7309388F28593EA8005B812E /* MemoReadVC.swift */; };
+		7309389228593EBC005B812E /* MemoReadVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7309389128593EBC005B812E /* MemoReadVM.swift */; };
 		731143B4282994EA00163A1B /* PickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731143B3282994EA00163A1B /* PickerController.swift */; };
 		7313A484283D831400057273 /* CookieRun.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7313A483283D82FD00057273 /* CookieRun.ttf */; };
 		73179DE62858F37F00086DBD /* MemoWriteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73179DE52858F37F00086DBD /* MemoWriteVC.swift */; };
@@ -50,6 +52,8 @@
 
 /* Begin PBXFileReference section */
 		33CFB31CB8870BD8CBBC6DAA /* Pods_EmployeeManagement.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EmployeeManagement.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7309388F28593EA8005B812E /* MemoReadVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoReadVC.swift; sourceTree = "<group>"; };
+		7309389128593EBC005B812E /* MemoReadVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoReadVM.swift; sourceTree = "<group>"; };
 		731143B3282994EA00163A1B /* PickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerController.swift; sourceTree = "<group>"; };
 		7313A483283D82FD00057273 /* CookieRun.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = CookieRun.ttf; sourceTree = "<group>"; };
 		73179DE52858F37F00086DBD /* MemoWriteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoWriteVC.swift; sourceTree = "<group>"; };
@@ -201,6 +205,7 @@
 				7390F3EB2858E0D10036B632 /* MemoVC.swift */,
 				7390F3EF2858ED470036B632 /* MemoCell.swift */,
 				73179DE52858F37F00086DBD /* MemoWriteVC.swift */,
+				7309388F28593EA8005B812E /* MemoReadVC.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -212,6 +217,7 @@
 				735180CE2852602E00CC30FB /* MyProfileVM.swift */,
 				7390F3ED2858E0F00036B632 /* MemoVM.swift */,
 				73179DE7285906AC00086DBD /* MemoWriteVM.swift */,
+				7309389128593EBC005B812E /* MemoReadVM.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -395,6 +401,7 @@
 				73179DEA28590DF000086DBD /* MemoModel.swift in Sources */,
 				73179DE8285906AC00086DBD /* MemoWriteVM.swift in Sources */,
 				7390F3EE2858E0F00036B632 /* MemoVM.swift in Sources */,
+				7309389228593EBC005B812E /* MemoReadVM.swift in Sources */,
 				73502E182832BAB000920E3C /* Shopcell.swift in Sources */,
 				73A3AAE228292BF9001283CD /* EmployeeManagement.xcdatamodeld in Sources */,
 				7390F3F02858ED470036B632 /* MemoCell.swift in Sources */,
@@ -414,6 +421,7 @@
 				73A3AADA28292BF9001283CD /* SceneDelegate.swift in Sources */,
 				735180CF2852602E00CC30FB /* MyProfileVM.swift in Sources */,
 				73CDD2AB28511E5900E9EB32 /* MyProfileInfoVC.swift in Sources */,
+				7309389028593EA8005B812E /* MemoReadVC.swift in Sources */,
 				73A3AAF12829694E001283CD /* FindVC.swift in Sources */,
 				7331C5E628491CA6009F5210 /* EmployeeListCell.swift in Sources */,
 				73C411B2283520A6001EC8F6 /* BusinessTypePicker.swift in Sources */,

@@ -310,6 +310,21 @@
             </objects>
             <point key="canvasLocation" x="5463" y="-1558"/>
         </scene>
+        <!--메모 정보 화면-->
+        <scene sceneID="Aw0-6E-A38">
+            <objects>
+                <viewController storyboardIdentifier="MemoReadVC" title="메모 정보 화면" id="mHK-e3-aXj" customClass="MemoReadVC" customModule="EmployeeManagement" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="juR-t3-IUm">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="AUQ-4m-0ZZ"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="j9N-rk-dgY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6186" y="-1558"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="AsO-AL-i2t">
             <objects>
@@ -341,7 +356,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0e7-Xm-qAc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5462" y="-894"/>
+            <point key="canvasLocation" x="5462" y="-2234"/>
         </scene>
     </scenes>
     <resources>
