@@ -59,7 +59,9 @@ class MemoVC: UIViewController {
     //MARK: 액션 메소드
     //메모 추가
     @objc func addMemo(_ sender: UIBarButtonItem){
-        
+        let nv = self.storyboard?.instantiateViewController(withIdentifier: "MemoWriteVC") as! MemoWriteVC
+        nv.modalPresentationStyle = .fullScreen
+        self.present(nv, animated: true)
     }
     //뒤로 가기
     @objc func doBack(_ sender: UIBarButtonItem){

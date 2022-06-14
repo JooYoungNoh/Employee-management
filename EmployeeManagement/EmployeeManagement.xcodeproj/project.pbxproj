@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		731143B4282994EA00163A1B /* PickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731143B3282994EA00163A1B /* PickerController.swift */; };
 		7313A484283D831400057273 /* CookieRun.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7313A483283D82FD00057273 /* CookieRun.ttf */; };
+		73179DE62858F37F00086DBD /* MemoWriteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73179DE52858F37F00086DBD /* MemoWriteVC.swift */; };
 		732D4019283E6FD200E40F48 /* RequestJoinVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732D4018283E6FD200E40F48 /* RequestJoinVC.swift */; };
 		732D401B283E73E000E40F48 /* RequestJoincell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732D401A283E73E000E40F48 /* RequestJoincell.swift */; };
 		7331C5E428491457009F5210 /* EmployeeListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7331C5E328491457009F5210 /* EmployeeListVM.swift */; };
@@ -49,6 +50,7 @@
 		33CFB31CB8870BD8CBBC6DAA /* Pods_EmployeeManagement.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EmployeeManagement.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		731143B3282994EA00163A1B /* PickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerController.swift; sourceTree = "<group>"; };
 		7313A483283D82FD00057273 /* CookieRun.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = CookieRun.ttf; sourceTree = "<group>"; };
+		73179DE52858F37F00086DBD /* MemoWriteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoWriteVC.swift; sourceTree = "<group>"; };
 		732D4018283E6FD200E40F48 /* RequestJoinVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestJoinVC.swift; sourceTree = "<group>"; };
 		732D401A283E73E000E40F48 /* RequestJoincell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestJoincell.swift; sourceTree = "<group>"; };
 		7331C5E328491457009F5210 /* EmployeeListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeListVM.swift; sourceTree = "<group>"; };
@@ -191,6 +193,7 @@
 				7331C5E528491CA6009F5210 /* EmployeeListCell.swift */,
 				73CDD2AA28511E5900E9EB32 /* MyProfileInfoVC.swift */,
 				7390F3EB2858E0D10036B632 /* MemoVC.swift */,
+				73179DE52858F37F00086DBD /* MemoWriteVC.swift */,
 				7390F3EF2858ED470036B632 /* MemoCell.swift */,
 				73CDD2A828511C5D00E9EB32 /* ProfileInfoVC.swift */,
 				7373BEA72852487100336B0B /* ProfileInfoCVCell.swift */,
@@ -202,8 +205,8 @@
 			isa = PBXGroup;
 			children = (
 				7331C5E328491457009F5210 /* EmployeeListVM.swift */,
-				7390F3ED2858E0F00036B632 /* MemoVM.swift */,
 				735180CE2852602E00CC30FB /* MyProfileVM.swift */,
+				7390F3ED2858E0F00036B632 /* MemoVM.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -396,6 +399,7 @@
 				73E2DA992832688100C4CF25 /* ChattingVC.swift in Sources */,
 				73E084A6282AA3BA00AFC582 /* EmployeeListVC.swift in Sources */,
 				73CDD2A928511C5D00E9EB32 /* ProfileInfoVC.swift in Sources */,
+				73179DE62858F37F00086DBD /* MemoWriteVC.swift in Sources */,
 				7331C5E428491457009F5210 /* EmployeeListVM.swift in Sources */,
 				73A3AAEF282944E1001283CD /* LoginVC.swift in Sources */,
 				73E2DAA12832A5D000C4CF25 /* ShopVC.swift in Sources */,
