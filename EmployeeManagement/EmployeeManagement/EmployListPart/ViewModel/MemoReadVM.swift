@@ -13,6 +13,7 @@ class MemoReadVM{
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     var titleMemo: String = ""
+    var dateSave: TimeInterval = 0
     
     //텍스트 필드
     func changeMemo(textView: UITextView, countLabel: UILabel){
@@ -25,5 +26,24 @@ class MemoReadVM{
             countLabel.text = "0"
         }
     }
-
+    
+    //저장 기능
+    func saveMemo(writeTV: UITextView, countLabel: UILabel, title: String, date: TimeInterval){
+        //날짜
+        let dateChange = Date().timeIntervalSince1970
+        self.dateSave = dateChange
+        
+        let query = self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("memoList")
+        
+        query.whereField("title", isEqualTo: title).whereField("date", isEqualTo: date).getDocuments{ snapShot, error in
+            for doc in snapShot!.documents{
+                self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("memoList").document("\(doc.documentID)").updateData([
+                    "text" : "\(writeTV.text!)",
+                    "title" : "\(self.titleMemo)",
+                    "date" : dateChange,
+                    "count" : "\(countLabel.text!)"
+                ])
+            }
+        }
+    }
 }

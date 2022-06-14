@@ -104,6 +104,8 @@ extension MemoVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let nv = self.storyboard?.instantiateViewController(withIdentifier: "MemoReadVC") as! MemoReadVC
         
+        nv.titleOnTable = self.viewModel.realMemoList[indexPath.row].title
+        nv.dateOnTable = self.viewModel.realMemoList[indexPath.row].date
         nv.textOnTable = self.viewModel.realMemoList[indexPath.row].text
         nv.countOnTable = self.viewModel.realMemoList[indexPath.row].count
         

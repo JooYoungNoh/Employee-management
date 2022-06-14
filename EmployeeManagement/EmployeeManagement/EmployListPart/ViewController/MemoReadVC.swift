@@ -10,6 +10,8 @@ import SnapKit
 
 class MemoReadVC: UIViewController, UITextViewDelegate{
     
+    var titleOnTable: String = ""         //전 회면 셀에 있는 제목
+    var dateOnTable: TimeInterval = 0            //전 회면 셀에 있는 작성시간
     var textOnTable: String = ""          //전 회면 셀에 있는 내용
     var countOnTable: String = ""         //전 화면 셀에 있는 글자수
     
@@ -92,6 +94,16 @@ class MemoReadVC: UIViewController, UITextViewDelegate{
             self.present(alert, animated: true)
         } else {
             
+            let alert = UIAlertController(title: "저장 완료", message: nil, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default) { (_) in
+                self.viewModel.saveMemo(writeTV: self.writeTV, countLabel: self.countLabel, title: self.titleOnTable, date: self.dateOnTable)
+                self.dateOnTable = self.viewModel.dateSave
+                self.titleOnTable = self.viewModel.titleMemo
+                self.textOnTable = self.writeTV.text!
+                self.countOnTable = self.countLabel.text!
+                self.view.endEditing(true)
+            })
+            self.present(alert, animated: true)
         }
     }
     
