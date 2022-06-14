@@ -8,7 +8,10 @@
 import UIKit
 import SnapKit
 
-class MemoWriteVC: UIViewController {
+class MemoWriteVC: UIViewController, UITextViewDelegate {
+    
+    var viewModel = MemoWriteVM()
+    
     //닫기 버튼
     let closeButton: UIButton = {
         let close = UIButton()
@@ -30,6 +33,7 @@ class MemoWriteVC: UIViewController {
     //저장 버튼
     let saveButton: UIButton = {
         let save = UIButton()
+        save.isHidden = true
         save.setTitle("Save", for: .normal)
         save.setTitleColor(UIColor.black, for: .normal)
         save.titleLabel?.font = UIFont.init(name: "CookieRun", size: 20)
@@ -48,6 +52,7 @@ class MemoWriteVC: UIViewController {
     let countLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
+        label.text = "0"
         label.font = UIFont(name: "CookieRun", size: 15)
         label.textAlignment = .right
         return label
@@ -56,7 +61,7 @@ class MemoWriteVC: UIViewController {
     //MARK: viewDidload
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+        self.writeTV.delegate = self
         uiCreate()
     }
     
@@ -112,6 +117,11 @@ class MemoWriteVC: UIViewController {
             make.width.equalTo(100)
             make.height.equalTo(30)
         }
+    }
+    
+    //MARK: 텍스트 뷰 메소드
+    func textViewDidChange(_ textView: UITextView) {
+        self.viewModel.changeMemo(textView: textView, countLabel: self.countLabel, saveButton: self.saveButton)
     }
     
     //MARK: 엑션 메소드
