@@ -11,6 +11,7 @@
 		7313A484283D831400057273 /* CookieRun.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7313A483283D82FD00057273 /* CookieRun.ttf */; };
 		73179DE62858F37F00086DBD /* MemoWriteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73179DE52858F37F00086DBD /* MemoWriteVC.swift */; };
 		73179DE8285906AC00086DBD /* MemoWriteVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73179DE7285906AC00086DBD /* MemoWriteVM.swift */; };
+		73179DEA28590DF000086DBD /* MemoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73179DE928590DF000086DBD /* MemoModel.swift */; };
 		732D4019283E6FD200E40F48 /* RequestJoinVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732D4018283E6FD200E40F48 /* RequestJoinVC.swift */; };
 		732D401B283E73E000E40F48 /* RequestJoincell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732D401A283E73E000E40F48 /* RequestJoincell.swift */; };
 		7331C5E428491457009F5210 /* EmployeeListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7331C5E328491457009F5210 /* EmployeeListVM.swift */; };
@@ -53,6 +54,7 @@
 		7313A483283D82FD00057273 /* CookieRun.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = CookieRun.ttf; sourceTree = "<group>"; };
 		73179DE52858F37F00086DBD /* MemoWriteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoWriteVC.swift; sourceTree = "<group>"; };
 		73179DE7285906AC00086DBD /* MemoWriteVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoWriteVM.swift; sourceTree = "<group>"; };
+		73179DE928590DF000086DBD /* MemoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoModel.swift; sourceTree = "<group>"; };
 		732D4018283E6FD200E40F48 /* RequestJoinVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestJoinVC.swift; sourceTree = "<group>"; };
 		732D401A283E73E000E40F48 /* RequestJoincell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestJoincell.swift; sourceTree = "<group>"; };
 		7331C5E328491457009F5210 /* EmployeeListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeListVM.swift; sourceTree = "<group>"; };
@@ -219,6 +221,7 @@
 			children = (
 				7331C5E728492ECE009F5210 /* EmployeeModel.swift */,
 				735180CC2852601E00CC30FB /* ProfileModel.swift */,
+				73179DE928590DF000086DBD /* MemoModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -389,6 +392,7 @@
 				7373BEA82852487100336B0B /* ProfileInfoCVCell.swift in Sources */,
 				7390F3EC2858E0D10036B632 /* MemoVC.swift in Sources */,
 				732D401B283E73E000E40F48 /* RequestJoincell.swift in Sources */,
+				73179DEA28590DF000086DBD /* MemoModel.swift in Sources */,
 				73179DE8285906AC00086DBD /* MemoWriteVM.swift in Sources */,
 				7390F3EE2858E0F00036B632 /* MemoVM.swift in Sources */,
 				73502E182832BAB000920E3C /* Shopcell.swift in Sources */,

@@ -10,6 +10,8 @@ import SnapKit
 
 class MemoVC: UIViewController {
     
+    var viewModel = MemoVM()
+    
     let tableView: UITableView = {
         let table = UITableView()
         table.separatorStyle = .none
@@ -27,6 +29,9 @@ class MemoVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         uiCreate()
+        self.viewModel.findMemo { (completion) in
+            self.tableView.reloadData()
+        }
     }
     
     func uiCreate(){
@@ -76,14 +81,17 @@ extension MemoVC: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: MemoCell.identifier, for: indexPath) as? MemoCell else { return UITableViewCell() }
         cell.accessoryType = .disclosureIndicator
         
-        cell.titleLabel.text = "실험중ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ"
-        cell.dateLabel.text = "작성일자 \n 1999-99-99"
-        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm"
+        let fixDate = "\(formatter.string(from: self.viewModel.realMemoList[indexPath.row].date))"
+            
+        cell.titleLabel.text = self.viewModel.realMemoList[indexPath.row].title
+        cell.dateLabel.text = fixDate
         return cell
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return self.viewModel.realMemoList.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
