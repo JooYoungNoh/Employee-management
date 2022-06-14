@@ -407,6 +407,16 @@ class MyProfileInfoVC: UIViewController, UITextViewDelegate {
         self.viewModel.changeMessage(textView: textView, countLabel: self.countLabel, commentLabel: self.commentLabel, saveButton: self.saveButton, cancelButton: self.cancelButton)
     }
     
+    //MARK: tap 제스쳐
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+        self.saveButton.isHidden = true
+        self.cancelButton.isHidden = true
+        self.commentTF.isHidden = true
+        self.countLabel.isHidden = true
+        self.commentLabel.isHidden = false
+    }
+    
 }
 
 //MARK: collectionView 메소드
