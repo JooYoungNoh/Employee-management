@@ -290,6 +290,7 @@ class MyProfileInfoVC: UIViewController, UITextViewDelegate {
             make.height.equalTo(30)
         }
         
+        self.myMemoButton.addTarget(self, action: #selector(doMemo(_:)), for: .touchUpInside)
         self.view.addSubview(myMemoButton)
         myMemoButton.snp.makeConstraints { make in
             make.centerX.equalTo(self.myMemoLabel.snp.centerX)
@@ -384,7 +385,9 @@ class MyProfileInfoVC: UIViewController, UITextViewDelegate {
     }
     
     @objc func doMemo(_ sender: UIButton){
+        let naviCon = self.storyboard?.instantiateViewController(withIdentifier: "NaviCon")
         
+        self.present(naviCon!, animated: true)
     }
     
     @objc func doProfile(_ sender: UIButton){
