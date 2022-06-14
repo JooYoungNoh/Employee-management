@@ -386,6 +386,7 @@ class MyProfileInfoVC: UIViewController, UITextViewDelegate {
     
     @objc func doMemo(_ sender: UIButton){
         let naviCon = self.storyboard?.instantiateViewController(withIdentifier: "NaviCon")
+        naviCon?.modalPresentationStyle = .fullScreen
         
         self.present(naviCon!, animated: true)
     }

@@ -21,6 +21,7 @@
 		7373BEA82852487100336B0B /* ProfileInfoCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7373BEA72852487100336B0B /* ProfileInfoCVCell.swift */; };
 		7390F3EC2858E0D10036B632 /* MemoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7390F3EB2858E0D10036B632 /* MemoVC.swift */; };
 		7390F3EE2858E0F00036B632 /* MemoVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7390F3ED2858E0F00036B632 /* MemoVM.swift */; };
+		7390F3F02858ED470036B632 /* MemoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7390F3EF2858ED470036B632 /* MemoCell.swift */; };
 		73A3AAD828292BF9001283CD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A3AAD728292BF9001283CD /* AppDelegate.swift */; };
 		73A3AADA28292BF9001283CD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A3AAD928292BF9001283CD /* SceneDelegate.swift */; };
 		73A3AADF28292BF9001283CD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 73A3AADD28292BF9001283CD /* Main.storyboard */; };
@@ -60,6 +61,7 @@
 		7373BEA72852487100336B0B /* ProfileInfoCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInfoCVCell.swift; sourceTree = "<group>"; };
 		7390F3EB2858E0D10036B632 /* MemoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoVC.swift; sourceTree = "<group>"; };
 		7390F3ED2858E0F00036B632 /* MemoVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoVM.swift; sourceTree = "<group>"; };
+		7390F3EF2858ED470036B632 /* MemoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoCell.swift; sourceTree = "<group>"; };
 		73A3AAD428292BF9001283CD /* EmployeeManagement.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EmployeeManagement.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		73A3AAD728292BF9001283CD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		73A3AAD928292BF9001283CD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -189,6 +191,7 @@
 				7331C5E528491CA6009F5210 /* EmployeeListCell.swift */,
 				73CDD2AA28511E5900E9EB32 /* MyProfileInfoVC.swift */,
 				7390F3EB2858E0D10036B632 /* MemoVC.swift */,
+				7390F3EF2858ED470036B632 /* MemoCell.swift */,
 				73CDD2A828511C5D00E9EB32 /* ProfileInfoVC.swift */,
 				7373BEA72852487100336B0B /* ProfileInfoCVCell.swift */,
 			);
@@ -383,6 +386,7 @@
 				7390F3EE2858E0F00036B632 /* MemoVM.swift in Sources */,
 				73502E182832BAB000920E3C /* Shopcell.swift in Sources */,
 				73A3AAE228292BF9001283CD /* EmployeeManagement.xcdatamodeld in Sources */,
+				7390F3F02858ED470036B632 /* MemoCell.swift in Sources */,
 				73E2DA9F2832697000C4CF25 /* CSTabBarController.swift in Sources */,
 				7331C5E828492ECE009F5210 /* EmployeeModel.swift in Sources */,
 				73BCD85F2833DBCD00DF6F74 /* ShopAddVC.swift in Sources */,

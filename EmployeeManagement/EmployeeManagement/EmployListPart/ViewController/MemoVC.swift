@@ -13,7 +13,6 @@ class MemoVC: UIViewController {
     let tableView: UITableView = {
         let table = UITableView()
         table.separatorStyle = .none
-        table.backgroundColor = .red
         return table
     }()
     
@@ -21,8 +20,9 @@ class MemoVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-       // uiCreate()
+        self.tableView.dataSource = self
+        self.tableView.delegate = self
+        self.tableView.register(MemoCell.self, forCellReuseIdentifier: MemoCell.identifier)
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -66,4 +66,26 @@ class MemoVC: UIViewController {
         self.dismiss(animated: true)
     }
 
+}
+
+//MARK: 테이블 뷰 메소드
+extension MemoVC: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: MemoCell.identifier, for: indexPath) as? MemoCell else { return UITableViewCell() }
+        cell.accessoryType = .disclosureIndicator
+        
+        cell.titleLabel.text = "실험중ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ"
+        cell.dateLabel.text = "작성일자 \n 1999-99-99"
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 10
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
+    }
+    
 }
