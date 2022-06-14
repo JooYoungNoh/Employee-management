@@ -81,9 +81,11 @@ extension MemoVC: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: MemoCell.identifier, for: indexPath) as? MemoCell else { return UITableViewCell() }
         cell.accessoryType = .disclosureIndicator
         
+        let date = Date(timeIntervalSince1970: self.viewModel.realMemoList[indexPath.row].date)
+        
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm"
-        let fixDate = "\(formatter.string(from: self.viewModel.realMemoList[indexPath.row].date))"
+        let fixDate = "\(formatter.string(from: date))"
             
         cell.titleLabel.text = self.viewModel.realMemoList[indexPath.row].title
         cell.dateLabel.text = fixDate
@@ -98,4 +100,9 @@ extension MemoVC: UITableViewDelegate, UITableViewDataSource {
         return 60
     }
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            self.viewModel.deleteMemo(tableView: tableView, forRowAt: indexPath, realMemoList: self.viewModel.realMemoList)
+        }
+    }
 }

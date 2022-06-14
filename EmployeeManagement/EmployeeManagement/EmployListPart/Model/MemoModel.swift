@@ -9,11 +9,11 @@ import Foundation
 
 struct MemoModel{
     var text: String
-    var date: Date
+    var date: TimeInterval
     var count: String
     var title: String
     
-    init(text: String, date: Date, count: String, title: String){
+    init(text: String, date: TimeInterval, count: String, title: String){
         self.text = text
         self.date = date
         self.count = count
