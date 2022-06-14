@@ -8,10 +8,12 @@
 import UIKit
 import SnapKit
 
-class MemoReadVC: UIViewController {
+class MemoReadVC: UIViewController, UITextViewDelegate{
     
     var textOnTable: String = ""          //전 회면 셀에 있는 내용
     var countOnTable: String = ""         //전 화면 셀에 있는 글자수
+    
+    var viewModel = MemoReadVM()
 
     let writeTV: UITextView = {
        let write = UITextView()
@@ -31,10 +33,10 @@ class MemoReadVC: UIViewController {
         return label
     }()
     
+    //MARK: viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        self.writeTV.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -48,11 +50,11 @@ class MemoReadVC: UIViewController {
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font : UIFont(name: "CookieRun", size: 20)!]
         self.navigationController?.navigationBar.tintColor = UIColor.black
         
-        let editButton = UIBarButtonItem.init(title: "편집", style: .plain, target: self, action: #selector(doEdit(_:)))
+        let saveButton = UIBarButtonItem.init(title: "Save", style: .plain, target: self, action: #selector(dosave(_:)))
         
-        self.navigationItem.rightBarButtonItem = editButton
+        self.navigationItem.rightBarButtonItem = saveButton
         self.navigationItem.backBarButtonItem?.tintColor = .black
-        editButton.tintColor = UIColor.black
+        saveButton.tintColor = UIColor.black
         
         //텍스트 뷰 UI
         self.writeTV.text = self.textOnTable
@@ -76,10 +78,21 @@ class MemoReadVC: UIViewController {
             make.height.equalTo(30)
         }
     }
+    
+    //MARK: 텍스트 뷰 메소드
+    func textViewDidChange(_ textView: UITextView) {
+        self.viewModel.changeMemo(textView: textView, countLabel: self.countLabel)
+    }
 
     //MARK: 액션 메소드
-    @objc func doEdit(_ sender: UIBarButtonItem){
-
+    @objc func dosave(_ sender: UIBarButtonItem){
+        if self.textOnTable == self.writeTV.text {
+            let alert = UIAlertController(title: "변경사항이 없습니다", message: nil, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            self.present(alert, animated: true)
+        } else {
+            
+        }
     }
     
     //MARK: tap 제스쳐
