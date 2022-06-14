@@ -44,6 +44,14 @@ class MemoWriteVC: UIViewController {
         write.backgroundColor = .systemGray6
         return write
     }()
+    
+    let countLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .black
+        label.font = UIFont(name: "CookieRun", size: 15)
+        label.textAlignment = .right
+        return label
+    }()
 
     //MARK: viewDidload
     override func viewDidLoad() {
@@ -93,6 +101,16 @@ class MemoWriteVC: UIViewController {
             make.trailing.equalToSuperview().offset(-20)
             make.top.equalTo(self.saveButton.snp.bottom).offset(20)
             make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom).offset(-320)
+        }
+        
+        //글자수 UI
+        self.view.addSubview(countLabel)
+        
+        countLabel.snp.makeConstraints { make in
+            make.trailing.equalTo(self.writeTV.snp.trailing)
+            make.top.equalTo(self.writeTV.snp.bottom)
+            make.width.equalTo(100)
+            make.height.equalTo(30)
         }
     }
     
