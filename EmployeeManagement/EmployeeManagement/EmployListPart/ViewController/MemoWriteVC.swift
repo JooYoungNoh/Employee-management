@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class MemoWriteVC: UIViewController {
     //닫기 버튼
@@ -16,6 +17,16 @@ class MemoWriteVC: UIViewController {
         close.titleLabel?.font = UIFont.init(name: "CookieRun", size: 20)
         return close
     }()
+    
+    let titleLabel: UILabel = {
+       let label = UILabel()
+        label.text = "Write Memo"
+        label.textAlignment = .center
+        label.textColor = .black
+        label.font = UIFont(name: "CookieRun", size: 25)
+        return label
+    }()
+    
     //저장 버튼
     let saveButton: UIButton = {
         let save = UIButton()
@@ -24,11 +35,21 @@ class MemoWriteVC: UIViewController {
         save.titleLabel?.font = UIFont.init(name: "CookieRun", size: 20)
         return save
     }()
+    
+    let writeTV: UITextView = {
+       let write = UITextView()
+        write.textColor = UIColor.black
+        write.font = UIFont(name: "CookieRun", size: 18)
+        write.textAlignment = .left
+        write.backgroundColor = .systemGray6
+        return write
+    }()
 
+    //MARK: viewDidload
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+       
+        uiCreate()
     }
     
     func uiCreate(){
@@ -43,6 +64,16 @@ class MemoWriteVC: UIViewController {
             make.height.equalTo(40)
         }
         
+        //타이틀 UI
+        self.view.addSubview(titleLabel)
+        
+        titleLabel.snp.makeConstraints { make in
+            make.centerX.equalTo(self.view.snp.centerX)
+            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
+            make.width.equalTo(200)
+            make.height.equalTo(40)
+        }
+        
         //저장 버튼 UI
         saveButton.addTarget(self, action: #selector(dosave(_:)), for: .touchUpInside)
         self.view.addSubview(saveButton)
@@ -53,6 +84,16 @@ class MemoWriteVC: UIViewController {
             make.width.equalTo(75)
             make.height.equalTo(40)
         }
+        
+        //텍스트 뷰 UI
+        self.view.addSubview(writeTV)
+        
+        writeTV.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(20)
+            make.trailing.equalToSuperview().offset(-20)
+            make.top.equalTo(self.saveButton.snp.bottom).offset(20)
+            make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom).offset(-320)
+        }
     }
     
     //MARK: 엑션 메소드
@@ -62,6 +103,11 @@ class MemoWriteVC: UIViewController {
 
     @objc func dosave(_ sender: UIButton) {
         
+    }
+    
+    //MARK: tap 제스쳐
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
     }
 
 }
