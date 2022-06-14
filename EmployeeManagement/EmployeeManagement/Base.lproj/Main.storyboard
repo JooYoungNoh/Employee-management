@@ -83,7 +83,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pNF-fI-N9U" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4006" y="-1892"/>
+            <point key="canvasLocation" x="3971" y="-1244"/>
         </scene>
         <!--프로필 정보-->
         <scene sceneID="GOd-im-B0l">
@@ -98,7 +98,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3eb-gJ-teV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4011" y="-1244"/>
+            <point key="canvasLocation" x="4643" y="-1244"/>
         </scene>
         <!--채팅 화면-->
         <scene sceneID="8mV-YX-VhN">
@@ -293,6 +293,21 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2dc-Ax-ReF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2576.9230769230767" y="-1244.0758293838862"/>
+        </scene>
+        <!--메모 화면-->
+        <scene sceneID="qH3-Me-tck">
+            <objects>
+                <viewController storyboardIdentifier="MemoVC" title="메모 화면" id="biQ-F1-dp4" customClass="MemoVC" customModule="EmployeeManagement" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="iuV-xz-Upx">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="lwU-Sl-1du"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LoA-mM-24e" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3623" y="-1930"/>
         </scene>
     </scenes>
     <resources>
