@@ -100,6 +100,17 @@ extension MemoVC: UITableViewDelegate, UITableViewDataSource {
         return 60
     }
     
+    //셀 클릭
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let nv = self.storyboard?.instantiateViewController(withIdentifier: "MemoReadVC") as! MemoReadVC
+        
+        nv.textOnTable = self.viewModel.realMemoList[indexPath.row].text
+        nv.countOnTable = self.viewModel.realMemoList[indexPath.row].count
+        
+        self.navigationController?.pushViewController(nv, animated: true)
+    }
+    
+    //삭제 기능
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             self.viewModel.deleteMemo(tableView: tableView, forRowAt: indexPath, realMemoList: self.viewModel.realMemoList)
