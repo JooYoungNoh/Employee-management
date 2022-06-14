@@ -10,7 +10,7 @@ import FirebaseFirestore
 import FirebaseStorage
 import UIKit
 
-class ProfileVM {
+class MyProfileVM {
     let db = Firestore.firestore()
     let storage = Storage.storage()
     let appDelegate = UIApplication.shared.delegate as! AppDelegate

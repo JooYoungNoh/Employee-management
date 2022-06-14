@@ -17,7 +17,7 @@ class MyProfileInfoVC: UIViewController, UITextViewDelegate {
     var imageOnTable: UIImage!          //전 화면 셀에 있는 사진
     
     
-    var viewModel = ProfileVM()
+    var viewModel = MyProfileVM()
     
     //닫기 버튼
     let closeButton: UIButton = {
@@ -362,6 +362,7 @@ class MyProfileInfoVC: UIViewController, UITextViewDelegate {
     @objc func docancel(_ sender: UIButton){
         self.viewModel.cancelMessage(commentTF: self.commentTF, countLabel: self.countLabel, commentLabel: self.commentLabel, saveButton: self.saveButton, cancelButton: self.cancelButton)
     }
+    
     @objc func dosave(_ sender: UIButton){
         let alert = UIAlertController(title: "변경 사항이 저장됩니다.", message: "진행하시겠습니까?", preferredStyle: .alert)
         
@@ -380,6 +381,10 @@ class MyProfileInfoVC: UIViewController, UITextViewDelegate {
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         
         self.present(alert, animated: true)
+    }
+    
+    @objc func doMemo(_ sender: UIButton){
+        
     }
     
     @objc func doProfile(_ sender: UIButton){
@@ -417,7 +422,6 @@ class MyProfileInfoVC: UIViewController, UITextViewDelegate {
         self.countLabel.isHidden = true
         self.commentLabel.isHidden = false
     }
-    
 }
 
 //MARK: collectionView 메소드
