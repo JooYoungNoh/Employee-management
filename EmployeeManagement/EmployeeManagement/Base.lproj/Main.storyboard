@@ -88,7 +88,7 @@
         <!--급여계산 화면-->
         <scene sceneID="khJ-0b-xC9">
             <objects>
-                <viewController title="급여계산 화면" id="pJt-lk-eUI" customClass="CalculatorVC" customModule="EmployeeManagement" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CalculatorVC" title="급여계산 화면" id="pJt-lk-eUI" customClass="CalculatorVC" customModule="EmployeeManagement" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="YbP-r6-Hmr">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
