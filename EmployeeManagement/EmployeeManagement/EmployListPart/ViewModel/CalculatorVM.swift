@@ -18,15 +18,15 @@ class CalculatorVM {
         print(self.weekValue)
     }
     
-    func showInfo(sender: UIButton, sevenButton: UIButton, sevenInfoLabel: UILabel, yearButton: UIButton, yearInfoLabel: UILabel){
+    func showInfo(sender: UIButton, monthButton: UIButton, sevenInfoLabel: UILabel, yearButton: UIButton, yearInfoLabel: UILabel){
         switch sender{
-        case sevenButton:
-            if sevenButton.titleLabel?.text == "?" {
+        case monthButton:
+            if monthButton.titleLabel?.text == "?" {
                 sevenInfoLabel.isHidden = false
-                sevenButton.setTitle("!", for: .normal)
+                monthButton.setTitle("!", for: .normal)
             } else {
                 sevenInfoLabel.isHidden = true
-                sevenButton.setTitle("?", for: .normal)
+                monthButton.setTitle("?", for: .normal)
             }
         case yearButton:
             if yearButton.titleLabel?.text == "?" {

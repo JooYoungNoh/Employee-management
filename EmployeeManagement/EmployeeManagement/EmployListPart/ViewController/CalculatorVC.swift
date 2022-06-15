@@ -70,7 +70,7 @@ class CalculatorVC: UIViewController {
     let timeTF: UITextField = {
         let text = UITextField()
         text.backgroundColor = .systemGray6
-        text.placeholder = "1달동안 일한 시간"
+        text.placeholder = "1주동안 일한 시간"
         text.textColor = .black
         text.textAlignment = .center
         text.font = UIFont(name: "CookieRun", size: 18)
@@ -164,6 +164,7 @@ class CalculatorVC: UIViewController {
         return view
     }()
     
+    
     //월급 레이블
     let monthLabel: UILabel = {
         let label = UILabel()
@@ -184,6 +185,30 @@ class CalculatorVC: UIViewController {
         label.backgroundColor = .white
         label.numberOfLines = 0
         return label
+    }()
+    //월급 설명 레이블
+    let monthInfoLabel: UILabel = {
+        let label = UILabel()
+        label.text = "주당 같은 시간을 했을 때"
+        label.textColor = .systemRed
+        label.font = UIFont(name: "CookieRun", size: 11)
+        label.textAlignment = .center
+        label.backgroundColor = .white
+        label.numberOfLines = 0
+        label.isHidden = true
+        return label
+    }()
+    //월급 설명 버튼
+    let monthButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("?", for: .normal)
+        button.setTitleColor(UIColor.black, for: .normal)
+        button.titleLabel?.font = UIFont(name: "CookieRun", size: 18)
+        button.alpha = 0.7
+        button.layer.cornerRadius = 15
+        button.layer.borderWidth = 2
+        button.layer.borderColor = UIColor.systemGray.cgColor
+        return button
     }()
     
     //경계선 뷰
@@ -219,30 +244,6 @@ class CalculatorVC: UIViewController {
         label.numberOfLines = 0
         return label
     }()
-    //주급 설명 레이블
-    let sevenInfoLabel: UILabel = {
-        let label = UILabel()
-        label.text = "주당 같은 시간을 했을 때"
-        label.textColor = .systemRed
-        label.font = UIFont(name: "CookieRun", size: 11)
-        label.textAlignment = .center
-        label.backgroundColor = .white
-        label.numberOfLines = 0
-        label.isHidden = true
-        return label
-    }()
-    //주급 설명 버튼
-    let sevenButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("?", for: .normal)
-        button.setTitleColor(UIColor.black, for: .normal)
-        button.titleLabel?.font = UIFont(name: "CookieRun", size: 18)
-        button.alpha = 0.7
-        button.layer.cornerRadius = 15
-        button.layer.borderWidth = 2
-        button.layer.borderColor = UIColor.systemGray.cgColor
-        return button
-    }()
     
     //연봉 레이블
     let yearLabel: UILabel = {
@@ -277,7 +278,8 @@ class CalculatorVC: UIViewController {
         label.isHidden = true
         return label
     }()
-    //주급 설명 버튼
+    
+    //연봉 설명 버튼
     let yearButton: UIButton = {
         let button = UIButton()
         button.setTitle("?", for: .normal)
@@ -314,7 +316,7 @@ class CalculatorVC: UIViewController {
     }
     
     @objc func doQusetion(_ sender: UIButton){
-        self.viewModel.showInfo(sender: sender, sevenButton: self.sevenButton, sevenInfoLabel: self.sevenInfoLabel, yearButton: self.yearButton, yearInfoLabel: self.yearInfoLabel)
+        self.viewModel.showInfo(sender: sender, monthButton: self.monthButton, sevenInfoLabel: self.monthInfoLabel, yearButton: self.yearButton, yearInfoLabel: self.yearInfoLabel)
     }
     
     //MARK: uiCreate
@@ -447,11 +449,18 @@ class CalculatorVC: UIViewController {
         }
         
         //월급 UI
+        self.view.addSubview(monthInfoLabel)
+        monthInfoLabel.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(self.lineView.snp.bottom).offset(10)
+            make.width.equalTo(100)
+            make.height.equalTo(30)
+        }
         self.view.addSubview(monthLabel)
         
         monthLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.top.equalTo(self.lineView.snp.bottom).offset(50)
+            make.top.equalTo(self.monthInfoLabel.snp.bottom).offset(10)
             make.height.equalTo(40)
         }
         self.view.addSubview(monthMoney)
@@ -461,6 +470,14 @@ class CalculatorVC: UIViewController {
             make.top.equalTo(self.monthLabel.snp.bottom).offset(10)
             make.width.equalTo(100)
             make.height.equalTo(50)
+        }
+        
+        self.monthButton.addTarget(self, action: #selector(doQusetion(_:)), for: .touchUpInside)
+        self.view.addSubview(monthButton)
+        monthButton.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(self.monthMoney.snp.bottom).offset(20)
+            make.width.height.equalTo(30)
         }
         
         //경계선 UI
@@ -480,18 +497,10 @@ class CalculatorVC: UIViewController {
         }
         
         //주급 UI
-        self.view.addSubview(sevenInfoLabel)
-        sevenInfoLabel.snp.makeConstraints { make in
-            make.trailing.equalTo(self.leftView.snp.leading).offset(-15)
-            make.top.equalTo(self.lineView.snp.bottom).offset(10)
-            make.width.equalTo(100)
-            make.height.equalTo(30)
-        }
-        
         self.view.addSubview(sevenLabel)
         sevenLabel.snp.makeConstraints { make in
             make.trailing.equalTo(self.leftView.snp.leading).offset(-15)
-            make.top.equalTo(self.sevenInfoLabel.snp.bottom).offset(10)
+            make.top.equalTo(self.lineView.snp.bottom).offset(50)
             make.width.equalTo(100)
             make.height.equalTo(40)
         }
@@ -502,13 +511,6 @@ class CalculatorVC: UIViewController {
             make.top.equalTo(self.sevenLabel.snp.bottom).offset(10)
             make.width.equalTo(100)
             make.height.equalTo(50)
-        }
-        self.sevenButton.addTarget(self, action: #selector(doQusetion(_:)), for: .touchUpInside)
-        self.view.addSubview(sevenButton)
-        sevenButton.snp.makeConstraints { make in
-            make.top.equalTo(self.sevenMoney.snp.bottom).offset(20)
-            make.trailing.equalTo(self.leftView.snp.leading).offset(-50)
-            make.width.height.equalTo(30)
         }
         
         //연봉 UI
