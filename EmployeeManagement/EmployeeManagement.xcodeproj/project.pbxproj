@@ -19,6 +19,8 @@
 		7331C5E428491457009F5210 /* EmployeeListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7331C5E328491457009F5210 /* EmployeeListVM.swift */; };
 		7331C5E628491CA6009F5210 /* EmployeeListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7331C5E528491CA6009F5210 /* EmployeeListCell.swift */; };
 		7331C5E828492ECE009F5210 /* EmployeeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7331C5E728492ECE009F5210 /* EmployeeModel.swift */; };
+		73435D32285A523B00B52A98 /* CalculatorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73435D31285A523B00B52A98 /* CalculatorVC.swift */; };
+		73435D34285A525100B52A98 /* CalculatorVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73435D33285A525100B52A98 /* CalculatorVM.swift */; };
 		73502E182832BAB000920E3C /* Shopcell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73502E172832BAB000920E3C /* Shopcell.swift */; };
 		735180CD2852601E00CC30FB /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 735180CC2852601E00CC30FB /* ProfileModel.swift */; };
 		735180CF2852602E00CC30FB /* MyProfileVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 735180CE2852602E00CC30FB /* MyProfileVM.swift */; };
@@ -64,6 +66,8 @@
 		7331C5E328491457009F5210 /* EmployeeListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeListVM.swift; sourceTree = "<group>"; };
 		7331C5E528491CA6009F5210 /* EmployeeListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeListCell.swift; sourceTree = "<group>"; };
 		7331C5E728492ECE009F5210 /* EmployeeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeModel.swift; sourceTree = "<group>"; };
+		73435D31285A523B00B52A98 /* CalculatorVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorVC.swift; sourceTree = "<group>"; };
+		73435D33285A525100B52A98 /* CalculatorVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorVM.swift; sourceTree = "<group>"; };
 		73502E172832BAB000920E3C /* Shopcell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shopcell.swift; sourceTree = "<group>"; };
 		735180CC2852601E00CC30FB /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
 		735180CE2852602E00CC30FB /* MyProfileVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileVM.swift; sourceTree = "<group>"; };
@@ -206,6 +210,7 @@
 				7390F3EF2858ED470036B632 /* MemoCell.swift */,
 				73179DE52858F37F00086DBD /* MemoWriteVC.swift */,
 				7309388F28593EA8005B812E /* MemoReadVC.swift */,
+				73435D31285A523B00B52A98 /* CalculatorVC.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -218,6 +223,7 @@
 				7390F3ED2858E0F00036B632 /* MemoVM.swift */,
 				73179DE7285906AC00086DBD /* MemoWriteVM.swift */,
 				7309389128593EBC005B812E /* MemoReadVM.swift */,
+				73435D33285A525100B52A98 /* CalculatorVM.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -405,6 +411,7 @@
 				73502E182832BAB000920E3C /* Shopcell.swift in Sources */,
 				73A3AAE228292BF9001283CD /* EmployeeManagement.xcdatamodeld in Sources */,
 				7390F3F02858ED470036B632 /* MemoCell.swift in Sources */,
+				73435D34285A525100B52A98 /* CalculatorVM.swift in Sources */,
 				73E2DA9F2832697000C4CF25 /* CSTabBarController.swift in Sources */,
 				7331C5E828492ECE009F5210 /* EmployeeModel.swift in Sources */,
 				73BCD85F2833DBCD00DF6F74 /* ShopAddVC.swift in Sources */,
@@ -422,6 +429,7 @@
 				735180CF2852602E00CC30FB /* MyProfileVM.swift in Sources */,
 				73CDD2AB28511E5900E9EB32 /* MyProfileInfoVC.swift in Sources */,
 				7309389028593EA8005B812E /* MemoReadVC.swift in Sources */,
+				73435D32285A523B00B52A98 /* CalculatorVC.swift in Sources */,
 				73A3AAF12829694E001283CD /* FindVC.swift in Sources */,
 				7331C5E628491CA6009F5210 /* EmployeeListCell.swift in Sources */,
 				73C411B2283520A6001EC8F6 /* BusinessTypePicker.swift in Sources */,
