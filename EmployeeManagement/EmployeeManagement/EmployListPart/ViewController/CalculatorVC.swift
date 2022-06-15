@@ -9,6 +9,9 @@ import UIKit
 import SnapKit
 
 class CalculatorVC: UIViewController {
+    
+    var viewModel = CalculatorVM()
+    
     //닫기 버튼
     let closeButton: UIButton = {
         let close = UIButton()
@@ -311,26 +314,7 @@ class CalculatorVC: UIViewController {
     }
     
     @objc func doQusetion(_ sender: UIButton){
-        switch sender{
-        case self.sevenButton:
-            if self.sevenButton.titleLabel?.text == "?" {
-                self.sevenInfoLabel.isHidden = false
-                self.sevenButton.setTitle("!", for: .normal)
-            } else {
-                self.sevenInfoLabel.isHidden = true
-                self.sevenButton.setTitle("?", for: .normal)
-            }
-        case self.yearButton:
-            if self.yearButton.titleLabel?.text == "?" {
-                self.yearInfoLabel.isHidden = false
-                self.yearButton.setTitle("!", for: .normal)
-            } else {
-                self.yearInfoLabel.isHidden = true
-                self.yearButton.setTitle("?", for: .normal)
-            }
-        default:
-            break
-        }
+        self.viewModel.showInfo(sender: sender, sevenButton: self.sevenButton, sevenInfoLabel: self.sevenInfoLabel, yearButton: self.yearButton, yearInfoLabel: self.yearInfoLabel)
     }
     
     //MARK: uiCreate
