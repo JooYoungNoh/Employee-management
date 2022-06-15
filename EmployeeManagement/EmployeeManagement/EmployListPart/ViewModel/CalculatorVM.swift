@@ -9,6 +9,15 @@ import UIKit
 
 class CalculatorVM {
     
+    var weekValue: Int = 0
+    
+    //주휴수당 유무
+    func changeWeekValue(sender: UISegmentedControl){
+        let value = sender.selectedSegmentIndex     //0이면 유, 1이면 무
+        self.weekValue = value
+        print(self.weekValue)
+    }
+    
     func showInfo(sender: UIButton, sevenButton: UIButton, sevenInfoLabel: UILabel, yearButton: UIButton, yearInfoLabel: UILabel){
         switch sender{
         case sevenButton:

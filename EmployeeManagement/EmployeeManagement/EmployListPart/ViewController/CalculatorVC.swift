@@ -306,7 +306,7 @@ class CalculatorVC: UIViewController {
     }
     
     @objc func changWeek(_ sender: UISegmentedControl){
-        
+        self.viewModel.changeWeekValue(sender: sender)
     }
     
     @objc func doCal(_ sender: UIButton){
