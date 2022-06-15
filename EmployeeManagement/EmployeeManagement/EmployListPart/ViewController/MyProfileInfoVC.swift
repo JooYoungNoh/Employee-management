@@ -323,6 +323,7 @@ class MyProfileInfoVC: UIViewController, UITextViewDelegate {
             make.height.equalTo(30)
         }
         
+        calculatorButton.addTarget(self, action: #selector(doCalculator(_:)), for: .touchUpInside)
         self.view.addSubview(calculatorButton)
         calculatorButton.snp.makeConstraints { make in
             make.centerX.equalTo(self.calculatorLabel.snp.centerX)
@@ -410,6 +411,12 @@ class MyProfileInfoVC: UIViewController, UITextViewDelegate {
         
         alert.addAction(UIAlertAction(title: "취소", style: .cancel))
         self.present(alert, animated: true)
+    }
+    
+    @objc func doCalculator(_ sender: UIButton){
+        let nv = self.storyboard?.instantiateViewController(withIdentifier: "CalculatorVC") as! CalculatorVC
+        nv.modalPresentationStyle = .fullScreen
+        self.present(nv, animated: true)
     }
     
     //MARK: 텍스트 뷰 메소드
