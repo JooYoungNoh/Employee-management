@@ -162,7 +162,7 @@ class ProfileInfoVC: UIViewController {
         
         commentLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.top.equalTo(self.nameLabel.snp.bottom).offset(20)
+            make.top.equalTo(self.nameLabel.snp.bottom).offset(10)
             make.width.equalTo(200)
             make.height.lessThanOrEqualTo(60)
         }
