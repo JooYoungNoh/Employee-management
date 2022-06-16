@@ -66,6 +66,17 @@ class ProfileInfoVC: UIViewController {
         view.backgroundColor = .white
         return view
     }()
+    
+    //나랑 같은 회사 레이블
+    let sameCompony: UILabel = {
+        let label = UILabel()
+        label.text = "나랑 같은 회사 ↓"
+        label.textColor = UIColor.blue
+        label.font = UIFont(name: "CookieRun", size: 18)
+        label.textAlignment = .center
+        label.backgroundColor = .systemGray6
+        return label
+    }()
 
     // 채팅 버튼
     let chatButton: UIButton = {
@@ -194,6 +205,15 @@ class ProfileInfoVC: UIViewController {
             make.width.equalToSuperview()
             make.height.equalTo(2)
             make.bottom.equalTo(self.collectionView.snp.top).offset(-20)
+        }
+        
+        //나랑 같은 회사 레이블 UI
+        self.view.addSubview(self.sameCompony)
+        sameCompony.snp.makeConstraints { make in
+            make.width.equalTo(150)
+            make.height.equalTo(30)
+            make.bottom.equalTo(self.commentUnderView.snp.top).offset(-5)
+            make.leading.equalTo(self.closeButton.snp.leading)
         }
     
     }
