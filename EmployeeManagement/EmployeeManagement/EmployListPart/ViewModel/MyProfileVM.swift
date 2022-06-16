@@ -78,9 +78,6 @@ class MyProfileVM {
     
     //변경 사항 저장 메소드
     func changeValueSave(imgView: UIImageView, tableImg: UIImage){
-        
-        
-        
         if imgView.image == UIImage(named: "account") {
             if self.appDelegate.profileState == true {                  //이미지 없는데 true
                 //스토리지에서 삭제
