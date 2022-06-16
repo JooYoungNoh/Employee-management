@@ -327,7 +327,7 @@ class CalculatorVC: UIViewController {
     }
     
     @objc func doCal(_ sender: UIButton){
-        
+        self.viewModel.showMeTheMoney(moneyTF: self.moneyTF, timeTF: self.timeTF, taxTF: self.taxTF, sevenMoney: self.sevenMoney, monthMoney: self.monthMoney, yearMoney: self.yearMoney, nv: self)
     }
     
     @objc func doQusetion(_ sender: UIButton){
@@ -568,9 +568,10 @@ class CalculatorVC: UIViewController {
     }
 }
 
+//MARK: 텍스트 필드 메소드
 extension CalculatorVC: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
-        self.viewModel.textChange(textField: textField, moneyTF: self.moneyTF, timeTF: self.timeTF, taxTF: self.taxTF, vc: self)
+        self.viewModel.textChange(textField: textField, moneyTF: self.moneyTF, timeTF: self.timeTF, taxTF: self.taxTF, weekControl: self.weekControl, vc: self)
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
