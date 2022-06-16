@@ -141,4 +141,17 @@ class EmployeeListVM {
             return self.employeeRealResult.count
         }
     }
+    
+    //MARK: 로그아웃
+    func doLogout(vc: UIViewController){
+        let alert = UIAlertController(title: "선택해주세요", message: nil, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "로그아웃", style: .default) { (_) in
+            let firstScreen = vc.storyboard?.instantiateViewController(withIdentifier: "first")
+            firstScreen?.modalTransitionStyle = .crossDissolve
+            firstScreen?.modalPresentationStyle = .fullScreen
+            vc.present(firstScreen!, animated: true)
+        })
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        vc.present(alert, animated: true)
+    }
 }

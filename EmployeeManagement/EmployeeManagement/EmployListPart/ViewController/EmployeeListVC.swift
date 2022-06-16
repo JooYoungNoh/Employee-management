@@ -40,7 +40,7 @@ class EmployeeListVC: UIViewController {
     
     //액션 메소드
     @objc func goSetting(_ sender: UIBarButtonItem){
-        
+        self.viewModel.doLogout(vc: self)
     }
     
     @objc func addFriend(_ sender: UIBarButtonItem){
