@@ -19,6 +19,7 @@
 		7331C5E428491457009F5210 /* EmployeeListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7331C5E328491457009F5210 /* EmployeeListVM.swift */; };
 		7331C5E628491CA6009F5210 /* EmployeeListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7331C5E528491CA6009F5210 /* EmployeeListCell.swift */; };
 		7331C5E828492ECE009F5210 /* EmployeeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7331C5E728492ECE009F5210 /* EmployeeModel.swift */; };
+		73324E80285BCA5A00F443FD /* ProfileVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73324E7F285BCA5A00F443FD /* ProfileVM.swift */; };
 		73435D32285A523B00B52A98 /* CalculatorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73435D31285A523B00B52A98 /* CalculatorVC.swift */; };
 		73435D34285A525100B52A98 /* CalculatorVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73435D33285A525100B52A98 /* CalculatorVM.swift */; };
 		73502E182832BAB000920E3C /* Shopcell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73502E172832BAB000920E3C /* Shopcell.swift */; };
@@ -66,6 +67,7 @@
 		7331C5E328491457009F5210 /* EmployeeListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeListVM.swift; sourceTree = "<group>"; };
 		7331C5E528491CA6009F5210 /* EmployeeListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeListCell.swift; sourceTree = "<group>"; };
 		7331C5E728492ECE009F5210 /* EmployeeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeModel.swift; sourceTree = "<group>"; };
+		73324E7F285BCA5A00F443FD /* ProfileVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVM.swift; sourceTree = "<group>"; };
 		73435D31285A523B00B52A98 /* CalculatorVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorVC.swift; sourceTree = "<group>"; };
 		73435D33285A525100B52A98 /* CalculatorVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorVM.swift; sourceTree = "<group>"; };
 		73502E172832BAB000920E3C /* Shopcell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shopcell.swift; sourceTree = "<group>"; };
@@ -221,6 +223,7 @@
 				7331C5E328491457009F5210 /* EmployeeListVM.swift */,
 				735180CE2852602E00CC30FB /* MyProfileVM.swift */,
 				7390F3ED2858E0F00036B632 /* MemoVM.swift */,
+				73324E7F285BCA5A00F443FD /* ProfileVM.swift */,
 				73179DE7285906AC00086DBD /* MemoWriteVM.swift */,
 				7309389128593EBC005B812E /* MemoReadVM.swift */,
 				73435D33285A525100B52A98 /* CalculatorVM.swift */,
@@ -414,6 +417,7 @@
 				73435D34285A525100B52A98 /* CalculatorVM.swift in Sources */,
 				73E2DA9F2832697000C4CF25 /* CSTabBarController.swift in Sources */,
 				7331C5E828492ECE009F5210 /* EmployeeModel.swift in Sources */,
+				73324E80285BCA5A00F443FD /* ProfileVM.swift in Sources */,
 				73BCD85F2833DBCD00DF6F74 /* ShopAddVC.swift in Sources */,
 				73A3AAD828292BF9001283CD /* AppDelegate.swift in Sources */,
 				735180CD2852601E00CC30FB /* ProfileModel.swift in Sources */,
