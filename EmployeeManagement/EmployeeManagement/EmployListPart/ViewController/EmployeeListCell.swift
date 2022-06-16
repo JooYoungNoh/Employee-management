@@ -60,7 +60,7 @@ class EmployeeListCell: UITableViewCell {
         commentLabel.snp.makeConstraints { make in
             make.leading.equalTo(self.nameLabel.snp.leading)
             make.top.equalTo(self.nameLabel.snp.bottom)
-            make.width.equalTo(200)
+            make.width.equalTo(260)
             make.height.equalTo(20)
         }
     }
