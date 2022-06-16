@@ -98,12 +98,18 @@ class ProfileInfoVC: UIViewController {
     //MARK: viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.collectionView.delegate = self
+        self.collectionView.dataSource = self
+        self.collectionView.register(ProfileInfoCVCell.self, forCellWithReuseIdentifier: ProfileInfoCVCell.identifier)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.view.backgroundColor = .systemGray6
         uiCreate()
+        self.viewModel.findMyCompany(phoneOnTable: self.phoneOnTable) { completion in
+            self.collectionView.reloadData()
+        }
     }
     
     //MARK: 화면 UI 메소드
@@ -201,4 +207,18 @@ class ProfileInfoVC: UIViewController {
         
     }
 
+}
+//MARK: collectionView 메소드
+extension ProfileInfoVC: UICollectionViewDelegate,UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProfileInfoCVCell.identifier, for: indexPath) as? ProfileInfoCVCell else { return UICollectionViewCell() }
+    
+        
+        cell.titleLabel.text = self.viewModel.sortedCompany[indexPath.row]
+        self.viewModel.companyDownloadimage(imgView: cell.imageView, company: cell.titleLabel.text!)
+        return cell
+    }
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.viewModel.sortedCompany.count
+    }
 }
