@@ -311,19 +311,7 @@ class CalculatorVC: UIViewController {
     }
     
     @objc func changWeek(_ sender: UISegmentedControl){
-        if sender.selectedSegmentIndex == 0{
-            if self.timeTF.text!.isEmpty == false && Double(self.timeTF.text!)! >= 15{
-                self.viewModel.changeWeekValue(sender: sender)
-            } else {
-                let alert = UIAlertController(title: nil, message: "시간이 입력되지 않았거나 기준에 맞지 않습니다", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "OK", style: .default){ (_) in
-                    sender.selectedSegmentIndex = 1
-                })
-                self.present(alert, animated: true)
-            }
-        } else {
-            self.viewModel.changeWeekValue(sender: sender)
-        }
+        self.viewModel.changeWeekValue(sender: sender, timeTF: self.timeTF, nv: self)
     }
     
     @objc func doCal(_ sender: UIButton){

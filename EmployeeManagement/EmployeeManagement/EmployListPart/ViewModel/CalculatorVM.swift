@@ -21,10 +21,21 @@ class CalculatorVM {
     
     //MARK: 세그먼트컨트롤 메소드
     //주휴수당 유무
-    func changeWeekValue(sender: UISegmentedControl){
-        let value = sender.selectedSegmentIndex     //0이면 유, 1이면 무
-        self.weekValue = value
-        print(self.weekValue)
+    func changeWeekValue(sender: UISegmentedControl, timeTF: UITextField, nv: UIViewController){
+        if sender.selectedSegmentIndex == 0{
+            if timeTF.text!.isEmpty == false && Double(timeTF.text!)! >= 15{
+                self.weekValue = sender.selectedSegmentIndex     //0이면 유, 1이면 무
+                
+            } else {
+                let alert = UIAlertController(title: nil, message: "시간이 입력되지 않았거나 기준에 맞지 않습니다", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default){ (_) in
+                    sender.selectedSegmentIndex = 1
+                })
+                nv.present(alert, animated: true)
+            }
+        } else {
+            self.weekValue = sender.selectedSegmentIndex
+        }
     }
     
     //MARK: 버튼 메소드
