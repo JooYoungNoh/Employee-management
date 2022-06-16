@@ -224,7 +224,7 @@ class ProfileInfoVC: UIViewController {
     }
     
     @objc func doChat(_ sender: UIButton){
-        
+        //TODO: 나중에 채팅 화면 만들고 코드 짤 예정
     }
 
 }
