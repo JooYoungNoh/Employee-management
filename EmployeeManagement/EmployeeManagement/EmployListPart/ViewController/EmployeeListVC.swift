@@ -43,9 +43,6 @@ class EmployeeListVC: UIViewController {
         self.viewModel.doLogout(vc: self)
     }
     
-    @objc func addFriend(_ sender: UIBarButtonItem){
-        
-    }
     
     //MARK: 화면 UI 메소드
     func uiCreate(){
@@ -60,11 +57,8 @@ class EmployeeListVC: UIViewController {
         
         //내비게이션 바 버튼
         let settingButton = UIBarButtonItem(image: UIImage(systemName: "gearshape"), style: .plain, target: self, action: #selector(goSetting(_:)))
-        let addButton = UIBarButtonItem.init(barButtonSystemItem: .add, target: self, action: #selector(addFriend(_:)))
         
-        self.navigationItem.rightBarButtonItems = [settingButton, addButton]
-    
-        addButton.tintColor = UIColor.black
+        self.navigationItem.rightBarButtonItem = settingButton
         settingButton.tintColor = UIColor.black
         
         //테이블 뷰 UI
