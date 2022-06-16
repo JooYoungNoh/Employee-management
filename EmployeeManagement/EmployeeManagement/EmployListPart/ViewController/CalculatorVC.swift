@@ -573,4 +573,7 @@ extension CalculatorVC: UITextFieldDelegate {
         self.viewModel.textChange(textField: textField, moneyTF: self.moneyTF, timeTF: self.timeTF, taxTF: self.taxTF, vc: self)
     }
     
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        return self.viewModel.textWritingCase(string: string)
+    }
 }
