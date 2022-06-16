@@ -24,7 +24,7 @@ class EmployeeListVC: UIViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-    
+        self.navigationController?.navigationBar.prefersLargeTitles = true
         self.uiCreate()
         self.viewModel.findMe{ () in
             self.tableView.reloadData()

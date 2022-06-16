@@ -14,10 +14,12 @@ class MemoVM {
     
     var memoList: [MemoModel] = []
     var realMemoList: [MemoModel] = []
+    var searchMemoList: [MemoModel] = []
     
     func findMemo(completion: @escaping([MemoModel]) -> ()){
         self.memoList.removeAll()
         self.realMemoList.removeAll()
+        self.searchMemoList.removeAll()
         self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("memoList").getDocuments { snapShot, error in
             if error == nil {
                 for doc in snapShot!.documents{
@@ -44,4 +46,17 @@ class MemoVM {
         tableView.deleteRows(at: [indexPath], with: .fade)
     }
     
+    func searchBarfilter(searchController: UISearchController, tableView: UITableView){
+        guard let text = searchController.searchBar.text else { return }
+
+        self.searchMemoList = self.realMemoList.filter( { (list: MemoModel) -> Bool in
+            return list.title.lowercased().contains(text.lowercased())
+        })
+        tableView.reloadData()
+    }
+    
+    //테이블 뷰 섹션에 나타낼 로우 갯수
+    func numberOfRowsInSection(section: Int, isFiltering: Bool) -> Int {
+        return isFiltering ? self.searchMemoList.count : self.realMemoList.count
+    }
 }

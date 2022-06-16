@@ -20,6 +20,13 @@ class MemoVC: UIViewController {
     
     var searchBarController = UISearchController(searchResultsController: nil)  //서치 바
     
+    var isFiltering: Bool{
+        let searchController = self.navigationItem.searchController
+        let isActive = searchController?.isActive ?? false
+        let isSearchBarHasText = searchController?.searchBar.text?.isEmpty == false
+        return isActive && isSearchBarHasText
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.dataSource = self
@@ -35,6 +42,11 @@ class MemoVC: UIViewController {
     }
     
     func uiCreate(){
+        //서치바 UI
+        self.searchBarController.searchBar.placeholder = "키워드를 입력해주세요."
+        self.searchBarController.obscuresBackgroundDuringPresentation = false
+        self.searchBarController.searchResultsUpdater = self
+        
         //내비게이션
         self.navigationItem.title = "Memo"
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font : UIFont(name: "CookieRun", size: 20)!]
@@ -86,14 +98,24 @@ extension MemoVC: UITableViewDelegate, UITableViewDataSource {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm"
         let fixDate = "\(formatter.string(from: date))"
+        
+        if self.isFiltering == false {
+            cell.titleLabel.text = self.viewModel.realMemoList[indexPath.row].title
+            cell.dateLabel.text = fixDate
+        } else {
+            let date2 = Date(timeIntervalSince1970: self.viewModel.searchMemoList[indexPath.row].date)
             
-        cell.titleLabel.text = self.viewModel.realMemoList[indexPath.row].title
-        cell.dateLabel.text = fixDate
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd HH:mm"
+            let fixDate2 = "\(formatter.string(from: date2))"
+            cell.titleLabel.text = self.viewModel.searchMemoList[indexPath.row].title
+            cell.dateLabel.text = fixDate2
+        }
         return cell
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.viewModel.realMemoList.count
+        self.viewModel.numberOfRowsInSection(section: section, isFiltering: self.isFiltering)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -104,10 +126,19 @@ extension MemoVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let nv = self.storyboard?.instantiateViewController(withIdentifier: "MemoReadVC") as! MemoReadVC
         
-        nv.titleOnTable = self.viewModel.realMemoList[indexPath.row].title
-        nv.dateOnTable = self.viewModel.realMemoList[indexPath.row].date
-        nv.textOnTable = self.viewModel.realMemoList[indexPath.row].text
-        nv.countOnTable = self.viewModel.realMemoList[indexPath.row].count
+        //전달할 내용
+        if self.isFiltering == false{
+            nv.titleOnTable = self.viewModel.realMemoList[indexPath.row].title
+            nv.dateOnTable = self.viewModel.realMemoList[indexPath.row].date
+            nv.textOnTable = self.viewModel.realMemoList[indexPath.row].text
+            nv.countOnTable = self.viewModel.realMemoList[indexPath.row].count
+        } else {
+            nv.titleOnTable = self.viewModel.searchMemoList[indexPath.row].title
+            nv.dateOnTable = self.viewModel.searchMemoList[indexPath.row].date
+            nv.textOnTable = self.viewModel.searchMemoList[indexPath.row].text
+            nv.countOnTable = self.viewModel.searchMemoList[indexPath.row].count
+            //nv.navigationController?.isNavigationBarHidden = true
+        }
         
         self.navigationController?.pushViewController(nv, animated: true)
     }
@@ -118,4 +149,12 @@ extension MemoVC: UITableViewDelegate, UITableViewDataSource {
             self.viewModel.deleteMemo(tableView: tableView, forRowAt: indexPath, realMemoList: self.viewModel.realMemoList)
         }
     }
+}
+
+extension MemoVC: UISearchResultsUpdating, UISearchBarDelegate {
+    //MARK: 서치바 메소드
+    func updateSearchResults(for searchController: UISearchController) {
+        self.viewModel.searchBarfilter(searchController: searchController, tableView: self.tableView)
+    }
+    
 }
