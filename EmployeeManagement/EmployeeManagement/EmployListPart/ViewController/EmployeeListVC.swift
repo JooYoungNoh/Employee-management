@@ -43,7 +43,6 @@ class EmployeeListVC: UIViewController {
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1){
             self.tableView.reloadData()
         }
-
     }
     
     //액션 메소드
@@ -84,9 +83,7 @@ class EmployeeListVC: UIViewController {
             make.leading.trailing.equalToSuperview()
             make.bottom.equalTo(self.view.snp.bottom).offset(-90)
         }
-        
     }
-
 }
 
 //MARK: 테이블 뷰 메소드
@@ -116,7 +113,9 @@ extension EmployeeListVC: UITableViewDelegate, UITableViewDataSource {
                 //프로필 이미지
                 cell.userImageView.image = nil
                 if self.viewModel.employeeRealResult[indexPath.row].profileImg == true {
-                    self.viewModel.employeeDownloadimage(imgView: cell.userImageView, phone: self.viewModel.employeeRealResult[indexPath.row].phone)
+                    DispatchQueue.main.async {
+                        self.viewModel.employeeDownloadimage(imgView: cell.userImageView, phone: self.viewModel.employeeRealResult[indexPath.row].phone)
+                    }
                 } else {
                     cell.userImageView.image = UIImage(named: "account")
                 }
@@ -126,7 +125,9 @@ extension EmployeeListVC: UITableViewDelegate, UITableViewDataSource {
                 //프로필 이미지
                 cell.userImageView.image = nil
                 if self.viewModel.searchResult[indexPath.row].profileImg == true {
-                    self.viewModel.employeeDownloadimage(imgView: cell.userImageView, phone: self.viewModel.searchResult[indexPath.row].phone)
+                    DispatchQueue.main.async {
+                        self.viewModel.employeeDownloadimage(imgView: cell.userImageView, phone: self.viewModel.searchResult[indexPath.row].phone)
+                    }
                 } else {
                     cell.userImageView.image = UIImage(named: "account")
                 }
