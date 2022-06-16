@@ -190,7 +190,7 @@ class MyProfileVM {
     //텍스트 필드
     func changeMessage(textView: UITextView, countLabel: UILabel, commentLabel: UILabel, saveButton: UIButton, cancelButton: UIButton){
         let contents = textView.text as NSString
-        countLabel.text = "\(String(describing: contents.length))/40"
+        countLabel.text = "\(String(describing: contents.length))/20"
         if contents != commentLabel.text! as NSString {
             saveButton.isHidden = false
             cancelButton.isHidden = false
@@ -208,6 +208,6 @@ class MyProfileVM {
         cancelButton.isHidden = true
         commentLabel.isHidden = false
         commentTF.text = commentLabel.text
-        countLabel.text = "\(commentLabel.text!.count)/40"
+        countLabel.text = "\(commentLabel.text!.count)/20"
     }
 }

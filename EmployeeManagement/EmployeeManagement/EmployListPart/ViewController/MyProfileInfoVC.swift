@@ -106,6 +106,16 @@ class MyProfileInfoVC: UIViewController, UITextViewDelegate {
         return view
     }()
     
+    //나랑 같은 회사 레이블
+    let myCompany: UILabel = {
+        let label = UILabel()
+        label.text = "내가 다니는 회사 ↓"
+        label.textColor = UIColor.blue
+        label.font = UIFont(name: "CookieRun", size: 18)
+        label.textAlignment = .center
+        label.backgroundColor = .systemGray6
+        return label
+    }()
     
     //버튼들 위쪽 선 표시
     let buttonUpView: UIView = {
@@ -198,7 +208,7 @@ class MyProfileInfoVC: UIViewController, UITextViewDelegate {
         self.view.addSubview(closeButton)
         
         closeButton.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(5)
+            make.leading.equalToSuperview().offset(10)
             make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
             make.width.equalTo(80)
             make.height.equalTo(40)
@@ -253,7 +263,7 @@ class MyProfileInfoVC: UIViewController, UITextViewDelegate {
         
         commentLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.top.equalTo(self.nameLabel.snp.bottom).offset(20)
+            make.top.equalTo(self.nameLabel.snp.bottom).offset(10)
             make.width.equalTo(200)
             make.height.lessThanOrEqualTo(60)
         }
@@ -263,13 +273,13 @@ class MyProfileInfoVC: UIViewController, UITextViewDelegate {
         
         commentTF.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.top.equalTo(self.nameLabel.snp.bottom).offset(20)
+            make.top.equalTo(self.nameLabel.snp.bottom).offset(10)
             make.width.equalTo(200)
             make.height.lessThanOrEqualTo(60)
         }
         
         //코멘트 숫자 레이블 UI
-        self.countLabel.text = "\(self.commentTF.text.count)/40"
+        self.countLabel.text = "\(self.commentTF.text.count)/20"
         self.view.addSubview(self.countLabel)
         
         countLabel.snp.makeConstraints { make in
@@ -354,6 +364,15 @@ class MyProfileInfoVC: UIViewController, UITextViewDelegate {
             make.height.equalTo(2)
             make.bottom.equalTo(self.collectionView.snp.top).offset(-20)
         }
+        
+        //내가 다니는 회사 레이블 UI
+        self.view.addSubview(self.myCompany)
+        myCompany.snp.makeConstraints { make in
+            make.width.equalTo(165)
+            make.height.equalTo(30)
+            make.bottom.equalTo(self.commentUnderView.snp.top).offset(-5)
+            make.leading.equalTo(self.closeButton.snp.leading)
+        }
     }
     
     //MARK: 엑션 메소드
@@ -366,23 +385,29 @@ class MyProfileInfoVC: UIViewController, UITextViewDelegate {
     }
     
     @objc func dosave(_ sender: UIButton){
-        let alert = UIAlertController(title: "변경 사항이 저장됩니다.", message: "진행하시겠습니까?", preferredStyle: .alert)
-        
-        alert.addAction(UIAlertAction(title: "OK", style: .default){ (_) in
-            //상태메시지 변경
-            self.viewModel.changeCommentSave(commentTF: self.commentTF, commentLabel: self.commentLabel)
-            //이미지 변경
-            self.viewModel.changeValueSave(imgView: self.profileImage, tableImg: self.imageOnTable!)
-            self.cancelButton.isHidden = true
-            self.saveButton.isHidden = true
-            self.commentTF.isHidden = true
-            self.countLabel.isHidden = true
-            self.commentLabel.isHidden = false
-        })
-        
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-        
-        self.present(alert, animated: true)
+        if self.commentTF.text.count > 20 {
+            let alert2 = UIAlertController(title: "최대 20자까지입니다", message: "다시 입력해주세요", preferredStyle: .alert)
+            alert2.addAction(UIAlertAction(title: "OK", style: .default))
+            self.present(alert2, animated: true)
+        } else {
+            let alert = UIAlertController(title: "변경 사항이 저장됩니다.", message: "진행하시겠습니까?", preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "OK", style: .default){ (_) in
+                //상태메시지 변경
+                self.viewModel.changeCommentSave(commentTF: self.commentTF, commentLabel: self.commentLabel)
+                //이미지 변경
+                self.viewModel.changeValueSave(imgView: self.profileImage, tableImg: self.imageOnTable!)
+                self.cancelButton.isHidden = true
+                self.saveButton.isHidden = true
+                self.commentTF.isHidden = true
+                self.countLabel.isHidden = true
+                self.commentLabel.isHidden = false
+            })
+            
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+            
+            self.present(alert, animated: true)
+        }
     }
     
     @objc func doMemo(_ sender: UIButton){
@@ -432,6 +457,8 @@ class MyProfileInfoVC: UIViewController, UITextViewDelegate {
         self.commentTF.isHidden = true
         self.countLabel.isHidden = true
         self.commentLabel.isHidden = false
+        self.commentTF.text = self.commentLabel.text
+        self.countLabel.text = "\(self.commentLabel.text!.count)/20"
     }
 }
 
