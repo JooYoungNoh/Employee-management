@@ -30,6 +30,7 @@ class EmployeeListVM {
     var employeeRealResult: [EmployeeModel] = []    //정렬된 값
     var employeePhoneList: [String] = []
     var employeePhoneResult: [String] = []
+    var searchResult: [EmployeeModel] = []
     
     //MARK: section 0
     //내 정보 가져오기
@@ -131,16 +132,6 @@ class EmployeeListVM {
             }
         }
     }
-
-    
-    //테이블 뷰 섹션에 나타낼 로우 갯수
-    func numberOfRowsInSection(section: Int) -> Int {
-        if section == 0{
-            return 1
-        } else {
-            return self.employeeRealResult.count
-        }
-    }
     
     //MARK: 로그아웃
     func doLogout(vc: UIViewController){
@@ -153,5 +144,19 @@ class EmployeeListVM {
         })
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         vc.present(alert, animated: true)
+    }
+    
+    func searchBarfilter(searchController: UISearchController, tableView: UITableView){
+        guard let text = searchController.searchBar.text else { return }
+
+        self.searchResult = self.employeeRealResult.filter( { (list: EmployeeModel) -> Bool in
+            return list.name.lowercased().contains(text.lowercased())
+        })
+        tableView.reloadData()
+    }
+    
+    //테이블 뷰 섹션에 나타낼 로우 갯수
+    func numberOfRowsInSection(section: Int, isFiltering: Bool) -> Int {
+        return isFiltering ? self.searchResult.count : self.employeeRealResult.count
     }
 }

@@ -13,7 +13,15 @@ class EmployeeListVC: UIViewController {
     var viewModel = EmployeeListVM()
     
     let tableView = UITableView()                         //테이블 뷰
+    
     var searchBarController = UISearchController(searchResultsController: nil)  //서치 바
+    
+    var isFiltering: Bool{
+        let searchController = self.navigationItem.searchController
+        let isActive = searchController?.isActive ?? false
+        let isSearchBarHasText = searchController?.searchBar.text?.isEmpty == false
+        return isActive && isSearchBarHasText
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,6 +54,11 @@ class EmployeeListVC: UIViewController {
     
     //MARK: 화면 UI 메소드
     func uiCreate(){
+        //서치바 UI
+        self.searchBarController.searchBar.placeholder = "이름을 입력해주세요."
+        self.searchBarController.obscuresBackgroundDuringPresentation = false
+        self.searchBarController.searchResultsUpdater = self
+        
         //내비게이션
         self.navigationItem.title = "Employees"
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font : UIFont(name: "CookieRun", size: 20)!]
@@ -82,7 +95,7 @@ extension EmployeeListVC: UITableViewDelegate, UITableViewDataSource {
         if section == 0{
             return 1
         } else {
-            return self.viewModel.numberOfRowsInSection(section: section)
+            return self.viewModel.numberOfRowsInSection(section: section, isFiltering: self.isFiltering)
         }
     }
     
@@ -95,25 +108,34 @@ extension EmployeeListVC: UITableViewDelegate, UITableViewDataSource {
         
         if indexPath.section == 0{
             //프로필 이미지
-            
             cell.userImageView.image = self.viewModel.myDownloadimage(choose: self.viewModel.myProfileImg)
             cell.nameLabel.text = self.viewModel.myName
             cell.commentLabel.text = self.viewModel.myComment
-            return cell
         } else {
-            //프로필 이미지
-            cell.userImageView.image = nil
-            if self.viewModel.employeeRealResult[indexPath.row].profileImg == true {
-                self.viewModel.employeeDownloadimage(imgView: cell.userImageView, phone: self.viewModel.employeeRealResult[indexPath.row].phone)
+            if self.isFiltering == false {
+                //프로필 이미지
+                cell.userImageView.image = nil
+                if self.viewModel.employeeRealResult[indexPath.row].profileImg == true {
+                    self.viewModel.employeeDownloadimage(imgView: cell.userImageView, phone: self.viewModel.employeeRealResult[indexPath.row].phone)
+                } else {
+                    cell.userImageView.image = UIImage(named: "account")
+                }
+                cell.nameLabel.text = self.viewModel.employeeRealResult[indexPath.row].name
+                cell.commentLabel.text = self.viewModel.employeeRealResult[indexPath.row].comment
             } else {
-                cell.userImageView.image = UIImage(named: "account")
+                //프로필 이미지
+                cell.userImageView.image = nil
+                if self.viewModel.searchResult[indexPath.row].profileImg == true {
+                    self.viewModel.employeeDownloadimage(imgView: cell.userImageView, phone: self.viewModel.searchResult[indexPath.row].phone)
+                } else {
+                    cell.userImageView.image = UIImage(named: "account")
+                }
+                
+                cell.nameLabel.text = self.viewModel.searchResult[indexPath.row].name
+                cell.commentLabel.text = self.viewModel.searchResult[indexPath.row].comment
             }
-            
-            cell.nameLabel.text = self.viewModel.employeeRealResult[indexPath.row].name
-            cell.commentLabel.text = self.viewModel.employeeRealResult[indexPath.row].comment
-            
-            return cell
         }
+        return cell
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -139,12 +161,18 @@ extension EmployeeListVC: UITableViewDelegate, UITableViewDataSource {
             self.present(myNV, animated: true)
             
         } else {
-            nv.imageChooseOnTable = self.viewModel.employeeRealResult[indexPath.row].profileImg
-            nv.phoneOnTable = self.viewModel.employeeRealResult[indexPath.row].phone
-            nv.commentOnTable = self.viewModel.employeeRealResult[indexPath.row].comment
-            nv.nameOnTable = self.viewModel.employeeRealResult[indexPath.row].name
+            if self.isFiltering == false{
+                nv.imageChooseOnTable = self.viewModel.employeeRealResult[indexPath.row].profileImg
+                nv.phoneOnTable = self.viewModel.employeeRealResult[indexPath.row].phone
+                nv.commentOnTable = self.viewModel.employeeRealResult[indexPath.row].comment
+                nv.nameOnTable = self.viewModel.employeeRealResult[indexPath.row].name
+            } else {
+                nv.imageChooseOnTable = self.viewModel.searchResult[indexPath.row].profileImg
+                nv.phoneOnTable = self.viewModel.searchResult[indexPath.row].phone
+                nv.commentOnTable = self.viewModel.searchResult[indexPath.row].comment
+                nv.nameOnTable = self.viewModel.searchResult[indexPath.row].name
+            }
             nv.modalPresentationStyle = .fullScreen
-            
             self.present(nv, animated: true)
         }
     }
@@ -174,4 +202,10 @@ extension EmployeeListVC: UITableViewDelegate, UITableViewDataSource {
         }
     }
 
+}
+//MARK: 서치바 메소드
+extension EmployeeListVC: UISearchResultsUpdating, UISearchBarDelegate {
+    func updateSearchResults(for searchController: UISearchController) {
+        self.viewModel.searchBarfilter(searchController: searchController, tableView: self.tableView)
+    }
 }
