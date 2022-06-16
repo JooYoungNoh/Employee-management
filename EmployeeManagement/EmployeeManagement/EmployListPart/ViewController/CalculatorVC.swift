@@ -296,6 +296,9 @@ class CalculatorVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         uiCreate()
+        self.timeTF.delegate = self
+        self.moneyTF.delegate = self
+        self.taxTF.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -563,4 +566,11 @@ class CalculatorVC: UIViewController {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
+}
+
+extension CalculatorVC: UITextFieldDelegate {
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        self.viewModel.textChange(textField: textField, moneyTF: self.moneyTF, timeTF: self.timeTF, taxTF: self.taxTF, vc: self)
+    }
+    
 }

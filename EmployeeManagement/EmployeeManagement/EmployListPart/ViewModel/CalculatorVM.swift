@@ -40,4 +40,41 @@ class CalculatorVM {
             break
         }
     }
+    
+    func textChange(textField: UITextField, moneyTF: UITextField, timeTF: UITextField, taxTF: UITextField, vc: UIViewController){
+        switch textField{
+        case moneyTF:
+            if moneyTF.text?.isEmpty == false {
+                if Int(moneyTF.text!)! < 9160 {
+                    let alert = UIAlertController(title: "최저시급에 충족하지 않습니다", message: "다시 입력해주세요", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default) { (_) in
+                        moneyTF.text = nil
+                    })
+                    vc.present(alert, animated: true)
+                }
+            }
+        case timeTF:
+            if timeTF.text?.isEmpty == false {
+                if Double(timeTF.text!)! > 40.0 {
+                    let alert = UIAlertController(title: "근로기준법에 기준된 시간을 초과하였습니다", message: "다시 입력해주세요", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default) { (_) in
+                        timeTF.text = nil
+                    })
+                    vc.present(alert, animated: true)
+                }
+            }
+        case taxTF:
+            if taxTF.text?.isEmpty == false{
+                if Double(taxTF.text!)! > 100.0 {
+                    let alert = UIAlertController(title: "최대 허용범위를 넘었습니다.", message: "다시 입력해주세요", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default) { (_) in
+                        taxTF.text = nil
+                    })
+                    vc.present(alert, animated: true)
+                }
+            }
+        default:
+            break
+        }
+    }
 }
