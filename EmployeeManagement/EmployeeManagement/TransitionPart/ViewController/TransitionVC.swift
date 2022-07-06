@@ -31,6 +31,9 @@ class TransitionVC: UIViewController {
         self.collectionView.dataSource = self
         self.collectionView.register(TransitionCell.self, forCellWithReuseIdentifier: TransitionCell.identifier)
         self.collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "header")
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         self.uiCreate()
         self.viewModel.findMyCompany{ completion in
             self.collectionView.reloadData()
@@ -45,7 +48,7 @@ class TransitionVC: UIViewController {
     //MARK: 화면 메소드
     func uiCreate(){
         //내비게이션
-        self.navigationItem.title = "Recipe"
+        self.navigationItem.title = "Transition"
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font : UIFont(name: "CookieRun", size: 20)!]
         self.navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.font : UIFont(name: "CookieRun", size: 30)!]
         self.navigationItem.largeTitleDisplayMode = .always
