@@ -28,7 +28,7 @@ class TransitionCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = .systemGray6
+        //self.backgroundColor = .systemGray6
         contentView.addSubview(self.titleLabel)
         contentView.addSubview(self.imageView)
         
@@ -42,8 +42,8 @@ class TransitionCell: UICollectionViewCell {
         imageView.snp.makeConstraints { make in
             make.centerX.equalTo(self.titleLabel.snp.centerX)
             make.bottom.equalTo(self.titleLabel.snp.top).offset(-6)
-            make.width.equalTo(84)
-            make.height.equalTo(84)
+            make.width.equalTo(100)
+            make.height.equalTo(85)
         }
         
     }

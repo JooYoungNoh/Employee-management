@@ -23,7 +23,6 @@
 		73435D32285A523B00B52A98 /* CalculatorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73435D31285A523B00B52A98 /* CalculatorVC.swift */; };
 		73435D34285A525100B52A98 /* CalculatorVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73435D33285A525100B52A98 /* CalculatorVM.swift */; };
 		73502E182832BAB000920E3C /* Shopcell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73502E172832BAB000920E3C /* Shopcell.swift */; };
-		735180CD2852601E00CC30FB /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 735180CC2852601E00CC30FB /* ProfileModel.swift */; };
 		735180CF2852602E00CC30FB /* MyProfileVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 735180CE2852602E00CC30FB /* MyProfileVM.swift */; };
 		736ECC6428367E1A0092F7F7 /* ShopInformationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736ECC6328367E1A0092F7F7 /* ShopInformationVC.swift */; };
 		7373BEA82852487100336B0B /* ProfileInfoCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7373BEA72852487100336B0B /* ProfileInfoCVCell.swift */; };
@@ -74,7 +73,6 @@
 		73435D31285A523B00B52A98 /* CalculatorVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorVC.swift; sourceTree = "<group>"; };
 		73435D33285A525100B52A98 /* CalculatorVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorVM.swift; sourceTree = "<group>"; };
 		73502E172832BAB000920E3C /* Shopcell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shopcell.swift; sourceTree = "<group>"; };
-		735180CC2852601E00CC30FB /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
 		735180CE2852602E00CC30FB /* MyProfileVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileVM.swift; sourceTree = "<group>"; };
 		736ECC6328367E1A0092F7F7 /* ShopInformationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopInformationVC.swift; sourceTree = "<group>"; };
 		7373BEA72852487100336B0B /* ProfileInfoCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInfoCVCell.swift; sourceTree = "<group>"; };
@@ -243,7 +241,6 @@
 			isa = PBXGroup;
 			children = (
 				7331C5E728492ECE009F5210 /* EmployeeModel.swift */,
-				735180CC2852601E00CC30FB /* ProfileModel.swift */,
 				73179DE928590DF000086DBD /* MemoModel.swift */,
 			);
 			path = Model;
@@ -454,7 +451,6 @@
 				7392F19A28758E7800DD7F01 /* TransitionVM.swift in Sources */,
 				73BCD85F2833DBCD00DF6F74 /* ShopAddVC.swift in Sources */,
 				73A3AAD828292BF9001283CD /* AppDelegate.swift in Sources */,
-				735180CD2852601E00CC30FB /* ProfileModel.swift in Sources */,
 				73E2DA9D283268EC00C4CF25 /* TransitionVC.swift in Sources */,
 				7392F19C2875922900DD7F01 /* TransitionCell.swift in Sources */,
 				73E2DA992832688100C4CF25 /* ChattingVC.swift in Sources */,

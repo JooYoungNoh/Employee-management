@@ -10,11 +10,15 @@ import SnapKit
 
 class TransitionVC: UIViewController {
     
+    //뷰 모델
+    var viewModel = TransitionVM()
+    
     //컬렉션 뷰
     let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 10
-        layout.itemSize = CGSize(width: 180, height: 120)
+        layout.minimumInteritemSpacing = 10
+        layout.itemSize = CGSize(width: 190, height: 150)
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collection.backgroundColor = .white
         return collection
@@ -27,8 +31,10 @@ class TransitionVC: UIViewController {
         self.collectionView.dataSource = self
         self.collectionView.register(TransitionCell.self, forCellWithReuseIdentifier: TransitionCell.identifier)
         self.collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "header")
-        
-        uiCreate()
+        self.uiCreate()
+        self.viewModel.findMyCompany{ completion in
+            self.collectionView.reloadData()
+        }
     }
     
     //MARK: 액션 메소드
@@ -68,14 +74,15 @@ extension TransitionVC: UICollectionViewDelegate,UICollectionViewDataSource, UIC
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TransitionCell.identifier, for: indexPath) as? TransitionCell else { return UICollectionViewCell() }
     
         
-        cell.titleLabel.text = "연습중"
-        cell.imageView.image = UIImage(named: "recipe")
+        cell.titleLabel.text = self.viewModel.dbmyCompany[indexPath.row]
+        self.viewModel.companyDownloadimage(imgView: cell.imageView, company: self.viewModel.dbmyCompany[indexPath.row])
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 20
+        return self.viewModel.dbmyCompany.count
     }
     
+    //타이틀
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "header", for: indexPath)
         
@@ -94,25 +101,3 @@ extension TransitionVC: UICollectionViewDelegate,UICollectionViewDataSource, UIC
     }
     
 }
-/*
-let csview = UIView()
-let listTitle = UILabel()
-
-csview.backgroundColor = UIColor.white
-if section == 0 {
-    listTitle.frame = CGRect(x: 20, y: 0, width: self.view.frame.width / 2, height: 30)
-    listTitle.font = UIFont.init(name: "CookieRun", size: 20)
-    listTitle.text = "내 프로필"
-    listTitle.textColor = UIColor.blue
-    
-    csview.addSubview(listTitle)
-    return csview
-} else {
-    listTitle.frame = CGRect(x: 20, y: 0, width: self.view.frame.width / 2, height: 30)
-    listTitle.font = UIFont.init(name: "CookieRun", size: 20)
-    listTitle.text = "동료 프로필"
-    listTitle.textColor = UIColor.blue
-    
-    csview.addSubview(listTitle)
-    return csview
-}*/
