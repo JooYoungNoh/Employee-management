@@ -13,6 +13,9 @@ struct reList{
     var ceoPhone: String
     var phone: String
     var requestCompany: String
+    var comment: String
+    var id: String
+    var profileImg: Bool
 }
 
 class RequestJoinVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
@@ -37,7 +40,7 @@ class RequestJoinVC: UIViewController, UITableViewDataSource, UITableViewDelegat
         
         self.db.collectionGroup("requestJoin").getDocuments{ (snapshot, error) in
             for doc in snapshot!.documents{
-                self.companyName.append(reList.init(name: doc.data()["name"] as! String, ceoPhone: doc.data()["ceoPhone"] as! String, phone: doc.data()["phone"] as! String, requestCompany: doc.data()["requestCompany"] as! String))
+                self.companyName.append(reList.init(name: doc.data()["name"] as! String, ceoPhone: doc.data()["ceoPhone"] as! String, phone: doc.data()["phone"] as! String, requestCompany: doc.data()["requestCompany"] as! String, comment: doc.data()["comment"] as! String, id: doc.data()["id"] as! String, profileImg: doc.data()["profileImg"] as! Bool))
             }
             while true{
                 let index = self.companyName.firstIndex(where: {$0.ceoPhone == self.appDelegate.phoneInfo!})
@@ -80,7 +83,14 @@ class RequestJoinVC: UIViewController, UITableViewDataSource, UITableViewDelegat
             //회사원 목록에 넣기
             query.collection("employeeControl").document("\(self.resultRequestJoin[indexPath.row].phone)").setData([
                 "name" : "\(self.resultRequestJoin[indexPath.row].name)",
-                "phone" : "\(self.resultRequestJoin[indexPath.row].phone)"
+                "phone" : "\(self.resultRequestJoin[indexPath.row].phone)",
+                "comment": "\(self.resultRequestJoin[indexPath.row].comment)",
+                "profileImg" : self.resultRequestJoin[indexPath.row].profileImg
+            ])
+            
+            //개인정보에 회사 이름 넣기
+            self.db.collection("users").document("\(self.resultRequestJoin[indexPath.row].id)").collection("myCompany").document("\(self.resultRequestJoin[indexPath.row].requestCompany)").setData([
+                "company" : "\(self.resultRequestJoin[indexPath.row].requestCompany)"
             ])
             
             //회사 인원 수 추가
@@ -110,6 +120,7 @@ class RequestJoinVC: UIViewController, UITableViewDataSource, UITableViewDelegat
         }
         
         if self.resultRequestJoin.count == 0{
+            cell.company.text = ""
             cell.name.text = "가입신청이 없습니다."
             cell.name.textColor = UIColor.red
             cell.name.frame = CGRect(x: self.view.frame.width / 2 - 65, y: 10, width: 130, height: 30)
@@ -167,14 +178,6 @@ class RequestJoinVC: UIViewController, UITableViewDataSource, UITableViewDelegat
     //MARK: 액션 메소드
     @objc func doclose(_ sender: UIButton){
         self.dismiss(animated: true)
-    }
-    
-    @objc func doYes(_ sender: UIButton){
-        
-    }
-    
-    @objc func doNo(_ sender: UIButton){
-        
     }
     
     //MARK: 화면 구성 메소드

@@ -49,7 +49,7 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
         self.navigationController?.navigationBar.tintColor = UIColor.black
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font : UIFont(name: "CookieRun", size: 20)!]
         
-        let editButton = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(doEdit(_:)))
+        let editButton = UIBarButtonItem(title: "편집", style: .plain, target: self, action: #selector(doEdit(_:)))
         
         self.navigationItem.rightBarButtonItem = editButton
         
@@ -139,7 +139,10 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
                                         "phone" : "\(self.appDelegate.phoneInfo!)",
                                         "name" : "\(self.appDelegate.nameInfo!)",
                                         "requestCompany" : "\(self.companyOnTable!)",
-                                        "ceoPhone" : "\(self.phoneOnTable!)"
+                                        "ceoPhone" : "\(self.phoneOnTable!)",
+                                        "comment" : "\(self.appDelegate.comment!)",
+                                        "id" : "\(self.appDelegate.idInfo!)",
+                                        "profileImg" : self.appDelegate.profileState!
                                     ])
                                 
                                     self.navigationController?.isNavigationBarHidden = false

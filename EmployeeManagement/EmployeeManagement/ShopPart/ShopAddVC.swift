@@ -187,12 +187,18 @@ class ShopAddVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
                                     if error == nil{
                                         self.db.collection("shop").document("\(self.companyTextfield.text!)").collection("employeeControl").document("\(self.appDelegate.phoneInfo!)").setData([
                                             "phone" : "\(self.appDelegate.phoneInfo!)",
-                                            "name" : "\(self.appDelegate.nameInfo!)"
+                                            "name" : "\(self.appDelegate.nameInfo!)",
+                                            "comment" : "\(self.appDelegate.comment!)",
+                                            "profileImg" : self.appDelegate.profileState!
                                             ])
                                     } else {
                                         print(error!.localizedDescription)
                                     }
                                 }
+                                
+                                self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("myCompany").document("\(self.companyTextfield.text!)").setData([
+                                    "company" : "\(self.companyTextfield.text!)"
+                                ])
                                 
                                 self.dismiss(animated: true)
                             })
@@ -222,13 +228,18 @@ class ShopAddVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
                                 if error == nil{
                                     self.db.collection("shop").document("\(self.companyTextfield.text!)").collection("employeeControl").document("\(self.appDelegate.phoneInfo!)").setData([
                                         "phone" : "\(self.appDelegate.phoneInfo!)",
-                                        "name" : "\(self.appDelegate.nameInfo!)"
+                                        "name" : "\(self.appDelegate.nameInfo!)",
+                                        "comment" : "\(self.appDelegate.comment!)",
+                                        "profileImg" : self.appDelegate.profileState!
                                     ])
                                 } else {
                                     print(error!.localizedDescription)
                                 }
                             }
-                                   
+                            self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("myCompany").document("\(self.companyTextfield.text!)").setData([
+                                "company" : "\(self.companyTextfield.text!)"
+                            ])
+                            
                             self.uploadimage(img: self.logoImage.image!)
                             self.dismiss(animated: true)
                         })
