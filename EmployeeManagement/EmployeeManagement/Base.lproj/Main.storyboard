@@ -163,6 +163,21 @@
             </objects>
             <point key="canvasLocation" x="2583" y="1560"/>
         </scene>
+        <!--SelectVC-->
+        <scene sceneID="94Q-Nq-FeY">
+            <objects>
+                <viewController id="FhM-7r-B8I" customClass="SelectVC" customModule="EmployeeManagement" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ZEc-b6-Ecu">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="S66-it-vVH"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="f26-Bg-ubv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3294" y="1560"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="QF2-SE-D8B">
             <objects>
