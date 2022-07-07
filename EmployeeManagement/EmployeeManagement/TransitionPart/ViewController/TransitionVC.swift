@@ -85,6 +85,15 @@ extension TransitionVC: UICollectionViewDelegate,UICollectionViewDataSource, UIC
         return self.viewModel.dbmyCompany.count
     }
     
+    //셀 선택
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let nv = storyboard?.instantiateViewController(withIdentifier: "SelectVC") as! SelectVC
+        
+        nv.companyName = self.viewModel.dbmyCompany[indexPath.row]
+        
+        self.navigationController?.pushViewController(nv, animated: true)
+    }
+    
     //타이틀
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "header", for: indexPath)

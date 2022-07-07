@@ -166,7 +166,7 @@
         <!--SelectVC-->
         <scene sceneID="94Q-Nq-FeY">
             <objects>
-                <viewController id="FhM-7r-B8I" customClass="SelectVC" customModule="EmployeeManagement" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SelectVC" id="FhM-7r-B8I" customClass="SelectVC" customModule="EmployeeManagement" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ZEc-b6-Ecu">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -303,7 +303,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rhC-6T-b69" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4940" y="1428.909952606635"/>
+            <point key="canvasLocation" x="5402" y="783"/>
         </scene>
         <!--Item-->
         <scene sceneID="J7Q-B5-uIa">
