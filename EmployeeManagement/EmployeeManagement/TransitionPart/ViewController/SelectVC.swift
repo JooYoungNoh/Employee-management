@@ -11,71 +11,93 @@ import SnapKit
 class SelectVC: UIViewController {
 
     var companyName: String = ""        //전 화면에서 받아오는 회사명
-    
-    let companyLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .blue
-        label.textAlignment = .center
-        label.font = UIFont(name: "CookieRun", size: 40)
-        return label
-    }()
-    
-    let recipeButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("레시피", for: .normal)
-        button.setTitleColor(UIColor.black, for: .normal)
-        button.titleLabel?.font = UIFont.init(name: "CookieRun", size: 30)
-        button.layer.cornerRadius = 10
-        button.alpha = 0.7
-        return button
-    }()
-    
-    let transitionButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("인수인계", for: .normal)
-        button.setTitleColor(UIColor.black, for: .normal)
-        button.titleLabel?.font = UIFont.init(name: "CookieRun", size: 30)
-        button.layer.cornerRadius = 10
-        button.alpha = 0.7
-        return button
-    }()
+    let tableView = UITableView()       //테이블 뷰
     
     //MARK: viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         self.uiCreate()
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        self.tableView.register(SelectCell.self, forCellReuseIdentifier: SelectCell.identifier)
         
     }
     
     //MARK: 화면 메소드
     func uiCreate(){
-        //회사명 레이블
-        self.companyLabel.text = self.companyName
-        self.view.addSubview(self.companyLabel)
+        //내비게이션
+        self.navigationItem.title = self.companyName
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font : UIFont(name: "CookieRun", size: 20)!]
+        self.navigationItem.largeTitleDisplayMode = .always
+        self.navigationController?.navigationBar.prefersLargeTitles = false
         
-        self.companyLabel.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(20)
-            make.width.equalTo(200)
-            make.height.equalTo(40)
+        //테이블 뷰 UI
+        self.view.addSubview(self.tableView)
+        self.tableView.snp.makeConstraints { make in
+            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
+            make.leading.trailing.equalToSuperview()
+            make.bottom.equalTo(self.view.snp.bottom).offset(-90)
         }
-        //레시피 버튼
-        self.view.addSubview(self.recipeButton)
-        
-        self.recipeButton.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.top.equalTo(self.companyLabel.snp.bottom).offset(150)
-            make.width.equalTo(200)
-            make.height.equalTo(50)
+    }
+}
+
+//MARK: 테이블 뷰 메소드
+extension SelectVC: UITableViewDelegate, UITableViewDataSource{
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: SelectCell.identifier, for: indexPath) as? SelectCell else { return UITableViewCell() }
+        cell.accessoryType = .disclosureIndicator
+        if indexPath.section == 0 {
+            cell.titleLabel.text = "섹션1"
+            cell.dateLabel.text = "2020-06-17 07:18"
+        } else {
+            cell.titleLabel.text = "섹션2"
+            cell.dateLabel.text = "2020-06-17 10:18"
         }
-        //인수인계 버튼
-        self.view.addSubview(self.transitionButton)
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if section == 0 {
+            return 3
+        } else {
+            return 5
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
+    }
+    
+    //셀 타이틀
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 35
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let csview = UIView()
+        let listTitle = UILabel()
         
-        self.transitionButton.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.top.equalTo(self.recipeButton.snp.bottom).offset(50)
-            make.width.equalTo(200)
-            make.height.equalTo(50)
+        csview.backgroundColor = UIColor.white
+        if section == 0 {
+            listTitle.frame = CGRect(x: 20, y: 0, width: self.view.frame.width / 2, height: 30)
+            listTitle.font = UIFont.init(name: "CookieRun", size: 20)
+            listTitle.text = "레시피"
+            listTitle.textColor = UIColor.blue
+            
+            csview.addSubview(listTitle)
+            return csview
+        } else {
+            listTitle.frame = CGRect(x: 20, y: 0, width: self.view.frame.width / 2, height: 30)
+            listTitle.font = UIFont.init(name: "CookieRun", size: 20)
+            listTitle.text = "인수인계"
+            listTitle.textColor = UIColor.blue
+            
+            csview.addSubview(listTitle)
+            return csview
         }
     }
 }
