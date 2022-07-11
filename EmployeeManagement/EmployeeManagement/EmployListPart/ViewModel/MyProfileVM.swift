@@ -22,6 +22,7 @@ class MyProfileVM {
     //MARK: 회사 컬렉션 뷰
     //회사 찾기
     func findMyCompany(completion: @escaping([String]) -> ()) {
+        self.dbmyCompany.removeAll()
         self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("myCompany").getDocuments { (snapshot, error) in
             if error == nil {
                 for doc in snapshot!.documents{
