@@ -12,6 +12,14 @@ class SelectVC: UIViewController {
 
     var companyName: String = ""        //전 화면에서 받아오는 회사명
     let tableView = UITableView()       //테이블 뷰
+    var searchBarController = UISearchController(searchResultsController: nil)  //서치 바
+    
+    var isFiltering: Bool{
+        let searchController = self.navigationItem.searchController
+        let isActive = searchController?.isActive ?? false
+        let isSearchBarHasText = searchController?.searchBar.text?.isEmpty == false
+        return isActive && isSearchBarHasText
+    }
     
     //MARK: viewDidLoad
     override func viewDidLoad() {
@@ -25,11 +33,24 @@ class SelectVC: UIViewController {
     
     //MARK: 화면 메소드
     func uiCreate(){
-        //내비게이션
+        //서치바 UI
+        self.searchBarController.searchBar.placeholder = "키워드를 입력해주세요."
+        self.searchBarController.obscuresBackgroundDuringPresentation = false
+        self.searchBarController.searchResultsUpdater = self
+        
+        //내비게이션 UI
         self.navigationItem.title = self.companyName
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font : UIFont(name: "CookieRun", size: 20)!]
         self.navigationItem.largeTitleDisplayMode = .always
         self.navigationController?.navigationBar.prefersLargeTitles = false
+        self.navigationItem.hidesSearchBarWhenScrolling = false
+        self.navigationItem.searchController = self.searchBarController
+        
+        //내비게이션 바 버튼
+        let addButton = UIBarButtonItem.init(barButtonSystemItem: .add, target: self, action: #selector(addRecipe(_:)))
+        
+        self.navigationItem.rightBarButtonItem = addButton
+        addButton.tintColor = UIColor.black
         
         //테이블 뷰 UI
         self.view.addSubview(self.tableView)
@@ -38,6 +59,11 @@ class SelectVC: UIViewController {
             make.leading.trailing.equalToSuperview()
             make.bottom.equalTo(self.view.snp.bottom).offset(-90)
         }
+    }
+    
+    //MARK: 엑션 메소드
+    @objc func addRecipe(_ sender: UIBarButtonItem){
+        
     }
 }
 
@@ -99,5 +125,12 @@ extension SelectVC: UITableViewDelegate, UITableViewDataSource{
             csview.addSubview(listTitle)
             return csview
         }
+    }
+}
+
+//MARK: 서치바 메소드
+extension SelectVC: UISearchResultsUpdating, UISearchBarDelegate {
+    func updateSearchResults(for searchController: UISearchController) {
+        
     }
 }
