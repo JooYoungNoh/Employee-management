@@ -11,6 +11,7 @@ import SnapKit
 class SelectVC: UIViewController {
 
     var companyName: String = ""        //전 화면에서 받아오는 회사명
+    var viewModel = SelectVM()
     let tableView = UITableView()       //테이블 뷰
     var searchBarController = UISearchController(searchResultsController: nil)  //서치 바
     
@@ -24,11 +25,20 @@ class SelectVC: UIViewController {
     //MARK: viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.uiCreate()
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.register(SelectCell.self, forCellReuseIdentifier: SelectCell.identifier)
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.uiCreate()
+        self.viewModel.findRecipe(naviTitle: self.companyName, completion: { (completion) in
+            self.tableView.reloadData()
+        })
+        self.viewModel.findTransition(naviTitle: self.companyName, completion: { (completion) in
+            self.tableView.reloadData()
+        })
     }
     
     //MARK: 화면 메소드
@@ -70,24 +80,12 @@ class SelectVC: UIViewController {
 //MARK: 테이블 뷰 메소드
 extension SelectVC: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: SelectCell.identifier, for: indexPath) as? SelectCell else { return UITableViewCell() }
-        cell.accessoryType = .disclosureIndicator
-        if indexPath.section == 0 {
-            cell.titleLabel.text = "섹션1"
-            cell.dateLabel.text = "2020-06-17 07:18"
-        } else {
-            cell.titleLabel.text = "섹션2"
-            cell.dateLabel.text = "2020-06-17 10:18"
-        }
-        return cell
+        
+        return self.viewModel.tableCellInfo(indexPath: indexPath, tableView: tableView, isFiltering: self.isFiltering)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
-            return 3
-        } else {
-            return 5
-        }
+        self.viewModel.numberOfRowsInSection(section: section, isFiltering: self.isFiltering)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -131,6 +129,6 @@ extension SelectVC: UITableViewDelegate, UITableViewDataSource{
 //MARK: 서치바 메소드
 extension SelectVC: UISearchResultsUpdating, UISearchBarDelegate {
     func updateSearchResults(for searchController: UISearchController) {
-        
+        self.viewModel.searchBarfilter(searchController: searchController, tableView: self.tableView)
     }
 }
