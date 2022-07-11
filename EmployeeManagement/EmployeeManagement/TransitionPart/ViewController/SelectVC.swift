@@ -53,11 +53,13 @@ class SelectVC: UIViewController {
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font : UIFont(name: "CookieRun", size: 20)!]
         self.navigationItem.largeTitleDisplayMode = .always
         self.navigationController?.navigationBar.prefersLargeTitles = false
+        self.navigationController?.navigationBar.tintColor = UIColor.black
         self.navigationItem.hidesSearchBarWhenScrolling = false
         self.navigationItem.searchController = self.searchBarController
         
         //내비게이션 바 버튼
         let addButton = UIBarButtonItem.init(barButtonSystemItem: .add, target: self, action: #selector(addRecipe(_:)))
+        self.navigationItem.backBarButtonItem?.tintColor = .black
         
         self.navigationItem.rightBarButtonItem = addButton
         addButton.tintColor = UIColor.black

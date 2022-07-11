@@ -77,6 +77,8 @@ class SelectVM{
     //MARK: 테이블 뷰 셀 정보
     func tableCellInfo(indexPath: IndexPath, tableView: UITableView, isFiltering: Bool) -> UITableViewCell{
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SelectCell.identifier, for: indexPath) as? SelectCell else { return UITableViewCell() }
+        cell.accessoryType = .disclosureIndicator
+        
         if indexPath.section == 0{
             if isFiltering == false {           //검색 X
                 if self.realRecipeList.isEmpty == true {
