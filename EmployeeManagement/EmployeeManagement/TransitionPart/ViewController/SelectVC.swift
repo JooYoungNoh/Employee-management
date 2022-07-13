@@ -75,7 +75,7 @@ class SelectVC: UIViewController {
     
     //MARK: 엑션 메소드
     @objc func addRecipe(_ sender: UIBarButtonItem){
-        
+        self.viewModel.doAdd(uv: self)
     }
 }
 

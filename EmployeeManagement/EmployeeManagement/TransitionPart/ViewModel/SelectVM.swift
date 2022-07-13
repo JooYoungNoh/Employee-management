@@ -163,5 +163,25 @@ class SelectVM{
             }
         }
     }
+    
+    //MARK: 액션 메소드 (레시피 및 인수인계 추가)
+    func doAdd(uv: UIViewController) {
+        let alert = UIAlertController(title: "선택해주세요", message: nil, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "레시피", style: .default) { (_) in
+            let nv = uv.storyboard?.instantiateViewController(withIdentifier: "TransitionWriteVC") as! TransitionWriteVC
+            nv.modalPresentationStyle = .fullScreen
+            nv.naviTitle = "레시피"
+            uv.present(nv, animated: true)
+        })
+        alert.addAction(UIAlertAction(title: "인수인계", style: .default){ (_) in
+            let nv = uv.storyboard?.instantiateViewController(withIdentifier: "TransitionWriteVC") as! TransitionWriteVC
+            nv.modalPresentationStyle = .fullScreen
+            nv.naviTitle = "인수인계"
+            uv.present(nv, animated: true)
+        })
+        alert.addAction(UIAlertAction(title: "취소", style: .cancel))
+        
+        uv.present(alert, animated: true)
+    }
 }
 

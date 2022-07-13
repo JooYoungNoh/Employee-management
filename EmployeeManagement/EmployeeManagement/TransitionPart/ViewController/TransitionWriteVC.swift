@@ -8,10 +8,12 @@
 import UIKit
 
 class TransitionWriteVC: UIViewController {
+    
+    var naviTitle: String = " "         //전 화면에서 받아올 타이틀
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        print(naviTitle)
         // Do any additional setup after loading the view.
     }
     
