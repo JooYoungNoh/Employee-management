@@ -26,6 +26,7 @@
 		735180CF2852602E00CC30FB /* MyProfileVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 735180CE2852602E00CC30FB /* MyProfileVM.swift */; };
 		736ECC6428367E1A0092F7F7 /* ShopInformationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736ECC6328367E1A0092F7F7 /* ShopInformationVC.swift */; };
 		7373BEA82852487100336B0B /* ProfileInfoCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7373BEA72852487100336B0B /* ProfileInfoCVCell.swift */; };
+		73752AA8287F00B200196435 /* TransitionWriteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73752AA7287F00B200196435 /* TransitionWriteVC.swift */; };
 		7379EEDE2877228500BB7568 /* SelectVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7379EEDD2877228500BB7568 /* SelectVC.swift */; };
 		738E76CB287C64C100BB38CB /* SelectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738E76CA287C64C100BB38CB /* SelectCell.swift */; };
 		738E76CD287C6A1100BB38CB /* SelectVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738E76CC287C6A1100BB38CB /* SelectVM.swift */; };
@@ -80,6 +81,7 @@
 		735180CE2852602E00CC30FB /* MyProfileVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileVM.swift; sourceTree = "<group>"; };
 		736ECC6328367E1A0092F7F7 /* ShopInformationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopInformationVC.swift; sourceTree = "<group>"; };
 		7373BEA72852487100336B0B /* ProfileInfoCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInfoCVCell.swift; sourceTree = "<group>"; };
+		73752AA7287F00B200196435 /* TransitionWriteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionWriteVC.swift; sourceTree = "<group>"; };
 		7379EEDD2877228500BB7568 /* SelectVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectVC.swift; sourceTree = "<group>"; };
 		738E76CA287C64C100BB38CB /* SelectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCell.swift; sourceTree = "<group>"; };
 		738E76CC287C6A1100BB38CB /* SelectVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectVM.swift; sourceTree = "<group>"; };
@@ -261,6 +263,7 @@
 				7392F19B2875922900DD7F01 /* TransitionCell.swift */,
 				7379EEDD2877228500BB7568 /* SelectVC.swift */,
 				738E76CA287C64C100BB38CB /* SelectCell.swift */,
+				73752AA7287F00B200196435 /* TransitionWriteVC.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -468,6 +471,7 @@
 				738E76CB287C64C100BB38CB /* SelectCell.swift in Sources */,
 				738E76CF287C6A6F00BB38CB /* SelectModel.swift in Sources */,
 				73E2DA9D283268EC00C4CF25 /* TransitionVC.swift in Sources */,
+				73752AA8287F00B200196435 /* TransitionWriteVC.swift in Sources */,
 				7392F19C2875922900DD7F01 /* TransitionCell.swift in Sources */,
 				73E2DA992832688100C4CF25 /* ChattingVC.swift in Sources */,
 				73E084A6282AA3BA00AFC582 /* EmployeeListVC.swift in Sources */,
