@@ -49,7 +49,6 @@ class TwriteVM{
                 self.pictureDeleteNumberList.remove(at: index)
             }
         }
-        print(self.pictureDeleteNumberList)
     }
     
     //MARK: 텍스트 뷰 메소드
