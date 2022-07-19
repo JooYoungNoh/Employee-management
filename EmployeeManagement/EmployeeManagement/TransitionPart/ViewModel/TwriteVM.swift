@@ -18,6 +18,9 @@ class TwriteVM{
     var pictureList: [UIImage] = []                 //사진 리스트
     var pictureDeleteNumberList: [Int] = []         //사진 삭제 리스트
     
+    //텍스트 뷰
+    var titleMemo: String = ""                      //제목
+    
     //MARK: 컬렉션 뷰 메소드
     //셀 정보
     func cellInfo(collectionView: UICollectionView, indexPath: IndexPath) -> UICollectionViewCell {
@@ -45,6 +48,46 @@ class TwriteVM{
         }
         print(self.pictureDeleteNumberList)
     }
+    
+    //MARK: 텍스트 뷰 메소드
+    //텍스트 뷰
+    func changeMemo(textView: UITextView, countLabel: UILabel, saveButton: UIButton){
+        let contents = textView.text as NSString
+        countLabel.text = "\(String(describing: contents.length))"
+        let length = contents.length > 19 ? 19 : contents.length
+        self.titleMemo = contents.substring(with: NSRange(location: 0, length: length))
+        
+        if contents.length != 0{
+            if contents == "첫줄은 제목입니다."{
+                saveButton.isHidden = true
+            } else {
+                saveButton.isHidden = false
+            }
+        } else {
+            saveButton.isHidden = true
+            countLabel.text = "0"
+        }
+        
+        
+    }
+    
+    func endMemo(textView: UITextView, countLabel: UILabel, saveButton: UIButton){
+        if textView.text == "" || textView.text == "첫줄은 제목입니다." {
+            textView.text = "첫줄은 제목입니다."
+            textView.textColor = .systemGray
+            saveButton.isHidden = true
+            countLabel.text = "0"
+        }
+    }
+    
+    func startMemo(textView: UITextView, countLabel: UILabel){
+        if textView.text == "" || textView.text == "첫줄은 제목입니다." {
+            textView.text = ""
+            textView.textColor = .black
+            countLabel.text = "0"
+        }
+    }
+    
     //MARK: 액션 메소드
     //사진 삭제
     func deletePicture(view: UIViewController, collectionView: UICollectionView){

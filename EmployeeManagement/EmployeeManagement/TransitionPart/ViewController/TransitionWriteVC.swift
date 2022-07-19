@@ -35,7 +35,7 @@ class TransitionWriteVC: UIViewController {
         button.setTitle("저장", for: .normal)
         button.setTitleColor(UIColor.black, for: .normal)
         button.titleLabel?.font = UIFont.init(name: "CookieRun", size: 20)
-        //button.isHidden = true
+        button.isHidden = true
         return button
     }()
     
@@ -60,7 +60,8 @@ class TransitionWriteVC: UIViewController {
     
     let writeTV: UITextView = {
        let write = UITextView()
-        write.textColor = UIColor.black
+        write.textColor = UIColor.systemGray
+        write.text = "첫줄은 제목입니다."
         write.font = UIFont(name: "CookieRun", size: 18)
         write.textAlignment = .left
         write.backgroundColor = .systemGray6
@@ -108,6 +109,7 @@ class TransitionWriteVC: UIViewController {
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
         self.collectionView.register(TransitionWriteCell.self, forCellWithReuseIdentifier: TransitionWriteCell.identifier)
+        self.writeTV.delegate = self
         self.uiCreate()
     }
     
@@ -289,6 +291,21 @@ extension TransitionWriteVC: UIImagePickerControllerDelegate, UINavigationContro
             self.collectionView.reloadData()
             self.viewModel.pictureDeleteNumberList.removeAll()
         }
+    }
+}
+
+//MARK: 텍스트 뷰 메소드
+extension TransitionWriteVC: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        self.viewModel.changeMemo(textView: textView, countLabel: self.countLabel, saveButton: self.saveButton)
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        self.viewModel.endMemo(textView: textView, countLabel: self.countLabel, saveButton: self.saveButton)
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        self.viewModel.startMemo(textView: textView, countLabel: self.countLabel)
     }
 }
 
