@@ -12,11 +12,13 @@ struct SelectModel{
     var date: TimeInterval
     var count: String
     var title: String
+    var imageCount: String
     
-    init(text: String, date: TimeInterval, count: String, title: String){
+    init(text: String, date: TimeInterval, count: String, title: String, imageCount: String){
         self.text = text
         self.date = date
         self.count = count
         self.title = title
+        self.imageCount = imageCount
     }
 }

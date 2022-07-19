@@ -31,7 +31,7 @@ class SelectVM{
         self.db.collection("shop").document("\(naviTitle)").collection("recipe").getDocuments { snapShot, error in
             if error == nil {
                 for doc in snapShot!.documents{
-                    self.recipeList.append(SelectModel.init(text: doc.data()["text"] as! String, date: doc.data()["date"] as! TimeInterval, count: doc.data()["count"] as! String, title: doc.data()["title"] as! String))
+                    self.recipeList.append(SelectModel.init(text: doc.data()["text"] as! String, date: doc.data()["date"] as! TimeInterval, count: doc.data()["count"] as! String, title: doc.data()["title"] as! String, imageCount: doc.data()["imageCount"] as! String))
                 }
                 self.realRecipeList = self.recipeList.sorted(by: {$0.date > $1.date})
                 completion(self.realRecipeList)
@@ -49,7 +49,7 @@ class SelectVM{
         self.db.collection("shop").document("\(naviTitle)").collection("transition").getDocuments { snapShot, error in
             if error == nil {
                 for doc in snapShot!.documents{
-                    self.transitionList.append(SelectModel.init(text: doc.data()["text"] as! String, date: doc.data()["date"] as! TimeInterval, count: doc.data()["count"] as! String, title: doc.data()["title"] as! String))
+                    self.transitionList.append(SelectModel.init(text: doc.data()["text"] as! String, date: doc.data()["date"] as! TimeInterval, count: doc.data()["count"] as! String, title: doc.data()["title"] as! String, imageCount: doc.data()["imageCount"] as! String))
                 }
                 self.realTransitionList = self.transitionList.sorted(by: {$0.date > $1.date})
                 completion(self.realTransitionList)
