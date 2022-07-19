@@ -11,6 +11,7 @@ import SnapKit
 class TransitionWriteVC: UIViewController {
     
     var naviTitle: String = " "         //전 화면에서 받아올 타이틀
+    var viewModel = TwriteVM()
     
     //닫기 버튼
     let closeButton: UIButton = {
@@ -114,6 +115,31 @@ class TransitionWriteVC: UIViewController {
     @objc func doclose(_ sender: UIButton){
         self.dismiss(animated: true)
     }
+    
+    @objc func addPicture(_ sender: UIButton){
+        let alert = UIAlertController(title: nil, message: "선택해주세요", preferredStyle: .actionSheet)
+        //카메라를 사용할 수 있으면 (시뮬레이터 불가)
+        if UIImagePickerController.isSourceTypeAvailable(.camera){
+            alert.addAction(UIAlertAction(title: "카메라", style: .default){(_) in
+                self.imgPicker(.camera)
+            })
+        }
+        //저장된 앨범을 사용할 수 있으면
+        if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum){
+            alert.addAction(UIAlertAction(title: "앨범", style: .default){(_) in
+                self.imgPicker(.savedPhotosAlbum)
+            })
+        }
+        //포토 라이브러리를 사용할 수 있으면
+        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary){
+            alert.addAction(UIAlertAction(title: "포토 라이브러리", style: .default){(_) in
+                self.imgPicker(.photoLibrary)
+            })
+        }
+        alert.addAction(UIAlertAction(title: "취소", style: .cancel))
+        
+        self.present(alert, animated: true)
+    }
 
     //MARK: 화면 메소드
     func uiCreate(){
@@ -193,6 +219,7 @@ class TransitionWriteVC: UIViewController {
         }
         
         //추가버튼 UI
+        self.addButton.addTarget(self, action: #selector(addPicture(_:)), for: .touchUpInside)
         self.view.addSubview(self.addButton)
         addButton.snp.makeConstraints { make in
             make.trailing.equalTo(self.deleteButton.snp.leading)
@@ -206,7 +233,7 @@ class TransitionWriteVC: UIViewController {
         collectionView.snp.makeConstraints { make in
             make.top.equalTo(self.pictureLabel.snp.bottom).offset(5)
             make.leading.trailing.equalToSuperview()
-            make.height.equalTo(200)
+            make.height.equalTo(220)
         }
     
     }
@@ -218,17 +245,42 @@ class TransitionWriteVC: UIViewController {
 
 }
 
+//MARK: 컬렉션 뷰 메소드
 extension TransitionWriteVC: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return self.viewModel.pictureList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TransitionWriteCell.identifier, for: indexPath) as? TransitionWriteCell else { return UICollectionViewCell() }
-        
-        cell.imageView.image = UIImage(named: "recipe")
-        cell.checkImageView.image = UIImage(systemName: "checkmark.circle.fill")
-        
-        return cell
+        return self.viewModel.cellInfo(collectionView: collectionView, indexPath: indexPath)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.viewModel.selectCell(collectionView: collectionView, indexPath: indexPath)
     }
 }
+
+//MARK: 이미지 피커 메소드
+extension TransitionWriteVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+    // 이미지를 가져올 장소(?) 카메라 앨범 등 선택 메소드
+    func imgPicker(_ source: UIImagePickerController.SourceType){
+        let picker = UIImagePickerController()
+        picker.sourceType = source
+        picker.delegate = self
+        picker.allowsEditing = true
+        self.present(picker, animated: true)
+        
+    }
+    //이미지 선택하면 호출될 메소드
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        let img = info[UIImagePickerController.InfoKey.editedImage] as? UIImage
+        
+        self.viewModel.pictureList.append(img!)
+        //이미지 피커 컨트롤창 닫기
+        picker.dismiss(animated: true){ () in
+            self.collectionView.reloadData()
+        }
+    }
+}
+

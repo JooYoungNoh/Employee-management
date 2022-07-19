@@ -49,6 +49,7 @@
 		73A3AAF5282969D1001283CD /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A3AAF4282969D1001283CD /* SignUpVC.swift */; };
 		73BCD85F2833DBCD00DF6F74 /* ShopAddVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BCD85E2833DBCD00DF6F74 /* ShopAddVC.swift */; };
 		73C411B2283520A6001EC8F6 /* BusinessTypePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C411B1283520A6001EC8F6 /* BusinessTypePicker.swift */; };
+		73C8ED9B2887052100545587 /* TwriteVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C8ED9A2887052100545587 /* TwriteVM.swift */; };
 		73CDD2A928511C5D00E9EB32 /* ProfileInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73CDD2A828511C5D00E9EB32 /* ProfileInfoVC.swift */; };
 		73CDD2AB28511E5900E9EB32 /* MyProfileInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73CDD2AA28511E5900E9EB32 /* MyProfileInfoVC.swift */; };
 		73E084A6282AA3BA00AFC582 /* EmployeeListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E084A5282AA3BA00AFC582 /* EmployeeListVC.swift */; };
@@ -107,6 +108,7 @@
 		73A3AAF4282969D1001283CD /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
 		73BCD85E2833DBCD00DF6F74 /* ShopAddVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopAddVC.swift; sourceTree = "<group>"; };
 		73C411B1283520A6001EC8F6 /* BusinessTypePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessTypePicker.swift; sourceTree = "<group>"; };
+		73C8ED9A2887052100545587 /* TwriteVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwriteVM.swift; sourceTree = "<group>"; };
 		73CDD2A828511C5D00E9EB32 /* ProfileInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInfoVC.swift; sourceTree = "<group>"; };
 		73CDD2AA28511E5900E9EB32 /* MyProfileInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileInfoVC.swift; sourceTree = "<group>"; };
 		73E084A5282AA3BA00AFC582 /* EmployeeListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeListVC.swift; sourceTree = "<group>"; };
@@ -276,6 +278,7 @@
 			children = (
 				7392F19928758E7800DD7F01 /* TransitionVM.swift */,
 				738E76CC287C6A1100BB38CB /* SelectVM.swift */,
+				73C8ED9A2887052100545587 /* TwriteVM.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -469,6 +472,7 @@
 				73324E80285BCA5A00F443FD /* ProfileVM.swift in Sources */,
 				7392F19A28758E7800DD7F01 /* TransitionVM.swift in Sources */,
 				7379EEDE2877228500BB7568 /* SelectVC.swift in Sources */,
+				73C8ED9B2887052100545587 /* TwriteVM.swift in Sources */,
 				73BCD85F2833DBCD00DF6F74 /* ShopAddVC.swift in Sources */,
 				73A3AAD828292BF9001283CD /* AppDelegate.swift in Sources */,
 				738E76CB287C64C100BB38CB /* SelectCell.swift in Sources */,
