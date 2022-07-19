@@ -15,7 +15,7 @@ class TwriteVM{
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     //사진 셀
-    var pictureList: [UIImage] = [UIImage(named: "recipe")!, UIImage(named: "recipe")!]                 //사진 리스트
+    var pictureList: [UIImage] = []                 //사진 리스트
     var pictureDeleteNumberList: [Int] = []         //사진 삭제 리스트
     
     //MARK: 컬렉션 뷰 메소드
@@ -25,6 +25,7 @@ class TwriteVM{
         
         cell.imageView.image = self.pictureList[indexPath.row]
         cell.checkImageView.image = UIImage(systemName: "checkmark.circle.fill")
+        cell.checkImageView.isHidden = true
         
         return cell
     }
@@ -46,8 +47,22 @@ class TwriteVM{
     }
     //MARK: 액션 메소드
     //사진 삭제
-    func deletePicture(){
-        
+    func deletePicture(view: UIViewController, collectionView: UICollectionView){
+        if self.pictureDeleteNumberList.isEmpty == true {
+            let alert = UIAlertController(title: nil, message: "사진을 선택해주세요", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            
+            view.present(alert, animated: true)
+        } else {
+            var sortArry = self.pictureDeleteNumberList.sorted(by: {$0 > $1})
+            
+            for i in sortArry{
+                collectionView.deleteItems(at: [IndexPath.init(row: i, section: 0)])
+                self.pictureList.remove(at: i)
+            }
+            self.pictureDeleteNumberList.removeAll()
+            sortArry.removeAll()
+        }
     }
     
     //이미지 업로드(in FireStorage)

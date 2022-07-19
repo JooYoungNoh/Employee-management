@@ -116,6 +116,7 @@ class TransitionWriteVC: UIViewController {
         self.dismiss(animated: true)
     }
     
+    //사진 추가
     @objc func addPicture(_ sender: UIButton){
         let alert = UIAlertController(title: nil, message: "선택해주세요", preferredStyle: .actionSheet)
         //카메라를 사용할 수 있으면 (시뮬레이터 불가)
@@ -139,6 +140,11 @@ class TransitionWriteVC: UIViewController {
         alert.addAction(UIAlertAction(title: "취소", style: .cancel))
         
         self.present(alert, animated: true)
+    }
+    
+    //사진 삭제
+    @objc func deletePicture(_ sender: UIButton){
+        self.viewModel.deletePicture(view: self, collectionView: collectionView)
     }
 
     //MARK: 화면 메소드
@@ -210,6 +216,7 @@ class TransitionWriteVC: UIViewController {
         }
         
         //삭제버튼 UI
+        self.deleteButton.addTarget(self, action: #selector(deletePicture(_:)), for: .touchUpInside)
         self.view.addSubview(self.deleteButton)
         deleteButton.snp.makeConstraints { make in
             make.trailing.equalToSuperview().offset(-15)
@@ -280,6 +287,7 @@ extension TransitionWriteVC: UIImagePickerControllerDelegate, UINavigationContro
         //이미지 피커 컨트롤창 닫기
         picker.dismiss(animated: true){ () in
             self.collectionView.reloadData()
+            self.viewModel.pictureDeleteNumberList.removeAll()
         }
     }
 }
