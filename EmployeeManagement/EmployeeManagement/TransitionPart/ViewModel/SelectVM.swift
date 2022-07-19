@@ -23,6 +23,9 @@ class SelectVM{
     var realTransitionList: [SelectModel] = []
     var searchTransitionList: [SelectModel] = []
     
+    //중복여부 체크 리스트 (메모 작성때 쓸)
+    var checkList: [String] = []
+    
     //MARK: 레시피 부분 메소드
     func findRecipe(naviTitle: String, completion: @escaping([SelectModel]) -> ()){
         self.recipeList.removeAll()
@@ -85,6 +88,7 @@ class SelectVM{
                     cell.titleLabel.text = "정보가 없습니다"
                     cell.titleLabel.textColor = .red
                     cell.dateLabel.text = " "
+                    cell.accessoryType = .none
                 } else {
                     let date = Date(timeIntervalSince1970: self.realRecipeList[indexPath.row].date)
                     let formatter = DateFormatter()
@@ -94,12 +98,14 @@ class SelectVM{
                     cell.titleLabel.text = self.realRecipeList[indexPath.row].title
                     cell.titleLabel.textColor = .black
                     cell.dateLabel.text = fixDate
+                    cell.accessoryType = .disclosureIndicator
                 }
             } else {                            //검색 O
                 if self.searchRecipeList.isEmpty == true {
                     cell.titleLabel.text = "정보가 없습니다"
                     cell.titleLabel.textColor = .red
                     cell.dateLabel.text = " "
+                    cell.accessoryType = .none
                 } else {
                     let date = Date(timeIntervalSince1970: self.searchRecipeList[indexPath.row].date)
                     let formatter = DateFormatter()
@@ -109,6 +115,7 @@ class SelectVM{
                     cell.titleLabel.text = self.searchRecipeList[indexPath.row].title
                     cell.titleLabel.textColor = .black
                     cell.dateLabel.text = fixDate
+                    cell.accessoryType = .disclosureIndicator
                 }
             }
         } else {
@@ -117,6 +124,7 @@ class SelectVM{
                     cell.titleLabel.text = "정보가 없습니다"
                     cell.titleLabel.textColor = .red
                     cell.dateLabel.text = " "
+                    cell.accessoryType = .none
                 } else {
                     let date = Date(timeIntervalSince1970: self.realTransitionList[indexPath.row].date)
                     let formatter = DateFormatter()
@@ -126,12 +134,14 @@ class SelectVM{
                     cell.titleLabel.text = self.realTransitionList[indexPath.row].title
                     cell.titleLabel.textColor = .black
                     cell.dateLabel.text = fixDate
+                    cell.accessoryType = .disclosureIndicator
                 }
             } else {
                 if self.searchTransitionList.isEmpty == true {
                     cell.titleLabel.text = "정보가 없습니다"
                     cell.titleLabel.textColor = .red
                     cell.dateLabel.text = " "
+                    cell.accessoryType = .none
                 } else {
                     let date = Date(timeIntervalSince1970: self.searchTransitionList[indexPath.row].date)
                     let formatter = DateFormatter()
@@ -141,6 +151,7 @@ class SelectVM{
                     cell.titleLabel.text = self.searchTransitionList[indexPath.row].title
                     cell.titleLabel.textColor = .black
                     cell.dateLabel.text = fixDate
+                    cell.accessoryType = .disclosureIndicator
                 }
             }
         }
@@ -165,18 +176,31 @@ class SelectVM{
     }
     
     //MARK: 액션 메소드 (레시피 및 인수인계 추가)
-    func doAdd(uv: UIViewController) {
+    func doAdd(uv: UIViewController, companyName: String) {
+        self.checkList.removeAll()
+        for i in 0..<self.realRecipeList.count{
+            self.checkList.append(self.realRecipeList[i].title)
+        }
+        
+        for i in 0..<self.realTransitionList.count{
+            self.checkList.append(self.realTransitionList[i].title)
+        }
+        
         let alert = UIAlertController(title: "선택해주세요", message: nil, preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "레시피 작성", style: .default) { (_) in
             let nv = uv.storyboard?.instantiateViewController(withIdentifier: "TransitionWriteVC") as! TransitionWriteVC
             nv.modalPresentationStyle = .fullScreen
             nv.naviTitle = "레시피 작성"
+            nv.companyName = companyName
+            nv.checkTitle = self.checkList
             uv.present(nv, animated: true)
         })
         alert.addAction(UIAlertAction(title: "인수인계 작성", style: .default){ (_) in
             let nv = uv.storyboard?.instantiateViewController(withIdentifier: "TransitionWriteVC") as! TransitionWriteVC
             nv.modalPresentationStyle = .fullScreen
             nv.naviTitle = "인수인계 작성"
+            nv.companyName = companyName
+            nv.checkTitle = self.checkList
             uv.present(nv, animated: true)
         })
         alert.addAction(UIAlertAction(title: "취소", style: .cancel))

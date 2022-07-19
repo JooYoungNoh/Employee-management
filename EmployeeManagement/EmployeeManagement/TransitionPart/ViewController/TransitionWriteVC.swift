@@ -10,7 +10,9 @@ import SnapKit
 
 class TransitionWriteVC: UIViewController {
     
-    var naviTitle: String = " "         //전 화면에서 받아올 타이틀
+    var naviTitle: String = ""         //전 화면에서 받아올 타이틀
+    var companyName: String = ""       //전 화면에서 받아올 회사이름
+    var checkTitle: [String] = []      //전 화면에서 받아올 타이틀 (중복여부 체크)
     var viewModel = TwriteVM()
     
     //닫기 버튼
@@ -110,6 +112,7 @@ class TransitionWriteVC: UIViewController {
         self.collectionView.dataSource = self
         self.collectionView.register(TransitionWriteCell.self, forCellWithReuseIdentifier: TransitionWriteCell.identifier)
         self.writeTV.delegate = self
+        print(self.checkTitle)
         self.uiCreate()
     }
     
@@ -148,6 +151,11 @@ class TransitionWriteVC: UIViewController {
     @objc func deletePicture(_ sender: UIButton){
         self.viewModel.deletePicture(view: self, collectionView: collectionView)
     }
+    
+    //메모 저장
+    @objc func saveMemo(_ sender: UIButton){
+        self.viewModel.saveMemoFB(uv: self, checkTitle: self.checkTitle, companyName: self.companyName, naviTitle: self.naviTitle, writeTV: self.writeTV, countLabel: self.countLabel)
+    }
 
     //MARK: 화면 메소드
     func uiCreate(){
@@ -172,6 +180,7 @@ class TransitionWriteVC: UIViewController {
         }
         
         //저장 버튼 UI
+        self.saveButton.addTarget(self, action: #selector(saveMemo(_:)), for: .touchUpInside)
         self.view.addSubview(self.saveButton)
         saveButton.snp.makeConstraints { make in
             make.trailing.equalToSuperview().offset(-5)

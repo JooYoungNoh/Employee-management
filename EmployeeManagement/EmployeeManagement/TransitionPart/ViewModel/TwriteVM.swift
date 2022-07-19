@@ -21,6 +21,9 @@ class TwriteVM{
     //텍스트 뷰
     var titleMemo: String = ""                      //제목
     
+    //제목 겹치는 지 확인
+    var checkTitle: String = ""
+    
     //MARK: 컬렉션 뷰 메소드
     //셀 정보
     func cellInfo(collectionView: UICollectionView, indexPath: IndexPath) -> UICollectionViewCell {
@@ -106,6 +109,52 @@ class TwriteVM{
             self.pictureDeleteNumberList.removeAll()
             sortArry.removeAll()
         }
+    }
+    
+    //메모 저장 메소드
+    func saveMemoFB(uv: UIViewController, checkTitle: [String], companyName: String, naviTitle: String, writeTV: UITextView, countLabel: UILabel){
+        if checkTitle.firstIndex(of: self.titleMemo) != nil {
+            let alert = UIAlertController(title: "이미 있는 제목입니다", message: "다시 작성해주세요", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            uv.present(alert, animated: true)
+            
+        } else if self.pictureList.isEmpty == true {
+            let alert = UIAlertController(title: "사진이 없습니다", message: "저장하시겠습니까?", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default) { (_) in
+                //메모 저장
+                self.uploadMemo(companyName: companyName, naviTitle: naviTitle, writeTV: writeTV, countLabel: countLabel)
+                uv.dismiss(animated: true)
+            })
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+            uv.present(alert, animated: true)
+            
+        } else {
+            let alert = UIAlertController(title: nil, message: "저장하시겠습니까?", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default) { (_) in
+                //메모 저장
+                self.uploadMemo(companyName: companyName, naviTitle: naviTitle, writeTV: writeTV, countLabel: countLabel)
+                
+                //이미지 저장
+                self.uploadimage(title: self.titleMemo)
+                
+                uv.dismiss(animated: true)
+            })
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+            uv.present(alert, animated: true)
+        }
+    }
+    
+    //firebase에 메모 저장
+    func uploadMemo(companyName: String, naviTitle: String, writeTV: UITextView, countLabel: UILabel){
+        let kindSelect = naviTitle == "레시피 작성" ? "recipe" : "transition"
+        let date = Date().timeIntervalSince1970
+        self.db.collection("shop").document("\(companyName)").collection("\(kindSelect)").addDocument(data: [
+            "text" : "\(writeTV.text!)",
+            "count" : "\(countLabel.text!)",
+            "date" : date,
+            "title" : "\(self.titleMemo)",
+            "imageCount" : "\(self.pictureList.count)"
+        ])
     }
     
     //이미지 업로드(in FireStorage)
