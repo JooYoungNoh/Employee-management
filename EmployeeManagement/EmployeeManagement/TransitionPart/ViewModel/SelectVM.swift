@@ -177,35 +177,42 @@ class SelectVM{
     
     //MARK: 액션 메소드 (레시피 및 인수인계 추가)
     func doAdd(uv: UIViewController, companyName: String) {
-        self.checkList.removeAll()
-        for i in 0..<self.realRecipeList.count{
-            self.checkList.append(self.realRecipeList[i].title)
+        if self.appDelegate.jobInfo == "2" {
+            let alert = UIAlertController(title: nil, message: "직원 이상의 직책만 사용가능합니다", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            uv.present(alert, animated: true)
+            
+        } else {
+            self.checkList.removeAll()
+            for i in 0..<self.realRecipeList.count{
+                self.checkList.append(self.realRecipeList[i].title)
+            }
+            
+            for i in 0..<self.realTransitionList.count{
+                self.checkList.append(self.realTransitionList[i].title)
+            }
+            
+            let alert = UIAlertController(title: "선택해주세요", message: nil, preferredStyle: .actionSheet)
+            alert.addAction(UIAlertAction(title: "레시피 작성", style: .default) { (_) in
+                let nv = uv.storyboard?.instantiateViewController(withIdentifier: "TransitionWriteVC") as! TransitionWriteVC
+                nv.modalPresentationStyle = .fullScreen
+                nv.naviTitle = "레시피 작성"
+                nv.companyName = companyName
+                nv.checkTitle = self.checkList
+                uv.present(nv, animated: true)
+            })
+            alert.addAction(UIAlertAction(title: "인수인계 작성", style: .default){ (_) in
+                let nv = uv.storyboard?.instantiateViewController(withIdentifier: "TransitionWriteVC") as! TransitionWriteVC
+                nv.modalPresentationStyle = .fullScreen
+                nv.naviTitle = "인수인계 작성"
+                nv.companyName = companyName
+                nv.checkTitle = self.checkList
+                uv.present(nv, animated: true)
+            })
+            alert.addAction(UIAlertAction(title: "취소", style: .cancel))
+            
+            uv.present(alert, animated: true)
         }
-        
-        for i in 0..<self.realTransitionList.count{
-            self.checkList.append(self.realTransitionList[i].title)
-        }
-        
-        let alert = UIAlertController(title: "선택해주세요", message: nil, preferredStyle: .actionSheet)
-        alert.addAction(UIAlertAction(title: "레시피 작성", style: .default) { (_) in
-            let nv = uv.storyboard?.instantiateViewController(withIdentifier: "TransitionWriteVC") as! TransitionWriteVC
-            nv.modalPresentationStyle = .fullScreen
-            nv.naviTitle = "레시피 작성"
-            nv.companyName = companyName
-            nv.checkTitle = self.checkList
-            uv.present(nv, animated: true)
-        })
-        alert.addAction(UIAlertAction(title: "인수인계 작성", style: .default){ (_) in
-            let nv = uv.storyboard?.instantiateViewController(withIdentifier: "TransitionWriteVC") as! TransitionWriteVC
-            nv.modalPresentationStyle = .fullScreen
-            nv.naviTitle = "인수인계 작성"
-            nv.companyName = companyName
-            nv.checkTitle = self.checkList
-            uv.present(nv, animated: true)
-        })
-        alert.addAction(UIAlertAction(title: "취소", style: .cancel))
-        
-        uv.present(alert, animated: true)
     }
 }
 
