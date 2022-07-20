@@ -8,6 +8,7 @@
 import Foundation
 import FirebaseFirestore
 import FirebaseStorage
+import UIKit
 
 class TinfoVM {
     let db = Firestore.firestore()
@@ -16,6 +17,7 @@ class TinfoVM {
     
     //사진 셀
     var pictureList: [UIImage] = []                 //사진 리스트
+    var sortList: [UIImage] = []
     var pictureDeleteNumberList: [Int] = []         //사진 삭제 리스트
     
     //텍스트 뷰
@@ -23,7 +25,7 @@ class TinfoVM {
     
     //MARK: 컬렉션 뷰 메소드
     //셀 정보
-    func cellInfo(collectionView: UICollectionView, indexPath: IndexPath) -> UICollectionViewCell {
+    func cellInfo(collectionView: UICollectionView, indexPath: IndexPath, titleOnTable: String) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TransitionInfoCell.identifier, for: indexPath) as? TransitionInfoCell else { return UICollectionViewCell() }
         
         cell.imageView.image = self.pictureList[indexPath.row]
@@ -80,15 +82,17 @@ class TinfoVM {
     
     //MARK: 액션 메소드
     //이미지 다운로드
-    func downloadimage(imageCount: String, titleOnTable: String){
+    func downloadimage(imageCount: String, titleOnTable: String, completion: @escaping() ->()){
+        self.pictureList.removeAll()
         if imageCount != "0"{
             for i in 0..<Int(imageCount)!{
                 storage.reference(forURL: "gs://employeemanagement-9d6eb.appspot.com/\(titleOnTable)_\(i)").downloadURL { (url, error) in
                     if error == nil && url != nil {
                         let data = NSData(contentsOf: url!)
                         let image = UIImage(data: data! as Data)
-                        
+                                
                         self.pictureList.append(image!)
+                        completion()
                     } else {
                         print(error!.localizedDescription)
                     }

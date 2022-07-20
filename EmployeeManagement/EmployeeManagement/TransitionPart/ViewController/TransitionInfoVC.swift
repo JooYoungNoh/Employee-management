@@ -16,6 +16,7 @@ class TransitionInfoVC: UIViewController {
     var textOnTable: String = ""          //전 회면 셀에 있는 내용
     var countOnTable: String = ""         //전 화면 셀에 있는 글자수
     var imageCountOnTable: String = ""    //전 화면 셀에 있는 이미지 수
+    var imageList: [UIImage] = []         //전 화면에서 받아올 이미지들
     var checkTitle: [String] = []      //전 화면에서 받아올 타이틀 (중복여부 체크)
     var viewModel = TinfoVM()
     
@@ -32,7 +33,6 @@ class TransitionInfoVC: UIViewController {
     let countLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
-        label.text = "0"
         label.font = UIFont(name: "CookieRun", size: 18)
         label.textAlignment = .right
         return label
@@ -40,7 +40,6 @@ class TransitionInfoVC: UIViewController {
     
     let writeTV: UITextView = {
        let write = UITextView()
-        write.textColor = UIColor.systemGray
         write.font = UIFont(name: "CookieRun", size: 18)
         write.textAlignment = .left
         write.backgroundColor = .systemGray6
@@ -90,11 +89,15 @@ class TransitionInfoVC: UIViewController {
         self.collectionView.register(TransitionInfoCell.self, forCellWithReuseIdentifier: TransitionInfoCell.identifier)
         self.writeTV.delegate = self
         self.uiCreate()
+        self.viewModel.downloadimage(imageCount: self.imageCountOnTable, titleOnTable: self.titleOnTable) { () in
+    
+            self.collectionView.reloadData()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.viewModel.uploadimage(title: <#T##String#>)
+        
     }
     
     //MARK: 액션 메소드
@@ -157,6 +160,7 @@ class TransitionInfoVC: UIViewController {
         }
         
         //글자 수 레이블 UI
+        self.countLabel.text = self.countOnTable
         self.view.addSubview(self.countLabel)
         countLabel.snp.makeConstraints { make in
             make.trailing.equalToSuperview().offset(-20)
@@ -167,12 +171,13 @@ class TransitionInfoVC: UIViewController {
         }
         
         //메모 텍스트 뷰 UI
+        self.writeTV.text = self.textOnTable
         self.view.addSubview(self.writeTV)
         writeTV.snp.makeConstraints { make in
             make.trailing.equalToSuperview().offset(-15)
             make.leading.equalToSuperview().offset(15)
             make.top.equalTo(self.memoLabel.snp.bottom).offset(10)
-            make.height.equalTo(390)
+            make.height.equalTo(330)
         }
         
         //사진레이블 UI
@@ -228,7 +233,7 @@ extension TransitionInfoVC: UICollectionViewDataSource, UICollectionViewDelegate
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return self.viewModel.cellInfo(collectionView: collectionView, indexPath: indexPath)
+        return self.viewModel.cellInfo(collectionView: collectionView, indexPath: indexPath, titleOnTable: self.titleOnTable)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
