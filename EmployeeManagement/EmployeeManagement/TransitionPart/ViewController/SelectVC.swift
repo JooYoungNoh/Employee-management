@@ -130,47 +130,52 @@ extension SelectVC: UITableViewDelegate, UITableViewDataSource{
     //삭제
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            self.viewModel.deleteMemo(uv: self, tableView: tableView, forRowAt: indexPath, naviTitle: self.companyName, realRecipeList: self.viewModel.realRecipeList, realTransitionList: self.viewModel.realTransitionList)
+            self.viewModel.deleteMemo(uv: self, tableView: tableView, forRowAt: indexPath, naviTitle: self.companyName, isFiltering: self.isFiltering)
         }
     }
     
     //셀 선택
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let nv = storyboard?.instantiateViewController(withIdentifier: "TransitionInfoVC") as! TransitionInfoVC
-        
+
         if self.isFiltering == false {
             if indexPath.section == 0 {
                 nv.titleOnTable = self.viewModel.realRecipeList[indexPath.row].title
                 nv.textOnTable = self.viewModel.realRecipeList[indexPath.row].text
-                nv.countLabel = self.viewModel.realRecipeList[indexPath.row].count
+                nv.countOnTable = self.viewModel.realRecipeList[indexPath.row].count
                 nv.imageCountOnTable = self.viewModel.realRecipeList[indexPath.row].imageCount
+                nv.naviTitle = "레시피 정보"
+                nv.companyName = self.companyName
+                nv.checkTitle = self.viewModel.checkList
             } else {
-                
+                nv.titleOnTable = self.viewModel.realTransitionList[indexPath.row].title
+                nv.textOnTable = self.viewModel.realTransitionList[indexPath.row].text
+                nv.countOnTable = self.viewModel.realTransitionList[indexPath.row].count
+                nv.imageCountOnTable = self.viewModel.realTransitionList[indexPath.row].imageCount
+                nv.naviTitle = "인수인계 정보"
+                nv.companyName = self.companyName
+                nv.checkTitle = self.viewModel.checkList
             }
         } else {
             if indexPath.section == 0 {
-                
+                nv.titleOnTable = self.viewModel.searchRecipeList[indexPath.row].title
+                nv.textOnTable = self.viewModel.searchRecipeList[indexPath.row].text
+                nv.countOnTable = self.viewModel.searchRecipeList[indexPath.row].count
+                nv.imageCountOnTable = self.viewModel.searchRecipeList[indexPath.row].imageCount
+                nv.naviTitle = "레시피 정보"
+                nv.companyName = self.companyName
+                nv.checkTitle = self.viewModel.checkList
             } else {
-                
+                nv.titleOnTable = self.viewModel.searchTransitionList[indexPath.row].title
+                nv.textOnTable = self.viewModel.searchTransitionList[indexPath.row].text
+                nv.countOnTable = self.viewModel.searchTransitionList[indexPath.row].count
+                nv.imageCountOnTable = self.viewModel.searchTransitionList[indexPath.row].imageCount
+                nv.naviTitle = "인수인계 정보"
+                nv.companyName = self.companyName
+                nv.checkTitle = self.viewModel.checkList
             }
         }
-        
-        /*
-         //전달할 내용
-         if self.isFiltering == false{
-             nv.titleOnTable = self.viewModel.realMemoList[indexPath.row].title
-             nv.dateOnTable = self.viewModel.realMemoList[indexPath.row].date
-             nv.textOnTable = self.viewModel.realMemoList[indexPath.row].text
-             nv.countOnTable = self.viewModel.realMemoList[indexPath.row].count
-         } else {
-             nv.titleOnTable = self.viewModel.searchMemoList[indexPath.row].title
-             nv.dateOnTable = self.viewModel.searchMemoList[indexPath.row].date
-             nv.textOnTable = self.viewModel.searchMemoList[indexPath.row].text
-             nv.countOnTable = self.viewModel.searchMemoList[indexPath.row].count
-             //nv.navigationController?.isNavigationBarHidden = true
-         }
-         */
-        
+    
         self.navigationController?.pushViewController(nv, animated: true)
     }
 }

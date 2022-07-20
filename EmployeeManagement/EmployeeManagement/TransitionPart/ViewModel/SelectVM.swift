@@ -78,32 +78,70 @@ class SelectVM{
     }
     
     //MARK: 삭제 기능
-    func deleteMemo(uv: UIViewController,tableView: UITableView, forRowAt indexPath: IndexPath, naviTitle: String, realRecipeList: [SelectModel], realTransitionList: [SelectModel]){
+    func deleteMemo(uv: UIViewController,tableView: UITableView, forRowAt indexPath: IndexPath, naviTitle: String, isFiltering: Bool) {
+       // let cell  = tableView.cellForRow(at: indexPath) as! SelectCell
+        
         if self.appDelegate.jobInfo == "2"{
             let alert = UIAlertController(title: nil, message: "직원 이상의 직책만 사용가능합니다", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default))
             uv.present(alert, animated: true)
         } else {
-            if indexPath.section == 0{
-                let query = self.db.collection("shop").document("\(naviTitle)").collection("recipe")
-                
-                query.whereField("title", isEqualTo: realRecipeList[indexPath.row].title).getDocuments{ snapShot, error in
-                    for doc in snapShot!.documents{
-                        query.document("\(doc.documentID)").delete()
+            if isFiltering == false {
+                if indexPath.section == 0{
+                    let query = self.db.collection("shop").document("\(naviTitle)").collection("recipe")
+                    
+                    query.whereField("title", isEqualTo: realRecipeList[indexPath.row].title).getDocuments{ snapShot, error in
+                        for doc in snapShot!.documents{
+                            query.document("\(doc.documentID)").delete()
+                        }
                     }
+                    self.realRecipeList.remove(at: indexPath.row)
+                    tableView.deleteRows(at: [indexPath], with: .fade)
+                } else {
+                    let query = self.db.collection("shop").document("\(naviTitle)").collection("transition")
+                    
+                    query.whereField("title", isEqualTo: realTransitionList[indexPath.row].title).getDocuments{ snapShot, error in
+                        for doc in snapShot!.documents{
+                            query.document("\(doc.documentID)").delete()
+                        }
+                    }
+                    
+                    self.realTransitionList.remove(at: indexPath.row)
+                    tableView.deleteRows(at: [indexPath], with: .fade)
+                    
                 }
-                self.realRecipeList.remove(at: indexPath.row)
-                tableView.deleteRows(at: [indexPath], with: .fade)
             } else {
-                let query = self.db.collection("shop").document("\(naviTitle)").collection("transition")
-                
-                query.whereField("title", isEqualTo: realTransitionList[indexPath.row].title).getDocuments{ snapShot, error in
-                    for doc in snapShot!.documents{
-                        query.document("\(doc.documentID)").delete()
+                if indexPath.section == 0{
+                    let query = self.db.collection("shop").document("\(naviTitle)").collection("recipe")
+                    
+                    query.whereField("title", isEqualTo: searchRecipeList[indexPath.row].title).getDocuments{ snapShot, error in
+                        for doc in snapShot!.documents{
+                            query.document("\(doc.documentID)").delete()
+                        }
                     }
+                    
+                    self.realRecipeList.remove(at: self.realRecipeList.firstIndex(where: { list in
+                        return list.title.contains(self.searchRecipeList[indexPath.row].title)
+                    })!)
+                    self.searchRecipeList.remove(at: indexPath.row)
+                    tableView.deleteRows(at: [indexPath], with: .fade)
+                    
+                } else {
+                    let query = self.db.collection("shop").document("\(naviTitle)").collection("transition")
+                    
+                    query.whereField("title", isEqualTo: searchTransitionList[indexPath.row].title).getDocuments{ snapShot, error in
+                        for doc in snapShot!.documents{
+                            query.document("\(doc.documentID)").delete()
+                        }
+                    }
+                    self.realTransitionList.remove(at: self.realTransitionList.firstIndex(where: { list in
+                        return list.title.contains(self.searchTransitionList[indexPath.row].title)
+                    })!)
+                   
+                    self.searchTransitionList.remove(at: indexPath.row)
+                    tableView.deleteRows(at: [indexPath], with: .fade)
+                    
                 }
-                self.realTransitionList.remove(at: indexPath.row)
-                tableView.deleteRows(at: [indexPath], with: .fade)
             }
         }
     }
@@ -115,75 +153,48 @@ class SelectVM{
         
         if indexPath.section == 0{
             if isFiltering == false {           //검색 X
-                if self.realRecipeList.isEmpty == true {
-                    cell.titleLabel.text = "정보가 없습니다"
-                    cell.titleLabel.textColor = .red
-                    cell.dateLabel.text = " "
-                    cell.accessoryType = .none
-                } else {
-                    let date = Date(timeIntervalSince1970: self.realRecipeList[indexPath.row].date)
-                    let formatter = DateFormatter()
-                    formatter.dateFormat = "yyyy-MM-dd HH:mm"
-                    let fixDate = "\(formatter.string(from: date))"
-                        
-                    cell.titleLabel.text = self.realRecipeList[indexPath.row].title
-                    cell.titleLabel.textColor = .black
-                    cell.dateLabel.text = fixDate
-                    cell.accessoryType = .disclosureIndicator
-                }
-            } else {                            //검색 O
-                if self.searchRecipeList.isEmpty == true {
-                    cell.titleLabel.text = "정보가 없습니다"
-                    cell.titleLabel.textColor = .red
-                    cell.dateLabel.text = " "
-                    cell.accessoryType = .none
-                } else {
-                    let date = Date(timeIntervalSince1970: self.searchRecipeList[indexPath.row].date)
-                    let formatter = DateFormatter()
-                    formatter.dateFormat = "yyyy-MM-dd HH:mm"
-                    let fixDate = "\(formatter.string(from: date))"
+                let date = Date(timeIntervalSince1970: self.realRecipeList[indexPath.row].date)
+                let formatter = DateFormatter()
+                formatter.dateFormat = "yyyy-MM-dd HH:mm"
+                let fixDate = "\(formatter.string(from: date))"
                     
-                    cell.titleLabel.text = self.searchRecipeList[indexPath.row].title
-                    cell.titleLabel.textColor = .black
-                    cell.dateLabel.text = fixDate
-                    cell.accessoryType = .disclosureIndicator
-                }
+                cell.titleLabel.text = self.realRecipeList[indexPath.row].title
+                cell.titleLabel.textColor = .black
+                cell.dateLabel.text = fixDate
+                cell.accessoryType = .disclosureIndicator
+            } else {                            //검색 O
+                let date = Date(timeIntervalSince1970: self.searchRecipeList[indexPath.row].date)
+                let formatter = DateFormatter()
+                formatter.dateFormat = "yyyy-MM-dd HH:mm"
+                let fixDate = "\(formatter.string(from: date))"
+                
+                cell.titleLabel.text = self.searchRecipeList[indexPath.row].title
+                cell.titleLabel.textColor = .black
+                cell.dateLabel.text = fixDate
+                cell.accessoryType = .disclosureIndicator
+                
             }
         } else {
             if isFiltering == false {
-                if self.realTransitionList.isEmpty == true {
-                    cell.titleLabel.text = "정보가 없습니다"
-                    cell.titleLabel.textColor = .red
-                    cell.dateLabel.text = " "
-                    cell.accessoryType = .none
-                } else {
-                    let date = Date(timeIntervalSince1970: self.realTransitionList[indexPath.row].date)
-                    let formatter = DateFormatter()
-                    formatter.dateFormat = "yyyy-MM-dd HH:mm"
-                    let fixDate = "\(formatter.string(from: date))"
-                        
-                    cell.titleLabel.text = self.realTransitionList[indexPath.row].title
-                    cell.titleLabel.textColor = .black
-                    cell.dateLabel.text = fixDate
-                    cell.accessoryType = .disclosureIndicator
-                }
-            } else {
-                if self.searchTransitionList.isEmpty == true {
-                    cell.titleLabel.text = "정보가 없습니다"
-                    cell.titleLabel.textColor = .red
-                    cell.dateLabel.text = " "
-                    cell.accessoryType = .none
-                } else {
-                    let date = Date(timeIntervalSince1970: self.searchTransitionList[indexPath.row].date)
-                    let formatter = DateFormatter()
-                    formatter.dateFormat = "yyyy-MM-dd HH:mm"
-                    let fixDate = "\(formatter.string(from: date))"
+                let date = Date(timeIntervalSince1970: self.realTransitionList[indexPath.row].date)
+                let formatter = DateFormatter()
+                formatter.dateFormat = "yyyy-MM-dd HH:mm"
+                let fixDate = "\(formatter.string(from: date))"
                     
-                    cell.titleLabel.text = self.searchTransitionList[indexPath.row].title
-                    cell.titleLabel.textColor = .black
-                    cell.dateLabel.text = fixDate
-                    cell.accessoryType = .disclosureIndicator
-                }
+                cell.titleLabel.text = self.realTransitionList[indexPath.row].title
+                cell.titleLabel.textColor = .black
+                cell.dateLabel.text = fixDate
+                cell.accessoryType = .disclosureIndicator
+            } else {
+                let date = Date(timeIntervalSince1970: self.searchTransitionList[indexPath.row].date)
+                let formatter = DateFormatter()
+                formatter.dateFormat = "yyyy-MM-dd HH:mm"
+                let fixDate = "\(formatter.string(from: date))"
+                
+                cell.titleLabel.text = self.searchTransitionList[indexPath.row].title
+                cell.titleLabel.textColor = .black
+                cell.dateLabel.text = fixDate
+                cell.accessoryType = .disclosureIndicator
             }
         }
         return cell
@@ -193,15 +204,15 @@ class SelectVM{
     func numberOfRowsInSection(section: Int, isFiltering: Bool) -> Int {
         if section == 0{
             if isFiltering == true {
-                return self.searchRecipeList.isEmpty ? 1 : self.searchRecipeList.count
+                return self.searchRecipeList.isEmpty ? 0 : self.searchRecipeList.count
             } else {
-                return self.realRecipeList.isEmpty ? 1 : self.realRecipeList.count
+                return self.realRecipeList.isEmpty ? 0 : self.realRecipeList.count
             }
         } else {
             if isFiltering == true {
-                return self.searchTransitionList.isEmpty ? 1 : self.searchTransitionList.count
+                return self.searchTransitionList.isEmpty ? 0 : self.searchTransitionList.count
             } else {
-                return self.realTransitionList.isEmpty ? 1 : self.realTransitionList.count
+                return self.realTransitionList.isEmpty ? 0 : self.realTransitionList.count
             }
         }
     }
