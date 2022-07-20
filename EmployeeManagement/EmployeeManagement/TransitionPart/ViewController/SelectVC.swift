@@ -133,6 +133,46 @@ extension SelectVC: UITableViewDelegate, UITableViewDataSource{
             self.viewModel.deleteMemo(uv: self, tableView: tableView, forRowAt: indexPath, naviTitle: self.companyName, realRecipeList: self.viewModel.realRecipeList, realTransitionList: self.viewModel.realTransitionList)
         }
     }
+    
+    //셀 선택
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let nv = storyboard?.instantiateViewController(withIdentifier: "TransitionInfoVC") as! TransitionInfoVC
+        
+        if self.isFiltering == false {
+            if indexPath.section == 0 {
+                nv.titleOnTable = self.viewModel.realRecipeList[indexPath.row].title
+                nv.textOnTable = self.viewModel.realRecipeList[indexPath.row].text
+                nv.countLabel = self.viewModel.realRecipeList[indexPath.row].count
+                nv.imageCountOnTable = self.viewModel.realRecipeList[indexPath.row].imageCount
+            } else {
+                
+            }
+        } else {
+            if indexPath.section == 0 {
+                
+            } else {
+                
+            }
+        }
+        
+        /*
+         //전달할 내용
+         if self.isFiltering == false{
+             nv.titleOnTable = self.viewModel.realMemoList[indexPath.row].title
+             nv.dateOnTable = self.viewModel.realMemoList[indexPath.row].date
+             nv.textOnTable = self.viewModel.realMemoList[indexPath.row].text
+             nv.countOnTable = self.viewModel.realMemoList[indexPath.row].count
+         } else {
+             nv.titleOnTable = self.viewModel.searchMemoList[indexPath.row].title
+             nv.dateOnTable = self.viewModel.searchMemoList[indexPath.row].date
+             nv.textOnTable = self.viewModel.searchMemoList[indexPath.row].text
+             nv.countOnTable = self.viewModel.searchMemoList[indexPath.row].count
+             //nv.navigationController?.isNavigationBarHidden = true
+         }
+         */
+        
+        self.navigationController?.pushViewController(nv, animated: true)
+    }
 }
 
 //MARK: 서치바 메소드

@@ -21,9 +21,6 @@ class TwriteVM{
     //텍스트 뷰
     var titleMemo: String = ""                      //제목
     
-    //제목 겹치는 지 확인
-    var checkTitle: String = ""
-    
     //MARK: 컬렉션 뷰 메소드
     //셀 정보
     func cellInfo(collectionView: UICollectionView, indexPath: IndexPath) -> UICollectionViewCell {

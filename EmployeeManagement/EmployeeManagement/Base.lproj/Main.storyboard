@@ -178,6 +178,21 @@
             </objects>
             <point key="canvasLocation" x="3294" y="1560"/>
         </scene>
+        <!--레시피, 인수인계 정보 화면-->
+        <scene sceneID="KEW-8d-6Qp">
+            <objects>
+                <viewController storyboardIdentifier="TransitionInfoVC" title="레시피, 인수인계 정보 화면" id="pdp-ke-Mw6" customClass="TransitionInfoVC" customModule="EmployeeManagement" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="hAQ-95-CwC">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="WFQ-5C-lgB"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="T3Z-tV-9eE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3989" y="1560"/>
+        </scene>
         <!--레시피 인수인계 작성화면-->
         <scene sceneID="08X-lF-Mn9">
             <objects>

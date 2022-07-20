@@ -35,7 +35,6 @@
 		7390F3EC2858E0D10036B632 /* MemoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7390F3EB2858E0D10036B632 /* MemoVC.swift */; };
 		7390F3EE2858E0F00036B632 /* MemoVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7390F3ED2858E0F00036B632 /* MemoVM.swift */; };
 		7390F3F02858ED470036B632 /* MemoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7390F3EF2858ED470036B632 /* MemoCell.swift */; };
-		7392F19828758E6800DD7F01 /* TransitionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7392F19728758E6800DD7F01 /* TransitionModel.swift */; };
 		7392F19A28758E7800DD7F01 /* TransitionVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7392F19928758E7800DD7F01 /* TransitionVM.swift */; };
 		7392F19C2875922900DD7F01 /* TransitionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7392F19B2875922900DD7F01 /* TransitionCell.swift */; };
 		73A3AAD828292BF9001283CD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A3AAD728292BF9001283CD /* AppDelegate.swift */; };
@@ -59,6 +58,9 @@
 		73E2DA9D283268EC00C4CF25 /* TransitionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E2DA9C283268EC00C4CF25 /* TransitionVC.swift */; };
 		73E2DA9F2832697000C4CF25 /* CSTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E2DA9E2832697000C4CF25 /* CSTabBarController.swift */; };
 		73E2DAA12832A5D000C4CF25 /* ShopVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E2DAA02832A5D000C4CF25 /* ShopVC.swift */; };
+		73F0B28E28884E0200307D62 /* TinfoVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73F0B28D28884E0200307D62 /* TinfoVM.swift */; };
+		73F0B29028884E2500307D62 /* TransitionInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73F0B28F28884E2500307D62 /* TransitionInfoCell.swift */; };
+		73F0B29228884E4400307D62 /* TransitionInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73F0B29128884E4400307D62 /* TransitionInfoVC.swift */; };
 		8871A60F9F712DA7DB7D54C7 /* Pods_EmployeeManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 33CFB31CB8870BD8CBBC6DAA /* Pods_EmployeeManagement.framework */; };
 /* End PBXBuildFile section */
 
@@ -92,7 +94,6 @@
 		7390F3EB2858E0D10036B632 /* MemoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoVC.swift; sourceTree = "<group>"; };
 		7390F3ED2858E0F00036B632 /* MemoVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoVM.swift; sourceTree = "<group>"; };
 		7390F3EF2858ED470036B632 /* MemoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoCell.swift; sourceTree = "<group>"; };
-		7392F19728758E6800DD7F01 /* TransitionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionModel.swift; sourceTree = "<group>"; };
 		7392F19928758E7800DD7F01 /* TransitionVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionVM.swift; sourceTree = "<group>"; };
 		7392F19B2875922900DD7F01 /* TransitionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionCell.swift; sourceTree = "<group>"; };
 		73A3AAD428292BF9001283CD /* EmployeeManagement.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EmployeeManagement.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -118,6 +119,9 @@
 		73E2DA9C283268EC00C4CF25 /* TransitionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionVC.swift; sourceTree = "<group>"; };
 		73E2DA9E2832697000C4CF25 /* CSTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSTabBarController.swift; sourceTree = "<group>"; };
 		73E2DAA02832A5D000C4CF25 /* ShopVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopVC.swift; sourceTree = "<group>"; };
+		73F0B28D28884E0200307D62 /* TinfoVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TinfoVM.swift; sourceTree = "<group>"; };
+		73F0B28F28884E2500307D62 /* TransitionInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionInfoCell.swift; sourceTree = "<group>"; };
+		73F0B29128884E4400307D62 /* TransitionInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionInfoVC.swift; sourceTree = "<group>"; };
 		752E65DEC89827793B4CDB17 /* Pods-EmployeeManagement.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmployeeManagement.release.xcconfig"; path = "Target Support Files/Pods-EmployeeManagement/Pods-EmployeeManagement.release.xcconfig"; sourceTree = "<group>"; };
 		DC62AE74520408F1C9144A0E /* Pods-EmployeeManagement.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmployeeManagement.debug.xcconfig"; path = "Target Support Files/Pods-EmployeeManagement/Pods-EmployeeManagement.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -269,6 +273,8 @@
 				738E76CA287C64C100BB38CB /* SelectCell.swift */,
 				73752AA7287F00B200196435 /* TransitionWriteVC.swift */,
 				73752AA9287F2C6000196435 /* TransitionWriteCell.swift */,
+				73F0B29128884E4400307D62 /* TransitionInfoVC.swift */,
+				73F0B28F28884E2500307D62 /* TransitionInfoCell.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -279,6 +285,7 @@
 				7392F19928758E7800DD7F01 /* TransitionVM.swift */,
 				738E76CC287C6A1100BB38CB /* SelectVM.swift */,
 				73C8ED9A2887052100545587 /* TwriteVM.swift */,
+				73F0B28D28884E0200307D62 /* TinfoVM.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -286,7 +293,6 @@
 		7392F19628758DF200DD7F01 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				7392F19728758E6800DD7F01 /* TransitionModel.swift */,
 				738E76CE287C6A6E00BB38CB /* SelectModel.swift */,
 			);
 			path = Model;
@@ -457,6 +463,7 @@
 				732D4019283E6FD200E40F48 /* RequestJoinVC.swift in Sources */,
 				7373BEA82852487100336B0B /* ProfileInfoCVCell.swift in Sources */,
 				7390F3EC2858E0D10036B632 /* MemoVC.swift in Sources */,
+				73F0B28E28884E0200307D62 /* TinfoVM.swift in Sources */,
 				732D401B283E73E000E40F48 /* RequestJoincell.swift in Sources */,
 				73179DEA28590DF000086DBD /* MemoModel.swift in Sources */,
 				73179DE8285906AC00086DBD /* MemoWriteVM.swift in Sources */,
@@ -470,6 +477,7 @@
 				7331C5E828492ECE009F5210 /* EmployeeModel.swift in Sources */,
 				738E76CD287C6A1100BB38CB /* SelectVM.swift in Sources */,
 				73324E80285BCA5A00F443FD /* ProfileVM.swift in Sources */,
+				73F0B29228884E4400307D62 /* TransitionInfoVC.swift in Sources */,
 				7392F19A28758E7800DD7F01 /* TransitionVM.swift in Sources */,
 				7379EEDE2877228500BB7568 /* SelectVC.swift in Sources */,
 				73C8ED9B2887052100545587 /* TwriteVM.swift in Sources */,
@@ -485,13 +493,13 @@
 				73CDD2A928511C5D00E9EB32 /* ProfileInfoVC.swift in Sources */,
 				73752AAA287F2C6000196435 /* TransitionWriteCell.swift in Sources */,
 				73179DE62858F37F00086DBD /* MemoWriteVC.swift in Sources */,
-				7392F19828758E6800DD7F01 /* TransitionModel.swift in Sources */,
 				7331C5E428491457009F5210 /* EmployeeListVM.swift in Sources */,
 				73A3AAEF282944E1001283CD /* LoginVC.swift in Sources */,
 				73E2DAA12832A5D000C4CF25 /* ShopVC.swift in Sources */,
 				73A3AADA28292BF9001283CD /* SceneDelegate.swift in Sources */,
 				735180CF2852602E00CC30FB /* MyProfileVM.swift in Sources */,
 				73CDD2AB28511E5900E9EB32 /* MyProfileInfoVC.swift in Sources */,
+				73F0B29028884E2500307D62 /* TransitionInfoCell.swift in Sources */,
 				7309389028593EA8005B812E /* MemoReadVC.swift in Sources */,
 				73435D32285A523B00B52A98 /* CalculatorVC.swift in Sources */,
 				73A3AAF12829694E001283CD /* FindVC.swift in Sources */,
