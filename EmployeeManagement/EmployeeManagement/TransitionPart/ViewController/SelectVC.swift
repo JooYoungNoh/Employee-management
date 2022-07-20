@@ -126,6 +126,13 @@ extension SelectVC: UITableViewDelegate, UITableViewDataSource{
             return csview
         }
     }
+    
+    //삭제
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            self.viewModel.deleteMemo(uv: self, tableView: tableView, forRowAt: indexPath, naviTitle: self.companyName, realRecipeList: self.viewModel.realRecipeList, realTransitionList: self.viewModel.realTransitionList)
+        }
+    }
 }
 
 //MARK: 서치바 메소드

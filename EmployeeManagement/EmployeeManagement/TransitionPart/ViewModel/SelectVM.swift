@@ -77,6 +77,37 @@ class SelectVM{
         tableView.reloadData()
     }
     
+    //MARK: 삭제 기능
+    func deleteMemo(uv: UIViewController,tableView: UITableView, forRowAt indexPath: IndexPath, naviTitle: String, realRecipeList: [SelectModel], realTransitionList: [SelectModel]){
+        if self.appDelegate.jobInfo == "2"{
+            let alert = UIAlertController(title: nil, message: "직원 이상의 직책만 사용가능합니다", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            uv.present(alert, animated: true)
+        } else {
+            if indexPath.section == 0{
+                let query = self.db.collection("shop").document("\(naviTitle)").collection("recipe")
+                
+                query.whereField("title", isEqualTo: realRecipeList[indexPath.row].title).getDocuments{ snapShot, error in
+                    for doc in snapShot!.documents{
+                        query.document("\(doc.documentID)").delete()
+                    }
+                }
+                self.realRecipeList.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            } else {
+                let query = self.db.collection("shop").document("\(naviTitle)").collection("transition")
+                
+                query.whereField("title", isEqualTo: realTransitionList[indexPath.row].title).getDocuments{ snapShot, error in
+                    for doc in snapShot!.documents{
+                        query.document("\(doc.documentID)").delete()
+                    }
+                }
+                self.realTransitionList.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            }
+        }
+    }
+    
     //MARK: 테이블 뷰 셀 정보
     func tableCellInfo(indexPath: IndexPath, tableView: UITableView, isFiltering: Bool) -> UITableViewCell{
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SelectCell.identifier, for: indexPath) as? SelectCell else { return UITableViewCell() }
