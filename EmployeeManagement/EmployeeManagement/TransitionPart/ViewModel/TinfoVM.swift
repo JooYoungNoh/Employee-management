@@ -17,8 +17,8 @@ class TinfoVM {
     
     //사진 셀
     var pictureList: [UIImage] = []                 //사진 리스트(바뀔수잇음)
-    var copyList: [UIImage] = []                    //복사 리스트(원본)
-    var sortList: [UIImage] = []
+    var newPictureList: [UIImage] = []              //추가 사진 리스트
+    var copyImageList: [String] = []             //복사 이름리스트(테이블)
     var pictureDeleteNumberList: [Int] = []         //사진 삭제 리스트
     
     //텍스트 뷰
@@ -28,8 +28,11 @@ class TinfoVM {
     //셀 정보
     func cellInfo(collectionView: UICollectionView, indexPath: IndexPath, titleOnTable: String) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TransitionInfoCell.identifier, for: indexPath) as? TransitionInfoCell else { return UICollectionViewCell() }
-        
-        cell.imageView.image = self.pictureList[indexPath.row]
+        if indexPath.row < self.copyImageList.count{
+            self.downloadimage(imageView: cell.imageView, titleOnTable: titleOnTable, indexPath: indexPath)
+        } else {
+            cell.imageView.image = self.newPictureList[indexPath.row - self.copyImageList.count]
+        }
         cell.checkImageView.image = UIImage(systemName: "checkmark.circle.fill")
         cell.checkImageView.isHidden = true
         
@@ -82,20 +85,40 @@ class TinfoVM {
     }
     
     //MARK: 액션 메소드
+    //사진 삭제
+    func deletePicture(view: UIViewController, collectionView: UICollectionView){
+        if self.pictureDeleteNumberList.isEmpty == true {
+            let alert = UIAlertController(title: nil, message: "사진을 선택해주세요", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            
+            view.present(alert, animated: true)
+        } else {
+            var sortArry = self.pictureDeleteNumberList.sorted(by: {$0 > $1})
+            
+            for i in sortArry{
+                collectionView.deleteItems(at: [IndexPath.init(row: i, section: 0)])
+                if i >= self.copyImageList.count{
+                    self.newPictureList.remove(at: i)
+                } else {
+                    self.copyImageList.remove(at: i)
+                }
+            }
+            self.pictureDeleteNumberList.removeAll()
+            sortArry.removeAll()
+        }
+    }
+    
     //이미지 다운로드
-    func downloadimage(imageCount: String, titleOnTable: String, completion: @escaping(UIImage) ->()){
-        self.pictureList.removeAll()
-        if imageCount != "0"{
-            for i in 0..<Int(imageCount)!{
-                storage.reference(forURL: "gs://employeemanagement-9d6eb.appspot.com/\(titleOnTable)/\(titleOnTable)_\(i)").downloadURL { (url, error) in
-                    if error == nil && url != nil {
-                        let data = NSData(contentsOf: url!)
-                        let image = UIImage(data: data! as Data)
+    func downloadimage(imageView: UIImageView, titleOnTable: String, indexPath: IndexPath){
+        if self.copyImageList.count != 0{
+            storage.reference(forURL: "gs://employeemanagement-9d6eb.appspot.com/\(titleOnTable)/\(self.copyImageList[indexPath.row])").downloadURL { (url, error) in
+                if error == nil && url != nil {
+                    let data = NSData(contentsOf: url!)
+                    let image = UIImage(data: data! as Data)
                         
-                        completion(image!)
-                    } else {
-                        print(error!.localizedDescription)
-                    }
+                    imageView.image = image!
+                } else {
+                    print(error!.localizedDescription)
                 }
             }
         }
@@ -103,6 +126,8 @@ class TinfoVM {
     
     //이미지 업로드(in FireStorage)
     func uploadimage(title: String){
+        
+        //TODO: 원래 사진이랑 비교 후 다르면 업로드
         if pictureList.isEmpty == false {
             for i in 0..<pictureList.count{
                 var data = Data()

@@ -15,8 +15,7 @@ class TransitionInfoVC: UIViewController {
     var titleOnTable: String = ""         //전 회면 셀에 있는 제목
     var textOnTable: String = ""          //전 회면 셀에 있는 내용
     var countOnTable: String = ""         //전 화면 셀에 있는 글자수
-    var imageCountOnTable: String = ""    //전 화면 셀에 있는 이미지 수
-    var imageList: [UIImage] = []         //전 화면에서 받아올 이미지들
+    var imageListOnTable: [String] = []   //전 화면 셀에 있는 사진 이름 리스트
     var checkTitle: [String] = []      //전 화면에서 받아올 타이틀 (중복여부 체크)
     var viewModel = TinfoVM()
     
@@ -88,22 +87,15 @@ class TransitionInfoVC: UIViewController {
         self.collectionView.dataSource = self
         self.collectionView.register(TransitionInfoCell.self, forCellWithReuseIdentifier: TransitionInfoCell.identifier)
         self.writeTV.delegate = self
+        self.viewModel.copyImageList = self.imageListOnTable
         self.uiCreate()
+        print("이름: \(self.viewModel.copyImageList)")
+        print("이미지 : \(self.viewModel.pictureList)")
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.viewModel.downloadimage(imageCount: self.imageCountOnTable, titleOnTable: self.titleOnTable) { (completion) in
-            self.viewModel.pictureList.append(completion)
-            self.collectionView.reloadData()
-            if self.viewModel.pictureList.count == Int(self.imageCountOnTable)!{
-                if self.viewModel.pictureList.count == 1 {
-                    self.collectionView.reloadData()
-                } else {
-                    
-                }
-            }
-        }
+
     }
     
     //MARK: 액션 메소드
@@ -135,12 +127,23 @@ class TransitionInfoVC: UIViewController {
     
     //사진 삭제
     @objc func deletePicture(_ sender: UIButton){
-        
+        self.viewModel.deletePicture(view: self, collectionView: self.collectionView)
     }
     
     //메모 저장
     @objc func dosave(_ sender: UIBarButtonItem){
-        
+        //MARK: 사진 한곳에 모으기 (데베에 올리기위해)
+        self.viewModel.pictureList.removeAll()
+        for i in 0..<self.viewModel.copyImageList.count{
+            let indexPath = IndexPath(row: i, section: 0)
+            let cell  = collectionView.cellForItem(at: indexPath) as! TransitionInfoCell
+            self.viewModel.pictureList.append(cell.imageView.image!)
+        }
+        for y in self.viewModel.newPictureList{
+            self.viewModel.pictureList.append(y)
+        }
+        print("사진 모음: \(self.viewModel.pictureList)")
+        print(self.viewModel.pictureList.count)
     }
 
     //MARK: 화면 메소드
@@ -235,7 +238,7 @@ class TransitionInfoVC: UIViewController {
 //MARK: 컬렉션 뷰 메소드
 extension TransitionInfoVC: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.viewModel.pictureList.count
+        return self.viewModel.copyImageList.count + self.viewModel.newPictureList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -260,10 +263,9 @@ extension TransitionInfoVC: UIImagePickerControllerDelegate, UINavigationControl
     }
     //이미지 선택하면 호출될 메소드
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        
         let img = info[UIImagePickerController.InfoKey.editedImage] as? UIImage
         
-        self.viewModel.pictureList.append(img!)
+        self.viewModel.newPictureList.append(img!)
         //이미지 피커 컨트롤창 닫기
         picker.dismiss(animated: true){ () in
             self.collectionView.reloadData()

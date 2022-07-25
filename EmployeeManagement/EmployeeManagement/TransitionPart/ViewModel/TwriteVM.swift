@@ -17,6 +17,7 @@ class TwriteVM{
     //사진 셀
     var pictureList: [UIImage] = []                 //사진 리스트
     var pictureDeleteNumberList: [Int] = []         //사진 삭제 리스트
+    var imageNameList: [String] = []                //사진 이름 리스트
     
     //텍스트 뷰
     var titleMemo: String = ""                      //제목
@@ -144,12 +145,16 @@ class TwriteVM{
     func uploadMemo(companyName: String, naviTitle: String, writeTV: UITextView, countLabel: UILabel){
         let kindSelect = naviTitle == "레시피 작성" ? "recipe" : "transition"
         let date = Date().timeIntervalSince1970
+        for i in 0..<(self.pictureList.count){
+            self.imageNameList.append("\(self.titleMemo)_\(i)")
+        }
+        
         self.db.collection("shop").document("\(companyName)").collection("\(kindSelect)").addDocument(data: [
             "text" : "\(writeTV.text!)",
             "count" : "\(countLabel.text!)",
             "date" : date,
             "title" : "\(self.titleMemo)",
-            "imageCount" : "\(self.pictureList.count)"
+            "imageList" : self.imageNameList
         ])
     }
     
