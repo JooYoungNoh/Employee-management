@@ -160,7 +160,7 @@ class TwriteVM{
                 var data = Data()
                 data = pictureList[i].jpegData(compressionQuality: 0.8)!
                 
-                let filePath = "\(title)_\(i)"       //글 제목_번호
+                let filePath = "\(title)/\(title)_\(i)"       //글 제목_번호
                 let metaData = StorageMetadata()
                 metaData.contentType = "image/png"
                 

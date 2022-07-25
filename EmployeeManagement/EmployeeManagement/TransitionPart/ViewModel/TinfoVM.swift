@@ -87,7 +87,7 @@ class TinfoVM {
         self.pictureList.removeAll()
         if imageCount != "0"{
             for i in 0..<Int(imageCount)!{
-                storage.reference(forURL: "gs://employeemanagement-9d6eb.appspot.com/\(titleOnTable)_\(i)").downloadURL { (url, error) in
+                storage.reference(forURL: "gs://employeemanagement-9d6eb.appspot.com/\(titleOnTable)/\(titleOnTable)_\(i)").downloadURL { (url, error) in
                     if error == nil && url != nil {
                         let data = NSData(contentsOf: url!)
                         let image = UIImage(data: data! as Data)
@@ -108,7 +108,7 @@ class TinfoVM {
                 var data = Data()
                 data = pictureList[i].jpegData(compressionQuality: 0.8)!
                 
-                let filePath = "\(title)_\(i)"       //글 제목_번호
+                let filePath = "\(title)/\(title)_\(i)"       //글 제목_번호
                 let metaData = StorageMetadata()
                 metaData.contentType = "image/png"
                 
