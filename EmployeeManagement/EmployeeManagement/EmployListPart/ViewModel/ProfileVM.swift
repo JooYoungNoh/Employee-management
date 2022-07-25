@@ -51,7 +51,6 @@ class ProfileVM {
                         for doc2 in snapshot2!.documents{
                             if doc2.documentID.isEmpty == false {
                                 self.dbEmployeeCompany.append(dic)
-                                print("이거지 : \(self.dbEmployeeCompany)")
                             }
                         }
                             self.sortedCompany = self.dbEmployeeCompany.sorted(by: {$0 < $1})
