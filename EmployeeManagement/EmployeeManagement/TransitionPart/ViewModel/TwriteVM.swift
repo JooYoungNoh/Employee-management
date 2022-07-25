@@ -177,8 +177,6 @@ class TwriteVM{
                     }
                 }
             }
-        } else {
-            
         }
     }
 }

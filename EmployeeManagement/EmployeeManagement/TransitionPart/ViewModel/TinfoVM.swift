@@ -16,11 +16,11 @@ class TinfoVM {
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     //사진 셀
-    var pictureList: [UIImage] = []                 //사진 리스트(바뀔수잇음)
-    var newPictureList: [UIImage] = []              //추가 사진 리스트
-    var copyImageList: [String] = []             //복사 이름리스트(테이블)
-    var imageNameList: [String] = []                //사진 이름 리스트
-    var pictureDeleteNumberList: [Int] = []         //사진 삭제 리스트
+    var pictureList: [UIImage] = []              //최종 사진 리스트
+    var newPictureList: [UIImage] = []           //추가 사진 리스트
+    var copyImageList: [String] = []             //복사 이름 리스트(테이블)
+    var imageNameList: [String] = []             //사진 이름 리스트
+    var pictureDeleteNumberList: [Int] = []      //사진 삭제 리스트
     
     //텍스트 뷰
     var titleMemo: String = ""                      //제목
@@ -146,8 +146,6 @@ class TinfoVM {
                     }
                 }
             }
-        } else {
-            
         }
     }
 }
