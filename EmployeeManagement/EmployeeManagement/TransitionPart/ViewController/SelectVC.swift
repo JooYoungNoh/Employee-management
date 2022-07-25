@@ -143,36 +143,36 @@ extension SelectVC: UITableViewDelegate, UITableViewDataSource{
                 nv.titleOnTable = self.viewModel.realRecipeList[indexPath.row].title
                 nv.textOnTable = self.viewModel.realRecipeList[indexPath.row].text
                 nv.countOnTable = self.viewModel.realRecipeList[indexPath.row].count
-                nv.imageCountOnTable = self.viewModel.realRecipeList[indexPath.row].imageCount
                 nv.naviTitle = "레시피 정보"
                 nv.companyName = self.companyName
                 nv.checkTitle = self.viewModel.checkList
+                nv.imageListOnTable = self.viewModel.realRecipeList[indexPath.row].imageList
             } else {
                 nv.titleOnTable = self.viewModel.realTransitionList[indexPath.row].title
                 nv.textOnTable = self.viewModel.realTransitionList[indexPath.row].text
                 nv.countOnTable = self.viewModel.realTransitionList[indexPath.row].count
-                nv.imageCountOnTable = self.viewModel.realTransitionList[indexPath.row].imageCount
                 nv.naviTitle = "인수인계 정보"
                 nv.companyName = self.companyName
                 nv.checkTitle = self.viewModel.checkList
+                nv.imageListOnTable = self.viewModel.realTransitionList[indexPath.row].imageList
             }
         } else {
             if indexPath.section == 0 {
                 nv.titleOnTable = self.viewModel.searchRecipeList[indexPath.row].title
                 nv.textOnTable = self.viewModel.searchRecipeList[indexPath.row].text
                 nv.countOnTable = self.viewModel.searchRecipeList[indexPath.row].count
-                nv.imageCountOnTable = self.viewModel.searchRecipeList[indexPath.row].imageCount
                 nv.naviTitle = "레시피 정보"
                 nv.companyName = self.companyName
                 nv.checkTitle = self.viewModel.checkList
+                nv.imageListOnTable = self.viewModel.searchRecipeList[indexPath.row].imageList
             } else {
                 nv.titleOnTable = self.viewModel.searchTransitionList[indexPath.row].title
                 nv.textOnTable = self.viewModel.searchTransitionList[indexPath.row].text
                 nv.countOnTable = self.viewModel.searchTransitionList[indexPath.row].count
-                nv.imageCountOnTable = self.viewModel.searchTransitionList[indexPath.row].imageCount
                 nv.naviTitle = "인수인계 정보"
                 nv.companyName = self.companyName
                 nv.checkTitle = self.viewModel.checkList
+                nv.imageListOnTable = self.viewModel.searchTransitionList[indexPath.row].imageList
             }
         }
     
