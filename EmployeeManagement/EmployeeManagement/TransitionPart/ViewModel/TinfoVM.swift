@@ -16,7 +16,8 @@ class TinfoVM {
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     //사진 셀
-    var pictureList: [UIImage] = []                 //사진 리스트
+    var pictureList: [UIImage] = []                 //사진 리스트(바뀔수잇음)
+    var copyList: [UIImage] = []                    //복사 리스트(원본)
     var sortList: [UIImage] = []
     var pictureDeleteNumberList: [Int] = []         //사진 삭제 리스트
     
@@ -82,7 +83,7 @@ class TinfoVM {
     
     //MARK: 액션 메소드
     //이미지 다운로드
-    func downloadimage(imageCount: String, titleOnTable: String, completion: @escaping() ->()){
+    func downloadimage(imageCount: String, titleOnTable: String, completion: @escaping(UIImage) ->()){
         self.pictureList.removeAll()
         if imageCount != "0"{
             for i in 0..<Int(imageCount)!{
@@ -90,9 +91,8 @@ class TinfoVM {
                     if error == nil && url != nil {
                         let data = NSData(contentsOf: url!)
                         let image = UIImage(data: data! as Data)
-                                
-                        self.pictureList.append(image!)
-                        completion()
+                        
+                        completion(image!)
                     } else {
                         print(error!.localizedDescription)
                     }

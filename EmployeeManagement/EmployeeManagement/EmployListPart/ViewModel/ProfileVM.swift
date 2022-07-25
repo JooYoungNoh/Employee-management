@@ -22,7 +22,7 @@ class ProfileVM {
      
     func findProfileImage(phoneOnTable: String, imageChooseOnTable: Bool, profileView: UIImageView){
         if imageChooseOnTable == true {
-            storage.reference(forURL: "gs://employeemanagement-9d6eb.appspot.com/\(phoneOnTable)").downloadURL { (url, error) in
+            storage.reference(forURL: "gs://employeemanagement-9d6eb.appspot.com/userprofile/\(phoneOnTable)").downloadURL { (url, error) in
                 if error == nil && url != nil {
                     let data = NSData(contentsOf: url!)
                     let dbImage = UIImage(data: data! as Data)
@@ -71,7 +71,7 @@ class ProfileVM {
             self.dbmyCompanyLogo = snapshot!.data()!["img"] as! Bool
             
             if self.dbmyCompanyLogo == true{
-                self.storage.reference(forURL: "gs://employeemanagement-9d6eb.appspot.com/\(company)").downloadURL { (url, error) in
+                self.storage.reference(forURL: "gs://employeemanagement-9d6eb.appspot.com/logoimage/\(company)").downloadURL { (url, error) in
                     if error == nil && url != nil {
                         let data = NSData(contentsOf: url!)
                         let dbImage = UIImage(data: data! as Data)

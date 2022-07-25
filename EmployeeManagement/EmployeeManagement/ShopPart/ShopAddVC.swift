@@ -44,7 +44,7 @@ class ShopAddVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         var data = Data()
         data = img.jpegData(compressionQuality: 0.8)!
         
-        let filePath = self.companyTextfield.text!
+        let filePath = "logoimage/\(self.companyTextfield.text!)"
         let metaData = StorageMetadata()
         metaData.contentType = "image/png"
         

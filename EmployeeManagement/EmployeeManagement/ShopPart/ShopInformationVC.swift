@@ -305,7 +305,7 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
         var data = Data()
         data = img.jpegData(compressionQuality: 0.8)!
         
-        let filePath = self.companyOnTable!
+        let filePath = "logoimage/\(self.companyOnTable!)"
         let metaData = StorageMetadata()
         metaData.contentType = "image/png"
         
@@ -320,7 +320,7 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
     
     //이미지 있을 떄 다운로드 메소드
     func downloadimage(imgview: UIImageView){
-        storage.reference(forURL: "gs://employeemanagement-9d6eb.appspot.com/\(self.companyOnTable!)").downloadURL { (url, error) in
+        storage.reference(forURL: "gs://employeemanagement-9d6eb.appspot.com/logoimage/\(self.companyOnTable!)").downloadURL { (url, error) in
             if error == nil && url != nil {
                 let data = NSData(contentsOf: url!)
                 let image = UIImage(data: data! as Data)
@@ -335,7 +335,7 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
     
     //FireStorage에서 이미지 삭제 메소드
     func deleteImage() {
-        storage.reference(forURL: "gs://employeemanagement-9d6eb.appspot.com/\(self.companyOnTable!)").delete { (error) in
+        storage.reference(forURL: "gs://employeemanagement-9d6eb.appspot.com/logoimage/\(self.companyOnTable!)").delete { (error) in
             if let error = error{
                 print(error.localizedDescription)
             } else {

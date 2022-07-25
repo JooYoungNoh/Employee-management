@@ -89,15 +89,21 @@ class TransitionInfoVC: UIViewController {
         self.collectionView.register(TransitionInfoCell.self, forCellWithReuseIdentifier: TransitionInfoCell.identifier)
         self.writeTV.delegate = self
         self.uiCreate()
-        self.viewModel.downloadimage(imageCount: self.imageCountOnTable, titleOnTable: self.titleOnTable) { () in
-    
-            self.collectionView.reloadData()
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        self.viewModel.downloadimage(imageCount: self.imageCountOnTable, titleOnTable: self.titleOnTable) { (completion) in
+            self.viewModel.pictureList.append(completion)
+            self.collectionView.reloadData()
+            if self.viewModel.pictureList.count == Int(self.imageCountOnTable)!{
+                if self.viewModel.pictureList.count == 1 {
+                    self.collectionView.reloadData()
+                } else {
+                    
+                }
+            }
+        }
     }
     
     //MARK: 액션 메소드
