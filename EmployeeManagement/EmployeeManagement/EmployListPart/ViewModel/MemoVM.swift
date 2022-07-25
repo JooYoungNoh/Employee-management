@@ -33,17 +33,34 @@ class MemoVM {
         }
     }
     
-    func deleteMemo(tableView: UITableView, forRowAt indexPath: IndexPath, realMemoList: [MemoModel]){
-        let query = self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("memoList")
-        
-        query.whereField("title", isEqualTo: realMemoList[indexPath.row].title).whereField("date", isEqualTo: realMemoList[indexPath.row].date).getDocuments{ snapShot, error in
-            for doc in snapShot!.documents{
-                print("나와라 ㅡㅡ : \(doc.documentID)")
-                query.document("\(doc.documentID)").delete()
+    func deleteMemo(tableView: UITableView, forRowAt indexPath: IndexPath, isFiltering: Bool){
+        if isFiltering == false {
+            let query = self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("memoList")
+            
+            query.whereField("title", isEqualTo: self.realMemoList[indexPath.row].title).whereField("date", isEqualTo: self.realMemoList[indexPath.row].date).getDocuments{ snapShot, error in
+                for doc in snapShot!.documents{
+                    print("나와라 ㅡㅡ : \(doc.documentID)")
+                    query.document("\(doc.documentID)").delete()
+                }
             }
+            self.realMemoList.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        } else {
+            let query = self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("memoList")
+            
+            query.whereField("title", isEqualTo: self.searchMemoList[indexPath.row].title).whereField("date", isEqualTo: self.searchMemoList[indexPath.row].date).getDocuments{ snapShot, error in
+                for doc in snapShot!.documents{
+                    print("나와라 ㅡㅡ : \(doc.documentID)")
+                    query.document("\(doc.documentID)").delete()
+                }
+            }
+            self.realMemoList.remove(at: self.realMemoList.firstIndex(where: { list in
+                return list.title.contains(self.searchMemoList[indexPath.row].title)
+            })!)
+            self.searchMemoList.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
         }
-        self.realMemoList.remove(at: indexPath.row)
-        tableView.deleteRows(at: [indexPath], with: .fade)
+        
     }
     
     func searchBarfilter(searchController: UISearchController, tableView: UITableView){
