@@ -132,7 +132,7 @@ class TransitionInfoVC: UIViewController {
     
     //메모 저장
     @objc func dosave(_ sender: UIBarButtonItem){
-        //MARK: 사진 한곳에 모으기 (데베에 올리기위해)
+        /*//MARK: 사진 한곳에 모으기 (데베에 올리기위해)
         self.viewModel.pictureList.removeAll()
         for i in 0..<self.viewModel.copyImageList.count{
             let indexPath = IndexPath(row: i, section: 0)
@@ -143,7 +143,7 @@ class TransitionInfoVC: UIViewController {
             self.viewModel.pictureList.append(y)
         }
         print("사진 모음: \(self.viewModel.pictureList)")
-        print(self.viewModel.pictureList.count)
+        print(self.viewModel.pictureList.count)*/
     }
 
     //MARK: 화면 메소드
