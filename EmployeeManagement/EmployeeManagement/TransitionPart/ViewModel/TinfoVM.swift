@@ -133,6 +133,7 @@ class TinfoVM {
                     self.pictureList.append(y)
                 }
                 
+                
                 //이미지 이름 리스트 만들기
                 self.imageNameList.removeAll()
                 for i in 0..<(self.pictureList.count){
@@ -153,6 +154,7 @@ class TinfoVM {
                             self.deleteImage(titleOnTable: titleOnTable, companyName: companyName, imageListOnTable: imageListOnTable)
                             //fireStore에서 배열 값 변경
                             self.db.collection("shop").document("\(companyName)").collection("\(naviTitle == "레시피 정보" ? "recipe" : "transition")").document("\(titleOnTable)").updateData([
+                                "date" : date,
                                 "imageList" : self.imageNameList
                             ])
                             //새로운 사진 업로드
@@ -221,7 +223,7 @@ class TinfoVM {
                                 
                                 //기존 사진 삭제
                                 self.deleteImage(titleOnTable: titleOnTable, companyName: companyName, imageListOnTable: imageListOnTable)
-                                //새로은 사진 업로드
+                                //새로운 사진 업로드
                                 self.uploadimage(title: self.titleMemo, companyName: companyName)
                                 
                                 uv.navigationController?.popViewController(animated: true)
