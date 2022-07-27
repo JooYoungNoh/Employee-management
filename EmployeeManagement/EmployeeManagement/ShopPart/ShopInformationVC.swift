@@ -224,6 +224,17 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
                     if alert.textFields?[0].text == "Delete" {
                         let query2 =  self.db.collection("shop").document("\(self.companyOnTable!)")
                         
+                        /*
+                         self.db.collection("shop").document("\(naviTitle)").collection("recipe").document("\(realRecipeList[indexPath.row].title)").delete()
+                         
+                         */
+                        query2.collection("employeeControl").getDocuments{ (snapshot, error) in
+                            for doc in snapshot!.documents{
+                                print("먼데 ,,\(doc.data()["id"] as! String)")
+                                self.db.collection("users").document("\(doc.data()["id"] as! String)").collection("myCompany").document("\(self.companyOnTable!)").delete()
+                            }
+                        }
+                        
                         query2.collection("employeeControl").getDocuments{ (snapshot, error) in
                             for doc in snapshot!.documents{
                                 query2.collection("employeeControl").document("\(doc.documentID)").delete()
@@ -235,6 +246,7 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
                             }
                         }
                         query2.delete()
+                        
                         if self.imgExistence == true {
                             self.deleteImage()
                         }

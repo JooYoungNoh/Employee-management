@@ -189,6 +189,7 @@ class ShopAddVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
                                             "phone" : "\(self.appDelegate.phoneInfo!)",
                                             "name" : "\(self.appDelegate.nameInfo!)",
                                             "comment" : "\(self.appDelegate.comment!)",
+                                            "id" : "\(self.appDelegate.idInfo!)",
                                             "profileImg" : self.appDelegate.profileState!
                                             ])
                                     } else {
@@ -230,6 +231,7 @@ class ShopAddVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
                                         "phone" : "\(self.appDelegate.phoneInfo!)",
                                         "name" : "\(self.appDelegate.nameInfo!)",
                                         "comment" : "\(self.appDelegate.comment!)",
+                                        "id" : "\(self.appDelegate.idInfo!)",
                                         "profileImg" : self.appDelegate.profileState!
                                     ])
                                 } else {

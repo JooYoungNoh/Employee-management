@@ -80,7 +80,7 @@ class EmployeeListVM {
                     
                     //DB에서 정보 가져오기
                     for doc2 in snapshot2!.documents{
-                        self.employeeList.append( EmployeeModel.init(name: doc2.data()["name"] as! String, phone: doc2.data()["phone"] as! String, comment: doc2.data()["comment"] as! String, profileImg: doc2.data()["profileImg"] as! Bool))
+                        self.employeeList.append( EmployeeModel.init(name: doc2.data()["name"] as! String, phone: doc2.data()["phone"] as! String, comment: doc2.data()["comment"] as! String, id: doc2.data()["id"] as! String, profileImg: doc2.data()["profileImg"] as! Bool))
                         self.employeePhoneList.append(doc2.data()["phone"] as! String)
                     }
                     
