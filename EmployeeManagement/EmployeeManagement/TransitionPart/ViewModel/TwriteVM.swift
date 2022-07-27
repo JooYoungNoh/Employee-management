@@ -132,7 +132,7 @@ class TwriteVM{
                 self.uploadMemo(companyName: companyName, naviTitle: naviTitle, writeTV: writeTV, countLabel: countLabel)
                 
                 //이미지 저장
-                self.uploadimage(title: self.titleMemo)
+                self.uploadimage(title: self.titleMemo, companyName: companyName)
                 
                 uv.dismiss(animated: true)
             })
@@ -149,7 +149,7 @@ class TwriteVM{
             self.imageNameList.append("\(self.titleMemo)_\(i)")
         }
         
-        self.db.collection("shop").document("\(companyName)").collection("\(kindSelect)").addDocument(data: [
+        self.db.collection("shop").document("\(companyName)").collection("\(kindSelect)").document("\(self.titleMemo)").setData([
             "text" : "\(writeTV.text!)",
             "count" : "\(countLabel.text!)",
             "date" : date,
@@ -159,13 +159,13 @@ class TwriteVM{
     }
     
     //이미지 업로드(in FireStorage)
-    func uploadimage(title: String){
+    func uploadimage(title: String, companyName: String){
         if pictureList.isEmpty == false {
             for i in 0..<pictureList.count{
                 var data = Data()
                 data = pictureList[i].jpegData(compressionQuality: 0.8)!
                 
-                let filePath = "\(title)/\(title)_\(i)"       //글 제목_번호
+                let filePath = "\(companyName)/\(title)/\(title)_\(i)"       //글 제목_번호
                 let metaData = StorageMetadata()
                 metaData.contentType = "image/png"
                 

@@ -88,14 +88,8 @@ class TransitionInfoVC: UIViewController {
         self.collectionView.register(TransitionInfoCell.self, forCellWithReuseIdentifier: TransitionInfoCell.identifier)
         self.writeTV.delegate = self
         self.viewModel.copyImageList = self.imageListOnTable
+        self.viewModel.titleMemo = self.titleOnTable
         self.uiCreate()
-        print("이름: \(self.viewModel.copyImageList)")
-        print("이미지 : \(self.viewModel.pictureList)")
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
     }
     
     //MARK: 액션 메소드
@@ -132,18 +126,7 @@ class TransitionInfoVC: UIViewController {
     
     //메모 저장
     @objc func dosave(_ sender: UIBarButtonItem){
-        /*//MARK: 사진 한곳에 모으기 (데베에 올리기위해)
-        self.viewModel.pictureList.removeAll()
-        for i in 0..<self.viewModel.copyImageList.count{
-            let indexPath = IndexPath(row: i, section: 0)
-            let cell  = collectionView.cellForItem(at: indexPath) as! TransitionInfoCell
-            self.viewModel.pictureList.append(cell.imageView.image!)
-        }
-        for y in self.viewModel.newPictureList{
-            self.viewModel.pictureList.append(y)
-        }
-        print("사진 모음: \(self.viewModel.pictureList)")
-        print(self.viewModel.pictureList.count)*/
+        self.viewModel.doSave(uv: self, collectionView: self.collectionView, companyName: self.companyName, naviTitle: self.naviTitle, titleOnTable: self.titleOnTable, imageListOnTable: self.imageListOnTable, checkTitle: self.checkTitle, writeTV: self.writeTV, countLabel: self.countLabel)
     }
 
     //MARK: 화면 메소드
@@ -242,7 +225,7 @@ extension TransitionInfoVC: UICollectionViewDataSource, UICollectionViewDelegate
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return self.viewModel.cellInfo(collectionView: collectionView, indexPath: indexPath, titleOnTable: self.titleOnTable)
+        return self.viewModel.cellInfo(collectionView: collectionView, indexPath: indexPath, titleOnTable: self.titleOnTable, companyName: self.companyName)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
