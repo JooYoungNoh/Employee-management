@@ -165,6 +165,7 @@ class TinfoVM {
                                 
                                 //fireStore에서 배열 값 변경
                                 self.db.collection("shop").document("\(companyName)").collection("\(naviTitle == "레시피 정보" ? "recipe" : "transition")").document("\(titleOnTable)").updateData([
+                                    "count" : countLabel.text,
                                     "date" : date,
                                     "text" : self.textMemo
                                 ])
@@ -202,6 +203,7 @@ class TinfoVM {
                             alert.addAction(UIAlertAction(title: "OK", style: .default) { (_) in
                                 //fireStore에서 배열 값 변경
                                 self.db.collection("shop").document("\(companyName)").collection("\(naviTitle == "레시피 정보" ? "recipe" : "transition")").document("\(titleOnTable)").updateData([
+                                    "count" : countLabel.text,
                                     "date" : date,
                                     "text" : self.textMemo,
                                     "imageList" : self.imageNameList
