@@ -24,6 +24,7 @@ class TinfoVM {
     
     //텍스트 뷰
     var titleMemo: String = ""                      //제목
+    var textMemo: String = ""                       //내용
     
     //MARK: 컬렉션 뷰 메소드
     //셀 정보
@@ -70,6 +71,8 @@ class TinfoVM {
             textCount = -1
             self.titleMemo = contents.substring(with: NSRange(location: 0, length: length))
         }
+        
+        self.textMemo = contents as String
         
         if contents.length == 0{
             countLabel.text = "0"
@@ -118,7 +121,7 @@ class TinfoVM {
     }
     
     //메모 저장
-    func doSave(uv: UIViewController, collectionView: UICollectionView, companyName: String, naviTitle: String, titleOnTable: String, imageListOnTable: [String], checkTitle: [String], writeTV: UITextView, countLabel: UILabel){
+    func doSave(uv: UIViewController, collectionView: UICollectionView, companyName: String, naviTitle: String, titleOnTable: String, textOnTable: String,imageListOnTable: [String], checkTitle: [String], writeTV: UITextView, countLabel: UILabel){
         
         if self.appDelegate.jobInfo == "2"{
             let alert = UIAlertController(title: nil, message: "직원 이상의 직책만 사용가능합니다", preferredStyle: .alert)
@@ -151,31 +154,75 @@ class TinfoVM {
                 let date = Date().timeIntervalSince1970
                 
                 if titleOnTable == self.titleMemo {
-                    if self.copyImageList == imageListOnTable && self.newPictureList.count == 0 {     //변경 x
-                        let alert = UIAlertController(title: "변경 사항이 없습니다", message: nil, preferredStyle: .alert)
-                        alert.addAction(UIAlertAction(title: "OK", style: .default))
-                        uv.present(alert, animated: true)
-                    } else {            //사진만 변경
-                        let alert = UIAlertController(title: "사진이 변경되었습니다", message: "저장하시겠습니까", preferredStyle: .alert)
-                        alert.addAction(UIAlertAction(title: "OK", style: .default) { (_) in
-                            //기존 사진 삭제
-                            self.deleteImage(titleOnTable: titleOnTable, companyName: companyName, imageListOnTable: imageListOnTable)
-                            //fireStore에서 배열 값 변경
-                            self.db.collection("shop").document("\(companyName)").collection("\(naviTitle == "레시피 정보" ? "recipe" : "transition")").document("\(titleOnTable)").updateData([
-                                "date" : date,
-                                "imageList" : self.imageNameList
-                            ])
-                            //새로운 사진 업로드
-                            self.uploadimage(title: self.titleMemo, companyName: companyName)
+                    if self.copyImageList == imageListOnTable && self.newPictureList.count == 0 {
+                        if textOnTable == self.textMemo {   //변경 x
+                            let alert = UIAlertController(title: "변경 사항이 없습니다", message: nil, preferredStyle: .alert)
+                            alert.addAction(UIAlertAction(title: "OK", style: .default))
+                            uv.present(alert, animated: true)
+                        } else {
+                            let alert = UIAlertController(title: "메모가 변경되었습니다", message: "저장하시겠습니까", preferredStyle: .alert)
+                            alert.addAction(UIAlertAction(title: "OK", style: .default) { (_) in
+                                
+                                //fireStore에서 배열 값 변경
+                                self.db.collection("shop").document("\(companyName)").collection("\(naviTitle == "레시피 정보" ? "recipe" : "transition")").document("\(titleOnTable)").updateData([
+                                    "date" : date,
+                                    "text" : self.textMemo
+                                ])
+                                
+                                uv.navigationController?.popViewController(animated: true)
+                            })
                             
-                            uv.navigationController?.popViewController(animated: true)
-                        })
+                            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+                            
+                            uv.present(alert, animated: true)
+                        }
+                    } else {
+                        if textOnTable == self.textMemo {               //사진만 변경
+                            let alert = UIAlertController(title: "사진이 변경되었습니다", message: "저장하시겠습니까", preferredStyle: .alert)
+                            alert.addAction(UIAlertAction(title: "OK", style: .default) { (_) in
+                                //fireStore에서 배열 값 변경
+                                self.db.collection("shop").document("\(companyName)").collection("\(naviTitle == "레시피 정보" ? "recipe" : "transition")").document("\(titleOnTable)").updateData([
+                                    "date" : date,
+                                    "imageList" : self.imageNameList
+                                ])
+                                
+                                //기존 사진 삭제
+                                self.deleteImage(titleOnTable: titleOnTable, companyName: companyName, imageListOnTable: imageListOnTable)
+                                //새로운 사진 업로드
+                                self.uploadimage(title: self.titleMemo, companyName: companyName)
+                                
+                                uv.navigationController?.popViewController(animated: true)
+                            })
+                            
+                            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+                            
+                            uv.present(alert, animated: true)
+                        } else {                    //둘다 변경
+                            let alert = UIAlertController(title: "모두 변경되었습니다", message: "저장하시겠습니까", preferredStyle: .alert)
+                            alert.addAction(UIAlertAction(title: "OK", style: .default) { (_) in
+                                //fireStore에서 배열 값 변경
+                                self.db.collection("shop").document("\(companyName)").collection("\(naviTitle == "레시피 정보" ? "recipe" : "transition")").document("\(titleOnTable)").updateData([
+                                    "date" : date,
+                                    "text" : self.textMemo,
+                                    "imageList" : self.imageNameList
+                                ])
+                                
+                                //기존 사진 삭제
+                                self.deleteImage(titleOnTable: titleOnTable, companyName: companyName, imageListOnTable: imageListOnTable)
+                                
+                                //새로운 사진 업로드
+                                self.uploadimage(title: self.titleMemo, companyName: companyName)
+                                
+                                uv.navigationController?.popViewController(animated: true)
+                            })
+                            
+                            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+                            
+                            uv.present(alert, animated: true)
+                        }
                         
-                        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-                        
-                        uv.present(alert, animated: true)
                     }
-                } else {
+                } else {                    //제목이 다를 때
                     if self.copyImageList == imageListOnTable && self.newPictureList.count == 0{     //글만 변경
                         if checkTitle.firstIndex(of: self.titleMemo) != nil {
                             let alert = UIAlertController(title: "이미 있는 제목입니다", message: "다시 작성해주세요", preferredStyle: .alert)

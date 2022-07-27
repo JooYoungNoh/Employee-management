@@ -89,6 +89,7 @@ class TransitionInfoVC: UIViewController {
         self.writeTV.delegate = self
         self.viewModel.copyImageList = self.imageListOnTable
         self.viewModel.titleMemo = self.titleOnTable
+        self.viewModel.textMemo = self.textOnTable
         self.uiCreate()
     }
     
@@ -126,7 +127,7 @@ class TransitionInfoVC: UIViewController {
     
     //메모 저장
     @objc func dosave(_ sender: UIBarButtonItem){
-        self.viewModel.doSave(uv: self, collectionView: self.collectionView, companyName: self.companyName, naviTitle: self.naviTitle, titleOnTable: self.titleOnTable, imageListOnTable: self.imageListOnTable, checkTitle: self.checkTitle, writeTV: self.writeTV, countLabel: self.countLabel)
+        self.viewModel.doSave(uv: self, collectionView: self.collectionView, companyName: self.companyName, naviTitle: self.naviTitle, titleOnTable: self.titleOnTable, textOnTable: self.textOnTable, imageListOnTable: self.imageListOnTable, checkTitle: self.checkTitle, writeTV: self.writeTV, countLabel: self.countLabel)
     }
 
     //MARK: 화면 메소드
