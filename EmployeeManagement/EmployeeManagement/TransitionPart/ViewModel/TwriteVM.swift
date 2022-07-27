@@ -53,12 +53,20 @@ class TwriteVM{
     //텍스트 뷰
     func changeMemo(textView: UITextView, countLabel: UILabel, saveButton: UIButton){
         let contents = textView.text as NSString
+        var textCount = -1
         countLabel.text = "\(String(describing: contents.length))"
         let length = contents.length > 19 ? 19 : contents.length
-        self.titleMemo = contents.substring(with: NSRange(location: 0, length: length))
         
-        if contents.length != 0{
-            if contents == "첫줄은 제목입니다."{
+        if let rangeText = textView.text.range(of: "\n"){
+            textCount = textView.text.distance(from: textView.text.startIndex, to: rangeText.lowerBound)
+            self.titleMemo = contents.substring(with: NSRange(location: 0, length: textCount))
+        } else {
+            textCount = -1
+            self.titleMemo = contents.substring(with: NSRange(location: 0, length: length))
+        }
+        
+        if contents.length != 0 {
+            if contents == "첫줄은 제목입니다." || textCount == 0{
                 saveButton.isHidden = true
             } else {
                 saveButton.isHidden = false
@@ -67,8 +75,6 @@ class TwriteVM{
             saveButton.isHidden = true
             countLabel.text = "0"
         }
-        
-        
     }
     
     func endMemo(textView: UITextView, countLabel: UILabel, saveButton: UIButton){
