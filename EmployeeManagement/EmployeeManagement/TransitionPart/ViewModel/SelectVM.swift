@@ -88,23 +88,12 @@ class SelectVM{
         } else {
             if isFiltering == false {
                 if indexPath.section == 0{
-                    let query = self.db.collection("shop").document("\(naviTitle)").collection("recipe")
+                    self.db.collection("shop").document("\(naviTitle)").collection("recipe").document("\(realRecipeList[indexPath.row].title)").delete()
                     
-                    query.whereField("title", isEqualTo: realRecipeList[indexPath.row].title).getDocuments{ snapShot, error in
-                        for doc in snapShot!.documents{
-                            query.document("\(doc.documentID)").delete()
-                        }
-                    }
                     self.realRecipeList.remove(at: indexPath.row)
                     tableView.deleteRows(at: [indexPath], with: .fade)
                 } else {
-                    let query = self.db.collection("shop").document("\(naviTitle)").collection("transition")
-                    
-                    query.whereField("title", isEqualTo: realTransitionList[indexPath.row].title).getDocuments{ snapShot, error in
-                        for doc in snapShot!.documents{
-                            query.document("\(doc.documentID)").delete()
-                        }
-                    }
+                    self.db.collection("shop").document("\(naviTitle)").collection("transition").document("\(realTransitionList[indexPath.row].title)").delete()
                     
                     self.realTransitionList.remove(at: indexPath.row)
                     tableView.deleteRows(at: [indexPath], with: .fade)
@@ -112,13 +101,7 @@ class SelectVM{
                 }
             } else {
                 if indexPath.section == 0{
-                    let query = self.db.collection("shop").document("\(naviTitle)").collection("recipe")
-                    
-                    query.whereField("title", isEqualTo: searchRecipeList[indexPath.row].title).getDocuments{ snapShot, error in
-                        for doc in snapShot!.documents{
-                            query.document("\(doc.documentID)").delete()
-                        }
-                    }
+                    self.db.collection("shop").document("\(naviTitle)").collection("recipe").document("\(searchRecipeList[indexPath.row].title)").delete()
                     
                     self.realRecipeList.remove(at: self.realRecipeList.firstIndex(where: { list in
                         return list.title.contains(self.searchRecipeList[indexPath.row].title)
@@ -127,13 +110,8 @@ class SelectVM{
                     tableView.deleteRows(at: [indexPath], with: .fade)
                     
                 } else {
-                    let query = self.db.collection("shop").document("\(naviTitle)").collection("transition")
+                    self.db.collection("shop").document("\(naviTitle)").collection("transition").document("\(searchTransitionList[indexPath.row].title)").delete()
                     
-                    query.whereField("title", isEqualTo: searchTransitionList[indexPath.row].title).getDocuments{ snapShot, error in
-                        for doc in snapShot!.documents{
-                            query.document("\(doc.documentID)").delete()
-                        }
-                    }
                     self.realTransitionList.remove(at: self.realTransitionList.firstIndex(where: { list in
                         return list.title.contains(self.searchTransitionList[indexPath.row].title)
                     })!)
