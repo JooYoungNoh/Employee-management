@@ -7,11 +7,13 @@
 
 import Foundation
 import FirebaseFirestore
+import FirebaseStorage
 
 class SelectVM{
     
     let db = Firestore.firestore()
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    let storage = Storage.storage()
     
     //레시피
     var recipeList: [SelectModel] = []
@@ -90,10 +92,14 @@ class SelectVM{
                 if indexPath.section == 0{
                     self.db.collection("shop").document("\(naviTitle)").collection("recipe").document("\(realRecipeList[indexPath.row].title)").delete()
                     
+                    self.deleteImage(titleOnTable: self.realRecipeList[indexPath.row].title, companyName: naviTitle, imageListOnTable: self.realRecipeList[indexPath.row].imageList)
+                    
                     self.realRecipeList.remove(at: indexPath.row)
                     tableView.deleteRows(at: [indexPath], with: .fade)
                 } else {
                     self.db.collection("shop").document("\(naviTitle)").collection("transition").document("\(realTransitionList[indexPath.row].title)").delete()
+                    
+                    self.deleteImage(titleOnTable: self.realTransitionList[indexPath.row].title, companyName: naviTitle, imageListOnTable: self.realTransitionList[indexPath.row].imageList)
                     
                     self.realTransitionList.remove(at: indexPath.row)
                     tableView.deleteRows(at: [indexPath], with: .fade)
@@ -103,6 +109,8 @@ class SelectVM{
                 if indexPath.section == 0{
                     self.db.collection("shop").document("\(naviTitle)").collection("recipe").document("\(searchRecipeList[indexPath.row].title)").delete()
                     
+                    self.deleteImage(titleOnTable: self.searchRecipeList[indexPath.row].title, companyName: naviTitle, imageListOnTable: self.searchRecipeList[indexPath.row].imageList)
+                    
                     self.realRecipeList.remove(at: self.realRecipeList.firstIndex(where: { list in
                         return list.title.contains(self.searchRecipeList[indexPath.row].title)
                     })!)
@@ -111,6 +119,8 @@ class SelectVM{
                     
                 } else {
                     self.db.collection("shop").document("\(naviTitle)").collection("transition").document("\(searchTransitionList[indexPath.row].title)").delete()
+                    
+                    self.deleteImage(titleOnTable: self.searchTransitionList[indexPath.row].title, companyName: naviTitle, imageListOnTable: self.searchTransitionList[indexPath.row].imageList)
                     
                     self.realTransitionList.remove(at: self.realTransitionList.firstIndex(where: { list in
                         return list.title.contains(self.searchTransitionList[indexPath.row].title)
@@ -123,6 +133,61 @@ class SelectVM{
             }
         }
     }
+    
+    //MARK: 액션 메소드
+    //레시피 및 인수인계 추가
+    func doAdd(uv: UIViewController, companyName: String) {
+        if self.appDelegate.jobInfo == "2" {
+            let alert = UIAlertController(title: nil, message: "직원 이상의 직책만 사용가능합니다", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            uv.present(alert, animated: true)
+            
+        } else {
+            self.checkList.removeAll()
+            for i in 0..<self.realRecipeList.count{
+                self.checkList.append(self.realRecipeList[i].title)
+            }
+            
+            for i in 0..<self.realTransitionList.count{
+                self.checkList.append(self.realTransitionList[i].title)
+            }
+            
+            let alert = UIAlertController(title: "선택해주세요", message: nil, preferredStyle: .actionSheet)
+            alert.addAction(UIAlertAction(title: "레시피 작성", style: .default) { (_) in
+                let nv = uv.storyboard?.instantiateViewController(withIdentifier: "TransitionWriteVC") as! TransitionWriteVC
+                nv.modalPresentationStyle = .fullScreen
+                nv.naviTitle = "레시피 작성"
+                nv.companyName = companyName
+                nv.checkTitle = self.checkList
+                uv.present(nv, animated: true)
+            })
+            alert.addAction(UIAlertAction(title: "인수인계 작성", style: .default){ (_) in
+                let nv = uv.storyboard?.instantiateViewController(withIdentifier: "TransitionWriteVC") as! TransitionWriteVC
+                nv.modalPresentationStyle = .fullScreen
+                nv.naviTitle = "인수인계 작성"
+                nv.companyName = companyName
+                nv.checkTitle = self.checkList
+                uv.present(nv, animated: true)
+            })
+            alert.addAction(UIAlertAction(title: "취소", style: .cancel))
+            
+            uv.present(alert, animated: true)
+        }
+    }
+
+    //이미지 삭제
+    func deleteImage(titleOnTable: String, companyName: String, imageListOnTable: [String]) {
+        for i in imageListOnTable {
+            storage.reference(forURL: "gs://employeemanagement-9d6eb.appspot.com/\(companyName)/\(titleOnTable)/\(i)").delete { (error) in
+                if let error = error{
+                    print(error.localizedDescription)
+                } else {
+                    print("이미지 삭제 성공")
+                }
+            }
+        }
+    }
+    
     
     //MARK: 테이블 뷰 셀 정보
     func tableCellInfo(indexPath: IndexPath, tableView: UITableView, isFiltering: Bool) -> UITableViewCell{
@@ -195,44 +260,5 @@ class SelectVM{
         }
     }
     
-    //MARK: 액션 메소드 (레시피 및 인수인계 추가)
-    func doAdd(uv: UIViewController, companyName: String) {
-        if self.appDelegate.jobInfo == "2" {
-            let alert = UIAlertController(title: nil, message: "직원 이상의 직책만 사용가능합니다", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default))
-            uv.present(alert, animated: true)
-            
-        } else {
-            self.checkList.removeAll()
-            for i in 0..<self.realRecipeList.count{
-                self.checkList.append(self.realRecipeList[i].title)
-            }
-            
-            for i in 0..<self.realTransitionList.count{
-                self.checkList.append(self.realTransitionList[i].title)
-            }
-            
-            let alert = UIAlertController(title: "선택해주세요", message: nil, preferredStyle: .actionSheet)
-            alert.addAction(UIAlertAction(title: "레시피 작성", style: .default) { (_) in
-                let nv = uv.storyboard?.instantiateViewController(withIdentifier: "TransitionWriteVC") as! TransitionWriteVC
-                nv.modalPresentationStyle = .fullScreen
-                nv.naviTitle = "레시피 작성"
-                nv.companyName = companyName
-                nv.checkTitle = self.checkList
-                uv.present(nv, animated: true)
-            })
-            alert.addAction(UIAlertAction(title: "인수인계 작성", style: .default){ (_) in
-                let nv = uv.storyboard?.instantiateViewController(withIdentifier: "TransitionWriteVC") as! TransitionWriteVC
-                nv.modalPresentationStyle = .fullScreen
-                nv.naviTitle = "인수인계 작성"
-                nv.companyName = companyName
-                nv.checkTitle = self.checkList
-                uv.present(nv, animated: true)
-            })
-            alert.addAction(UIAlertAction(title: "취소", style: .cancel))
-            
-            uv.present(alert, animated: true)
-        }
-    }
 }
 
