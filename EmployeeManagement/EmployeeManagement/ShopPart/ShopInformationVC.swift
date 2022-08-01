@@ -230,21 +230,40 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
                          */
                         query2.collection("employeeControl").getDocuments{ (snapshot, error) in
                             for doc in snapshot!.documents{
-                                print("먼데 ,,\(doc.data()["id"] as! String)")
                                 self.db.collection("users").document("\(doc.data()["id"] as! String)").collection("myCompany").document("\(self.companyOnTable!)").delete()
                             }
                         }
-                        
+                        //직원 목록
                         query2.collection("employeeControl").getDocuments{ (snapshot, error) in
                             for doc in snapshot!.documents{
                                 query2.collection("employeeControl").document("\(doc.documentID)").delete()
                             }
                         }
+                        //가입 요청 목록
                         query2.collection("requestJoin").getDocuments{ (snapshot, error) in
                             for doc in snapshot!.documents{
                                 query2.collection("requestJoin").document("\(doc.documentID)").delete()
                             }
                         }
+                        //레시피 목록
+                        query2.collection("recipe").getDocuments{ (snapshot, error) in
+                            for doc in snapshot!.documents{
+                                //레시피 이미지 삭제
+                                self.deleteRecipeImage(docName: doc.documentID, imageList: doc.data()["imageList"] as! [String])
+                                
+                                query2.collection("recipe").document("\(doc.documentID)").delete()
+                            }
+                        }
+                        //인수인계 목록
+                        query2.collection("transition").getDocuments{ (snapshot, error) in
+                            for doc in snapshot!.documents{
+                                //인수인계 이미지 삭제
+                                self.deleteRecipeImage(docName: doc.documentID, imageList: doc.data()["imageList"] as! [String])
+                                
+                                query2.collection("transition").document("\(doc.documentID)").delete()
+                            }
+                        }
+                        
                         query2.delete()
                         
                         if self.imgExistence == true {
@@ -352,6 +371,19 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
                 print(error.localizedDescription)
             } else {
                 print("이미지 삭제 성공")
+            }
+        }
+    }
+    
+    //FireStorage에서 레시피 이미지 삭제 메소드
+    func deleteRecipeImage(docName: String, imageList: [String]) {
+        for i in imageList {
+            storage.reference(forURL: "gs://employeemanagement-9d6eb.appspot.com/\(self.companyOnTable!)/\(docName)/\(i)").delete { (error) in
+                if let error = error{
+                    print(error.localizedDescription)
+                } else {
+                    print("이미지 삭제 성공")
+                }
             }
         }
     }
