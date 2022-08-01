@@ -80,7 +80,7 @@ class EmployeeListVM {
                     
                     //DB에서 정보 가져오기
                     for doc2 in snapshot2!.documents{
-                        self.employeeList.append( EmployeeModel.init(name: doc2.data()["name"] as! String, phone: doc2.data()["phone"] as! String, comment: doc2.data()["comment"] as! String, profileImg: doc2.data()["profileImg"] as! Bool))
+                        self.employeeList.append( EmployeeModel.init(name: doc2.data()["name"] as! String, phone: doc2.data()["phone"] as! String, comment: doc2.data()["comment"] as! String, id: doc2.data()["id"] as! String, profileImg: doc2.data()["profileImg"] as! Bool))
                         self.employeePhoneList.append(doc2.data()["phone"] as! String)
                     }
                     
@@ -104,7 +104,7 @@ class EmployeeListVM {
     func myDownloadimage(choose: Bool) -> UIImage{
         
         if choose == true {
-            storage.reference(forURL: "gs://employeemanagement-9d6eb.appspot.com/\(self.appDelegate.phoneInfo!)").downloadURL { [self] (url, error) in
+            storage.reference(forURL: "gs://employeemanagement-9d6eb.appspot.com/userprofile/\(self.appDelegate.phoneInfo!)").downloadURL { [self] (url, error) in
                 if error == nil && url != nil {
                     let data = NSData(contentsOf: url!)
                     let dbImage = UIImage(data: data! as Data)
@@ -121,7 +121,7 @@ class EmployeeListVM {
     }
     
     func employeeDownloadimage(imgView: UIImageView, phone: String){
-        storage.reference(forURL: "gs://employeemanagement-9d6eb.appspot.com/\(phone)").downloadURL { (url, error) in
+        storage.reference(forURL: "gs://employeemanagement-9d6eb.appspot.com/userprofile/\(phone)").downloadURL { (url, error) in
             if error == nil && url != nil {
                 let data = NSData(contentsOf: url!)
                 let dbImage = UIImage(data: data! as Data)

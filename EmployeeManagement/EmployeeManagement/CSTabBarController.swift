@@ -153,15 +153,15 @@ class CSTabBarController: UITabBarController{
         //매장 레이블
         self.shopLabel.frame = CGRect(x: 245, y: 50, width: 40, height: 20)
         self.shopLabel.text = "shop"
-        self.shopLabel.font = UIFont.init(name: "CookieRun", size: 10)
+        self.shopLabel.font = UIFont.init(name: "CookieRun", size: 9)
         self.shopLabel.textAlignment = .center
         
         self.csView.addSubview(self.shopLabel)
         
         //레시피 레이블
         self.transitionLabel.frame = CGRect(x: 315, y: 50, width: 40, height: 20)
-        self.transitionLabel.text = "recipe"
-        self.transitionLabel.font = UIFont.init(name: "CookieRun", size: 10)
+        self.transitionLabel.text = "transition"
+        self.transitionLabel.font = UIFont.init(name: "CookieRun", size: 8)
         self.transitionLabel.textAlignment = .center
         
         self.csView.addSubview(self.transitionLabel)

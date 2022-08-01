@@ -146,7 +146,7 @@ extension MemoVC: UITableViewDelegate, UITableViewDataSource {
     //삭제 기능
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            self.viewModel.deleteMemo(tableView: tableView, forRowAt: indexPath, realMemoList: self.viewModel.realMemoList)
+            self.viewModel.deleteMemo(tableView: tableView, forRowAt: indexPath, isFiltering: self.isFiltering)
         }
     }
 }

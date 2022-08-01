@@ -22,6 +22,7 @@ class MyProfileVM {
     //MARK: 회사 컬렉션 뷰
     //회사 찾기
     func findMyCompany(completion: @escaping([String]) -> ()) {
+        self.dbmyCompany.removeAll()
         self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("myCompany").getDocuments { (snapshot, error) in
             if error == nil {
                 for doc in snapshot!.documents{
@@ -41,7 +42,7 @@ class MyProfileVM {
             self.dbmyCompanyLogo = snapshot!.data()!["img"] as! Bool
             
             if self.dbmyCompanyLogo == true{
-                self.storage.reference(forURL: "gs://employeemanagement-9d6eb.appspot.com/\(company)").downloadURL { (url, error) in
+                self.storage.reference(forURL: "gs://employeemanagement-9d6eb.appspot.com/logoimage/\(company)").downloadURL { (url, error) in
                     if error == nil && url != nil {
                         let data = NSData(contentsOf: url!)
                         let dbImage = UIImage(data: data! as Data)
@@ -58,7 +59,7 @@ class MyProfileVM {
     }
     //MARK: 프로필 이미지
     //프로필 이미지 삭제
-    func imageDelete(imgView: UIImageView) -> UIAlertController {
+    func imageDelete(imgView: UIImageView, savebutton: UIButton) -> UIAlertController {
         if imgView.image == UIImage(named: "account") {
             let alert3 = UIAlertController(title: nil, message: "삭제할 로고 이미지가 없습니다", preferredStyle: .alert)
             
@@ -69,6 +70,7 @@ class MyProfileVM {
             
             alert4.addAction(UIAlertAction(title: "OK", style: .default){ (_) in
                 imgView.image = UIImage(named: "account")
+                savebutton.isHidden = false
             })
             return alert4
         }
@@ -139,7 +141,7 @@ class MyProfileVM {
         var data = Data()
         data = img.jpegData(compressionQuality: 0.8)!
         
-        let filePath = self.appDelegate.phoneInfo!
+        let filePath = "userprofile/\(self.appDelegate.phoneInfo!)"
         let metaData = StorageMetadata()
         metaData.contentType = "image/png"
         
@@ -154,7 +156,7 @@ class MyProfileVM {
     
     //FireStorage에서 이미지 삭제 메소드
     func deleteImage() {
-        storage.reference(forURL: "gs://employeemanagement-9d6eb.appspot.com/\(self.appDelegate.phoneInfo!)").delete { (error) in
+        storage.reference(forURL: "gs://employeemanagement-9d6eb.appspot.com/userprofile/\(self.appDelegate.phoneInfo!)").delete { (error) in
             if let error = error{
                 print(error.localizedDescription)
             } else {

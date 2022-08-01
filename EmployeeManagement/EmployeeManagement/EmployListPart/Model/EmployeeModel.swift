@@ -13,12 +13,14 @@ struct EmployeeModel: Hashable {
     var name: String
     var phone: String
     var comment: String
+    var id: String
     var profileImg: Bool
     
-    init(name: String, phone: String, comment: String, profileImg: Bool){
+    init(name: String, phone: String, comment: String, id: String, profileImg: Bool){
         self.name = name
         self.phone = phone
         self.comment = comment
+        self.id = id
         self.profileImg = profileImg
     }
     

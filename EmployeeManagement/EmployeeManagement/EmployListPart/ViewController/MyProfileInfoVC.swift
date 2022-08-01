@@ -452,13 +452,17 @@ class MyProfileInfoVC: UIViewController, UITextViewDelegate {
     //MARK: tap 제스쳐
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
-        self.saveButton.isHidden = true
         self.cancelButton.isHidden = true
         self.commentTF.isHidden = true
         self.countLabel.isHidden = true
         self.commentLabel.isHidden = false
         self.commentTF.text = self.commentLabel.text
         self.countLabel.text = "\(self.commentLabel.text!.count)/20"
+        if self.imageOnTable != self.profileImage.image {
+            self.saveButton.isHidden = false
+        } else {
+            self.saveButton.isHidden = true
+        }
     }
 }
 
@@ -519,8 +523,7 @@ extension MyProfileInfoVC: UIImagePickerControllerDelegate, UINavigationControll
         }
         //이미지 삭제
         alert2.addAction(UIAlertAction(title: "프로필 이미지 삭제", style: .default) { (_) in
-            self.saveButton.isHidden = false
-            self.present(self.viewModel.imageDelete(imgView: self.profileImage), animated: true)
+            self.present(self.viewModel.imageDelete(imgView: self.profileImage, savebutton: self.saveButton), animated: true)
         })
         //취소 버튼 추가
         alert2.addAction(UIAlertAction(title: "취소", style: .cancel))

@@ -44,7 +44,7 @@ class ShopAddVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         var data = Data()
         data = img.jpegData(compressionQuality: 0.8)!
         
-        let filePath = self.companyTextfield.text!
+        let filePath = "logoimage/\(self.companyTextfield.text!)"
         let metaData = StorageMetadata()
         metaData.contentType = "image/png"
         
@@ -189,6 +189,7 @@ class ShopAddVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
                                             "phone" : "\(self.appDelegate.phoneInfo!)",
                                             "name" : "\(self.appDelegate.nameInfo!)",
                                             "comment" : "\(self.appDelegate.comment!)",
+                                            "id" : "\(self.appDelegate.idInfo!)",
                                             "profileImg" : self.appDelegate.profileState!
                                             ])
                                     } else {
@@ -230,6 +231,7 @@ class ShopAddVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
                                         "phone" : "\(self.appDelegate.phoneInfo!)",
                                         "name" : "\(self.appDelegate.nameInfo!)",
                                         "comment" : "\(self.appDelegate.comment!)",
+                                        "id" : "\(self.appDelegate.idInfo!)",
                                         "profileImg" : self.appDelegate.profileState!
                                     ])
                                 } else {

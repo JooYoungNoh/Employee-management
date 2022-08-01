@@ -85,6 +85,7 @@ class RequestJoinVC: UIViewController, UITableViewDataSource, UITableViewDelegat
                 "name" : "\(self.resultRequestJoin[indexPath.row].name)",
                 "phone" : "\(self.resultRequestJoin[indexPath.row].phone)",
                 "comment": "\(self.resultRequestJoin[indexPath.row].comment)",
+                "id" : "\(self.resultRequestJoin[indexPath.row].id)",
                 "profileImg" : self.resultRequestJoin[indexPath.row].profileImg
             ])
             

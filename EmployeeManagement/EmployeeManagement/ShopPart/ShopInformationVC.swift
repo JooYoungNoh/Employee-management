@@ -224,17 +224,48 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
                     if alert.textFields?[0].text == "Delete" {
                         let query2 =  self.db.collection("shop").document("\(self.companyOnTable!)")
                         
+                        /*
+                         self.db.collection("shop").document("\(naviTitle)").collection("recipe").document("\(realRecipeList[indexPath.row].title)").delete()
+                         
+                         */
+                        query2.collection("employeeControl").getDocuments{ (snapshot, error) in
+                            for doc in snapshot!.documents{
+                                self.db.collection("users").document("\(doc.data()["id"] as! String)").collection("myCompany").document("\(self.companyOnTable!)").delete()
+                            }
+                        }
+                        //직원 목록
                         query2.collection("employeeControl").getDocuments{ (snapshot, error) in
                             for doc in snapshot!.documents{
                                 query2.collection("employeeControl").document("\(doc.documentID)").delete()
                             }
                         }
+                        //가입 요청 목록
                         query2.collection("requestJoin").getDocuments{ (snapshot, error) in
                             for doc in snapshot!.documents{
                                 query2.collection("requestJoin").document("\(doc.documentID)").delete()
                             }
                         }
+                        //레시피 목록
+                        query2.collection("recipe").getDocuments{ (snapshot, error) in
+                            for doc in snapshot!.documents{
+                                //레시피 이미지 삭제
+                                self.deleteRecipeImage(docName: doc.documentID, imageList: doc.data()["imageList"] as! [String])
+                                
+                                query2.collection("recipe").document("\(doc.documentID)").delete()
+                            }
+                        }
+                        //인수인계 목록
+                        query2.collection("transition").getDocuments{ (snapshot, error) in
+                            for doc in snapshot!.documents{
+                                //인수인계 이미지 삭제
+                                self.deleteRecipeImage(docName: doc.documentID, imageList: doc.data()["imageList"] as! [String])
+                                
+                                query2.collection("transition").document("\(doc.documentID)").delete()
+                            }
+                        }
+                        
                         query2.delete()
+                        
                         if self.imgExistence == true {
                             self.deleteImage()
                         }
@@ -305,7 +336,7 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
         var data = Data()
         data = img.jpegData(compressionQuality: 0.8)!
         
-        let filePath = self.companyOnTable!
+        let filePath = "logoimage/\(self.companyOnTable!)"
         let metaData = StorageMetadata()
         metaData.contentType = "image/png"
         
@@ -320,7 +351,7 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
     
     //이미지 있을 떄 다운로드 메소드
     func downloadimage(imgview: UIImageView){
-        storage.reference(forURL: "gs://employeemanagement-9d6eb.appspot.com/\(self.companyOnTable!)").downloadURL { (url, error) in
+        storage.reference(forURL: "gs://employeemanagement-9d6eb.appspot.com/logoimage/\(self.companyOnTable!)").downloadURL { (url, error) in
             if error == nil && url != nil {
                 let data = NSData(contentsOf: url!)
                 let image = UIImage(data: data! as Data)
@@ -335,11 +366,24 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
     
     //FireStorage에서 이미지 삭제 메소드
     func deleteImage() {
-        storage.reference(forURL: "gs://employeemanagement-9d6eb.appspot.com/\(self.companyOnTable!)").delete { (error) in
+        storage.reference(forURL: "gs://employeemanagement-9d6eb.appspot.com/logoimage/\(self.companyOnTable!)").delete { (error) in
             if let error = error{
                 print(error.localizedDescription)
             } else {
                 print("이미지 삭제 성공")
+            }
+        }
+    }
+    
+    //FireStorage에서 레시피 이미지 삭제 메소드
+    func deleteRecipeImage(docName: String, imageList: [String]) {
+        for i in imageList {
+            storage.reference(forURL: "gs://employeemanagement-9d6eb.appspot.com/\(self.companyOnTable!)/\(docName)/\(i)").delete { (error) in
+                if let error = error{
+                    print(error.localizedDescription)
+                } else {
+                    print("이미지 삭제 성공")
+                }
             }
         }
     }
