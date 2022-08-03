@@ -51,6 +51,19 @@ class ScheduleVC: UIViewController {
         return button
     }()
     
+    let noticeLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(name: "CookieRun", size: 10)
+        label.text = "100"
+        label.textColor = .white
+        label.textAlignment = .center
+        label.backgroundColor = .red
+        label.layer.cornerRadius = 15
+        label.layer.borderWidth = 0
+        label.layer.masksToBounds = true
+        return label
+    }()
+    
     
     //MARK: viewDIdLoad
     override func viewDidLoad() {
@@ -97,7 +110,7 @@ class ScheduleVC: UIViewController {
         self.view.addSubview(self.companyButton)
         self.companyButton.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.bottom.equalTo(self.myButton.snp.top).offset(-30)
+            make.bottom.equalTo(self.myButton.snp.top).offset(-50)
             make.width.equalTo(150)
             make.height.equalTo(40)
         }
@@ -105,9 +118,16 @@ class ScheduleVC: UIViewController {
         self.view.addSubview(self.noticeButton)
         self.noticeButton.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.top.equalTo(self.myButton.snp.bottom).offset(30)
+            make.top.equalTo(self.myButton.snp.bottom).offset(50)
             make.width.equalTo(150)
             make.height.equalTo(40)
+        }
+        
+        self.view.addSubview(self.noticeLabel)
+        self.noticeLabel.snp.makeConstraints { make in
+            make.width.height.equalTo(30)
+            make.top.equalTo(self.noticeButton.snp.top).offset(-15)
+            make.trailing.equalTo(self.noticeButton.snp.trailing).offset(15)
         }
     }
 
