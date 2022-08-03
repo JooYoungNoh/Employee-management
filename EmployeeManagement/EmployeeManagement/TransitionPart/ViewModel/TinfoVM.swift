@@ -35,9 +35,12 @@ class TinfoVM {
         } else {
             cell.imageView.image = self.newPictureList[indexPath.row - self.copyImageList.count]
         }
-        cell.checkImageView.image = UIImage(systemName: "checkmark.circle.fill")
-        cell.checkImageView.isHidden = true
         
+        if self.pictureDeleteNumberList.contains(indexPath.row) == true {
+            cell.checkImageView.isHidden = false
+        } else {
+            cell.checkImageView.isHidden = true
+        }
         return cell
     }
     
