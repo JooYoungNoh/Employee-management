@@ -102,7 +102,10 @@ extension ScheduleVC: UICollectionViewDelegate,UICollectionViewDataSource, UICol
     
     //셀 선택
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let uv = self.storyboard?.instantiateViewController(withIdentifier: "CalendarVC") as? CalendarVC else { return }
+        uv.companyNameOnTable = self.viewModel.dbmyCompany[indexPath.row]
         
+        self.navigationController?.pushViewController(uv, animated: true)
     }
     
     //타이틀
