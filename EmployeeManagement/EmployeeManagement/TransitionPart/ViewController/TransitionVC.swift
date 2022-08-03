@@ -60,7 +60,7 @@ class TransitionVC: UIViewController {
         self.navigationItem.rightBarButtonItem = settingButton
         settingButton.tintColor = UIColor.black
         
-        //테이블 뷰 UI
+        //컬렉션 뷰 UI
         self.view.addSubview(self.collectionView)
         
         self.collectionView.snp.makeConstraints { make in
