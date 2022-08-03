@@ -27,9 +27,12 @@ class TwriteVM{
     func cellInfo(collectionView: UICollectionView, indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TransitionWriteCell.identifier, for: indexPath) as? TransitionWriteCell else { return UICollectionViewCell() }
         
+        if self.pictureDeleteNumberList.contains(indexPath.row) == true {
+            cell.checkImageView.isHidden = false
+        } else {
+            cell.checkImageView.isHidden = true
+        }
         cell.imageView.image = self.pictureList[indexPath.row]
-        cell.checkImageView.image = UIImage(systemName: "checkmark.circle.fill")
-        cell.checkImageView.isHidden = true
         
         return cell
     }

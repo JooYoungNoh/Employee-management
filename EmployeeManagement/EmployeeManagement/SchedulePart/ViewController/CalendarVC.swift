@@ -11,6 +11,7 @@ import FSCalendar
 
 class CalendarVC: UIViewController {
     
+    var viewModel = CalendarVM()
     var companyNameOnTable: String = ""
     
     let companyCalendar: FSCalendar = {
@@ -27,10 +28,14 @@ class CalendarVC: UIViewController {
         calendar.appearance.headerMinimumDissolvedAlpha = 0
         return calendar
     }()
+    
+    let tableView = UITableView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        self.tableView.register(CalendarCell.self, forCellReuseIdentifier: CalendarCell.identifier)
         uiCreate()
     }
 
@@ -51,6 +56,75 @@ class CalendarVC: UIViewController {
             make.trailing.equalTo(self.view.safeAreaLayoutGuide.snp.trailing).offset(-10)
             make.height.equalTo(400)
         }
+        
+        //테이블 뷰 UI
+        self.view.addSubview(self.tableView)
+        self.tableView.snp.makeConstraints { make in
+            make.top.equalTo(self.companyCalendar.snp.bottom).offset(5)
+            make.leading.equalTo(self.view.safeAreaLayoutGuide.snp.leading).offset(5)
+            make.trailing.equalTo(self.view.safeAreaLayoutGuide.snp.trailing).offset(-5)
+            make.bottom.equalTo(self.view.snp.bottom).offset(-100)
+        }
+    }
+}
+
+//MARK: 테이블 뷰 메소드
+extension CalendarVC: UITableViewDelegate, UITableViewDataSource{
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "CalendarCell", for: indexPath) as? CalendarCell else { return UITableViewCell() }
+        
+        if self.viewModel.checkSchedule.contains(indexPath.row) == true {
+            cell.checkView.isHidden = true
+        } else {
+            cell.checkView.isHidden = false
+        }
+        
+        cell.titleLabel.text = "실험중 입니다아아아아아아"
+        cell.dateLabel.text = "2022-08-04"
+        
+        return cell
     }
     
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 10
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
+    }
+    
+    //셀 타이틀
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 35
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let csview = UIView()
+        let listTitle = UILabel()
+        
+        csview.backgroundColor = UIColor.white
+            
+        listTitle.frame = CGRect(x: 20, y: 0, width: self.view.frame.width / 2, height: 30)
+        listTitle.font = UIFont.init(name: "CookieRun", size: 20)
+        listTitle.text = "내 스케줄"
+        listTitle.textColor = UIColor.blue
+        
+        csview.addSubview(listTitle)
+        return csview
+    }
+    
+    //셀 선택
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let cell = tableView.cellForRow(at: indexPath) as! CalendarCell
+        
+        if cell.checkView.isHidden == false {
+            cell.checkView.isHidden = true
+            self.viewModel.checkSchedule.append(indexPath.row)
+        }
+    }
 }

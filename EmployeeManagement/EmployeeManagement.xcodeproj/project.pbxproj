@@ -55,6 +55,7 @@
 		73CDD2AB28511E5900E9EB32 /* MyProfileInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73CDD2AA28511E5900E9EB32 /* MyProfileInfoVC.swift */; };
 		73DA2E23289B18ED006FE401 /* CalendarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DA2E22289B18ED006FE401 /* CalendarVC.swift */; };
 		73DA2E25289B18F9006FE401 /* CalendarVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DA2E24289B18F9006FE401 /* CalendarVM.swift */; };
+		73DA2E27289B20F5006FE401 /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DA2E26289B20F5006FE401 /* CalendarCell.swift */; };
 		73E084A6282AA3BA00AFC582 /* EmployeeListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E084A5282AA3BA00AFC582 /* EmployeeListVC.swift */; };
 		73E084A8282AB80200AFC582 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 73E084A7282AB80200AFC582 /* GoogleService-Info.plist */; };
 		73E2DA992832688100C4CF25 /* ChattingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E2DA982832688100C4CF25 /* ChattingVC.swift */; };
@@ -120,6 +121,7 @@
 		73CDD2AA28511E5900E9EB32 /* MyProfileInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileInfoVC.swift; sourceTree = "<group>"; };
 		73DA2E22289B18ED006FE401 /* CalendarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarVC.swift; sourceTree = "<group>"; };
 		73DA2E24289B18F9006FE401 /* CalendarVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarVM.swift; sourceTree = "<group>"; };
+		73DA2E26289B20F5006FE401 /* CalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
 		73E084A5282AA3BA00AFC582 /* EmployeeListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeListVC.swift; sourceTree = "<group>"; };
 		73E084A7282AB80200AFC582 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		73E2DA982832688100C4CF25 /* ChattingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingVC.swift; sourceTree = "<group>"; };
@@ -185,6 +187,7 @@
 				73E2DA9A283268C100C4CF25 /* ScheduleVC.swift */,
 				730AA0AD289B15D300A93D5B /* ScheduleCell.swift */,
 				73DA2E22289B18ED006FE401 /* CalendarVC.swift */,
+				73DA2E26289B20F5006FE401 /* CalendarCell.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -505,6 +508,7 @@
 				73179DEA28590DF000086DBD /* MemoModel.swift in Sources */,
 				73179DE8285906AC00086DBD /* MemoWriteVM.swift in Sources */,
 				7390F3EE2858E0F00036B632 /* MemoVM.swift in Sources */,
+				73DA2E27289B20F5006FE401 /* CalendarCell.swift in Sources */,
 				7309389228593EBC005B812E /* MemoReadVM.swift in Sources */,
 				73502E182832BAB000920E3C /* Shopcell.swift in Sources */,
 				73A3AAE228292BF9001283CD /* EmployeeManagement.xcdatamodeld in Sources */,
