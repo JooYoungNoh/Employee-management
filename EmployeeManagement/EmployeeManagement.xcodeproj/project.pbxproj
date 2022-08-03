@@ -10,6 +10,8 @@
 		7309389028593EA8005B812E /* MemoReadVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7309388F28593EA8005B812E /* MemoReadVC.swift */; };
 		7309389228593EBC005B812E /* MemoReadVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7309389128593EBC005B812E /* MemoReadVM.swift */; };
 		730AA0A8289AC07300A93D5B /* ScheduleVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 730AA0A7289AC07300A93D5B /* ScheduleVM.swift */; };
+		730AA0AA289B0F9600A93D5B /* NoticeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 730AA0A9289B0F9600A93D5B /* NoticeVC.swift */; };
+		730AA0AC289B0FA000A93D5B /* NoticeVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 730AA0AB289B0FA000A93D5B /* NoticeVM.swift */; };
 		731143B4282994EA00163A1B /* PickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731143B3282994EA00163A1B /* PickerController.swift */; };
 		7313A484283D831400057273 /* CookieRun.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7313A483283D82FD00057273 /* CookieRun.ttf */; };
 		73179DE62858F37F00086DBD /* MemoWriteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73179DE52858F37F00086DBD /* MemoWriteVC.swift */; };
@@ -70,6 +72,8 @@
 		7309388F28593EA8005B812E /* MemoReadVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoReadVC.swift; sourceTree = "<group>"; };
 		7309389128593EBC005B812E /* MemoReadVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoReadVM.swift; sourceTree = "<group>"; };
 		730AA0A7289AC07300A93D5B /* ScheduleVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleVM.swift; sourceTree = "<group>"; };
+		730AA0A9289B0F9600A93D5B /* NoticeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeVC.swift; sourceTree = "<group>"; };
+		730AA0AB289B0FA000A93D5B /* NoticeVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeVM.swift; sourceTree = "<group>"; };
 		731143B3282994EA00163A1B /* PickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerController.swift; sourceTree = "<group>"; };
 		7313A483283D82FD00057273 /* CookieRun.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = CookieRun.ttf; sourceTree = "<group>"; };
 		73179DE52858F37F00086DBD /* MemoWriteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoWriteVC.swift; sourceTree = "<group>"; };
@@ -168,6 +172,7 @@
 			isa = PBXGroup;
 			children = (
 				730AA0A7289AC07300A93D5B /* ScheduleVM.swift */,
+				730AA0AB289B0FA000A93D5B /* NoticeVM.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -176,6 +181,7 @@
 			isa = PBXGroup;
 			children = (
 				73E2DA9A283268C100C4CF25 /* ScheduleVC.swift */,
+				730AA0A9289B0F9600A93D5B /* NoticeVC.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -501,6 +507,7 @@
 				7390F3F02858ED470036B632 /* MemoCell.swift in Sources */,
 				73435D34285A525100B52A98 /* CalculatorVM.swift in Sources */,
 				73E2DA9F2832697000C4CF25 /* CSTabBarController.swift in Sources */,
+				730AA0AC289B0FA000A93D5B /* NoticeVM.swift in Sources */,
 				7331C5E828492ECE009F5210 /* EmployeeModel.swift in Sources */,
 				738E76CD287C6A1100BB38CB /* SelectVM.swift in Sources */,
 				73324E80285BCA5A00F443FD /* ProfileVM.swift in Sources */,
@@ -510,6 +517,7 @@
 				73C8ED9B2887052100545587 /* TwriteVM.swift in Sources */,
 				73BCD85F2833DBCD00DF6F74 /* ShopAddVC.swift in Sources */,
 				73A3AAD828292BF9001283CD /* AppDelegate.swift in Sources */,
+				730AA0AA289B0F9600A93D5B /* NoticeVC.swift in Sources */,
 				738E76CB287C64C100BB38CB /* SelectCell.swift in Sources */,
 				738E76CF287C6A6F00BB38CB /* SelectModel.swift in Sources */,
 				73E2DA9D283268EC00C4CF25 /* TransitionVC.swift in Sources */,
