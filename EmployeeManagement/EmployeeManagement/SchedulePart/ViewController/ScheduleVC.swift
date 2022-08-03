@@ -10,45 +10,17 @@ import SnapKit
 
 class ScheduleVC: UIViewController {
     
-    let myLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.init(name: "CookieRun", size: 20)
-        label.text = " 선택해주세요"
-        label.textColor = UIColor.blue
-        return label
-    }()
+    var viewModel = ScheduleVM()
     
-    let myButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("내 스케줄", for: .normal)
-        button.setTitleColor(UIColor.black, for: .normal)
-        button.titleLabel?.font = UIFont.init(name: "CookieRun", size: 20)
-        button.layer.cornerRadius = 3
-        button.layer.borderWidth = 2
-        button.layer.borderColor = UIColor.systemGray.cgColor
-        return button
-    }()
-    
-    let companyButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("회사 스케줄", for: .normal)
-        button.setTitleColor(UIColor.black, for: .normal)
-        button.titleLabel?.font = UIFont.init(name: "CookieRun", size: 20)
-        button.layer.cornerRadius = 3
-        button.layer.borderWidth = 2
-        button.layer.borderColor = UIColor.systemGray.cgColor
-        return button
-    }()
-    
-    let noticeButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("공지사항", for: .normal)
-        button.setTitleColor(UIColor.black, for: .normal)
-        button.titleLabel?.font = UIFont.init(name: "CookieRun", size: 20)
-        button.layer.cornerRadius = 3
-        button.layer.borderWidth = 2
-        button.layer.borderColor = UIColor.systemGray.cgColor
-        return button
+    //컬렉션 뷰
+    let collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumLineSpacing = 10
+        layout.minimumInteritemSpacing = 10
+        layout.itemSize = CGSize(width: 190, height: 150)
+        let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collection.backgroundColor = .white
+        return collection
     }()
     
     let noticeLabel: UILabel = {
@@ -68,14 +40,25 @@ class ScheduleVC: UIViewController {
     //MARK: viewDIdLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        uiCreate()
-        
+        self.collectionView.delegate = self
+        self.collectionView.dataSource = self
+        self.collectionView.register(ScheduleCell.self, forCellWithReuseIdentifier: ScheduleCell.identifier)
+        self.collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "header")
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.uiCreate()
+        self.viewModel.findMyCompany{ completion in
+            self.collectionView.reloadData()
+        }
     }
     
     //MARK: 액션 메소드
     @objc func goSetting(_ sender: UIBarButtonItem){
         
     }
+    
+    
     
     //MARK: 화면 메소드
     func uiCreate(){
@@ -92,43 +75,52 @@ class ScheduleVC: UIViewController {
         self.navigationItem.rightBarButtonItem = settingButton
         settingButton.tintColor = UIColor.black
         
-        self.view.addSubview(self.myLabel)
-        self.myLabel.snp.makeConstraints { make in
-            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(5)
-            make.leading.equalTo(self.view.safeAreaLayoutGuide.snp.leading).offset(10)
-            make.trailing.equalTo(self.view.safeAreaLayoutGuide.snp.trailing).offset(-10)
-            make.height.equalTo(40)
-        }
+        //컬렉션 뷰 UI
+        self.view.addSubview(self.collectionView)
         
-        self.view.addSubview(self.myButton)
-        self.myButton.snp.makeConstraints { make in
-            make.center.equalToSuperview()
-            make.width.equalTo(150)
-            make.height.equalTo(40)
-        }
-        
-        self.view.addSubview(self.companyButton)
-        self.companyButton.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.bottom.equalTo(self.myButton.snp.top).offset(-50)
-            make.width.equalTo(150)
-            make.height.equalTo(40)
-        }
-        
-        self.view.addSubview(self.noticeButton)
-        self.noticeButton.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.top.equalTo(self.myButton.snp.bottom).offset(50)
-            make.width.equalTo(150)
-            make.height.equalTo(40)
-        }
-        
-        self.view.addSubview(self.noticeLabel)
-        self.noticeLabel.snp.makeConstraints { make in
-            make.width.height.equalTo(30)
-            make.top.equalTo(self.noticeButton.snp.top).offset(-15)
-            make.trailing.equalTo(self.noticeButton.snp.trailing).offset(15)
+        self.collectionView.snp.makeConstraints { make in
+            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
+            make.leading.trailing.equalToSuperview()
+            make.bottom.equalTo(self.view.snp.bottom).offset(-90)
         }
     }
+}
 
+//MARK: collectionView 메소드
+extension ScheduleVC: UICollectionViewDelegate,UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ScheduleCell.identifier, for: indexPath) as? ScheduleCell else { return UICollectionViewCell() }
+    
+        
+        cell.titleLabel.text = self.viewModel.dbmyCompany[indexPath.row]
+        self.viewModel.companyDownloadimage(imgView: cell.imageView, company: self.viewModel.dbmyCompany[indexPath.row])
+        return cell
+    }
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.viewModel.dbmyCompany.count
+    }
+    
+    //셀 선택
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+    }
+    
+    //타이틀
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "header", for: indexPath)
+        
+        let listTitle = UILabel()
+        listTitle.frame = CGRect(x: 20, y: 0, width: headerView.frame.width, height: headerView.frame.height)
+        listTitle.font = UIFont.init(name: "CookieRun", size: 20)
+        listTitle.text = "회사를 선택해주세요"
+        listTitle.textColor = UIColor.blue
+        
+        headerView.addSubview(listTitle)
+        return headerView
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: self.view.frame.width, height: 50)
+    }
+    
 }
