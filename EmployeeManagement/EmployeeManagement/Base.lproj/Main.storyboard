@@ -456,6 +456,21 @@
             </objects>
             <point key="canvasLocation" x="2577" y="82"/>
         </scene>
+        <!--회사 스케줄 화면-->
+        <scene sceneID="DKV-Ex-G2p">
+            <objects>
+                <viewController storyboardIdentifier="CalendarVC" title="회사 스케줄 화면" id="lBA-9M-T0K" customClass="CalendarVC" customModule="EmployeeManagement" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="K7r-Jv-acU">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="jF3-rC-T6f"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="g50-QU-BWZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3971" y="82"/>
+        </scene>
     </scenes>
     <resources>
         <systemColor name="systemBackgroundColor">
