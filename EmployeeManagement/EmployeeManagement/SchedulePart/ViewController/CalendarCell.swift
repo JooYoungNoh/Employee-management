@@ -42,7 +42,7 @@ class CalendarCell: UITableViewCell {
         contentView.addSubview(dateLabel)
         
         checkView.snp.makeConstraints { make in
-            make.leading.equalTo(20)
+            make.leading.equalTo(10)
             make.top.equalTo(28)
             make.width.height.equalTo(4)
         }
@@ -50,7 +50,7 @@ class CalendarCell: UITableViewCell {
         titleLabel.snp.makeConstraints { make in
             make.leading.equalTo(self.checkView.snp.trailing).offset(5)
             make.top.equalTo(10)
-            make.width.equalTo(220)
+            make.width.equalTo(230)
             make.height.equalTo(40)
         }
         
