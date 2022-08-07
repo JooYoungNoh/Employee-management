@@ -38,6 +38,12 @@ class CalendarVC: UIViewController {
         self.tableView.register(CalendarCell.self, forCellReuseIdentifier: CalendarCell.identifier)
         uiCreate()
     }
+    
+    //MARK: 액션 메소드
+    @objc func goNotice(_ sender: UIBarButtonItem) {
+        
+    }
+    
 
     //MARK: 화면 메소드
     func uiCreate(){
@@ -47,6 +53,11 @@ class CalendarVC: UIViewController {
         self.navigationItem.largeTitleDisplayMode = .always
         self.navigationController?.navigationBar.prefersLargeTitles = false
         self.navigationController?.navigationBar.tintColor = UIColor.black
+        
+        //내비게이션 바 버튼
+        let noticeButton = UIBarButtonItem.init(image: UIImage(systemName: "bell"), style: .plain, target: self, action: #selector(goNotice(_:)))
+        self.navigationItem.rightBarButtonItem = noticeButton
+        noticeButton.tintColor = UIColor.black
         
         //달력 UI
         self.view.addSubview(self.companyCalendar)
