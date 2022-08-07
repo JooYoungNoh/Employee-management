@@ -18,6 +18,10 @@ class NoticeListVM {
             
             alert.addAction(UIAlertAction(title: "OK", style: .default))
             uv.present(alert, animated: true)
+        } else {
+            guard let nv = uv.storyboard?.instantiateViewController(withIdentifier: "NoticeWriteVC") as? NoticeWriteVC else { return }
+            nv.modalPresentationStyle = .fullScreen
+            uv.present(nv, animated: true)
         }
     }
     
