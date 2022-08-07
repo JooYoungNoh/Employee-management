@@ -34,6 +34,8 @@
 		737F40E428A0094300282C11 /* NoticeListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737F40E328A0094300282C11 /* NoticeListVC.swift */; };
 		737F40E628A0095100282C11 /* NoticeListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737F40E528A0095100282C11 /* NoticeListVM.swift */; };
 		737F40E828A0096A00282C11 /* NoticeListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737F40E728A0096A00282C11 /* NoticeListCell.swift */; };
+		737F40EA28A0383300282C11 /* NoticeWriteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737F40E928A0383300282C11 /* NoticeWriteVC.swift */; };
+		737F40EC28A0384200282C11 /* NoticeWriteVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737F40EB28A0384200282C11 /* NoticeWriteVM.swift */; };
 		738E76CB287C64C100BB38CB /* SelectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738E76CA287C64C100BB38CB /* SelectCell.swift */; };
 		738E76CD287C6A1100BB38CB /* SelectVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738E76CC287C6A1100BB38CB /* SelectVM.swift */; };
 		738E76CF287C6A6F00BB38CB /* SelectModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738E76CE287C6A6E00BB38CB /* SelectModel.swift */; };
@@ -101,6 +103,8 @@
 		737F40E328A0094300282C11 /* NoticeListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeListVC.swift; sourceTree = "<group>"; };
 		737F40E528A0095100282C11 /* NoticeListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeListVM.swift; sourceTree = "<group>"; };
 		737F40E728A0096A00282C11 /* NoticeListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeListCell.swift; sourceTree = "<group>"; };
+		737F40E928A0383300282C11 /* NoticeWriteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeWriteVC.swift; sourceTree = "<group>"; };
+		737F40EB28A0384200282C11 /* NoticeWriteVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeWriteVM.swift; sourceTree = "<group>"; };
 		738E76CA287C64C100BB38CB /* SelectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCell.swift; sourceTree = "<group>"; };
 		738E76CC287C6A1100BB38CB /* SelectVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectVM.swift; sourceTree = "<group>"; };
 		738E76CE287C6A6E00BB38CB /* SelectModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectModel.swift; sourceTree = "<group>"; };
@@ -184,6 +188,7 @@
 				730AA0A7289AC07300A93D5B /* ScheduleVM.swift */,
 				73DA2E24289B18F9006FE401 /* CalendarVM.swift */,
 				737F40E528A0095100282C11 /* NoticeListVM.swift */,
+				737F40EB28A0384200282C11 /* NoticeWriteVM.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -197,6 +202,7 @@
 				73DA2E26289B20F5006FE401 /* CalendarCell.swift */,
 				737F40E328A0094300282C11 /* NoticeListVC.swift */,
 				737F40E728A0096A00282C11 /* NoticeListCell.swift */,
+				737F40E928A0383300282C11 /* NoticeWriteVC.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -509,6 +515,7 @@
 				73A3AAF5282969D1001283CD /* SignUpVC.swift in Sources */,
 				73E2DA9B283268C100C4CF25 /* ScheduleVC.swift in Sources */,
 				732D4019283E6FD200E40F48 /* RequestJoinVC.swift in Sources */,
+				737F40EC28A0384200282C11 /* NoticeWriteVM.swift in Sources */,
 				737F40E828A0096A00282C11 /* NoticeListCell.swift in Sources */,
 				7373BEA82852487100336B0B /* ProfileInfoCVCell.swift in Sources */,
 				7390F3EC2858E0D10036B632 /* MemoVC.swift in Sources */,
@@ -536,6 +543,7 @@
 				73DA2E25289B18F9006FE401 /* CalendarVM.swift in Sources */,
 				73BCD85F2833DBCD00DF6F74 /* ShopAddVC.swift in Sources */,
 				73A3AAD828292BF9001283CD /* AppDelegate.swift in Sources */,
+				737F40EA28A0383300282C11 /* NoticeWriteVC.swift in Sources */,
 				738E76CB287C64C100BB38CB /* SelectCell.swift in Sources */,
 				738E76CF287C6A6F00BB38CB /* SelectModel.swift in Sources */,
 				73E2DA9D283268EC00C4CF25 /* TransitionVC.swift in Sources */,

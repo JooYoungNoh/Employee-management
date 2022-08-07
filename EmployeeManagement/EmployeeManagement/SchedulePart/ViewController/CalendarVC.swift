@@ -41,10 +41,9 @@ class CalendarVC: UIViewController {
     
     //MARK: 액션 메소드
     @objc func goNotice(_ sender: UIBarButtonItem) {
-        guard let nv = self.storyboard?.instantiateViewController(withIdentifier: "NoticeListVC") as? NoticeListVC else { return }
-        nv.modalPresentationStyle = .fullScreen
-        
-        self.present(nv, animated: true)
+        let nv = self.storyboard?.instantiateViewController(withIdentifier: "naviNotice")
+        nv!.modalPresentationStyle = .fullScreen
+        self.present(nv!, animated: true)
     }
     
 

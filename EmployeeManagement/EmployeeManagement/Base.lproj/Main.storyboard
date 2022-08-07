@@ -368,7 +368,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LoA-mM-24e" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5520" y="-1752"/>
+            <point key="canvasLocation" x="5502" y="-2234"/>
         </scene>
         <!--메모 정보 화면-->
         <scene sceneID="Aw0-6E-A38">
@@ -383,7 +383,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j9N-rk-dgY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6189" y="-1752"/>
+            <point key="canvasLocation" x="6209" y="-2234"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="AsO-AL-i2t">
@@ -416,7 +416,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0e7-Xm-qAc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5520" y="-2537"/>
+            <point key="canvasLocation" x="5502" y="-2973"/>
         </scene>
         <!--Item-->
         <scene sceneID="qlM-wE-hIU">
@@ -481,10 +481,29 @@
                         <viewLayoutGuide key="safeArea" id="fFW-Ch-VRG"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
+                    <navigationItem key="navigationItem" id="eM7-rY-tat"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NqT-PD-0ir" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4782" y="519"/>
+            <point key="canvasLocation" x="5605" y="519"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="AWm-rA-Qk7">
+            <objects>
+                <navigationController storyboardIdentifier="naviNotice" automaticallyAdjustsScrollViewInsets="NO" id="adq-g4-GRp" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="SgF-eo-coL">
+                        <rect key="frame" x="0.0" y="44" width="390" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Tph-pP-fYH" kind="relationship" relationship="rootViewController" id="kfA-My-cZ6"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="P83-Sf-KGD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4781.538461538461" y="518.957345971564"/>
         </scene>
     </scenes>
     <resources>
