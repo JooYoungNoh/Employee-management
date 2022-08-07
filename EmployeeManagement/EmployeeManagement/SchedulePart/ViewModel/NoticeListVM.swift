@@ -51,19 +51,36 @@ class NoticeListVM {
     //MARK: 테이블 뷰 메소드
     func cellInfo(tableView: UITableView, indexPath: IndexPath) -> UITableViewCell{
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "NoticeListCell", for: indexPath) as? NoticeListCell else { return UITableViewCell() }
-        cell.accessoryType = .disclosureIndicator
-        let date = Date(timeIntervalSince1970: self.realNoticeList[indexPath.row].date)
         
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm"
-        let fixDate = "\(formatter.string(from: date))"
-        
-        cell.titleLabel.text = self.realNoticeList[indexPath.row].title
-        cell.dateLabel.text = fixDate
+        if self.realNoticeList.isEmpty == true {
+            cell.accessoryType = .none
+            cell.titleLabel.text = "공지사항이 없습니다."
+            cell.titleLabel.textColor = .red
+        } else {
+            cell.accessoryType = .disclosureIndicator
+            
+            let date = Date(timeIntervalSince1970: self.realNoticeList[indexPath.row].date)
+            
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd HH:mm"
+            let fixDate = "\(formatter.string(from: date))"
+            
+            cell.titleLabel.text = self.realNoticeList[indexPath.row].title
+            cell.titleLabel.textColor = .black
+            cell.dateLabel.text = fixDate
+        }
         return cell
     }
     
-    func selectCell(uv: UIViewController){
-        //guard let nv = uv.storyboard?.instantiateViewController(withIdentifier: <#T##String#>)
+    func selectCell(uv: UIViewController, indexPath: IndexPath){
+        if self.realNoticeList.isEmpty == false {
+            guard let nv = uv.storyboard?.instantiateViewController(withIdentifier: "NoticeInfoVC") as? NoticeInfoVC else { return }
+            nv.titleOnTable = self.realNoticeList[indexPath.row].title
+            nv.dateOnTable = self.realNoticeList[indexPath.row].date
+            nv.textOnTable = self.realNoticeList[indexPath.row].text
+            nv.countOnTable = self.realNoticeList[indexPath.row].count
+            
+            uv.navigationController?.pushViewController(nv, animated: true)
+        }
     }
 }

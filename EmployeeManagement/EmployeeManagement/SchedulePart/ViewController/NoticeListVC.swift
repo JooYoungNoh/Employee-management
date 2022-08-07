@@ -70,11 +70,11 @@ extension NoticeListVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.viewModel.realNoticeList.count
+        return self.viewModel.realNoticeList.count == 0 ? 1:self.viewModel.realNoticeList.count
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        <#code#>
+        self.viewModel.selectCell(uv: self, indexPath: indexPath)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
