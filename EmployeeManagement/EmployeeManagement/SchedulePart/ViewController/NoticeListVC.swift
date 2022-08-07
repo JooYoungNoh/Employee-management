@@ -19,7 +19,14 @@ class NoticeListVC: UIViewController {
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.register(NoticeListCell.self, forCellReuseIdentifier: NoticeListCell.identifier)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         self.uiCreate()
+        self.viewModel.findNotice { (completion) in
+            self.tableView.reloadData()
+        }
     }
     
     //MARK: 액션 메소드
@@ -63,7 +70,11 @@ extension NoticeListVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return self.viewModel.realNoticeList.count
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        <#code#>
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

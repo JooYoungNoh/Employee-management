@@ -12,6 +12,25 @@ class NoticeListVM {
     let db = Firestore.firestore()
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
+    var noticeList: [NoticeListModel] = []
+    var realNoticeList: [NoticeListModel] = []
+    
+    func findNotice(completion: @escaping([NoticeListModel]) -> ()){
+        self.noticeList.removeAll()
+        self.realNoticeList.removeAll()
+        self.db.collection("shop").document("\(self.appDelegate.schedulePartCompanyName)").collection("noticeList").getDocuments { snapShot, error in
+            if error == nil {
+                for doc in snapShot!.documents{
+                    self.noticeList.append(NoticeListModel.init(text: doc.data()["text"] as! String, date: doc.data()["date"] as! TimeInterval, count: doc.data()["count"] as! String, title: doc.data()["title"] as! String))
+                }
+                self.realNoticeList = self.noticeList.sorted(by: {$0.date > $1.date})
+                completion(self.realNoticeList)
+            } else {
+                print(error!.localizedDescription)
+            }
+        }
+    }
+    
     func naviTitle(uv: UIViewController){
         uv.navigationItem.title = self.appDelegate.schedulePartCompanyName
     }
@@ -33,8 +52,18 @@ class NoticeListVM {
     func cellInfo(tableView: UITableView, indexPath: IndexPath) -> UITableViewCell{
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "NoticeListCell", for: indexPath) as? NoticeListCell else { return UITableViewCell() }
         cell.accessoryType = .disclosureIndicator
-        cell.titleLabel.text = "실험중"
-        cell.dateLabel.text = "2020-08-08\n 03:30"
+        let date = Date(timeIntervalSince1970: self.realNoticeList[indexPath.row].date)
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm"
+        let fixDate = "\(formatter.string(from: date))"
+        
+        cell.titleLabel.text = self.realNoticeList[indexPath.row].title
+        cell.dateLabel.text = fixDate
         return cell
+    }
+    
+    func selectCell(uv: UIViewController){
+        //guard let nv = uv.storyboard?.instantiateViewController(withIdentifier: <#T##String#>)
     }
 }
