@@ -471,6 +471,21 @@
             </objects>
             <point key="canvasLocation" x="3971" y="82"/>
         </scene>
+        <!--공지사항 리스트 화면-->
+        <scene sceneID="elQ-Us-H0y">
+            <objects>
+                <viewController storyboardIdentifier="NoticeListVC" title="공지사항 리스트 화면" id="Tph-pP-fYH" customClass="NoticeListVC" customModule="EmployeeManagement" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="SWy-mP-jKp">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="fFW-Ch-VRG"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NqT-PD-0ir" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4782" y="519"/>
+        </scene>
     </scenes>
     <resources>
         <systemColor name="systemBackgroundColor">

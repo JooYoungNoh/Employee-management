@@ -31,6 +31,9 @@
 		73752AA8287F00B200196435 /* TransitionWriteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73752AA7287F00B200196435 /* TransitionWriteVC.swift */; };
 		73752AAA287F2C6000196435 /* TransitionWriteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73752AA9287F2C6000196435 /* TransitionWriteCell.swift */; };
 		7379EEDE2877228500BB7568 /* SelectVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7379EEDD2877228500BB7568 /* SelectVC.swift */; };
+		737F40E428A0094300282C11 /* NoticeListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737F40E328A0094300282C11 /* NoticeListVC.swift */; };
+		737F40E628A0095100282C11 /* NoticeListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737F40E528A0095100282C11 /* NoticeListVM.swift */; };
+		737F40E828A0096A00282C11 /* NoticeListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737F40E728A0096A00282C11 /* NoticeListCell.swift */; };
 		738E76CB287C64C100BB38CB /* SelectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738E76CA287C64C100BB38CB /* SelectCell.swift */; };
 		738E76CD287C6A1100BB38CB /* SelectVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738E76CC287C6A1100BB38CB /* SelectVM.swift */; };
 		738E76CF287C6A6F00BB38CB /* SelectModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738E76CE287C6A6E00BB38CB /* SelectModel.swift */; };
@@ -95,6 +98,9 @@
 		73752AA7287F00B200196435 /* TransitionWriteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionWriteVC.swift; sourceTree = "<group>"; };
 		73752AA9287F2C6000196435 /* TransitionWriteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionWriteCell.swift; sourceTree = "<group>"; };
 		7379EEDD2877228500BB7568 /* SelectVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectVC.swift; sourceTree = "<group>"; };
+		737F40E328A0094300282C11 /* NoticeListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeListVC.swift; sourceTree = "<group>"; };
+		737F40E528A0095100282C11 /* NoticeListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeListVM.swift; sourceTree = "<group>"; };
+		737F40E728A0096A00282C11 /* NoticeListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeListCell.swift; sourceTree = "<group>"; };
 		738E76CA287C64C100BB38CB /* SelectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCell.swift; sourceTree = "<group>"; };
 		738E76CC287C6A1100BB38CB /* SelectVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectVM.swift; sourceTree = "<group>"; };
 		738E76CE287C6A6E00BB38CB /* SelectModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectModel.swift; sourceTree = "<group>"; };
@@ -177,6 +183,7 @@
 			children = (
 				730AA0A7289AC07300A93D5B /* ScheduleVM.swift */,
 				73DA2E24289B18F9006FE401 /* CalendarVM.swift */,
+				737F40E528A0095100282C11 /* NoticeListVM.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -188,6 +195,8 @@
 				730AA0AD289B15D300A93D5B /* ScheduleCell.swift */,
 				73DA2E22289B18ED006FE401 /* CalendarVC.swift */,
 				73DA2E26289B20F5006FE401 /* CalendarCell.swift */,
+				737F40E328A0094300282C11 /* NoticeListVC.swift */,
+				737F40E728A0096A00282C11 /* NoticeListCell.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -500,6 +509,7 @@
 				73A3AAF5282969D1001283CD /* SignUpVC.swift in Sources */,
 				73E2DA9B283268C100C4CF25 /* ScheduleVC.swift in Sources */,
 				732D4019283E6FD200E40F48 /* RequestJoinVC.swift in Sources */,
+				737F40E828A0096A00282C11 /* NoticeListCell.swift in Sources */,
 				7373BEA82852487100336B0B /* ProfileInfoCVCell.swift in Sources */,
 				7390F3EC2858E0D10036B632 /* MemoVC.swift in Sources */,
 				730AA0AE289B15D300A93D5B /* ScheduleCell.swift in Sources */,
@@ -517,6 +527,7 @@
 				73E2DA9F2832697000C4CF25 /* CSTabBarController.swift in Sources */,
 				7331C5E828492ECE009F5210 /* EmployeeModel.swift in Sources */,
 				738E76CD287C6A1100BB38CB /* SelectVM.swift in Sources */,
+				737F40E628A0095100282C11 /* NoticeListVM.swift in Sources */,
 				73324E80285BCA5A00F443FD /* ProfileVM.swift in Sources */,
 				73F0B29228884E4400307D62 /* TransitionInfoVC.swift in Sources */,
 				7392F19A28758E7800DD7F01 /* TransitionVM.swift in Sources */,
@@ -531,6 +542,7 @@
 				73752AA8287F00B200196435 /* TransitionWriteVC.swift in Sources */,
 				7392F19C2875922900DD7F01 /* TransitionCell.swift in Sources */,
 				73E2DA992832688100C4CF25 /* ChattingVC.swift in Sources */,
+				737F40E428A0094300282C11 /* NoticeListVC.swift in Sources */,
 				73E084A6282AA3BA00AFC582 /* EmployeeListVC.swift in Sources */,
 				73CDD2A928511C5D00E9EB32 /* ProfileInfoVC.swift in Sources */,
 				73752AAA287F2C6000196435 /* TransitionWriteCell.swift in Sources */,
