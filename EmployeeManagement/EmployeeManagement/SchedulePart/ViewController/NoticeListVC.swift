@@ -9,10 +9,10 @@ import UIKit
 import SnapKit
 
 class NoticeListVC: UIViewController {
-    
-    var viewModel = NoticeListVM()
 
-    let tableView = UITableView()       //테이블 뷰
+    var companyOnTable: String = ""               //전 화면 회사 이름
+    var viewModel = NoticeListVM()
+    let tableView = UITableView()                 //테이블 뷰
     
     //MARK: viewDidLoad
     override func viewDidLoad() {
@@ -21,6 +21,7 @@ class NoticeListVC: UIViewController {
         self.tableView.dataSource = self
         self.tableView.register(NoticeListCell.self, forCellReuseIdentifier: NoticeListCell.identifier)
         self.uiCreate()
+        print(self.companyOnTable)
     }
     
     //MARK: 액션 메소드
@@ -35,7 +36,8 @@ class NoticeListVC: UIViewController {
     //MARK: 화면 메소드
     func uiCreate(){
         //내비게이션 UI
-        self.navigationItem.title = "공지사항"
+        self.viewModel.naviTitle(uv: self)
+        self.companyOnTable = self.navigationItem.title!
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font : UIFont(name: "CookieRun", size: 20)!]
         self.navigationController?.navigationBar.prefersLargeTitles = false
         self.navigationController?.navigationBar.tintColor = UIColor.black
@@ -69,5 +71,28 @@ extension NoticeListVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
+    }
+    
+    //셀 타이틀
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 35
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let csview = UIView()
+        let listTitle = UILabel()
+        
+        listTitle.frame = CGRect(x: 20, y: 0, width: self.view.frame.width / 2, height: 30)
+        listTitle.font = UIFont.init(name: "CookieRun", size: 20)
+        listTitle.text = "공지사항"
+        listTitle.textColor = UIColor.blue
+        
+        csview.backgroundColor = UIColor.white
+        csview.addSubview(listTitle)
+        return csview
     }
 }

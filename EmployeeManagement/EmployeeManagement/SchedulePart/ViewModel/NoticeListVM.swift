@@ -12,6 +12,10 @@ class NoticeListVM {
     let db = Firestore.firestore()
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
+    func naviTitle(uv: UIViewController){
+        uv.navigationItem.title = self.appDelegate.schedulePartCompanyName
+    }
+    
     func noAldaButton(uv: UIViewController){
         if self.appDelegate.jobInfo == "2"{
             let alert = UIAlertController(title: nil, message: "직원 이상의 직책만 사용가능합니다", preferredStyle: .alert)

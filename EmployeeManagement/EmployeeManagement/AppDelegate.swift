@@ -18,6 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var phoneInfo: String!
     var comment: String!
     var profileState: Bool!
+    
+    var schedulePartCompanyName: String = ""                   //스케줄 부분 회사 이름 저장
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
