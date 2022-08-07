@@ -10,7 +10,6 @@ import SnapKit
 
 class NoticeListVC: UIViewController {
 
-    var companyOnTable: String = ""               //전 화면 회사 이름
     var viewModel = NoticeListVM()
     let tableView = UITableView()                 //테이블 뷰
     
@@ -21,7 +20,6 @@ class NoticeListVC: UIViewController {
         self.tableView.dataSource = self
         self.tableView.register(NoticeListCell.self, forCellReuseIdentifier: NoticeListCell.identifier)
         self.uiCreate()
-        print(self.companyOnTable)
     }
     
     //MARK: 액션 메소드
@@ -37,7 +35,6 @@ class NoticeListVC: UIViewController {
     func uiCreate(){
         //내비게이션 UI
         self.viewModel.naviTitle(uv: self)
-        self.companyOnTable = self.navigationItem.title!
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font : UIFont(name: "CookieRun", size: 20)!]
         self.navigationController?.navigationBar.prefersLargeTitles = false
         self.navigationController?.navigationBar.tintColor = UIColor.black

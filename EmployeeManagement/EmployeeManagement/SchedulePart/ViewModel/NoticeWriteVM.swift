@@ -17,7 +17,7 @@ class NoticeWriteVM {
     func saveMemo(writeTV: UITextView, countLabel: UILabel) {
         //날짜
         let date = Date().timeIntervalSince1970
-        self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("memoList").addDocument(data: [
+        self.db.collection("shop").document("\(self.appDelegate.schedulePartCompanyName)").collection("noticeList").addDocument(data: [
             "text" : "\(writeTV.text!)",
             "count" : "\(countLabel.text!)",
             "date" : date,
@@ -29,11 +29,21 @@ class NoticeWriteVM {
     func changeMemo(textView: UITextView, countLabel: UILabel, saveButton: UIButton){
         let contents = textView.text as NSString
         countLabel.text = "\(String(describing: contents.length))"
+        var textCount = -1
         let length = contents.length > 18 ? 18 : contents.length
-        self.titleMemo = contents.substring(with: NSRange(location: 0, length: length))
-        
+        if let rangeText = textView.text.range(of: "\n"){
+            textCount = textView.text.distance(from: textView.text.startIndex, to: rangeText.lowerBound)
+            self.titleMemo = contents.substring(with: NSRange(location: 0, length: textCount))
+        } else {
+            textCount = -1
+            self.titleMemo = contents.substring(with: NSRange(location: 0, length: length))
+        }
         if contents.length != 0 {
-            saveButton.isHidden = false
+            if textCount == 0 {
+                saveButton.isHidden = true
+            } else {
+                saveButton.isHidden = false
+            }
         } else {
             saveButton.isHidden = true
             countLabel.text = "0"
