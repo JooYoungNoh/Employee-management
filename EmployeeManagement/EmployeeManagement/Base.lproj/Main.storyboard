@@ -485,7 +485,22 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NqT-PD-0ir" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5605" y="519"/>
+            <point key="canvasLocation" x="6305" y="519"/>
+        </scene>
+        <!--공지사항 작성 화면-->
+        <scene sceneID="NqN-dz-DGU">
+            <objects>
+                <viewController storyboardIdentifier="NoticeWriteVC" title="공지사항 작성 화면" id="V8c-Vh-B9K" customClass="NoticeWriteVC" customModule="EmployeeManagement" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Blt-iO-SZZ">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="zx2-gJ-mi2"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4PY-fw-sb2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="7109" y="866"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="AWm-rA-Qk7">
