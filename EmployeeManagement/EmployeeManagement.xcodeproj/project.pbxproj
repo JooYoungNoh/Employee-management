@@ -61,6 +61,9 @@
 		73C8ED9B2887052100545587 /* TwriteVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C8ED9A2887052100545587 /* TwriteVM.swift */; };
 		73CDD2A928511C5D00E9EB32 /* ProfileInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73CDD2A828511C5D00E9EB32 /* ProfileInfoVC.swift */; };
 		73CDD2AB28511E5900E9EB32 /* MyProfileInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73CDD2AA28511E5900E9EB32 /* MyProfileInfoVC.swift */; };
+		73D3F5E628A197EB008B431C /* TimetableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D3F5E528A197EB008B431C /* TimetableVC.swift */; };
+		73D3F5E828A197FA008B431C /* TimetableVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D3F5E728A197FA008B431C /* TimetableVM.swift */; };
+		73D3F5EA28A1980E008B431C /* TimetableModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D3F5E928A1980E008B431C /* TimetableModel.swift */; };
 		73DA2E23289B18ED006FE401 /* CalendarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DA2E22289B18ED006FE401 /* CalendarVC.swift */; };
 		73DA2E25289B18F9006FE401 /* CalendarVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DA2E24289B18F9006FE401 /* CalendarVM.swift */; };
 		73DA2E27289B20F5006FE401 /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DA2E26289B20F5006FE401 /* CalendarCell.swift */; };
@@ -135,6 +138,9 @@
 		73C8ED9A2887052100545587 /* TwriteVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwriteVM.swift; sourceTree = "<group>"; };
 		73CDD2A828511C5D00E9EB32 /* ProfileInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInfoVC.swift; sourceTree = "<group>"; };
 		73CDD2AA28511E5900E9EB32 /* MyProfileInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileInfoVC.swift; sourceTree = "<group>"; };
+		73D3F5E528A197EB008B431C /* TimetableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimetableVC.swift; sourceTree = "<group>"; };
+		73D3F5E728A197FA008B431C /* TimetableVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimetableVM.swift; sourceTree = "<group>"; };
+		73D3F5E928A1980E008B431C /* TimetableModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimetableModel.swift; sourceTree = "<group>"; };
 		73DA2E22289B18ED006FE401 /* CalendarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarVC.swift; sourceTree = "<group>"; };
 		73DA2E24289B18F9006FE401 /* CalendarVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarVM.swift; sourceTree = "<group>"; };
 		73DA2E26289B20F5006FE401 /* CalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
@@ -185,6 +191,7 @@
 			isa = PBXGroup;
 			children = (
 				737F40ED28A0491C00282C11 /* NoticeListModel.swift */,
+				73D3F5E928A1980E008B431C /* TimetableModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -197,6 +204,7 @@
 				737F40E528A0095100282C11 /* NoticeListVM.swift */,
 				737F40EB28A0384200282C11 /* NoticeWriteVM.swift */,
 				737F40F128A04C8500282C11 /* NoticeInfoVM.swift */,
+				73D3F5E728A197FA008B431C /* TimetableVM.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -212,6 +220,7 @@
 				737F40E728A0096A00282C11 /* NoticeListCell.swift */,
 				737F40E928A0383300282C11 /* NoticeWriteVC.swift */,
 				737F40EF28A04C7400282C11 /* NoticeInfoVC.swift */,
+				73D3F5E528A197EB008B431C /* TimetableVC.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -531,8 +540,10 @@
 				730AA0AE289B15D300A93D5B /* ScheduleCell.swift in Sources */,
 				73F0B28E28884E0200307D62 /* TinfoVM.swift in Sources */,
 				732D401B283E73E000E40F48 /* RequestJoincell.swift in Sources */,
+				73D3F5EA28A1980E008B431C /* TimetableModel.swift in Sources */,
 				73179DEA28590DF000086DBD /* MemoModel.swift in Sources */,
 				73179DE8285906AC00086DBD /* MemoWriteVM.swift in Sources */,
+				73D3F5E628A197EB008B431C /* TimetableVC.swift in Sources */,
 				7390F3EE2858E0F00036B632 /* MemoVM.swift in Sources */,
 				73DA2E27289B20F5006FE401 /* CalendarCell.swift in Sources */,
 				7309389228593EBC005B812E /* MemoReadVM.swift in Sources */,
@@ -556,6 +567,7 @@
 				738E76CB287C64C100BB38CB /* SelectCell.swift in Sources */,
 				738E76CF287C6A6F00BB38CB /* SelectModel.swift in Sources */,
 				73E2DA9D283268EC00C4CF25 /* TransitionVC.swift in Sources */,
+				73D3F5E828A197FA008B431C /* TimetableVM.swift in Sources */,
 				73752AA8287F00B200196435 /* TransitionWriteVC.swift in Sources */,
 				737F40F228A04C8500282C11 /* NoticeInfoVM.swift in Sources */,
 				7392F19C2875922900DD7F01 /* TransitionCell.swift in Sources */,
