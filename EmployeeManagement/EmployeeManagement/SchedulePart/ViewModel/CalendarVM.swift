@@ -14,10 +14,19 @@ class CalendarVM {
     
     var checkSchedule: [Int] = []
     
+    //MARK: 액션 메소드
     func goNotice(uv: UIViewController, companyNameOnTable: String){
         let nv = uv.storyboard?.instantiateViewController(withIdentifier: "naviNotice")
         nv!.modalPresentationStyle = .fullScreen
         self.appDelegate.schedulePartCompanyName = companyNameOnTable
         uv.present(nv!, animated: true)
     }
+    
+    //MARK: 테이블 뷰 메소드
+    
+    //MARK: FS캘린더 메소드
+    func goTimetable(){
+        
+    }
+    
 }

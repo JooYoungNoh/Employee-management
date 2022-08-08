@@ -10,6 +10,8 @@ import SnapKit
 
 class TimetableVC: UIViewController {
 
+    var dateOnTable: String = ""
+    
     var viewModel = TimetableVM()
     
     let nameLabel: UILabel = {
@@ -42,7 +44,7 @@ class TimetableVC: UIViewController {
     //MARK: 화면 메소드
     func uiCreate(){
         //내비게이션
-        self.navigationItem.title = "Schedule"  //이따 일월 표시
+        self.navigationItem.title = self.dateOnTable
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font : UIFont(name: "CookieRun", size: 20)!]
         self.navigationController?.navigationBar.prefersLargeTitles = false
         

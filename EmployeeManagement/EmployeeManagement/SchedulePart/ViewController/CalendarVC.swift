@@ -36,6 +36,7 @@ class CalendarVC: UIViewController {
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.register(CalendarCell.self, forCellReuseIdentifier: CalendarCell.identifier)
+        self.companyCalendar.delegate = self
         uiCreate()
     }
     
@@ -137,5 +138,17 @@ extension CalendarVC: UITableViewDelegate, UITableViewDataSource{
             cell.checkView.isHidden = true
             self.viewModel.checkSchedule.append(indexPath.row)
         }
+    }
+}
+
+//MARK: calendar 메소드
+extension CalendarVC: FSCalendarDelegate {
+    func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
+        guard let nv = self.storyboard?.instantiateViewController(withIdentifier: "TimetableVC") as? TimetableVC else { return }
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        nv.dateOnTable = dateFormatter.string(from: date)
+        
+        self.navigationController?.pushViewController(nv, animated: true)
     }
 }
