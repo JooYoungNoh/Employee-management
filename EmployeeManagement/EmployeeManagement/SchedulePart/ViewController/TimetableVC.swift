@@ -57,15 +57,15 @@ class TimetableVC: UIViewController {
         //개인 시간 정보
         self.view.addSubview(self.nameLabel)
         nameLabel.snp.makeConstraints { make in
-            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
-            make.leading.equalTo(self.view.safeAreaLayoutGuide.snp.leading).offset(45)
+            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(10)
+            make.leading.equalTo(self.view.safeAreaLayoutGuide.snp.leading).offset(30)
             make.width.equalTo(130)
             make.height.equalTo(30)
         }
         
         self.view.addSubview(self.timeLabel)
         timeLabel.snp.makeConstraints { make in
-            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
+            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(10)
             make.leading.equalTo(self.nameLabel.snp.trailing).offset(10)
             make.width.equalTo(140)
             make.height.equalTo(30)
