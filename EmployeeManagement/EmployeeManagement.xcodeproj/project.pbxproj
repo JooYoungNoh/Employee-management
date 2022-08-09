@@ -57,6 +57,7 @@
 		73A3AAF12829694E001283CD /* FindVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A3AAF02829694E001283CD /* FindVC.swift */; };
 		73A3AAF5282969D1001283CD /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A3AAF4282969D1001283CD /* SignUpVC.swift */; };
 		73BCD85F2833DBCD00DF6F74 /* ShopAddVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BCD85E2833DBCD00DF6F74 /* ShopAddVC.swift */; };
+		73BE45AB28A1A59E00BC4BDC /* TimetableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BE45AA28A1A59E00BC4BDC /* TimetableCell.swift */; };
 		73C411B2283520A6001EC8F6 /* BusinessTypePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C411B1283520A6001EC8F6 /* BusinessTypePicker.swift */; };
 		73C8ED9B2887052100545587 /* TwriteVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C8ED9A2887052100545587 /* TwriteVM.swift */; };
 		73CDD2A928511C5D00E9EB32 /* ProfileInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73CDD2A828511C5D00E9EB32 /* ProfileInfoVC.swift */; };
@@ -134,6 +135,7 @@
 		73A3AAF02829694E001283CD /* FindVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindVC.swift; sourceTree = "<group>"; };
 		73A3AAF4282969D1001283CD /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
 		73BCD85E2833DBCD00DF6F74 /* ShopAddVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopAddVC.swift; sourceTree = "<group>"; };
+		73BE45AA28A1A59E00BC4BDC /* TimetableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimetableCell.swift; sourceTree = "<group>"; };
 		73C411B1283520A6001EC8F6 /* BusinessTypePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessTypePicker.swift; sourceTree = "<group>"; };
 		73C8ED9A2887052100545587 /* TwriteVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwriteVM.swift; sourceTree = "<group>"; };
 		73CDD2A828511C5D00E9EB32 /* ProfileInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInfoVC.swift; sourceTree = "<group>"; };
@@ -221,6 +223,7 @@
 				737F40E928A0383300282C11 /* NoticeWriteVC.swift */,
 				737F40EF28A04C7400282C11 /* NoticeInfoVC.swift */,
 				73D3F5E528A197EB008B431C /* TimetableVC.swift */,
+				73BE45AA28A1A59E00BC4BDC /* TimetableCell.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -583,6 +586,7 @@
 				730AA0A8289AC07300A93D5B /* ScheduleVM.swift in Sources */,
 				73E2DAA12832A5D000C4CF25 /* ShopVC.swift in Sources */,
 				73A3AADA28292BF9001283CD /* SceneDelegate.swift in Sources */,
+				73BE45AB28A1A59E00BC4BDC /* TimetableCell.swift in Sources */,
 				735180CF2852602E00CC30FB /* MyProfileVM.swift in Sources */,
 				73CDD2AB28511E5900E9EB32 /* MyProfileInfoVC.swift in Sources */,
 				73DA2E23289B18ED006FE401 /* CalendarVC.swift in Sources */,
