@@ -18,7 +18,7 @@ class TimetableVC: UIViewController {
     
     let nameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "CookieRun", size: 17)
+        label.font = UIFont(name: "CookieRun", size: 15)
         label.text = "이름:"
         label.textAlignment = .left
         return label
@@ -26,7 +26,7 @@ class TimetableVC: UIViewController {
     
     let timeLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "CookieRun", size: 17)
+        label.font = UIFont(name: "CookieRun", size: 15)
         label.text = "시간:"
         label.textAlignment = .left
         return label
@@ -181,8 +181,8 @@ class TimetableVC: UIViewController {
     let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.minimumLineSpacing = 3
-        layout.itemSize = CGSize(width: 70, height: 580)
+        layout.minimumLineSpacing = 6
+        layout.itemSize = CGSize(width: 70, height: 590)
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
         return collection
     }()
@@ -386,21 +386,21 @@ extension TimetableVC: UICollectionViewDataSource, UICollectionViewDelegate {
             cell.timeCheckView.snp.makeConstraints { make in
                 make.centerX.equalTo(cell.cellNameLabel.snp.centerX)
                 make.top.equalTo(cell.cellNameLabel.snp.bottom).offset(339)
-                make.width.equalTo(20)
+                make.width.equalTo(35)
                 make.height.equalTo(215)
             }
         } else if self.test[indexPath.row] == "이준희" {
             cell.timeCheckView.snp.makeConstraints { make in
                 make.centerX.equalTo(cell.cellNameLabel.snp.centerX)
                 make.top.equalTo(cell.cellNameLabel.snp.bottom).offset(24)
-                make.width.equalTo(20)
+                make.width.equalTo(35)
                 make.height.equalTo(143)
             }
         } else {
             cell.timeCheckView.snp.makeConstraints { make in
                 make.centerX.equalTo(cell.cellNameLabel.snp.centerX)
                 make.top.equalTo(cell.cellNameLabel.snp.bottom).offset(100)
-                make.width.equalTo(20)
+                make.width.equalTo(35)
                 make.height.equalTo(200)
             }
         }
@@ -411,5 +411,11 @@ extension TimetableVC: UICollectionViewDataSource, UICollectionViewDelegate {
         return self.test.count
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell  = collectionView.cellForItem(at: indexPath) as! TimetableCell
+        
+        self.nameLabel.text = "이름:  \(cell.cellNameLabel.text!)"
+        self.timeLabel.text = "시간:  09:00 ~ 13:00, 4시간"
+    }
 
 }

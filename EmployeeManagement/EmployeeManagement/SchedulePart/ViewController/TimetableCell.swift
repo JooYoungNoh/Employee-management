@@ -31,6 +31,10 @@ class TimetableCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.layer.cornerRadius = 3
+        self.layer.borderWidth = 1
+        self.layer.borderColor = UIColor.systemGray.cgColor
+        
         contentView.addSubview(self.cellNameLabel)
         contentView.addSubview(self.timeCheckView)
         
@@ -40,12 +44,6 @@ class TimetableCell: UICollectionViewCell {
             make.width.equalTo(70)
             make.height.equalTo(20)
         }
-        
-        /*if self.timeInDB == "12:00" {
-            
-        } else {
-            
-        }*/
         
     }
 
