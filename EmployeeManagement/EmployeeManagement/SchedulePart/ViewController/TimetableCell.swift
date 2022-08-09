@@ -13,9 +13,13 @@ class TimetableCell: UICollectionViewCell {
     
     var cellNameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "CookieRun", size: 15)
+        label.font = UIFont(name: "CookieRun", size: 13)
         label.textColor = UIColor.black
         label.textAlignment = .center
+        label.layer.borderWidth = 1
+        label.layer.cornerRadius = 3
+        label.layer.borderWidth = 1
+        label.layer.borderColor = UIColor.systemGray.cgColor
         return label
     }()
     

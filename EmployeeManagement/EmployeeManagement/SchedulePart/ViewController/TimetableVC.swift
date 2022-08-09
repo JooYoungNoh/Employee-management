@@ -20,7 +20,7 @@ class TimetableVC: UIViewController {
         let label = UILabel()
         label.font = UIFont(name: "CookieRun", size: 17)
         label.text = "이름:"
-        label.textAlignment = .center
+        label.textAlignment = .left
         return label
     }()
     
@@ -28,7 +28,7 @@ class TimetableVC: UIViewController {
         let label = UILabel()
         label.font = UIFont(name: "CookieRun", size: 17)
         label.text = "시간:"
-        label.textAlignment = .center
+        label.textAlignment = .left
         return label
     }()
     
@@ -184,7 +184,6 @@ class TimetableVC: UIViewController {
         layout.minimumLineSpacing = 3
         layout.itemSize = CGSize(width: 70, height: 580)
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collection.backgroundColor = .yellow
         return collection
     }()
     
@@ -228,7 +227,7 @@ class TimetableVC: UIViewController {
         timeLabel.snp.makeConstraints { make in
             make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(10)
             make.leading.equalTo(self.nameLabel.snp.trailing).offset(10)
-            make.width.equalTo(140)
+            make.trailing.equalTo(self.view.safeAreaLayoutGuide.snp.trailing).offset(-20)
             make.height.equalTo(30)
         }
         
@@ -240,7 +239,7 @@ class TimetableVC: UIViewController {
             make.top.equalTo(self.nameLabel.snp.bottom)
             make.leading.equalTo(self.tableTime9.snp.trailing)
             make.trailing.equalToSuperview()
-            make.bottom.equalTo(self.view.snp.bottom).offset(-95)
+            make.bottom.equalTo(self.view.snp.bottom).offset(-100)
         }
     }
     
@@ -248,7 +247,7 @@ class TimetableVC: UIViewController {
     func uiCreateTwo(){
         self.view.addSubview(self.tableTime9)
         tableTime9.snp.makeConstraints { make in
-            make.top.equalTo(self.nameLabel.snp.bottom).offset(80)
+            make.top.equalTo(self.nameLabel.snp.bottom).offset(55)
             make.leading.equalToSuperview().offset(10)
             make.width.equalTo(70)
             make.height.equalTo(30)
@@ -256,7 +255,7 @@ class TimetableVC: UIViewController {
 
         self.view.addSubview(self.tableTime10)
         tableTime10.snp.makeConstraints { make in
-            make.top.equalTo(self.tableTime9.snp.bottom)
+            make.top.equalTo(self.tableTime9.snp.bottom).offset(4)
             make.leading.equalToSuperview().offset(10)
             make.width.equalTo(70)
             make.height.equalTo(30)
@@ -264,7 +263,7 @@ class TimetableVC: UIViewController {
 
         self.view.addSubview(self.tableTime11)
         tableTime11.snp.makeConstraints { make in
-            make.top.equalTo(self.tableTime10.snp.bottom)
+            make.top.equalTo(self.tableTime10.snp.bottom).offset(4)
             make.leading.equalToSuperview().offset(10)
             make.width.equalTo(70)
             make.height.equalTo(30)
@@ -272,7 +271,7 @@ class TimetableVC: UIViewController {
         
         self.view.addSubview(self.tableTime12)
         tableTime12.snp.makeConstraints { make in
-            make.top.equalTo(self.tableTime11.snp.bottom)
+            make.top.equalTo(self.tableTime11.snp.bottom).offset(4)
             make.leading.equalToSuperview().offset(10)
             make.width.equalTo(70)
             make.height.equalTo(30)
@@ -280,7 +279,7 @@ class TimetableVC: UIViewController {
         
         self.view.addSubview(self.tableTime13)
         tableTime13.snp.makeConstraints { make in
-            make.top.equalTo(self.tableTime12.snp.bottom)
+            make.top.equalTo(self.tableTime12.snp.bottom).offset(4)
             make.leading.equalToSuperview().offset(10)
             make.width.equalTo(70)
             make.height.equalTo(30)
@@ -288,7 +287,7 @@ class TimetableVC: UIViewController {
         
         self.view.addSubview(self.tableTime14)
         tableTime14.snp.makeConstraints { make in
-            make.top.equalTo(self.tableTime13.snp.bottom)
+            make.top.equalTo(self.tableTime13.snp.bottom).offset(4)
             make.leading.equalToSuperview().offset(10)
             make.width.equalTo(70)
             make.height.equalTo(30)
@@ -296,7 +295,7 @@ class TimetableVC: UIViewController {
         
         self.view.addSubview(self.tableTime15)
         tableTime15.snp.makeConstraints { make in
-            make.top.equalTo(self.tableTime14.snp.bottom)
+            make.top.equalTo(self.tableTime14.snp.bottom).offset(4)
             make.leading.equalToSuperview().offset(10)
             make.width.equalTo(70)
             make.height.equalTo(30)
@@ -304,7 +303,7 @@ class TimetableVC: UIViewController {
         
         self.view.addSubview(self.tableTime16)
         tableTime16.snp.makeConstraints { make in
-            make.top.equalTo(self.tableTime15.snp.bottom)
+            make.top.equalTo(self.tableTime15.snp.bottom).offset(4)
             make.leading.equalToSuperview().offset(10)
             make.width.equalTo(70)
             make.height.equalTo(30)
@@ -312,7 +311,7 @@ class TimetableVC: UIViewController {
         
         self.view.addSubview(self.tableTime17)
         tableTime17.snp.makeConstraints { make in
-            make.top.equalTo(self.tableTime16.snp.bottom)
+            make.top.equalTo(self.tableTime16.snp.bottom).offset(4)
             make.leading.equalToSuperview().offset(10)
             make.width.equalTo(70)
             make.height.equalTo(30)
@@ -320,7 +319,7 @@ class TimetableVC: UIViewController {
         
         self.view.addSubview(self.tableTime18)
         tableTime18.snp.makeConstraints { make in
-            make.top.equalTo(self.tableTime17.snp.bottom)
+            make.top.equalTo(self.tableTime17.snp.bottom).offset(4)
             make.leading.equalToSuperview().offset(10)
             make.width.equalTo(70)
             make.height.equalTo(30)
@@ -328,7 +327,7 @@ class TimetableVC: UIViewController {
         
         self.view.addSubview(self.tableTime19)
         tableTime19.snp.makeConstraints { make in
-            make.top.equalTo(self.tableTime18.snp.bottom)
+            make.top.equalTo(self.tableTime18.snp.bottom).offset(4)
             make.leading.equalToSuperview().offset(10)
             make.width.equalTo(70)
             make.height.equalTo(30)
@@ -336,7 +335,7 @@ class TimetableVC: UIViewController {
         
         self.view.addSubview(self.tableTime20)
         tableTime20.snp.makeConstraints { make in
-            make.top.equalTo(self.tableTime19.snp.bottom)
+            make.top.equalTo(self.tableTime19.snp.bottom).offset(4)
             make.leading.equalToSuperview().offset(10)
             make.width.equalTo(70)
             make.height.equalTo(30)
@@ -344,7 +343,7 @@ class TimetableVC: UIViewController {
         
         self.view.addSubview(self.tableTime21)
         tableTime21.snp.makeConstraints { make in
-            make.top.equalTo(self.tableTime20.snp.bottom)
+            make.top.equalTo(self.tableTime20.snp.bottom).offset(4)
             make.leading.equalToSuperview().offset(10)
             make.width.equalTo(70)
             make.height.equalTo(30)
@@ -352,7 +351,7 @@ class TimetableVC: UIViewController {
         
         self.view.addSubview(self.tableTime22)
         tableTime22.snp.makeConstraints { make in
-            make.top.equalTo(self.tableTime21.snp.bottom)
+            make.top.equalTo(self.tableTime21.snp.bottom).offset(4)
             make.leading.equalToSuperview().offset(10)
             make.width.equalTo(70)
             make.height.equalTo(30)
@@ -360,7 +359,7 @@ class TimetableVC: UIViewController {
         
         self.view.addSubview(self.tableTime23)
         tableTime23.snp.makeConstraints { make in
-            make.top.equalTo(self.tableTime22.snp.bottom)
+            make.top.equalTo(self.tableTime22.snp.bottom).offset(4)
             make.leading.equalToSuperview().offset(10)
             make.width.equalTo(70)
             make.height.equalTo(30)
@@ -368,7 +367,7 @@ class TimetableVC: UIViewController {
         
         self.view.addSubview(self.tableTime0)
         tableTime0.snp.makeConstraints { make in
-            make.top.equalTo(self.tableTime23.snp.bottom)
+            make.top.equalTo(self.tableTime23.snp.bottom).offset(4)
             make.leading.equalToSuperview().offset(10)
             make.width.equalTo(70)
             make.height.equalTo(30)
