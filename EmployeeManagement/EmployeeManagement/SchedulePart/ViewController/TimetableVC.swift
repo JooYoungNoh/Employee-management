@@ -16,19 +16,12 @@ class TimetableVC: UIViewController {
     
     var test: [String] = ["노주영", "노찬영", "오승환", "이준희", "장세웅", "이석재", "이송준", "이철민"]
     
-    let nameLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont(name: "CookieRun", size: 15)
-        label.text = "이름:"
-        label.textAlignment = .left
-        return label
-    }()
-    
     let timeLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "CookieRun", size: 15)
-        label.text = "시간:"
-        label.textAlignment = .left
+        label.font = UIFont(name: "CookieRun", size: 17)
+        label.textColor = .blue
+        label.text = "시간표"
+        label.textAlignment = .center
         return label
     }()
     
@@ -215,19 +208,11 @@ class TimetableVC: UIViewController {
         addButton.tintColor = UIColor.black
         
         //개인 시간 정보
-        self.view.addSubview(self.nameLabel)
-        nameLabel.snp.makeConstraints { make in
-            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(10)
-            make.leading.equalTo(self.view.safeAreaLayoutGuide.snp.leading).offset(30)
-            make.width.equalTo(130)
-            make.height.equalTo(30)
-        }
-        
         self.view.addSubview(self.timeLabel)
         timeLabel.snp.makeConstraints { make in
             make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(10)
-            make.leading.equalTo(self.nameLabel.snp.trailing).offset(10)
-            make.trailing.equalTo(self.view.safeAreaLayoutGuide.snp.trailing).offset(-20)
+            make.centerX.equalToSuperview()
+            make.width.equalTo(130)
             make.height.equalTo(30)
         }
         
@@ -236,7 +221,7 @@ class TimetableVC: UIViewController {
         
         self.view.addSubview(self.collectionView)
         collectionView.snp.makeConstraints { make in
-            make.top.equalTo(self.nameLabel.snp.bottom)
+            make.top.equalTo(self.timeLabel.snp.bottom)
             make.leading.equalTo(self.tableTime9.snp.trailing)
             make.trailing.equalToSuperview()
             make.bottom.equalTo(self.view.snp.bottom).offset(-100)
@@ -247,7 +232,7 @@ class TimetableVC: UIViewController {
     func uiCreateTwo(){
         self.view.addSubview(self.tableTime9)
         tableTime9.snp.makeConstraints { make in
-            make.top.equalTo(self.nameLabel.snp.bottom).offset(55)
+            make.top.equalTo(self.timeLabel.snp.bottom).offset(45)
             make.leading.equalToSuperview().offset(10)
             make.width.equalTo(70)
             make.height.equalTo(30)
@@ -414,8 +399,6 @@ extension TimetableVC: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell  = collectionView.cellForItem(at: indexPath) as! TimetableCell
         
-        self.nameLabel.text = "이름:  \(cell.cellNameLabel.text!)"
-        self.timeLabel.text = "시간:  09:00 ~ 13:00, 4시간"
     }
 
 }
