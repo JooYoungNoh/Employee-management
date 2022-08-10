@@ -18,6 +18,8 @@
 		73179DEA28590DF000086DBD /* MemoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73179DE928590DF000086DBD /* MemoModel.swift */; };
 		732D4019283E6FD200E40F48 /* RequestJoinVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732D4018283E6FD200E40F48 /* RequestJoinVC.swift */; };
 		732D401B283E73E000E40F48 /* RequestJoincell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732D401A283E73E000E40F48 /* RequestJoincell.swift */; };
+		73301F7728A3E70A0042F84D /* TimetableCreateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73301F7628A3E70A0042F84D /* TimetableCreateVC.swift */; };
+		73301F7928A3E7230042F84D /* TimetableCreateVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73301F7828A3E7230042F84D /* TimetableCreateVM.swift */; };
 		7331C5E428491457009F5210 /* EmployeeListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7331C5E328491457009F5210 /* EmployeeListVM.swift */; };
 		7331C5E628491CA6009F5210 /* EmployeeListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7331C5E528491CA6009F5210 /* EmployeeListCell.swift */; };
 		7331C5E828492ECE009F5210 /* EmployeeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7331C5E728492ECE009F5210 /* EmployeeModel.swift */; };
@@ -94,6 +96,8 @@
 		73179DE928590DF000086DBD /* MemoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoModel.swift; sourceTree = "<group>"; };
 		732D4018283E6FD200E40F48 /* RequestJoinVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestJoinVC.swift; sourceTree = "<group>"; };
 		732D401A283E73E000E40F48 /* RequestJoincell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestJoincell.swift; sourceTree = "<group>"; };
+		73301F7628A3E70A0042F84D /* TimetableCreateVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimetableCreateVC.swift; sourceTree = "<group>"; };
+		73301F7828A3E7230042F84D /* TimetableCreateVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimetableCreateVM.swift; sourceTree = "<group>"; };
 		7331C5E328491457009F5210 /* EmployeeListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeListVM.swift; sourceTree = "<group>"; };
 		7331C5E528491CA6009F5210 /* EmployeeListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeListCell.swift; sourceTree = "<group>"; };
 		7331C5E728492ECE009F5210 /* EmployeeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeModel.swift; sourceTree = "<group>"; };
@@ -207,6 +211,7 @@
 				737F40EB28A0384200282C11 /* NoticeWriteVM.swift */,
 				737F40F128A04C8500282C11 /* NoticeInfoVM.swift */,
 				73D3F5E728A197FA008B431C /* TimetableVM.swift */,
+				73301F7828A3E7230042F84D /* TimetableCreateVM.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -224,6 +229,7 @@
 				737F40EF28A04C7400282C11 /* NoticeInfoVC.swift */,
 				73D3F5E528A197EB008B431C /* TimetableVC.swift */,
 				73BE45AA28A1A59E00BC4BDC /* TimetableCell.swift */,
+				73301F7628A3E70A0042F84D /* TimetableCreateVC.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -547,6 +553,7 @@
 				73179DEA28590DF000086DBD /* MemoModel.swift in Sources */,
 				73179DE8285906AC00086DBD /* MemoWriteVM.swift in Sources */,
 				73D3F5E628A197EB008B431C /* TimetableVC.swift in Sources */,
+				73301F7928A3E7230042F84D /* TimetableCreateVM.swift in Sources */,
 				7390F3EE2858E0F00036B632 /* MemoVM.swift in Sources */,
 				73DA2E27289B20F5006FE401 /* CalendarCell.swift in Sources */,
 				7309389228593EBC005B812E /* MemoReadVM.swift in Sources */,
@@ -587,6 +594,7 @@
 				73E2DAA12832A5D000C4CF25 /* ShopVC.swift in Sources */,
 				73A3AADA28292BF9001283CD /* SceneDelegate.swift in Sources */,
 				73BE45AB28A1A59E00BC4BDC /* TimetableCell.swift in Sources */,
+				73301F7728A3E70A0042F84D /* TimetableCreateVC.swift in Sources */,
 				735180CF2852602E00CC30FB /* MyProfileVM.swift in Sources */,
 				73CDD2AB28511E5900E9EB32 /* MyProfileInfoVC.swift in Sources */,
 				73DA2E23289B18ED006FE401 /* CalendarVC.swift in Sources */,

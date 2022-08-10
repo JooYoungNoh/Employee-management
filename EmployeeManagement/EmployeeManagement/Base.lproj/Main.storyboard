@@ -486,6 +486,21 @@
             </objects>
             <point key="canvasLocation" x="4769" y="-158"/>
         </scene>
+        <!--시간표 작성 화면-->
+        <scene sceneID="bHx-cB-6QE">
+            <objects>
+                <viewController storyboardIdentifier="TimetableCreateVC" title="시간표 작성 화면" id="MIO-lh-jiy" customClass="TimetableCreateVC" customModule="EmployeeManagement" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="4DC-KM-SbV">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="i8s-3c-00r"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SKS-vm-xbM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5529" y="-159"/>
+        </scene>
         <!--공지사항 리스트 화면-->
         <scene sceneID="elQ-Us-H0y">
             <objects>
