@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Foundation
 import SnapKit
 
 class TimetableCreateVC: UIViewController {
@@ -13,7 +14,7 @@ class TimetableCreateVC: UIViewController {
     var dateOnTable: String = ""                   //전 화면에서 받아오는 날짜
     var companyOnTable: String = ""                //전 화면에서 받아오는 회사 이름
     
-    
+    var viewModel = TimetableCreateVM()
     
     //닫기 버튼
     let closeButton: UIButton = {
@@ -37,7 +38,6 @@ class TimetableCreateVC: UIViewController {
     //저장 버튼
     let saveButton: UIButton = {
         let save = UIButton()
-        save.isHidden = true
         save.setTitle("Save", for: .normal)
         save.setTitleColor(UIColor.black, for: .normal)
         save.titleLabel?.font = UIFont.init(name: "CookieRun", size: 20)
@@ -129,6 +129,7 @@ class TimetableCreateVC: UIViewController {
     
     let allResult: UILabel = {
         let label = UILabel()
+        label.text = "0.0 시간"
         label.textAlignment = .center
         label.font = UIFont(name: "CookieRun", size: 18)
         return label
@@ -160,18 +161,13 @@ class TimetableCreateVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.uiCreate()
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "HH:mm"
-        let start = dateFormatter.date(from: "09:34")!
-        let end = dateFormatter.date(from: "12:12")!
-        let usetime = Double(end.timeIntervalSince(start))
-        print(usetime)
-        
+        self.startTF.delegate = self
+        self.endTF.delegate = self
+        /*
         let aaa = DateFormatter()
         aaa.dateFormat = "yyyy-MM-dd"
         let ssa = aaa.date(from: self.dateOnTable)!
-        print(aaa.string(from: ssa-86400))
-        
+        print(aaa.string(from: ssa-86400))*/
     }
     
     //MARK: 액션 메소드
@@ -320,5 +316,20 @@ class TimetableCreateVC: UIViewController {
             make.width.equalTo(230)
         }
     }
+    
+    //MARK: tap 제스쳐
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+}
 
+//MARK: 텍스트 필드 메소드
+extension TimetableCreateVC: UITextFieldDelegate {
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        self.viewModel.textEndEditing(uv: self, textField: textField, allResult: self.allResult, startTF: self.startTF, endTF: self.endTF, nextButton: self.nextButton)
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        return self.viewModel.textWritingCase(string: string)
+    }
 }
