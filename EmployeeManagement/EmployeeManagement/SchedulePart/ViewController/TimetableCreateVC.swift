@@ -107,6 +107,16 @@ class TimetableCreateVC: UIViewController {
         return text
     }()
     
+    let nextButton: UIButton = {
+        let button  = UIButton()
+        button.setTitle(" 다음날", for: .normal)
+        button.setTitleColor(UIColor.systemGray5, for: .normal)
+        button.setImage(UIImage(systemName: "checkmark"), for: .normal)
+        button.tintColor = .systemGray5
+        button.titleLabel?.font = UIFont.init(name: "CookieRun", size: 18)
+        return button
+    }()
+    
     //총 시간
     let allLabel: UILabel = {
         let label = UILabel()
@@ -171,6 +181,16 @@ class TimetableCreateVC: UIViewController {
     
     @objc func dosave(_ sender: UIButton){
         
+    }
+    
+    @objc func checkNextDay(_ sender: UIButton){
+        if self.nextButton.tintColor == .systemGray5 {
+            self.nextButton.tintColor = .black
+            self.nextButton.setTitleColor(UIColor.black, for: .normal)
+        } else {
+            self.nextButton.tintColor = .systemGray5
+            self.nextButton.setTitleColor(UIColor.systemGray5, for: .normal)
+        }
     }
     
     //MARK: 화면 메소드
@@ -254,6 +274,15 @@ class TimetableCreateVC: UIViewController {
             make.top.equalTo(self.startLabel.snp.bottom).offset(30)
             make.centerX.equalToSuperview()
             make.width.equalTo(120)
+            make.height.equalTo(40)
+        }
+        
+        self.nextButton.addTarget(self, action: #selector(checkNextDay(_:)), for: .touchUpInside)
+        self.view.addSubview(self.nextButton)
+        nextButton.snp.makeConstraints { make in
+            make.top.equalTo(self.startLabel.snp.bottom).offset(30)
+            make.leading.equalTo(self.endTF.snp.trailing).offset(20)
+            make.width.equalTo(100)
             make.height.equalTo(40)
         }
         
