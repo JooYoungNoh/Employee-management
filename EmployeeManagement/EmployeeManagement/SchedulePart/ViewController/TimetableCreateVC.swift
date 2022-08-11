@@ -180,13 +180,7 @@ class TimetableCreateVC: UIViewController {
     }
     
     @objc func checkNextDay(_ sender: UIButton){
-        if self.nextButton.tintColor == .systemGray5 {
-            self.nextButton.tintColor = .black
-            self.nextButton.setTitleColor(UIColor.black, for: .normal)
-        } else {
-            self.nextButton.tintColor = .systemGray5
-            self.nextButton.setTitleColor(UIColor.systemGray5, for: .normal)
-        }
+        self.viewModel.checkNextDay(nextButton: self.nextButton, allResult: self.allResult, endTF: self.endTF)
     }
     
     //MARK: 화면 메소드

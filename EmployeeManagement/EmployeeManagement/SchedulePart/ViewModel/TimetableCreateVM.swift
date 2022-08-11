@@ -19,7 +19,20 @@ class TimetableCreateVM {
     }()
     
     
-    
+    //MARK: 액션 메소드
+    func checkNextDay(nextButton: UIButton, allResult: UILabel, endTF: UITextField){
+        if nextButton.tintColor == .systemGray5 {
+            nextButton.tintColor = .black
+            nextButton.setTitleColor(UIColor.black, for: .normal)
+            allResult.text = "0.0 시간"
+            endTF.text = ""
+        } else {
+            nextButton.tintColor = .systemGray5
+            nextButton.setTitleColor(UIColor.systemGray5, for: .normal)
+            allResult.text = "0.0 시간"
+            endTF.text = ""
+        }
+    }
     
     //MARK: 텍스트 필드 메소드
     func textEndEditing(uv: UIViewController,textField: UITextField, allResult: UILabel, startTF: UITextField, endTF: UITextField, nextButton: UIButton){
