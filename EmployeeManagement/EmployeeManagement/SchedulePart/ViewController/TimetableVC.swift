@@ -10,7 +10,8 @@ import SnapKit
 
 class TimetableVC: UIViewController {
 
-    var dateOnTable: String = ""
+    var dateOnTable: String = ""                   //전 화면에서 받아오는 날짜 
+    var companyOnTable: String = ""                //전 화면에서 받아오는 회사 이름
     
     var viewModel = TimetableVM()
     
@@ -191,7 +192,12 @@ class TimetableVC: UIViewController {
     
     //MARK: 액션 메소드
     @objc func addTimetable(_ sender: UIBarButtonItem){
+        guard let nv = self.storyboard?.instantiateViewController(withIdentifier: "TimetableCreateVC") as? TimetableCreateVC else { return }
+        nv.modalPresentationStyle = .fullScreen
+        nv.companyOnTable = self.companyOnTable
+        nv.dateOnTable = self.dateOnTable
         
+        self.present(nv, animated: true)
     }
     
     //MARK: 화면 메소드

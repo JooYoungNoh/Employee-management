@@ -148,6 +148,7 @@ extension CalendarVC: FSCalendarDelegate {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         nv.dateOnTable = dateFormatter.string(from: date)
+        nv.companyOnTable = self.companyNameOnTable
         
         self.navigationController?.pushViewController(nv, animated: true)
     }

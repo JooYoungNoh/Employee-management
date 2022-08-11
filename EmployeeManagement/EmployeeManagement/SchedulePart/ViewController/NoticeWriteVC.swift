@@ -22,7 +22,7 @@ class NoticeWriteVC: UIViewController, UITextViewDelegate {
     
     let titleLabel: UILabel = {
        let label = UILabel()
-        label.text = "Write Memo"
+        label.text = "공지사항 작성"
         label.textAlignment = .center
         label.textColor = .black
         label.font = UIFont(name: "CookieRun", size: 20)
