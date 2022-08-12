@@ -14,6 +14,8 @@ class TimetableCreateVC: UIViewController {
     var dateOnTable: String = ""                   //전 화면에서 받아오는 날짜
     var companyOnTable: String = ""                //전 화면에서 받아오는 회사 이름
     
+    var questionList = [(0,"나의 보물 1호는?"), (1,"내가 사는 곳은?"), (2,"내가 다녔던 고등학교는?")]
+    
     var viewModel = TimetableCreateVM()
     
     //닫기 버튼
@@ -44,6 +46,24 @@ class TimetableCreateVC: UIViewController {
         return save
     }()
     
+    //이름 레이블
+    let nameLabel: UILabel = {
+        let label = UILabel()
+        label.text = "이름:"
+        label.textAlignment = .left
+        label.textColor = .blue
+        label.font = UIFont(name: "CookieRun", size: 18)
+        return label
+    }()
+    
+    let pickerView: UIPickerView = {
+        let picker = UIPickerView()
+        picker.backgroundColor = .systemGray6
+        picker.layer.cornerRadius = 10
+        picker.layer.masksToBounds = true
+        picker.layer.borderWidth = 0
+        return picker
+    }()
     //날짜 레이블
     let dateLabel: UILabel = {
         let label = UILabel()
@@ -163,6 +183,8 @@ class TimetableCreateVC: UIViewController {
         self.uiCreate()
         self.startTF.delegate = self
         self.endTF.delegate = self
+        self.pickerView.dataSource = self
+        self.pickerView.delegate = self
         /*
         let aaa = DateFormatter()
         aaa.dateFormat = "yyyy-MM-dd"
@@ -215,10 +237,28 @@ class TimetableCreateVC: UIViewController {
             make.height.equalTo(40)
         }
         
+        //이름 레이블
+        self.view.addSubview(self.nameLabel)
+        nameLabel.snp.makeConstraints { make in
+            make.top.equalTo(self.titleLabel.snp.bottom).offset(50)
+            make.leading.equalTo(self.view.safeAreaLayoutGuide.snp.leading).offset(30)
+            make.width.equalTo(80)
+            make.height.equalTo(40)
+        }
+        
+        self.view.addSubview(self.pickerView)
+        self.pickerView.snp.makeConstraints { make in
+            make.top.equalTo(self.titleLabel.snp.bottom).offset(30)
+            make.leading.equalTo(self.nameLabel.snp.trailing).offset(20)
+            make.width.equalTo(230)
+            make.height.equalTo(80)
+        
+        }
+        
         //날짜 레이블 UI
         self.view.addSubview(self.dateLabel)
         dateLabel.snp.makeConstraints { make in
-            make.top.equalTo(self.titleLabel.snp.bottom).offset(50)
+            make.top.equalTo(self.nameLabel.snp.bottom).offset(50)
             make.leading.equalTo(self.view.safeAreaLayoutGuide.snp.leading).offset(30)
             make.width.equalTo(80)
             make.height.equalTo(40)
@@ -227,7 +267,7 @@ class TimetableCreateVC: UIViewController {
         self.dateResult.text = self.dateOnTable
         self.view.addSubview(self.dateResult)
         dateResult.snp.makeConstraints { make in
-            make.top.equalTo(self.titleLabel.snp.bottom).offset(50)
+            make.top.equalTo(self.nameLabel.snp.bottom).offset(50)
             make.centerX.equalToSuperview()
             make.width.equalTo(120)
             make.height.equalTo(40)
@@ -325,5 +365,28 @@ extension TimetableCreateVC: UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         return self.viewModel.textWritingCase(string: string)
+    }
+}
+
+//MARK: 피커뷰 메소드
+extension TimetableCreateVC: UIPickerViewDataSource, UIPickerViewDelegate {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return self.questionList.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+        var titleView = view as? UILabel
+        if titleView == nil {
+            titleView = UILabel()
+            titleView?.font = UIFont.init(name: "CookieRun", size: 15)
+            titleView?.textAlignment = .center
+        }
+        titleView?.text = "\(self.questionList[row].1)"
+        
+        return titleView!
     }
 }
