@@ -17,6 +17,7 @@ class TimetableCreateVM {
     var pickName: String = ""
     var pickPhone: String = ""
     var selectNameList: [String] = []
+    var checkList: [String] = []
     
     //문자 조건
     let charSet: CharacterSet = {
@@ -57,6 +58,41 @@ class TimetableCreateVM {
             nextButton.setTitleColor(UIColor.systemGray5, for: .normal)
             allResult.text = "0.0 시간"
             endTF.text = ""
+        }
+    }
+    
+    func doSave(uv: UIViewController, companyOnTable: String, dateOnTable: String, workTV: UITextView, startTF: UITextField, endTF: UITextField, allResult: UILabel, nextButton: UIButton){
+        if allResult.text == "0.0 시간" {
+            let alert = UIAlertController(title: "올바른 시간표가 아닙니다", message: "다시 작성해주세요", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            uv.present(alert, animated: true)
+        } else {
+            self.db.collection("shop").document("\(companyOnTable)").collection("scheduleList").document("\(dateOnTable)").collection("attendanceList").whereField("phone", isEqualTo: self.pickPhone).getDocuments { (snapshot, error) in
+                if error == nil {
+                    for doc in snapshot!.documents{
+                        self.checkList.append(doc.documentID)
+                    }
+                    if self.checkList.isEmpty == false {
+                        let alert = UIAlertController(title: "이미 스케줄에 있습니다", message: "확인해주세요", preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "OK", style: .default))
+                        uv.present(alert, animated: true)
+                    } else {
+                        self.db.collection("shop").document("\(companyOnTable)").collection("scheduleList").document("\(dateOnTable)").collection("attendanceList").document("\(self.pickPhone)").setData([
+                            "name" : self.pickName,             //이름
+                            "phone" : self.pickPhone,           //전화번호
+                            "startTime" : "\(startTF.text!)",    //시작 시간
+                            "endTime" : "\(endTF.text!)",        //끝 시간
+                            "nextday" : nextButton.tintColor == .black ? true : false ,                         //다음 날 체크
+                            "allTime" : "\(allResult.text!)",    //총 시간
+                            "work" : "\(workTV.text ?? "")",    //할 일
+                            "userCheck" : false                 //유저가 체크했는지
+                        ])
+                        uv.dismiss(animated: true)
+                    }
+                } else {
+                    print(error!.localizedDescription)
+                }
+            }
         }
     }
     

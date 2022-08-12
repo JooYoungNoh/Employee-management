@@ -199,7 +199,7 @@ class TimetableCreateVC: UIViewController {
     }
     
     @objc func dosave(_ sender: UIButton){
-        
+        self.viewModel.doSave(uv: self, companyOnTable: self.companyOnTable, dateOnTable: self.dateOnTable, workTV: self.workTV, startTF: self.startTF, endTF: self.endTF, allResult: self.allResult, nextButton: self.nextButton)
     }
     
     @objc func checkNextDay(_ sender: UIButton){
