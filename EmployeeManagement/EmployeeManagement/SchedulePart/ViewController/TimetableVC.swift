@@ -192,12 +192,7 @@ class TimetableVC: UIViewController {
     
     //MARK: 액션 메소드
     @objc func addTimetable(_ sender: UIBarButtonItem){
-        guard let nv = self.storyboard?.instantiateViewController(withIdentifier: "TimetableCreateVC") as? TimetableCreateVC else { return }
-        nv.modalPresentationStyle = .fullScreen
-        nv.companyOnTable = self.companyOnTable
-        nv.dateOnTable = self.dateOnTable
-        
-        self.present(nv, animated: true)
+        self.viewModel.addTimetable(uv: self, companyOnTable: self.companyOnTable, dateOnTable: self.dateOnTable)
     }
     
     //MARK: 화면 메소드
