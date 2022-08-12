@@ -85,7 +85,8 @@ class TimetableCreateVM {
                             "nextday" : nextButton.tintColor == .black ? true : false ,                         //다음 날 체크
                             "allTime" : "\(allResult.text!)",    //총 시간
                             "work" : "\(workTV.text ?? "")",    //할 일
-                            "userCheck" : false                 //유저가 체크했는지
+                            "userCheck" : false,               //유저가 체크했는지
+                            "date" : dateOnTable                //날짜
                         ])
                         uv.dismiss(animated: true)
                     }
