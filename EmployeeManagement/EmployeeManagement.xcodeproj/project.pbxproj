@@ -16,6 +16,7 @@
 		73179DE62858F37F00086DBD /* MemoWriteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73179DE52858F37F00086DBD /* MemoWriteVC.swift */; };
 		73179DE8285906AC00086DBD /* MemoWriteVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73179DE7285906AC00086DBD /* MemoWriteVM.swift */; };
 		73179DEA28590DF000086DBD /* MemoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73179DE928590DF000086DBD /* MemoModel.swift */; };
+		7323A2D928A6C90400BF2514 /* TimetableCreateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7323A2D828A6C90400BF2514 /* TimetableCreateModel.swift */; };
 		732D4019283E6FD200E40F48 /* RequestJoinVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732D4018283E6FD200E40F48 /* RequestJoinVC.swift */; };
 		732D401B283E73E000E40F48 /* RequestJoincell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732D401A283E73E000E40F48 /* RequestJoincell.swift */; };
 		73301F7728A3E70A0042F84D /* TimetableCreateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73301F7628A3E70A0042F84D /* TimetableCreateVC.swift */; };
@@ -94,6 +95,7 @@
 		73179DE52858F37F00086DBD /* MemoWriteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoWriteVC.swift; sourceTree = "<group>"; };
 		73179DE7285906AC00086DBD /* MemoWriteVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoWriteVM.swift; sourceTree = "<group>"; };
 		73179DE928590DF000086DBD /* MemoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoModel.swift; sourceTree = "<group>"; };
+		7323A2D828A6C90400BF2514 /* TimetableCreateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimetableCreateModel.swift; sourceTree = "<group>"; };
 		732D4018283E6FD200E40F48 /* RequestJoinVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestJoinVC.swift; sourceTree = "<group>"; };
 		732D401A283E73E000E40F48 /* RequestJoincell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestJoincell.swift; sourceTree = "<group>"; };
 		73301F7628A3E70A0042F84D /* TimetableCreateVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimetableCreateVC.swift; sourceTree = "<group>"; };
@@ -198,6 +200,7 @@
 			children = (
 				737F40ED28A0491C00282C11 /* NoticeListModel.swift */,
 				73D3F5E928A1980E008B431C /* TimetableModel.swift */,
+				7323A2D828A6C90400BF2514 /* TimetableCreateModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -597,6 +600,7 @@
 				73301F7728A3E70A0042F84D /* TimetableCreateVC.swift in Sources */,
 				735180CF2852602E00CC30FB /* MyProfileVM.swift in Sources */,
 				73CDD2AB28511E5900E9EB32 /* MyProfileInfoVC.swift in Sources */,
+				7323A2D928A6C90400BF2514 /* TimetableCreateModel.swift in Sources */,
 				73DA2E23289B18ED006FE401 /* CalendarVC.swift in Sources */,
 				73F0B29028884E2500307D62 /* TransitionInfoCell.swift in Sources */,
 				7309389028593EA8005B812E /* MemoReadVC.swift in Sources */,

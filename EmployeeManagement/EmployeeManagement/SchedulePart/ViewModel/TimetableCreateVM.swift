@@ -7,8 +7,16 @@
 
 import Foundation
 import UIKit
+import FirebaseFirestore
 
 class TimetableCreateVM {
+    
+    let db = Firestore.firestore()
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    
+    var pickName: String = ""
+    var pickPhone: String = ""
+    var selectNameList: [String] = []
     
     //문자 조건
     let charSet: CharacterSet = {
@@ -20,6 +28,24 @@ class TimetableCreateVM {
     
     
     //MARK: 액션 메소드
+    func findName(companyOnTable: String, completion: @escaping([String]) -> ()) {
+        self.selectNameList.removeAll()
+        self.db.collection("shop").document("\(companyOnTable)").collection("employeeControl").getDocuments { (snapshot, error) in
+            if error == nil {
+                for doc in snapshot!.documents{
+                    self.selectNameList.append("\(doc.data()["name"] as! String) \(doc.data()["phone"] as! String)")
+                }
+                let cutSelect = self.selectNameList[0].split(separator: " ")
+                
+                self.pickName = "\(cutSelect[0])"
+                self.pickPhone = "\(cutSelect[1])"
+                completion(self.selectNameList)
+            } else {
+                print(error!.localizedDescription)
+            }
+        }
+    }
+    
     func checkNextDay(nextButton: UIButton, allResult: UILabel, endTF: UITextField){
         if nextButton.tintColor == .systemGray5 {
             nextButton.tintColor = .black
@@ -186,5 +212,25 @@ class TimetableCreateVM {
             }
         }
         return true
+    }
+    
+    //MARK: 피커뷰 메소드
+    func viewForRow(view: UIView?, row: Int) -> UIView{
+        var titleView = view as? UILabel
+        if titleView == nil {
+            titleView = UILabel()
+            titleView?.font = UIFont.init(name: "CookieRun", size: 15)
+            titleView?.textAlignment = .center
+        }
+        titleView?.text = self.selectNameList[row]
+        return titleView!
+    }
+    
+    func didSelectRow(row: Int){
+        let cutSelect = self.selectNameList[row].split(separator: " ")
+        
+        self.pickName = "\(cutSelect[0])"
+        self.pickPhone = "\(cutSelect[1])"
+        
     }
 }

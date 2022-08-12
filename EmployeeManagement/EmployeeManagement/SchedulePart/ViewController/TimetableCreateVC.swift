@@ -14,8 +14,6 @@ class TimetableCreateVC: UIViewController {
     var dateOnTable: String = ""                   //전 화면에서 받아오는 날짜
     var companyOnTable: String = ""                //전 화면에서 받아오는 회사 이름
     
-    var questionList = [(0,"나의 보물 1호는?"), (1,"내가 사는 곳은?"), (2,"내가 다녔던 고등학교는?")]
-    
     var viewModel = TimetableCreateVM()
     
     //닫기 버튼
@@ -185,11 +183,14 @@ class TimetableCreateVC: UIViewController {
         self.endTF.delegate = self
         self.pickerView.dataSource = self
         self.pickerView.delegate = self
-        /*
-        let aaa = DateFormatter()
-        aaa.dateFormat = "yyyy-MM-dd"
-        let ssa = aaa.date(from: self.dateOnTable)!
-        print(aaa.string(from: ssa-86400))*/
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.uiCreate()
+        self.viewModel.findName(companyOnTable: self.companyOnTable){ completion in
+            self.pickerView.reloadAllComponents()
+        }
     }
     
     //MARK: 액션 메소드
@@ -375,18 +376,14 @@ extension TimetableCreateVC: UIPickerViewDataSource, UIPickerViewDelegate {
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return self.questionList.count
+        return self.viewModel.selectNameList.count
     }
     
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
-        var titleView = view as? UILabel
-        if titleView == nil {
-            titleView = UILabel()
-            titleView?.font = UIFont.init(name: "CookieRun", size: 15)
-            titleView?.textAlignment = .center
-        }
-        titleView?.text = "\(self.questionList[row].1)"
-        
-        return titleView!
+        self.viewModel.viewForRow(view: view, row: row)
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        self.viewModel.didSelectRow(row: row)
     }
 }
