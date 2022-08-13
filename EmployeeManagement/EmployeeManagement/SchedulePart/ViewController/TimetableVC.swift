@@ -15,8 +15,6 @@ class TimetableVC: UIViewController {
     
     var viewModel = TimetableVM()
     
-    var test: [String] = ["노주영", "노찬영", "오승환", "이준희", "장세웅", "이석재", "이송준", "이철민"]
-    
     let timeLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "CookieRun", size: 17)
@@ -188,6 +186,13 @@ class TimetableVC: UIViewController {
         self.collectionView.dataSource = self
         self.collectionView.register(TimetableCell.self, forCellWithReuseIdentifier: TimetableCell.identifier)
         self.uiCreate()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.viewModel.findName(companyOnTable: self.companyOnTable, dateOnTable: self.dateOnTable, timeLabel: self.timeLabel){ completion in
+            self.collectionView.reloadData()
+        }
     }
     
     //MARK: 액션 메소드
@@ -364,42 +369,14 @@ class TimetableVC: UIViewController {
 //MARK: 컬랙션 뷰 메소드
 extension TimetableVC: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TimetableCell.identifier, for: indexPath) as? TimetableCell else { return UICollectionViewCell() }
-    
-        cell.cellNameLabel.text = self.test[indexPath.row]
-        
-        if self.test[indexPath.row] == "노주영"{
-            cell.timeCheckView.snp.makeConstraints { make in
-                make.centerX.equalTo(cell.cellNameLabel.snp.centerX)
-                make.top.equalTo(cell.cellNameLabel.snp.bottom).offset(339)
-                make.width.equalTo(35)
-                make.height.equalTo(215)
-            }
-        } else if self.test[indexPath.row] == "이준희" {
-            cell.timeCheckView.snp.makeConstraints { make in
-                make.centerX.equalTo(cell.cellNameLabel.snp.centerX)
-                make.top.equalTo(cell.cellNameLabel.snp.bottom).offset(24)
-                make.width.equalTo(35)
-                make.height.equalTo(143)
-            }
-        } else {
-            cell.timeCheckView.snp.makeConstraints { make in
-                make.centerX.equalTo(cell.cellNameLabel.snp.centerX)
-                make.top.equalTo(cell.cellNameLabel.snp.bottom).offset(100)
-                make.width.equalTo(35)
-                make.height.equalTo(200)
-            }
-        }
-       
-        return cell
+        self.viewModel.cellInfo(collectionView: collectionView, indexPath: indexPath, timeLabel: self.timeLabel)
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.test.count
+        return self.viewModel.scheduleList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell  = collectionView.cellForItem(at: indexPath) as! TimetableCell
         
     }
-
 }

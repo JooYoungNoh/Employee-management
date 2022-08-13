@@ -18,7 +18,6 @@ class TimetableCell: UICollectionViewCell {
         label.textAlignment = .center
         label.layer.borderWidth = 1
         label.layer.cornerRadius = 3
-        label.layer.borderWidth = 1
         label.layer.borderColor = UIColor.systemGray.cgColor
         return label
     }()
@@ -45,6 +44,11 @@ class TimetableCell: UICollectionViewCell {
             make.height.equalTo(20)
         }
         
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+    
     }
 
     required init?(coder: NSCoder) {

@@ -96,14 +96,7 @@ class TimetableCreateVM {
                             }
                             let dateFormatter2 = DateFormatter()
                             dateFormatter2.dateFormat = "HH:mm"
-                            let yesterdayEnd = dateFormatter2.date(from: self.endTimeCheck)!
-                            let todayStart = dateFormatter2.date(from: startTF.text!)!
-                            
-                            if self.nextdayCheck == true && Double(yesterdayEnd.timeIntervalSince(todayStart)) > 0{
-                                let alert = UIAlertController(title: "어제 스케줄과 겹칩니다", message: "확인해주세요", preferredStyle: .alert)
-                                alert.addAction(UIAlertAction(title: "OK", style: .default))
-                                uv.present(alert, animated: true)
-                            } else {
+                            if self.endTimeCheck == "" {
                                 //내 스케줄 찾기를 위해 문서 아이디 활성화
                                 self.db.collection("shop").document("\(companyOnTable)").collection("scheduleList").document("\(dateOnTable)").setData([
                                     "scheduleState" : true
@@ -121,6 +114,33 @@ class TimetableCreateVM {
                                     "date" : dateOnTable                //날짜
                                 ])
                                 uv.dismiss(animated: true)
+                            } else {
+                                let yesterdayEnd = dateFormatter2.date(from: self.endTimeCheck)!
+                                let todayStart = dateFormatter2.date(from: startTF.text!)!
+                                
+                                if self.nextdayCheck == true && Double(yesterdayEnd.timeIntervalSince(todayStart)) > 0{
+                                    let alert = UIAlertController(title: "어제 스케줄과 겹칩니다", message: "확인해주세요", preferredStyle: .alert)
+                                    alert.addAction(UIAlertAction(title: "OK", style: .default))
+                                    uv.present(alert, animated: true)
+                                } else {
+                                    //내 스케줄 찾기를 위해 문서 아이디 활성화
+                                    self.db.collection("shop").document("\(companyOnTable)").collection("scheduleList").document("\(dateOnTable)").setData([
+                                        "scheduleState" : true
+                                    ])
+                                    
+                                    self.db.collection("shop").document("\(companyOnTable)").collection("scheduleList").document("\(dateOnTable)").collection("attendanceList").document("\(self.pickPhone)").setData([
+                                        "name" : self.pickName,             //이름
+                                        "phone" : self.pickPhone,           //전화번호
+                                        "startTime" : "\(startTF.text!)",    //시작 시간
+                                        "endTime" : "\(endTF.text!)",        //끝 시간
+                                        "nextday" : nextButton.tintColor == .black ? true : false ,                         //다음 날 체크
+                                        "allTime" : "\(allResult.text!)",    //총 시간
+                                        "work" : "\(workTV.text ?? "")",    //할 일
+                                        "userCheck" : false,               //유저가 체크했는지
+                                        "date" : dateOnTable                //날짜
+                                    ])
+                                    uv.dismiss(animated: true)
+                                }
                             }
                         }
                     }
