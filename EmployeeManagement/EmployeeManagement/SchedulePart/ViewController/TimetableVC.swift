@@ -376,6 +376,6 @@ extension TimetableVC: UICollectionViewDataSource, UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        self.viewModel.selectCell(uv: self, indexPath: indexPath)
     }
 }
