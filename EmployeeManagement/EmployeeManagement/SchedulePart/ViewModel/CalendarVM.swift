@@ -94,11 +94,13 @@ class CalendarVM {
         let cell = tableView.cellForRow(at: indexPath) as! CalendarCell
         if self.companyMyScheduleList.isEmpty == false {
             if cell.checkView.isHidden == false {
-                cell.checkView.isHidden = true
-                self.checkSchedule.append(indexPath.row)
-                self.db.collection("shop").document("\(companyNameOnTable)").collection("scheduleList").document("\(cell.dateLabel.text!)").collection("attendanceList").document("\(self.appDelegate.phoneInfo!)").updateData([
-                    "userCheck" : true
-                ])
+                if self.checkSchedule.contains(indexPath.row) == false{
+                    cell.checkView.isHidden = true
+                    self.checkSchedule.append(indexPath.row)
+                    self.db.collection("shop").document("\(companyNameOnTable)").collection("scheduleList").document("\(cell.dateLabel.text!)").collection("attendanceList").document("\(self.appDelegate.phoneInfo!)").updateData([
+                        "userCheck" : true
+                    ])
+                }
             }
         }
     }
