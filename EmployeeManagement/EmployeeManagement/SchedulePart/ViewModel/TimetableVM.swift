@@ -224,7 +224,7 @@ class TimetableVM {
         return cell
     }
     
-    func selectCell(uv: UIViewController){
+    func selectCell(uv: UIViewController, indexPath: IndexPath){
         guard let nv = uv.storyboard?.instantiateViewController(withIdentifier: "TimetableInfoVC") as? TimetableInfoVC else { return }
     
         nv.companyOnTable = self.scheduleList[indexPath.row].company
