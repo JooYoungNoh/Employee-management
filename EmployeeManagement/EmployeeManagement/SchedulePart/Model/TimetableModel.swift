@@ -18,8 +18,9 @@ struct TimetableModel{
     var work: String
     var userCheck: Bool
     var date: String
+    var company: String
     
-    init(name: String, phone: String, startTime: String, endTime: String, nextday: Bool, allTime: String, work: String, userCheck: Bool, date: String){
+    init(name: String, phone: String, startTime: String, endTime: String, nextday: Bool, allTime: String, work: String, userCheck: Bool, date: String, company: String){
         self.name = name
         self.phone = phone
         self.startTime = startTime
@@ -29,5 +30,6 @@ struct TimetableModel{
         self.work = work
         self.userCheck = userCheck
         self.date = date
+        self.company = company
     }
 }

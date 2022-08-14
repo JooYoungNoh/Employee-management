@@ -24,7 +24,7 @@ class TimetableVM {
         self.db.collection("shop").document("\(companyOnTable)").collection("scheduleList").document("\(dateOnTable)").collection("attendanceList").getDocuments { (snapshot, error) in
             if error == nil {
                 for doc in snapshot!.documents{
-                    self.scheduleList.append(TimetableModel.init(name: doc.data()["name"] as! String, phone: doc.data()["phone"] as! String, startTime: doc.data()["startTime"] as! String, endTime: doc.data()["endTime"] as! String, nextday: doc.data()["nextday"] as! Bool, allTime: doc.data()["allTime"] as! String, work: doc.data()["work"] as! String, userCheck: doc.data()["userCheck"] as! Bool, date: doc.data()["date"] as! String))
+                    self.scheduleList.append(TimetableModel.init(name: doc.data()["name"] as! String, phone: doc.data()["phone"] as! String, startTime: doc.data()["startTime"] as! String, endTime: doc.data()["endTime"] as! String, nextday: doc.data()["nextday"] as! Bool, allTime: doc.data()["allTime"] as! String, work: doc.data()["work"] as! String, userCheck: doc.data()["userCheck"] as! Bool, date: doc.data()["date"] as! String, company: doc.data()["company"] as! String))
                 }
                 if self.scheduleList.count == 0 {
                     timeLabel.text = "시간표 없음"

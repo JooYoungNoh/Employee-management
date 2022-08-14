@@ -24,6 +24,7 @@
 		7331C5E628491CA6009F5210 /* EmployeeListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7331C5E528491CA6009F5210 /* EmployeeListCell.swift */; };
 		7331C5E828492ECE009F5210 /* EmployeeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7331C5E728492ECE009F5210 /* EmployeeModel.swift */; };
 		73324E80285BCA5A00F443FD /* ProfileVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73324E7F285BCA5A00F443FD /* ProfileVM.swift */; };
+		7334333E28A93E9400723582 /* CalendarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7334333D28A93E9400723582 /* CalendarModel.swift */; };
 		73435D32285A523B00B52A98 /* CalculatorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73435D31285A523B00B52A98 /* CalculatorVC.swift */; };
 		73435D34285A525100B52A98 /* CalculatorVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73435D33285A525100B52A98 /* CalculatorVM.swift */; };
 		73502E182832BAB000920E3C /* Shopcell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73502E172832BAB000920E3C /* Shopcell.swift */; };
@@ -102,6 +103,7 @@
 		7331C5E528491CA6009F5210 /* EmployeeListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeListCell.swift; sourceTree = "<group>"; };
 		7331C5E728492ECE009F5210 /* EmployeeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeModel.swift; sourceTree = "<group>"; };
 		73324E7F285BCA5A00F443FD /* ProfileVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVM.swift; sourceTree = "<group>"; };
+		7334333D28A93E9400723582 /* CalendarModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarModel.swift; sourceTree = "<group>"; };
 		73435D31285A523B00B52A98 /* CalculatorVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorVC.swift; sourceTree = "<group>"; };
 		73435D33285A525100B52A98 /* CalculatorVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorVM.swift; sourceTree = "<group>"; };
 		73502E172832BAB000920E3C /* Shopcell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shopcell.swift; sourceTree = "<group>"; };
@@ -196,6 +198,7 @@
 		730AA0A4289ABFDF00A93D5B /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				7334333D28A93E9400723582 /* CalendarModel.swift */,
 				737F40ED28A0491C00282C11 /* NoticeListModel.swift */,
 				73D3F5E928A1980E008B431C /* TimetableModel.swift */,
 			);
@@ -553,6 +556,7 @@
 				73179DEA28590DF000086DBD /* MemoModel.swift in Sources */,
 				73179DE8285906AC00086DBD /* MemoWriteVM.swift in Sources */,
 				73D3F5E628A197EB008B431C /* TimetableVC.swift in Sources */,
+				7334333E28A93E9400723582 /* CalendarModel.swift in Sources */,
 				73301F7928A3E7230042F84D /* TimetableCreateVM.swift in Sources */,
 				7390F3EE2858E0F00036B632 /* MemoVM.swift in Sources */,
 				73DA2E27289B20F5006FE401 /* CalendarCell.swift in Sources */,
