@@ -223,5 +223,21 @@ class TimetableVM {
         }        
         return cell
     }
+    
+    func selectCell(uv: UIViewController){
+        guard let nv = uv.storyboard?.instantiateViewController(withIdentifier: "TimetableInfoVC") as? TimetableInfoVC else { return }
+    
+        nv.companyOnTable = self.scheduleList[indexPath.row].company
+        nv.nameOnTable = self.scheduleList[indexPath.row].name
+        nv.dateOnTable = self.scheduleList[indexPath.row].date
+        nv.startOnTable = self.scheduleList[indexPath.row].startTime
+        nv.endOnTable = self.scheduleList[indexPath.row].endTime
+        nv.allOnTable = self.scheduleList[indexPath.row].allTime
+        nv.workOnTable = self.scheduleList[indexPath.row].work
+        nv.phoneOnTable = self.scheduleList[indexPath.row].phone
+        nv.nextdayOnTable = self.scheduleList[indexPath.row].nextday
+        
+        uv.navigationController?.pushViewController(nv, animated: true)
+    }
 }
 
