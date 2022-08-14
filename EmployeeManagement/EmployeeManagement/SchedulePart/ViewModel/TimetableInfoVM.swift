@@ -47,26 +47,33 @@ class TimetableInfoVM {
     }
     
     func dosave(uv: UIViewController, allResult: UILabel, startTF: UITextField, endTF: UITextField, nextButton: UIButton, startOnTable: String, endOnTable: String, allOnTable: String, workTV: UITextView, workOnTable: String, companyOnTable: String, dateOnTable: String, phoneOnTable: String){
-        if startTF.text == startOnTable && endTF.text == endOnTable && workTV.text == workOnTable && allResult.text == allOnTable {
-            let alert = UIAlertController(title: "변경 사항이 없습니다", message: nil, preferredStyle: .alert)
+        if self.appDelegate.jobInfo == "2" {
+            let alert = UIAlertController(title: nil, message: "직원 이상의 직책만 사용가능합니다", preferredStyle: .alert)
+            
             alert.addAction(UIAlertAction(title: "OK", style: .default))
             uv.present(alert, animated: true)
         } else {
-            let alert = UIAlertController(title: "저장하시겠습니까", message: "복구가 불가능합니다", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default){ (_) in
-                self.db.collection("shop").document("\(companyOnTable)").collection("scheduleList").document("\(dateOnTable)").collection("attendanceList").document("\(phoneOnTable)").updateData([
-                    "startTime" : "\(startTF.text!)",    //시작 시간
-                    "endTime" : "\(endTF.text!)",        //끝 시간
-                    "nextday" : nextButton.tintColor == .black ? true : false ,                         //다음 날 체크
-                    "allTime" : "\(allResult.text!)",    //총 시간
-                    "work" : "\(workTV.text ?? "")",    //할 일
-                    "userCheck" : false                 //유저가 체크했는지
-                ])
-                
-                uv.navigationController?.popViewController(animated: true)
-            })
-            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-            uv.present(alert, animated: true)
+            if startTF.text == startOnTable && endTF.text == endOnTable && workTV.text == workOnTable && allResult.text == allOnTable {
+                let alert = UIAlertController(title: "변경 사항이 없습니다", message: nil, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default))
+                uv.present(alert, animated: true)
+            } else {
+                let alert = UIAlertController(title: "저장하시겠습니까", message: "복구가 불가능합니다", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default){ (_) in
+                    self.db.collection("shop").document("\(companyOnTable)").collection("scheduleList").document("\(dateOnTable)").collection("attendanceList").document("\(phoneOnTable)").updateData([
+                        "startTime" : "\(startTF.text!)",    //시작 시간
+                        "endTime" : "\(endTF.text!)",        //끝 시간
+                        "nextday" : nextButton.tintColor == .black ? true : false ,                         //다음 날 체크
+                        "allTime" : "\(allResult.text!)",    //총 시간
+                        "work" : "\(workTV.text ?? "")",    //할 일
+                        "userCheck" : false                 //유저가 체크했는지
+                    ])
+                    
+                    uv.navigationController?.popViewController(animated: true)
+                })
+                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+                uv.present(alert, animated: true)
+            }
         }
     }
     
