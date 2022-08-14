@@ -25,6 +25,8 @@
 		7331C5E828492ECE009F5210 /* EmployeeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7331C5E728492ECE009F5210 /* EmployeeModel.swift */; };
 		73324E80285BCA5A00F443FD /* ProfileVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73324E7F285BCA5A00F443FD /* ProfileVM.swift */; };
 		7334333E28A93E9400723582 /* CalendarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7334333D28A93E9400723582 /* CalendarModel.swift */; };
+		7334334028A95AD500723582 /* TimetableInfoVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7334333F28A95AD500723582 /* TimetableInfoVM.swift */; };
+		7334334228A95AF000723582 /* TimetableInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7334334128A95AF000723582 /* TimetableInfoVC.swift */; };
 		73435D32285A523B00B52A98 /* CalculatorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73435D31285A523B00B52A98 /* CalculatorVC.swift */; };
 		73435D34285A525100B52A98 /* CalculatorVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73435D33285A525100B52A98 /* CalculatorVM.swift */; };
 		73502E182832BAB000920E3C /* Shopcell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73502E172832BAB000920E3C /* Shopcell.swift */; };
@@ -104,6 +106,8 @@
 		7331C5E728492ECE009F5210 /* EmployeeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeModel.swift; sourceTree = "<group>"; };
 		73324E7F285BCA5A00F443FD /* ProfileVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVM.swift; sourceTree = "<group>"; };
 		7334333D28A93E9400723582 /* CalendarModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarModel.swift; sourceTree = "<group>"; };
+		7334333F28A95AD500723582 /* TimetableInfoVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimetableInfoVM.swift; sourceTree = "<group>"; };
+		7334334128A95AF000723582 /* TimetableInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimetableInfoVC.swift; sourceTree = "<group>"; };
 		73435D31285A523B00B52A98 /* CalculatorVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorVC.swift; sourceTree = "<group>"; };
 		73435D33285A525100B52A98 /* CalculatorVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorVM.swift; sourceTree = "<group>"; };
 		73502E172832BAB000920E3C /* Shopcell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shopcell.swift; sourceTree = "<group>"; };
@@ -215,6 +219,7 @@
 				737F40F128A04C8500282C11 /* NoticeInfoVM.swift */,
 				73D3F5E728A197FA008B431C /* TimetableVM.swift */,
 				73301F7828A3E7230042F84D /* TimetableCreateVM.swift */,
+				7334333F28A95AD500723582 /* TimetableInfoVM.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -233,6 +238,7 @@
 				73D3F5E528A197EB008B431C /* TimetableVC.swift */,
 				73BE45AA28A1A59E00BC4BDC /* TimetableCell.swift */,
 				73301F7628A3E70A0042F84D /* TimetableCreateVC.swift */,
+				7334334128A95AF000723582 /* TimetableInfoVC.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -586,6 +592,7 @@
 				737F40F228A04C8500282C11 /* NoticeInfoVM.swift in Sources */,
 				7392F19C2875922900DD7F01 /* TransitionCell.swift in Sources */,
 				73E2DA992832688100C4CF25 /* ChattingVC.swift in Sources */,
+				7334334028A95AD500723582 /* TimetableInfoVM.swift in Sources */,
 				737F40E428A0094300282C11 /* NoticeListVC.swift in Sources */,
 				73E084A6282AA3BA00AFC582 /* EmployeeListVC.swift in Sources */,
 				73CDD2A928511C5D00E9EB32 /* ProfileInfoVC.swift in Sources */,
@@ -606,6 +613,7 @@
 				7309389028593EA8005B812E /* MemoReadVC.swift in Sources */,
 				73435D32285A523B00B52A98 /* CalculatorVC.swift in Sources */,
 				73A3AAF12829694E001283CD /* FindVC.swift in Sources */,
+				7334334228A95AF000723582 /* TimetableInfoVC.swift in Sources */,
 				7331C5E628491CA6009F5210 /* EmployeeListCell.swift in Sources */,
 				73C411B2283520A6001EC8F6 /* BusinessTypePicker.swift in Sources */,
 				737F40EE28A0491C00282C11 /* NoticeListModel.swift in Sources */,
