@@ -163,7 +163,7 @@ class TimetableInfoVC: UIViewController {
     
     //MARK: 액션 메소드
     @objc func checkNextDay(_ sender: UIButton){
-        
+        self.viewModel.checkNextDay(nextButton: self.nextButton, allResult: self.allResult, endTF: self.endTF)
     }
     
     //MARK: 화면 메소드
@@ -302,7 +302,7 @@ class TimetableInfoVC: UIViewController {
 //MARK: 텍스트 필드 메소드
 extension TimetableInfoVC: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
-        self.viewModel.textEndEditing(uv: self, textField: textField, allResult: self.allResult, startTF: self.startTF, endTF: self.endTF, nextButton: self.nextButton, startOnTable: self.startOnTable, endOnTable: self.endOnTable, allOnTable: self.allOnTable)
+        self.viewModel.textEndEditing(uv: self, textField: textField, allResult: self.allResult, startTF: self.startTF, endTF: self.endTF, nextButton: self.nextButton, startOnTable: self.startOnTable, endOnTable: self.endOnTable, allOnTable: self.allOnTable, nextdayOnTable: self.nextdayOnTable)
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {

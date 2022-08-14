@@ -31,8 +31,27 @@ class TimetableInfoVM {
         return cs.inverted
     }()
     
+    //MARK: 액션 메소드
+    func checkNextDay(nextButton: UIButton, allResult: UILabel, endTF: UITextField){
+        if nextButton.tintColor == .systemGray5 {
+            nextButton.tintColor = .black
+            nextButton.setTitleColor(UIColor.black, for: .normal)
+            allResult.text = "0.0 시간"
+            endTF.text = ""
+        } else {
+            nextButton.tintColor = .systemGray5
+            nextButton.setTitleColor(UIColor.systemGray5, for: .normal)
+            allResult.text = "0.0 시간"
+            endTF.text = ""
+        }
+    }
+    
+    func dosave(){
+        
+    }
+    
     //MARK: 텍스트 필드 메소드
-    func textEndEditing(uv: UIViewController,textField: UITextField, allResult: UILabel, startTF: UITextField, endTF: UITextField, nextButton: UIButton, startOnTable: String, endOnTable: String, allOnTable: String){
+    func textEndEditing(uv: UIViewController,textField: UITextField, allResult: UILabel, startTF: UITextField, endTF: UITextField, nextButton: UIButton, startOnTable: String, endOnTable: String, allOnTable: String, nextdayOnTable: Bool){
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm"
         var start: Date!
@@ -90,6 +109,14 @@ class TimetableInfoVM {
             startTF.text = startOnTable
             endTF.text = endOnTable
             allResult.text = allOnTable
+            
+            if nextdayOnTable == false {
+                nextButton.tintColor = .systemGray5
+                nextButton.setTitleColor(UIColor.systemGray5, for: .normal)
+            } else {
+                nextButton.tintColor = .black
+                nextButton.setTitleColor(UIColor.black, for: .normal)
+            }
         }
         
         if checkBool == true {
@@ -125,6 +152,13 @@ class TimetableInfoVM {
                                     textField.text = startOnTable
                                     endTF.text = endOnTable
                                     allResult.text = allOnTable
+                                    if nextdayOnTable == false {
+                                        nextButton.tintColor = .systemGray5
+                                        nextButton.setTitleColor(UIColor.systemGray5, for: .normal)
+                                    } else {
+                                        nextButton.tintColor = .black
+                                        nextButton.setTitleColor(UIColor.black, for: .normal)
+                                    }
                                 })
                                 uv.present(alert, animated: true)
                             } else {
@@ -137,6 +171,13 @@ class TimetableInfoVM {
                             textField.text = startOnTable
                             endTF.text = endOnTable
                             allResult.text = allOnTable
+                            if nextdayOnTable == false {
+                                nextButton.tintColor = .systemGray5
+                                nextButton.setTitleColor(UIColor.systemGray5, for: .normal)
+                            } else {
+                                nextButton.tintColor = .black
+                                nextButton.setTitleColor(UIColor.black, for: .normal)
+                            }
                         })
                         uv.present(alert, animated: true)
                     }
@@ -170,6 +211,13 @@ class TimetableInfoVM {
                                     startTF.text = startOnTable
                                     textField.text = endOnTable
                                     allResult.text = allOnTable
+                                    if nextdayOnTable == false {
+                                        nextButton.tintColor = .systemGray5
+                                        nextButton.setTitleColor(UIColor.systemGray5, for: .normal)
+                                    } else {
+                                        nextButton.tintColor = .black
+                                        nextButton.setTitleColor(UIColor.black, for: .normal)
+                                    }
                                 })
                                 uv.present(alert, animated: true)
                             } else {
@@ -182,6 +230,13 @@ class TimetableInfoVM {
                             startTF.text = startOnTable
                             textField.text = endOnTable
                             allResult.text = allOnTable
+                            if nextdayOnTable == false {
+                                nextButton.tintColor = .systemGray5
+                                nextButton.setTitleColor(UIColor.systemGray5, for: .normal)
+                            } else {
+                                nextButton.tintColor = .black
+                                nextButton.setTitleColor(UIColor.black, for: .normal)
+                            }
                         })
                         uv.present(alert, animated: true)
                     }
