@@ -166,8 +166,23 @@ class TimetableInfoVC: UIViewController {
         self.viewModel.checkNextDay(nextButton: self.nextButton, allResult: self.allResult, endTF: self.endTF)
     }
     
+    @objc func dosave(_ sender: UIBarButtonItem){
+        self.viewModel.dosave(uv: self, allResult: self.allResult, startTF: self.startTF, endTF: self.endTF, nextButton: self.nextButton, startOnTable: self.startOnTable, endOnTable: self.endOnTable, allOnTable: self.allOnTable, workTV: self.workTV, workOnTable: self.workOnTable, companyOnTable: self.companyOnTable, dateOnTable: self.dateOnTable, phoneOnTable: self.phoneOnTable)
+    }
+    
     //MARK: 화면 메소드
     func uiCreate(){
+        //내비게이션
+        self.navigationItem.title = "시간표 정보"
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font : UIFont(name: "CookieRun", size: 20)!]
+        self.navigationController?.navigationBar.prefersLargeTitles = false
+        
+        //내비게이션 바 버튼
+        let saveButton = UIBarButtonItem.init(title: "저장", style: .plain, target: self, action: #selector(dosave(_:)))
+        
+        self.navigationItem.rightBarButtonItem = saveButton
+        saveButton.tintColor = UIColor.black
+        
         //이름 레이블
         self.view.addSubview(self.nameLabel)
         nameLabel.snp.makeConstraints { make in
