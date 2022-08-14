@@ -40,6 +40,14 @@ class CalendarVC: UIViewController {
         uiCreate()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.viewModel.findMySchedule(companyNameOnTable: self.companyNameOnTable){ completion in
+            self.tableView.reloadData()
+            print(completion)
+        }
+    }
+    
     //MARK: 액션 메소드
     @objc func goNotice(_ sender: UIBarButtonItem) {
         self.viewModel.goNotice(uv: self, companyNameOnTable: self.companyNameOnTable)
@@ -83,22 +91,11 @@ class CalendarVC: UIViewController {
 //MARK: 테이블 뷰 메소드
 extension CalendarVC: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "CalendarCell", for: indexPath) as? CalendarCell else { return UITableViewCell() }
-        
-        if self.viewModel.checkSchedule.contains(indexPath.row) == true {
-            cell.checkView.isHidden = true
-        } else {
-            cell.checkView.isHidden = false
-        }
-        
-        cell.titleLabel.text = "실험중 입니다아아아아아아"
-        cell.dateLabel.text = "2022-08-04"
-        
-        return cell
+        self.viewModel.cellInfo(tableView: tableView, indexPath: indexPath)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return self.viewModel.companyMyScheduleList.count == 0 ? 1 : self.viewModel.companyMyScheduleList.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -132,24 +129,13 @@ extension CalendarVC: UITableViewDelegate, UITableViewDataSource{
     //셀 선택
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let cell = tableView.cellForRow(at: indexPath) as! CalendarCell
-        
-        if cell.checkView.isHidden == false {
-            cell.checkView.isHidden = true
-            self.viewModel.checkSchedule.append(indexPath.row)
-        }
+        self.viewModel.selectCell(tableView: tableView, indexPath: indexPath, companyNameOnTable: self.companyNameOnTable)
     }
 }
 
 //MARK: calendar 메소드
 extension CalendarVC: FSCalendarDelegate {
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-        guard let nv = self.storyboard?.instantiateViewController(withIdentifier: "TimetableVC") as? TimetableVC else { return }
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        nv.dateOnTable = dateFormatter.string(from: date)
-        nv.companyOnTable = self.companyNameOnTable
-        
-        self.navigationController?.pushViewController(nv, animated: true)
+        self.viewModel.goTimetable(uv: self, date: date, companyNameOnTable: self.companyNameOnTable)
     }
 }
