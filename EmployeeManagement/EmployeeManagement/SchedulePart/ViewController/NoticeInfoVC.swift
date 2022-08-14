@@ -51,7 +51,7 @@ class NoticeInfoVC: UIViewController, UITextViewDelegate {
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font : UIFont(name: "CookieRun", size: 20)!]
         self.navigationController?.navigationBar.tintColor = UIColor.black
         
-        let saveButton = UIBarButtonItem.init(title: "Save", style: .plain, target: self, action: #selector(dosave(_:)))
+        let saveButton = UIBarButtonItem.init(title: "저장", style: .plain, target: self, action: #selector(dosave(_:)))
         
         self.navigationItem.rightBarButtonItem = saveButton
         self.navigationItem.backBarButtonItem?.tintColor = .black
