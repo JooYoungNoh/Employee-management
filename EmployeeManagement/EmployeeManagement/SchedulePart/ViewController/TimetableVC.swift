@@ -376,7 +376,18 @@ extension TimetableVC: UICollectionViewDataSource, UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let cell  = collectionView.cellForItem(at: indexPath) as! TimetableCell
+        guard let nv = self.storyboard?.instantiateViewController(withIdentifier: "TimetableInfoVC") as? TimetableInfoVC else { return }
+    
+        nv.companyOnTable = self.viewModel.scheduleList[indexPath.row].company
+        nv.nameOnTable = self.viewModel.scheduleList[indexPath.row].name
+        nv.dateOnTable = self.viewModel.scheduleList[indexPath.row].date
+        nv.startOnTable = self.viewModel.scheduleList[indexPath.row].startTime
+        nv.endOnTable = self.viewModel.scheduleList[indexPath.row].endTime
+        nv.allOnTable = self.viewModel.scheduleList[indexPath.row].allTime
+        nv.workOnTable = self.viewModel.scheduleList[indexPath.row].work
+        nv.phoneOnTable = self.viewModel.scheduleList[indexPath.row].phone
+        nv.nextdayOnTable = self.viewModel.scheduleList[indexPath.row].nextday
         
+        self.navigationController?.pushViewController(nv, animated: true)
     }
 }

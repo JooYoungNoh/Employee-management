@@ -9,6 +9,17 @@ import UIKit
 
 class TimetableInfoVC: UIViewController {
 
+    var companyOnTable: String = ""
+    var dateOnTable: String = ""
+    var nameOnTable: String = ""
+    var startOnTable: String = ""
+    var endOnTable: String = ""
+    var allOnTable: String = ""
+    var workOnTable: String = ""
+    var phoneOnTable: String = ""
+    var nextdayOnTable: Bool = false
+    
+    
     //이름 레이블
     let nameLabel: UILabel = {
         let label = UILabel()
@@ -163,29 +174,29 @@ class TimetableInfoVC: UIViewController {
             make.height.equalTo(40)
         }
         
-        self.nameResult.text = "노주영"
+        self.nameResult.text = self.nameOnTable
         self.view.addSubview(self.nameResult)
         self.nameResult.snp.makeConstraints { make in
             make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(50)
             make.leading.equalTo(self.nameLabel.snp.trailing).offset(20)
             make.width.equalTo(120)
-            make.height.equalTo(80)
+            make.height.equalTo(40)
         
         }
         
         //날짜 레이블 UI
         self.view.addSubview(self.dateLabel)
         dateLabel.snp.makeConstraints { make in
-            make.top.equalTo(self.nameLabel.snp.bottom).offset(50)
+            make.top.equalTo(self.nameLabel.snp.bottom).offset(30)
             make.leading.equalTo(self.view.safeAreaLayoutGuide.snp.leading).offset(30)
             make.width.equalTo(80)
             make.height.equalTo(40)
         }
         
-        self.dateResult.text = "self.dateOnTable"
+        self.dateResult.text = self.dateOnTable
         self.view.addSubview(self.dateResult)
         dateResult.snp.makeConstraints { make in
-            make.top.equalTo(self.nameLabel.snp.bottom).offset(50)
+            make.top.equalTo(self.nameLabel.snp.bottom).offset(30)
             make.centerX.equalToSuperview()
             make.width.equalTo(120)
             make.height.equalTo(40)
@@ -200,6 +211,7 @@ class TimetableInfoVC: UIViewController {
             make.height.equalTo(40)
         }
         
+        self.startTF.text = self.startOnTable
         self.view.addSubview(self.startTF)
         startTF.snp.makeConstraints { make in
             make.top.equalTo(self.dateLabel.snp.bottom).offset(30)
@@ -217,6 +229,7 @@ class TimetableInfoVC: UIViewController {
             make.height.equalTo(40)
         }
         
+        self.endTF.text = self.endOnTable
         self.view.addSubview(self.endTF)
         endTF.snp.makeConstraints { make in
             make.top.equalTo(self.startLabel.snp.bottom).offset(30)
@@ -225,6 +238,10 @@ class TimetableInfoVC: UIViewController {
             make.height.equalTo(40)
         }
         
+        if self.nextdayOnTable == true {
+            self.nextButton.tintColor = .black
+            self.nextButton.setTitleColor(UIColor.black, for: .normal)
+        }
         self.nextButton.addTarget(self, action: #selector(checkNextDay(_:)), for: .touchUpInside)
         self.view.addSubview(self.nextButton)
         nextButton.snp.makeConstraints { make in
@@ -243,6 +260,7 @@ class TimetableInfoVC: UIViewController {
             make.height.equalTo(40)
         }
         
+        self.allResult.text = self.allOnTable
         self.view.addSubview(self.allResult)
         allResult.snp.makeConstraints { make in
             make.top.equalTo(self.endLabel.snp.bottom).offset(30)
@@ -260,6 +278,7 @@ class TimetableInfoVC: UIViewController {
             make.height.equalTo(40)
         }
         
+        self.workTV.text = self.workOnTable
         self.view.addSubview(self.workTV)
         workTV.snp.makeConstraints { make in
             make.top.equalTo(self.allLabel.snp.bottom).offset(40)
