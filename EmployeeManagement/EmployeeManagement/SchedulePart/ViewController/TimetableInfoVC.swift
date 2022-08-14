@@ -20,6 +20,8 @@ class TimetableInfoVC: UIViewController {
     var nextdayOnTable: Bool = false
     
     
+    var viewModel = TimetableInfoVM()
+    
     //이름 레이블
     let nameLabel: UILabel = {
         let label = UILabel()
@@ -154,8 +156,9 @@ class TimetableInfoVC: UIViewController {
     //MARK: viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-
         self.uiCreate()
+        self.startTF.delegate = self
+        self.endTF.delegate = self
     }
     
     //MARK: 액션 메소드
@@ -294,4 +297,15 @@ class TimetableInfoVC: UIViewController {
         self.view.endEditing(true)
     }
 
+}
+
+//MARK: 텍스트 필드 메소드
+extension TimetableInfoVC: UITextFieldDelegate {
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        self.viewModel.textEndEditing(uv: self, textField: textField, allResult: self.allResult, startTF: self.startTF, endTF: self.endTF, nextButton: self.nextButton, startOnTable: self.startOnTable, endOnTable: self.endOnTable, allOnTable: self.allOnTable)
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        return self.viewModel.textWritingCase(string: string)
+    }
 }
