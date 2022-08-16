@@ -98,14 +98,30 @@ class SelectVM{
                     self.deleteImage(titleOnTable: self.realRecipeList[indexPath.row].title, companyName: naviTitle, imageListOnTable: self.realRecipeList[indexPath.row].imageList)
                     
                     self.realRecipeList.remove(at: indexPath.row)
-                    tableView.deleteRows(at: [indexPath], with: .fade)
+                    if self.realRecipeList.isEmpty == true {
+                        let cell = tableView.cellForRow(at: indexPath) as! SelectCell
+                        cell.accessoryType = .none
+                        cell.titleLabel.text = "레시피가 없습니다"
+                        cell.titleLabel.textColor = .red
+                        cell.dateLabel.text = ""
+                    } else {
+                        tableView.deleteRows(at: [indexPath], with: .fade)
+                    }
                 } else {
                     self.db.collection("shop").document("\(naviTitle)").collection("transition").document("\(realTransitionList[indexPath.row].title)").delete()
                     
                     self.deleteImage(titleOnTable: self.realTransitionList[indexPath.row].title, companyName: naviTitle, imageListOnTable: self.realTransitionList[indexPath.row].imageList)
                     
                     self.realTransitionList.remove(at: indexPath.row)
-                    tableView.deleteRows(at: [indexPath], with: .fade)
+                    if self.realTransitionList.isEmpty == true {
+                        let cell = tableView.cellForRow(at: indexPath) as! SelectCell
+                        cell.accessoryType = .none
+                        cell.titleLabel.text = "인수인계가 없습니다"
+                        cell.titleLabel.textColor = .red
+                        cell.dateLabel.text = ""
+                    } else {
+                        tableView.deleteRows(at: [indexPath], with: .fade)
+                    }
                     
                 }
             } else {
@@ -118,7 +134,15 @@ class SelectVM{
                         return list.title.contains(self.searchRecipeList[indexPath.row].title)
                     })!)
                     self.searchRecipeList.remove(at: indexPath.row)
-                    tableView.deleteRows(at: [indexPath], with: .fade)
+                    if self.searchRecipeList.isEmpty == true {
+                        let cell = tableView.cellForRow(at: indexPath) as! SelectCell
+                        cell.accessoryType = .none
+                        cell.titleLabel.text = "검색 결과가 없습니다"
+                        cell.titleLabel.textColor = .red
+                        cell.dateLabel.text = ""
+                    } else {
+                        tableView.deleteRows(at: [indexPath], with: .fade)
+                    }
                     
                 } else {
                     self.db.collection("shop").document("\(naviTitle)").collection("transition").document("\(searchTransitionList[indexPath.row].title)").delete()
@@ -130,7 +154,15 @@ class SelectVM{
                     })!)
                    
                     self.searchTransitionList.remove(at: indexPath.row)
-                    tableView.deleteRows(at: [indexPath], with: .fade)
+                    if self.searchTransitionList.isEmpty == true {
+                        let cell = tableView.cellForRow(at: indexPath) as! SelectCell
+                        cell.accessoryType = .none
+                        cell.titleLabel.text = "검색 결과가 없습니다"
+                        cell.titleLabel.textColor = .red
+                        cell.dateLabel.text = ""
+                    } else {
+                        tableView.deleteRows(at: [indexPath], with: .fade)
+                    }
                     
                 }
             }
@@ -215,48 +247,75 @@ class SelectVM{
         
         if indexPath.section == 0{
             if isFiltering == false {           //검색 X
-                let date = Date(timeIntervalSince1970: self.realRecipeList[indexPath.row].date)
-                let formatter = DateFormatter()
-                formatter.dateFormat = "yyyy-MM-dd HH:mm"
-                let fixDate = "\(formatter.string(from: date))"
+                if self.realRecipeList.isEmpty == true {
+                    cell.accessoryType = .none
+                    cell.titleLabel.text = "레시피가 없습니다"
+                    cell.titleLabel.textColor = .red
+                    cell.dateLabel.text = ""
+                } else {
+                    let date = Date(timeIntervalSince1970: self.realRecipeList[indexPath.row].date)
+                    let formatter = DateFormatter()
+                    formatter.dateFormat = "yyyy-MM-dd HH:mm"
+                    let fixDate = "\(formatter.string(from: date))"
                     
-                cell.titleLabel.text = self.realRecipeList[indexPath.row].title
-                cell.titleLabel.textColor = .black
-                cell.dateLabel.text = fixDate
-                cell.accessoryType = .disclosureIndicator
+                    cell.titleLabel.text = self.realRecipeList[indexPath.row].title
+                    cell.titleLabel.textColor = .black
+                    cell.dateLabel.text = fixDate
+                    cell.accessoryType = .disclosureIndicator
+                }
             } else {                            //검색 O
-                let date = Date(timeIntervalSince1970: self.searchRecipeList[indexPath.row].date)
-                let formatter = DateFormatter()
-                formatter.dateFormat = "yyyy-MM-dd HH:mm"
-                let fixDate = "\(formatter.string(from: date))"
-                
-                cell.titleLabel.text = self.searchRecipeList[indexPath.row].title
-                cell.titleLabel.textColor = .black
-                cell.dateLabel.text = fixDate
-                cell.accessoryType = .disclosureIndicator
-                
+                if self.searchRecipeList.isEmpty == true {
+                    cell.accessoryType = .none
+                    cell.titleLabel.text = "검색 결과가 없습니다"
+                    cell.titleLabel.textColor = .red
+                    cell.dateLabel.text = ""
+                } else {
+                    let date = Date(timeIntervalSince1970: self.searchRecipeList[indexPath.row].date)
+                    let formatter = DateFormatter()
+                    formatter.dateFormat = "yyyy-MM-dd HH:mm"
+                    let fixDate = "\(formatter.string(from: date))"
+                    
+                    cell.titleLabel.text = self.searchRecipeList[indexPath.row].title
+                    cell.titleLabel.textColor = .black
+                    cell.dateLabel.text = fixDate
+                    cell.accessoryType = .disclosureIndicator
+                }
             }
         } else {
             if isFiltering == false {
-                let date = Date(timeIntervalSince1970: self.realTransitionList[indexPath.row].date)
-                let formatter = DateFormatter()
-                formatter.dateFormat = "yyyy-MM-dd HH:mm"
-                let fixDate = "\(formatter.string(from: date))"
-                    
-                cell.titleLabel.text = self.realTransitionList[indexPath.row].title
-                cell.titleLabel.textColor = .black
-                cell.dateLabel.text = fixDate
-                cell.accessoryType = .disclosureIndicator
+                if self.realTransitionList.isEmpty == true {
+                    cell.accessoryType = .none
+                    cell.titleLabel.text = "인수인계가 없습니다"
+                    cell.titleLabel.textColor = .red
+                    cell.dateLabel.text = ""
+                } else {
+                    let date = Date(timeIntervalSince1970: self.realTransitionList[indexPath.row].date)
+                    let formatter = DateFormatter()
+                    formatter.dateFormat = "yyyy-MM-dd HH:mm"
+                    let fixDate = "\(formatter.string(from: date))"
+                        
+                    cell.titleLabel.text = self.realTransitionList[indexPath.row].title
+                    cell.titleLabel.textColor = .black
+                    cell.dateLabel.text = fixDate
+                    cell.accessoryType = .disclosureIndicator
+                }
             } else {
-                let date = Date(timeIntervalSince1970: self.searchTransitionList[indexPath.row].date)
-                let formatter = DateFormatter()
-                formatter.dateFormat = "yyyy-MM-dd HH:mm"
-                let fixDate = "\(formatter.string(from: date))"
-                
-                cell.titleLabel.text = self.searchTransitionList[indexPath.row].title
-                cell.titleLabel.textColor = .black
-                cell.dateLabel.text = fixDate
-                cell.accessoryType = .disclosureIndicator
+                if self.searchTransitionList.isEmpty == true {
+                    cell.accessoryType = .none
+                    cell.titleLabel.text = "검색 결과가 없습니다"
+                    cell.titleLabel.textColor = .red
+                    cell.dateLabel.text = ""
+                } else {
+                    let date = Date(timeIntervalSince1970: self.searchTransitionList[indexPath.row].date)
+                    let formatter = DateFormatter()
+                    formatter.dateFormat = "yyyy-MM-dd HH:mm"
+                    let fixDate = "\(formatter.string(from: date))"
+                    
+                    cell.titleLabel.text = self.searchTransitionList[indexPath.row].title
+                    cell.titleLabel.textColor = .black
+                    cell.dateLabel.text = fixDate
+                    cell.accessoryType = .disclosureIndicator
+                }
             }
         }
         return cell
@@ -266,15 +325,15 @@ class SelectVM{
     func numberOfRowsInSection(section: Int, isFiltering: Bool) -> Int {
         if section == 0{
             if isFiltering == true {
-                return self.searchRecipeList.isEmpty ? 0 : self.searchRecipeList.count
+                return self.searchRecipeList.isEmpty ? 1 : self.searchRecipeList.count
             } else {
-                return self.realRecipeList.isEmpty ? 0 : self.realRecipeList.count
+                return self.realRecipeList.isEmpty ? 1 : self.realRecipeList.count
             }
         } else {
             if isFiltering == true {
-                return self.searchTransitionList.isEmpty ? 0 : self.searchTransitionList.count
+                return self.searchTransitionList.isEmpty ? 1 : self.searchTransitionList.count
             } else {
-                return self.realTransitionList.isEmpty ? 0 : self.realTransitionList.count
+                return self.realTransitionList.isEmpty ? 1 : self.realTransitionList.count
             }
         }
     }
