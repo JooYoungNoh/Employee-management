@@ -98,6 +98,7 @@ class CalendarVM {
         if self.companyMyScheduleList.count == 0{
             cell.titleLabel.text = "스케줄이 없습니다"
             cell.titleLabel.textColor = .red
+            cell.dateLabel.text = ""
             cell.checkView.isHidden = true
         } else {
             if self.checkSchedule.contains(indexPath.row){
