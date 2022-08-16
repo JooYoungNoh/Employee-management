@@ -28,6 +28,9 @@ class SelectVM{
     //중복여부 체크 리스트 (메모 작성때 쓸)
     var checkList: [String] = []
     
+    //회사 삭제시 작성 금지 (회사 삭제 했는데 다른 사람이 작성 화면에 있을 경우 작성 금지을 위한 객체)
+    var companyDelete: String = ""
+    
     //MARK: 레시피 부분 메소드
     func findRecipe(naviTitle: String, completion: @escaping([SelectModel]) -> ()){
         self.recipeList.removeAll()
@@ -137,42 +140,58 @@ class SelectVM{
     //MARK: 액션 메소드
     //레시피 및 인수인계 추가
     func doAdd(uv: UIViewController, companyName: String) {
-        if self.appDelegate.jobInfo == "2" {
-            let alert = UIAlertController(title: nil, message: "직원 이상의 직책만 사용가능합니다", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default))
-            uv.present(alert, animated: true)
-            
-        } else {
-            self.checkList.removeAll()
-            for i in 0..<self.realRecipeList.count{
-                self.checkList.append(self.realRecipeList[i].title)
+        self.companyDelete = ""
+        self.db.collection("shop").whereField("company", isEqualTo: "\(companyName)").getDocuments { snapShot, error in
+            for doc in snapShot!.documents{
+                self.companyDelete = doc.documentID
             }
-            
-            for i in 0..<self.realTransitionList.count{
-                self.checkList.append(self.realTransitionList[i].title)
+            print(self.companyDelete)
+            if self.companyDelete == "" {
+                let alert = UIAlertController(title: "회사가 존재하지않습니다.", message: "확인해주세요", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default) { (_) in
+                    uv.navigationController?.popViewController(animated: true)
+                })
+                uv.present(alert, animated: true)
+            } else {
+                if self.appDelegate.jobInfo == "2" {
+                    let alert = UIAlertController(title: nil, message: "직원 이상의 직책만 사용가능합니다", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default))
+                    uv.present(alert, animated: true)
+                    
+                } else {
+                    self.checkList.removeAll()
+                    for i in 0..<self.realRecipeList.count{
+                        self.checkList.append(self.realRecipeList[i].title)
+                    }
+                    
+                    for i in 0..<self.realTransitionList.count{
+                        self.checkList.append(self.realTransitionList[i].title)
+                    }
+                    
+                    let alert = UIAlertController(title: "선택해주세요", message: nil, preferredStyle: .actionSheet)
+                    alert.addAction(UIAlertAction(title: "레시피 작성", style: .default) { (_) in
+                        let nv = uv.storyboard?.instantiateViewController(withIdentifier: "TransitionWriteVC") as! TransitionWriteVC
+                        nv.modalPresentationStyle = .fullScreen
+                        nv.naviTitle = "레시피 작성"
+                        nv.companyName = companyName
+                        nv.checkTitle = self.checkList
+                        uv.present(nv, animated: true)
+                    })
+                    alert.addAction(UIAlertAction(title: "인수인계 작성", style: .default){ (_) in
+                        let nv = uv.storyboard?.instantiateViewController(withIdentifier: "TransitionWriteVC") as! TransitionWriteVC
+                        nv.modalPresentationStyle = .fullScreen
+                        nv.naviTitle = "인수인계 작성"
+                        nv.companyName = companyName
+                        nv.checkTitle = self.checkList
+                        uv.present(nv, animated: true)
+                    })
+                    alert.addAction(UIAlertAction(title: "취소", style: .cancel))
+                    
+                    uv.present(alert, animated: true)
+                }
             }
-            
-            let alert = UIAlertController(title: "선택해주세요", message: nil, preferredStyle: .actionSheet)
-            alert.addAction(UIAlertAction(title: "레시피 작성", style: .default) { (_) in
-                let nv = uv.storyboard?.instantiateViewController(withIdentifier: "TransitionWriteVC") as! TransitionWriteVC
-                nv.modalPresentationStyle = .fullScreen
-                nv.naviTitle = "레시피 작성"
-                nv.companyName = companyName
-                nv.checkTitle = self.checkList
-                uv.present(nv, animated: true)
-            })
-            alert.addAction(UIAlertAction(title: "인수인계 작성", style: .default){ (_) in
-                let nv = uv.storyboard?.instantiateViewController(withIdentifier: "TransitionWriteVC") as! TransitionWriteVC
-                nv.modalPresentationStyle = .fullScreen
-                nv.naviTitle = "인수인계 작성"
-                nv.companyName = companyName
-                nv.checkTitle = self.checkList
-                uv.present(nv, animated: true)
-            })
-            alert.addAction(UIAlertAction(title: "취소", style: .cancel))
-            
-            uv.present(alert, animated: true)
         }
+        
     }
 
     //이미지 삭제

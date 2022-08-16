@@ -22,6 +22,10 @@ class TwriteVM{
     //텍스트 뷰
     var titleMemo: String = ""                      //제목
     
+    //회사 삭제시 작성 금지 (회사 삭제 했는데 다른 사람이 작성 화면에 있을 경우 작성 금지을 위한 객체)
+    var companyDelete: String = ""
+    
+    
     //MARK: 컬렉션 뷰 메소드
     //셀 정보
     func cellInfo(collectionView: UICollectionView, indexPath: IndexPath) -> UICollectionViewCell {
@@ -119,34 +123,49 @@ class TwriteVM{
     
     //메모 저장 메소드
     func saveMemoFB(uv: UIViewController, checkTitle: [String], companyName: String, naviTitle: String, writeTV: UITextView, countLabel: UILabel){
-        if checkTitle.firstIndex(of: self.titleMemo) != nil {
-            let alert = UIAlertController(title: "이미 있는 제목입니다", message: "다시 작성해주세요", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default))
-            uv.present(alert, animated: true)
-            
-        } else if self.pictureList.isEmpty == true {
-            let alert = UIAlertController(title: "사진이 없습니다", message: "저장하시겠습니까?", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default) { (_) in
-                //메모 저장
-                self.uploadMemo(companyName: companyName, naviTitle: naviTitle, writeTV: writeTV, countLabel: countLabel)
-                uv.dismiss(animated: true)
-            })
-            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-            uv.present(alert, animated: true)
-            
-        } else {
-            let alert = UIAlertController(title: nil, message: "저장하시겠습니까?", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default) { (_) in
-                //메모 저장
-                self.uploadMemo(companyName: companyName, naviTitle: naviTitle, writeTV: writeTV, countLabel: countLabel)
-                
-                //이미지 저장
-                self.uploadimage(title: self.titleMemo, companyName: companyName)
-                
-                uv.dismiss(animated: true)
-            })
-            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-            uv.present(alert, animated: true)
+        self.companyDelete = ""
+        self.db.collection("shop").whereField("company", isEqualTo: "\(companyName)").getDocuments { snapShot, error in
+            for doc in snapShot!.documents{
+                self.companyDelete = doc.documentID
+            }
+            print(self.companyDelete)
+            if self.companyDelete == "" {
+                let alert = UIAlertController(title: "회사가 존재하지않습니다.", message: "확인해주세요", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default) { (_) in
+                    uv.dismiss(animated: true)
+                })
+                uv.present(alert, animated: true)
+            } else {
+                if checkTitle.firstIndex(of: self.titleMemo) != nil {
+                    let alert = UIAlertController(title: "이미 있는 제목입니다", message: "다시 작성해주세요", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default))
+                    uv.present(alert, animated: true)
+                    
+                } else if self.pictureList.isEmpty == true {
+                    let alert = UIAlertController(title: "사진이 없습니다", message: "저장하시겠습니까?", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default) { (_) in
+                        //메모 저장
+                        self.uploadMemo(companyName: companyName, naviTitle: naviTitle, writeTV: writeTV, countLabel: countLabel)
+                        uv.dismiss(animated: true)
+                    })
+                    alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+                    uv.present(alert, animated: true)
+                    
+                } else {
+                    let alert = UIAlertController(title: nil, message: "저장하시겠습니까?", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default) { (_) in
+                        //메모 저장
+                        self.uploadMemo(companyName: companyName, naviTitle: naviTitle, writeTV: writeTV, countLabel: countLabel)
+                        
+                        //이미지 저장
+                        self.uploadimage(title: self.titleMemo, companyName: companyName)
+                        
+                        uv.dismiss(animated: true)
+                    })
+                    alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+                    uv.present(alert, animated: true)
+                }
+            }
         }
     }
     
