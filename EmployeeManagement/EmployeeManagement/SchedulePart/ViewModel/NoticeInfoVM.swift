@@ -37,7 +37,7 @@ class NoticeInfoVM {
     }
     
     //저장 기능
-    func saveNotice(uv: UIViewController, writeTV: UITextView, countLabel: UILabel, title: String, date: TimeInterval){
+    func saveNotice(uv: UIViewController, writeTV: UITextView, countLabel: UILabel, title: String, date: TimeInterval, textOnTable: String){
         self.companyDelete = ""
         self.db.collection("shop").whereField("company", isEqualTo: "\(self.appDelegate.schedulePartCompanyName)").getDocuments { snapShot, error in
             for doc in snapShot!.documents{
@@ -51,28 +51,41 @@ class NoticeInfoVM {
                 })
                 uv.present(alert, animated: true)
             } else {
-                //날짜
-                let dateChange = Date().timeIntervalSince1970
-                self.dateSave = dateChange
-                
-                let alert = UIAlertController(title: "저장하시겠습니까", message: "복구가 불가능합니다", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "OK", style: .default){ (_) in
-                    let query = self.db.collection("shop").document("\(self.appDelegate.schedulePartCompanyName)").collection("noticeList")
+                if self.appDelegate.jobInfo == "2" {
+                    let alert = UIAlertController(title: nil, message: "직원 이상의 직책만 사용가능합니다", preferredStyle: .alert)
                     
-                    query.whereField("title", isEqualTo: title).whereField("date", isEqualTo: date).getDocuments{ snapShot, error in
-                        for doc in snapShot!.documents{
-                            self.db.collection("shop").document("\(self.appDelegate.schedulePartCompanyName)").collection("noticeList").document("\(doc.documentID)").updateData([
-                                "text" : "\(writeTV.text!)",
-                                "title" : "\(self.titleMemo)",
-                                "date" : dateChange,
-                                "count" : "\(countLabel.text!)"
-                            ])
-                        }
+                    alert.addAction(UIAlertAction(title: "OK", style: .default))
+                    uv.present(alert, animated: true)
+                } else {
+                    if textOnTable == writeTV.text {
+                        let alert = UIAlertController(title: "변경사항이 없습니다", message: nil, preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "OK", style: .default))
+                        uv.present(alert, animated: true)
+                    } else {
+                        //날짜
+                         let dateChange = Date().timeIntervalSince1970
+                         self.dateSave = dateChange
+                         
+                         let alert = UIAlertController(title: "저장하시겠습니까", message: "복구가 불가능합니다", preferredStyle: .alert)
+                         alert.addAction(UIAlertAction(title: "OK", style: .default){ (_) in
+                             let query = self.db.collection("shop").document("\(self.appDelegate.schedulePartCompanyName)").collection("noticeList")
+                             
+                             query.whereField("title", isEqualTo: title).whereField("date", isEqualTo: date).getDocuments{ snapShot, error in
+                                 for doc in snapShot!.documents{
+                                     self.db.collection("shop").document("\(self.appDelegate.schedulePartCompanyName)").collection("noticeList").document("\(doc.documentID)").updateData([
+                                         "text" : "\(writeTV.text!)",
+                                         "title" : "\(self.titleMemo)",
+                                         "date" : dateChange,
+                                         "count" : "\(countLabel.text!)"
+                                     ])
+                                 }
+                             }
+                             uv.navigationController?.popViewController(animated: true)
+                         })
+                         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+                         uv.present(alert, animated: true)
                     }
-                    uv.navigationController?.popViewController(animated: true)
-                })
-                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-                uv.present(alert, animated: true)
+                }
             }
         }
     }

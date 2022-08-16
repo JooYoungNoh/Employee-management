@@ -87,30 +87,7 @@ class NoticeInfoVC: UIViewController, UITextViewDelegate {
 
     //MARK: 액션 메소드
     @objc func dosave(_ sender: UIBarButtonItem){
-        if self.viewModel.appDelegate.jobInfo == "2" {
-            let alert = UIAlertController(title: nil, message: "직원 이상의 직책만 사용가능합니다", preferredStyle: .alert)
-            
-            alert.addAction(UIAlertAction(title: "OK", style: .default))
-            self.present(alert, animated: true)
-        } else {
-            if self.textOnTable == self.writeTV.text {
-                let alert = UIAlertController(title: "변경사항이 없습니다", message: nil, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "OK", style: .default))
-                self.present(alert, animated: true)
-            } else {
-                
-                let alert = UIAlertController(title: "저장 완료", message: nil, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "OK", style: .default) { (_) in
-                    self.viewModel.saveNotice(uv: self, writeTV: self.writeTV, countLabel: self.countLabel, title: self.titleOnTable, date: self.dateOnTable)
-                    self.dateOnTable = self.viewModel.dateSave
-                    self.titleOnTable = self.viewModel.titleMemo
-                    self.textOnTable = self.writeTV.text!
-                    self.countOnTable = self.countLabel.text!
-                    self.view.endEditing(true)
-                })
-                self.present(alert, animated: true)
-            }
-        }
+        self.viewModel.saveNotice(uv: self, writeTV: self.writeTV, countLabel: self.countLabel, title: self.titleOnTable, date: self.dateOnTable, textOnTable: self.textOnTable)
     }
     
     //MARK: tap 제스쳐
