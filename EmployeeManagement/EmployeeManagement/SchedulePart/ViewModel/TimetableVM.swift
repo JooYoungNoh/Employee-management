@@ -32,6 +32,9 @@ class TimetableVM {
                 if self.scheduleList.count == 0 {
                     timeLabel.text = "시간표 없음"
                     timeLabel.textColor = .red
+                } else {
+                    timeLabel.text = "시간표"
+                    timeLabel.textColor = .blue
                 }
                 completion(self.scheduleList)
             } else {
