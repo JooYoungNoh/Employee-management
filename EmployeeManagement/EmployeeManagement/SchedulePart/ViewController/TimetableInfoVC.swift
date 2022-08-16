@@ -170,6 +170,10 @@ class TimetableInfoVC: UIViewController {
         self.viewModel.dosave(uv: self, allResult: self.allResult, startTF: self.startTF, endTF: self.endTF, nextButton: self.nextButton, startOnTable: self.startOnTable, endOnTable: self.endOnTable, allOnTable: self.allOnTable, workTV: self.workTV, workOnTable: self.workOnTable, companyOnTable: self.companyOnTable, dateOnTable: self.dateOnTable, phoneOnTable: self.phoneOnTable)
     }
     
+    @objc func dodelete(_ sender: UIBarButtonItem){
+        self.viewModel.doDelete(uv: self, companyOnTable: self.companyOnTable, dateOnTable: self.dateOnTable, phoneOnTable: self.phoneOnTable)
+    }
+    
     //MARK: 화면 메소드
     func uiCreate(){
         //내비게이션
@@ -180,7 +184,13 @@ class TimetableInfoVC: UIViewController {
         //내비게이션 바 버튼
         let saveButton = UIBarButtonItem.init(title: "저장", style: .plain, target: self, action: #selector(dosave(_:)))
         
+        let deleteButton = UIBarButtonItem.init(title: "삭제", style: .plain, target: self, action: #selector(dodelete(_:)))
+        
+        self.navigationItem.rightBarButtonItems = [deleteButton, saveButton]
+        
+        self.navigationItem.rightBarButtonItem = deleteButton
         self.navigationItem.rightBarButtonItem = saveButton
+        deleteButton.tintColor = UIColor.black
         saveButton.tintColor = UIColor.black
         
         //이름 레이블

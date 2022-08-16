@@ -77,6 +77,24 @@ class TimetableInfoVM {
         }
     }
     
+    func doDelete(uv: UIViewController, companyOnTable: String, dateOnTable: String, phoneOnTable: String){
+        if self.appDelegate.jobInfo == "2" {
+            let alert = UIAlertController(title: nil, message: "직원 이상의 직책만 사용가능합니다", preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            uv.present(alert, animated: true)
+        } else {
+            let alert = UIAlertController(title: "삭제하시겠습니까", message: "복구가 불가능합니다", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default){ (_) in
+                self.db.collection("shop").document("\(companyOnTable)").collection("scheduleList").document("\(dateOnTable)").collection("attendanceList").document("\(phoneOnTable)").delete()
+                
+                uv.navigationController?.popViewController(animated: true)
+            })
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+            uv.present(alert, animated: true)
+        }
+    }
+    
     //MARK: 텍스트 필드 메소드
     func textEndEditing(uv: UIViewController,textField: UITextField, allResult: UILabel, startTF: UITextField, endTF: UITextField, nextButton: UIButton, startOnTable: String, endOnTable: String, allOnTable: String, nextdayOnTable: Bool){
         let dateFormatter = DateFormatter()
