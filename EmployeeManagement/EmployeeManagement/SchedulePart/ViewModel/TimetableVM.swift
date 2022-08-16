@@ -17,6 +17,9 @@ class TimetableVM {
     
     var scheduleList: [TimetableModel] = []
     
+    //회사 삭제시 작성 금지 (회사 삭제 했는데 다른 사람이 작성 화면에 있을 경우 작성 금지을 위한 객체)
+    var companyDelete: String = ""
+    
     
     //MARK: 액션 메소드
     func findName(companyOnTable: String, dateOnTable: String, timeLabel: UILabel, completion: @escaping([TimetableModel]) -> ()) {
@@ -38,18 +41,33 @@ class TimetableVM {
     }
     
     func addTimetable(uv: UIViewController, companyOnTable: String, dateOnTable: String){
-        if self.appDelegate.jobInfo == "2" {
-            let alert = UIAlertController(title: nil, message: "직원 이상의 직책만 사용가능합니다", preferredStyle: .alert)
-            
-            alert.addAction(UIAlertAction(title: "OK", style: .default))
-            uv.present(alert, animated: true)
-        } else {
-            guard let nv = uv.storyboard?.instantiateViewController(withIdentifier: "TimetableCreateVC") as? TimetableCreateVC else { return }
-            nv.modalPresentationStyle = .fullScreen
-            nv.companyOnTable = companyOnTable
-            nv.dateOnTable = dateOnTable
-            
-            uv.present(nv, animated: true)
+        self.companyDelete = ""
+        self.db.collection("shop").whereField("company", isEqualTo: "\(companyOnTable)").getDocuments { snapShot, error in
+            for doc in snapShot!.documents{
+                self.companyDelete = doc.documentID
+            }
+            print(self.companyDelete)
+            if self.companyDelete == "" {
+                let alert = UIAlertController(title: "회사가 존재하지않습니다.", message: "확인해주세요", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default) { (_) in
+                    uv.navigationController?.popViewController(animated: true)
+                })
+                uv.present(alert, animated: true)
+            } else {
+                if self.appDelegate.jobInfo == "2" {
+                    let alert = UIAlertController(title: nil, message: "직원 이상의 직책만 사용가능합니다", preferredStyle: .alert)
+                    
+                    alert.addAction(UIAlertAction(title: "OK", style: .default))
+                    uv.present(alert, animated: true)
+                } else {
+                    guard let nv = uv.storyboard?.instantiateViewController(withIdentifier: "TimetableCreateVC") as? TimetableCreateVC else { return }
+                    nv.modalPresentationStyle = .fullScreen
+                    nv.companyOnTable = companyOnTable
+                    nv.dateOnTable = dateOnTable
+                    
+                    uv.present(nv, animated: true)
+                }
+            }
         }
     }
     

@@ -23,6 +23,9 @@ class TimetableCreateVM {
     var nextdayCheck: Bool = false
     var endTimeCheck: String = ""
     
+    //회사 삭제시 작성 금지 (회사 삭제 했는데 다른 사람이 작성 화면에 있을 경우 작성 금지을 위한 객체)
+    var companyDelete: String = ""
+    
     //문자 조건
     let charSet: CharacterSet = {
         var cs = CharacterSet()
@@ -68,86 +71,100 @@ class TimetableCreateVM {
     func doSave(uv: UIViewController, companyOnTable: String, dateOnTable: String, workTV: UITextView, startTF: UITextField, endTF: UITextField, allResult: UILabel, nextButton: UIButton){
         self.nextdayCheck = false
         self.endTimeCheck = ""
-        
-        if allResult.text == "0.0 시간" {
-            let alert = UIAlertController(title: "올바른 시간표가 아닙니다", message: "다시 작성해주세요", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default))
-            uv.present(alert, animated: true)
-        } else {
-            self.db.collection("shop").document("\(companyOnTable)").collection("scheduleList").document("\(dateOnTable)").collection("attendanceList").whereField("phone", isEqualTo: self.pickPhone).getDocuments { (snapshot, error) in
-                if error == nil {
-                    for doc in snapshot!.documents{
-                        self.checkList.append(doc.documentID)
-                    }
-                    if self.checkList.isEmpty == false {
-                        let alert = UIAlertController(title: "이미 스케줄에 있습니다", message: "확인해주세요", preferredStyle: .alert)
-                        alert.addAction(UIAlertAction(title: "OK", style: .default))
-                        uv.present(alert, animated: true)
-                    } else {
-                        let dateFormatter = DateFormatter()
-                        dateFormatter.dateFormat = "yyyy-MM-dd"
-                        let today = dateFormatter.date(from: "\(dateOnTable)")!
-                        let yesterday = dateFormatter.string(from: today - 86400)
-                        //어제 날짜랑 시간 겹치는지 찾기
-                        self.db.collection("shop").document("\(companyOnTable)").collection("scheduleList").document("\(yesterday)").collection("attendanceList").whereField("phone", isEqualTo: "\(self.pickPhone)").getDocuments{ (snapshot3, error) in
-                            for doc3 in snapshot3!.documents{
-                                self.nextdayCheck = doc3.data()["nextday"] as! Bool
-                                self.endTimeCheck = doc3.data()["endTime"] as! String
+        self.companyDelete = ""
+        self.db.collection("shop").whereField("company", isEqualTo: "\(companyOnTable)").getDocuments { snapShot, error in
+            for doc in snapShot!.documents{
+                self.companyDelete = doc.documentID
+            }
+            print(self.companyDelete)
+            if self.companyDelete == "" {
+                let alert = UIAlertController(title: "회사가 존재하지않습니다.", message: "확인해주세요", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default) { (_) in
+                    uv.dismiss(animated: true)
+                })
+                uv.present(alert, animated: true)
+            } else {
+                if allResult.text == "0.0 시간" {
+                    let alert = UIAlertController(title: "올바른 시간표가 아닙니다", message: "다시 작성해주세요", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default))
+                    uv.present(alert, animated: true)
+                } else {
+                    self.db.collection("shop").document("\(companyOnTable)").collection("scheduleList").document("\(dateOnTable)").collection("attendanceList").whereField("phone", isEqualTo: self.pickPhone).getDocuments { (snapshot, error) in
+                        if error == nil {
+                            for doc in snapshot!.documents{
+                                self.checkList.append(doc.documentID)
                             }
-                            let dateFormatter2 = DateFormatter()
-                            dateFormatter2.dateFormat = "HH:mm"
-                            if self.endTimeCheck == "" {
-                                //내 스케줄 찾기를 위해 문서 아이디 활성화
-                                self.db.collection("shop").document("\(companyOnTable)").collection("scheduleList").document("\(dateOnTable)").setData([
-                                    "scheduleState" : true
-                                ])
-                                
-                                self.db.collection("shop").document("\(companyOnTable)").collection("scheduleList").document("\(dateOnTable)").collection("attendanceList").document("\(self.pickPhone)").setData([
-                                    "name" : self.pickName,             //이름
-                                    "phone" : self.pickPhone,           //전화번호
-                                    "startTime" : "\(startTF.text!)",    //시작 시간
-                                    "endTime" : "\(endTF.text!)",        //끝 시간
-                                    "nextday" : nextButton.tintColor == .black ? true : false ,                         //다음 날 체크
-                                    "allTime" : "\(allResult.text!)",    //총 시간
-                                    "work" : "\(workTV.text ?? "")",    //할 일
-                                    "userCheck" : false,               //유저가 체크했는지
-                                    "date" : dateOnTable,              //날짜
-                                    "company" : companyOnTable
-                                ])
-                                uv.dismiss(animated: true)
+                            if self.checkList.isEmpty == false {
+                                let alert = UIAlertController(title: "이미 스케줄에 있습니다", message: "확인해주세요", preferredStyle: .alert)
+                                alert.addAction(UIAlertAction(title: "OK", style: .default))
+                                uv.present(alert, animated: true)
                             } else {
-                                let yesterdayEnd = dateFormatter2.date(from: self.endTimeCheck)!
-                                let todayStart = dateFormatter2.date(from: startTF.text!)!
-                                
-                                if self.nextdayCheck == true && Double(yesterdayEnd.timeIntervalSince(todayStart)) > 0{
-                                    let alert = UIAlertController(title: "어제 스케줄과 겹칩니다", message: "확인해주세요", preferredStyle: .alert)
-                                    alert.addAction(UIAlertAction(title: "OK", style: .default))
-                                    uv.present(alert, animated: true)
-                                } else {
-                                    //내 스케줄 찾기를 위해 문서 아이디 활성화
-                                    self.db.collection("shop").document("\(companyOnTable)").collection("scheduleList").document("\(dateOnTable)").setData([
-                                        "scheduleState" : true
-                                    ])
-                                    
-                                    self.db.collection("shop").document("\(companyOnTable)").collection("scheduleList").document("\(dateOnTable)").collection("attendanceList").document("\(self.pickPhone)").setData([
-                                        "name" : self.pickName,             //이름
-                                        "phone" : self.pickPhone,           //전화번호
-                                        "startTime" : "\(startTF.text!)",    //시작 시간
-                                        "endTime" : "\(endTF.text!)",        //끝 시간
-                                        "nextday" : nextButton.tintColor == .black ? true : false ,                         //다음 날 체크
-                                        "allTime" : "\(allResult.text!)",    //총 시간
-                                        "work" : "\(workTV.text ?? "")",    //할 일
-                                        "userCheck" : false,               //유저가 체크했는지
-                                        "date" : dateOnTable,               //날짜
-                                        "company" : companyOnTable
-                                    ])
-                                    uv.dismiss(animated: true)
+                                let dateFormatter = DateFormatter()
+                                dateFormatter.dateFormat = "yyyy-MM-dd"
+                                let today = dateFormatter.date(from: "\(dateOnTable)")!
+                                let yesterday = dateFormatter.string(from: today - 86400)
+                                //어제 날짜랑 시간 겹치는지 찾기
+                                self.db.collection("shop").document("\(companyOnTable)").collection("scheduleList").document("\(yesterday)").collection("attendanceList").whereField("phone", isEqualTo: "\(self.pickPhone)").getDocuments{ (snapshot3, error) in
+                                    for doc3 in snapshot3!.documents{
+                                        self.nextdayCheck = doc3.data()["nextday"] as! Bool
+                                        self.endTimeCheck = doc3.data()["endTime"] as! String
+                                    }
+                                    let dateFormatter2 = DateFormatter()
+                                    dateFormatter2.dateFormat = "HH:mm"
+                                    if self.endTimeCheck == "" {
+                                        //내 스케줄 찾기를 위해 문서 아이디 활성화
+                                        self.db.collection("shop").document("\(companyOnTable)").collection("scheduleList").document("\(dateOnTable)").setData([
+                                            "scheduleState" : true
+                                        ])
+                                        
+                                        self.db.collection("shop").document("\(companyOnTable)").collection("scheduleList").document("\(dateOnTable)").collection("attendanceList").document("\(self.pickPhone)").setData([
+                                            "name" : self.pickName,             //이름
+                                            "phone" : self.pickPhone,           //전화번호
+                                            "startTime" : "\(startTF.text!)",    //시작 시간
+                                            "endTime" : "\(endTF.text!)",        //끝 시간
+                                            "nextday" : nextButton.tintColor == .black ? true : false ,                         //다음 날 체크
+                                            "allTime" : "\(allResult.text!)",    //총 시간
+                                            "work" : "\(workTV.text ?? "")",    //할 일
+                                            "userCheck" : false,               //유저가 체크했는지
+                                            "date" : dateOnTable,              //날짜
+                                            "company" : companyOnTable
+                                        ])
+                                        uv.dismiss(animated: true)
+                                    } else {
+                                        let yesterdayEnd = dateFormatter2.date(from: self.endTimeCheck)!
+                                        let todayStart = dateFormatter2.date(from: startTF.text!)!
+                                        
+                                        if self.nextdayCheck == true && Double(yesterdayEnd.timeIntervalSince(todayStart)) > 0{
+                                            let alert = UIAlertController(title: "어제 스케줄과 겹칩니다", message: "확인해주세요", preferredStyle: .alert)
+                                            alert.addAction(UIAlertAction(title: "OK", style: .default))
+                                            uv.present(alert, animated: true)
+                                        } else {
+                                            //내 스케줄 찾기를 위해 문서 아이디 활성화
+                                            self.db.collection("shop").document("\(companyOnTable)").collection("scheduleList").document("\(dateOnTable)").setData([
+                                                "scheduleState" : true
+                                            ])
+                                            
+                                            self.db.collection("shop").document("\(companyOnTable)").collection("scheduleList").document("\(dateOnTable)").collection("attendanceList").document("\(self.pickPhone)").setData([
+                                                "name" : self.pickName,             //이름
+                                                "phone" : self.pickPhone,           //전화번호
+                                                "startTime" : "\(startTF.text!)",    //시작 시간
+                                                "endTime" : "\(endTF.text!)",        //끝 시간
+                                                "nextday" : nextButton.tintColor == .black ? true : false ,                         //다음 날 체크
+                                                "allTime" : "\(allResult.text!)",    //총 시간
+                                                "work" : "\(workTV.text ?? "")",    //할 일
+                                                "userCheck" : false,               //유저가 체크했는지
+                                                "date" : dateOnTable,               //날짜
+                                                "company" : companyOnTable
+                                            ])
+                                            uv.dismiss(animated: true)
+                                        }
+                                    }
                                 }
                             }
+                        } else {
+                            print(error!.localizedDescription)
                         }
                     }
-                } else {
-                    print(error!.localizedDescription)
                 }
             }
         }
