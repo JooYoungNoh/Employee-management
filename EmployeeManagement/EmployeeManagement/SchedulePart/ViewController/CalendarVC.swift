@@ -44,7 +44,6 @@ class CalendarVC: UIViewController {
         super.viewWillAppear(animated)
         self.viewModel.findMySchedule(companyNameOnTable: self.companyNameOnTable){ completion in
             self.tableView.reloadData()
-            print(completion)
         }
     }
     

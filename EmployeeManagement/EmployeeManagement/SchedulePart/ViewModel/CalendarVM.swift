@@ -38,10 +38,22 @@ class CalendarVM {
                         break
                     }
                 }
-                
                 while true{
                     if let index = self.phoneMyScheduleList.firstIndex(where: {$0.company == companyNameOnTable}) {
-                        self.companyMyScheduleList.append(self.phoneMyScheduleList[index])
+                        
+                        print("실험중 : \(self.phoneMyScheduleList[index])")
+                        let formatter = DateFormatter()
+                        formatter.dateFormat = "yyyy-MM-dd"
+                        //현재 시간
+                        let currentDate = Date().timeIntervalSince1970
+                        let changeDate = Date(timeIntervalSince1970: currentDate)
+                        //스케줄 시간
+                        let listDate2 = self.phoneMyScheduleList[index].date
+                        let changeDate2 = formatter.date(from: listDate2)!
+                        
+                        if changeDate2 > changeDate {
+                            self.companyMyScheduleList.append(self.phoneMyScheduleList[index])
+                        }
                         self.phoneMyScheduleList.remove(at: index)
                     } else {
                         break
