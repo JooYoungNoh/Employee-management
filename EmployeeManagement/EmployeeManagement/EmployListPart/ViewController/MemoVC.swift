@@ -90,28 +90,7 @@ class MemoVC: UIViewController {
 //MARK: 테이블 뷰 메소드
 extension MemoVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: MemoCell.identifier, for: indexPath) as? MemoCell else { return UITableViewCell() }
-        cell.accessoryType = .disclosureIndicator
-        
-        let date = Date(timeIntervalSince1970: self.viewModel.realMemoList[indexPath.row].date)
-        
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm"
-        let fixDate = "\(formatter.string(from: date))"
-        
-        if self.isFiltering == false {
-            cell.titleLabel.text = self.viewModel.realMemoList[indexPath.row].title
-            cell.dateLabel.text = fixDate
-        } else {
-            let date2 = Date(timeIntervalSince1970: self.viewModel.searchMemoList[indexPath.row].date)
-            
-            let formatter = DateFormatter()
-            formatter.dateFormat = "yyyy-MM-dd HH:mm"
-            let fixDate2 = "\(formatter.string(from: date2))"
-            cell.titleLabel.text = self.viewModel.searchMemoList[indexPath.row].title
-            cell.dateLabel.text = fixDate2
-        }
-        return cell
+        self.viewModel.cellInfo(tableView: tableView, indexPath: indexPath, isFiltering: self.isFiltering)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -124,23 +103,8 @@ extension MemoVC: UITableViewDelegate, UITableViewDataSource {
     
     //셀 클릭
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let nv = self.storyboard?.instantiateViewController(withIdentifier: "MemoReadVC") as! MemoReadVC
-        
-        //전달할 내용
-        if self.isFiltering == false{
-            nv.titleOnTable = self.viewModel.realMemoList[indexPath.row].title
-            nv.dateOnTable = self.viewModel.realMemoList[indexPath.row].date
-            nv.textOnTable = self.viewModel.realMemoList[indexPath.row].text
-            nv.countOnTable = self.viewModel.realMemoList[indexPath.row].count
-        } else {
-            nv.titleOnTable = self.viewModel.searchMemoList[indexPath.row].title
-            nv.dateOnTable = self.viewModel.searchMemoList[indexPath.row].date
-            nv.textOnTable = self.viewModel.searchMemoList[indexPath.row].text
-            nv.countOnTable = self.viewModel.searchMemoList[indexPath.row].count
-            //nv.navigationController?.isNavigationBarHidden = true
-        }
-        
-        self.navigationController?.pushViewController(nv, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
+        self.viewModel.selectCell(uv: self, isFiltering: self.isFiltering, indexPath: indexPath)
     }
     
     //삭제 기능
