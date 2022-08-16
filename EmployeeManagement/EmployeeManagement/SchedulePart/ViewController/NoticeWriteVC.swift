@@ -129,13 +129,7 @@ class NoticeWriteVC: UIViewController, UITextViewDelegate {
     }
 
     @objc func dosave(_ sender: UIButton) {
-        let alert = UIAlertController(title: "저장 완료", message: nil, preferredStyle: .alert)
-        
-        alert.addAction(UIAlertAction(title: "OK", style: .default) { (_) in
-            self.viewModel.saveMemo(writeTV: self.writeTV, countLabel: self.countLabel)
-            self.dismiss(animated: true)
-        })
-        self.present(alert, animated: true)
+        self.viewModel.saveMemo(uv: self, writeTV: self.writeTV, countLabel: self.countLabel)
     }
     
     //MARK: tap 제스쳐
