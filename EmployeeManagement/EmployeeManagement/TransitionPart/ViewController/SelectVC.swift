@@ -136,47 +136,8 @@ extension SelectVC: UITableViewDelegate, UITableViewDataSource{
     
     //셀 선택
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let nv = storyboard?.instantiateViewController(withIdentifier: "TransitionInfoVC") as! TransitionInfoVC
-
-        if self.isFiltering == false {
-            if indexPath.section == 0 {
-                nv.titleOnTable = self.viewModel.realRecipeList[indexPath.row].title
-                nv.textOnTable = self.viewModel.realRecipeList[indexPath.row].text
-                nv.countOnTable = self.viewModel.realRecipeList[indexPath.row].count
-                nv.naviTitle = "레시피 정보"
-                nv.companyName = self.companyName
-                nv.checkTitle = self.viewModel.checkList
-                nv.imageListOnTable = self.viewModel.realRecipeList[indexPath.row].imageList
-            } else {
-                nv.titleOnTable = self.viewModel.realTransitionList[indexPath.row].title
-                nv.textOnTable = self.viewModel.realTransitionList[indexPath.row].text
-                nv.countOnTable = self.viewModel.realTransitionList[indexPath.row].count
-                nv.naviTitle = "인수인계 정보"
-                nv.companyName = self.companyName
-                nv.checkTitle = self.viewModel.checkList
-                nv.imageListOnTable = self.viewModel.realTransitionList[indexPath.row].imageList
-            }
-        } else {
-            if indexPath.section == 0 {
-                nv.titleOnTable = self.viewModel.searchRecipeList[indexPath.row].title
-                nv.textOnTable = self.viewModel.searchRecipeList[indexPath.row].text
-                nv.countOnTable = self.viewModel.searchRecipeList[indexPath.row].count
-                nv.naviTitle = "레시피 정보"
-                nv.companyName = self.companyName
-                nv.checkTitle = self.viewModel.checkList
-                nv.imageListOnTable = self.viewModel.searchRecipeList[indexPath.row].imageList
-            } else {
-                nv.titleOnTable = self.viewModel.searchTransitionList[indexPath.row].title
-                nv.textOnTable = self.viewModel.searchTransitionList[indexPath.row].text
-                nv.countOnTable = self.viewModel.searchTransitionList[indexPath.row].count
-                nv.naviTitle = "인수인계 정보"
-                nv.companyName = self.companyName
-                nv.checkTitle = self.viewModel.checkList
-                nv.imageListOnTable = self.viewModel.searchTransitionList[indexPath.row].imageList
-            }
-        }
-    
-        self.navigationController?.pushViewController(nv, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
+        self.viewModel.selectCell(uv: self, isFiltering: self.isFiltering, indexPath: indexPath, companyName: self.companyName)
     }
 }
 

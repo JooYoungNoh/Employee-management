@@ -338,5 +338,58 @@ class SelectVM{
         }
     }
     
+    func selectCell(uv: UIViewController, isFiltering: Bool, indexPath: IndexPath, companyName: String){
+        guard let nv = uv.storyboard?.instantiateViewController(withIdentifier: "TransitionInfoVC") as? TransitionInfoVC else { return }
+
+        if isFiltering == false {
+            if indexPath.section == 0 {
+                if self.realRecipeList.isEmpty == false {
+                    nv.titleOnTable = self.realRecipeList[indexPath.row].title
+                    nv.textOnTable = self.realRecipeList[indexPath.row].text
+                    nv.countOnTable = self.realRecipeList[indexPath.row].count
+                    nv.naviTitle = "레시피 정보"
+                    nv.companyName = companyName
+                    nv.checkTitle = self.checkList
+                    nv.imageListOnTable = self.realRecipeList[indexPath.row].imageList
+                    uv.navigationController?.pushViewController(nv, animated: true)
+                }
+            } else {
+                if self.realTransitionList.isEmpty == false {
+                    nv.titleOnTable = self.realTransitionList[indexPath.row].title
+                    nv.textOnTable = self.realTransitionList[indexPath.row].text
+                    nv.countOnTable = self.realTransitionList[indexPath.row].count
+                    nv.naviTitle = "인수인계 정보"
+                    nv.companyName = companyName
+                    nv.checkTitle = self.checkList
+                    nv.imageListOnTable = self.realTransitionList[indexPath.row].imageList
+                    uv.navigationController?.pushViewController(nv, animated: true)
+                }
+            }
+        } else {
+            if indexPath.section == 0 {
+                if self.searchRecipeList.isEmpty == false {
+                    nv.titleOnTable = self.searchRecipeList[indexPath.row].title
+                    nv.textOnTable = self.searchRecipeList[indexPath.row].text
+                    nv.countOnTable = self.searchRecipeList[indexPath.row].count
+                    nv.naviTitle = "레시피 정보"
+                    nv.companyName = companyName
+                    nv.checkTitle = self.checkList
+                    nv.imageListOnTable = self.searchRecipeList[indexPath.row].imageList
+                    uv.navigationController?.pushViewController(nv, animated: true)
+                }
+            } else {
+                if self.searchTransitionList.isEmpty == false {
+                    nv.titleOnTable = self.searchTransitionList[indexPath.row].title
+                    nv.textOnTable = self.searchTransitionList[indexPath.row].text
+                    nv.countOnTable = self.searchTransitionList[indexPath.row].count
+                    nv.naviTitle = "인수인계 정보"
+                    nv.companyName = companyName
+                    nv.checkTitle = self.checkList
+                    nv.imageListOnTable = self.searchTransitionList[indexPath.row].imageList
+                    uv.navigationController?.pushViewController(nv, animated: true)
+                }
+            }
+        }
+    }
 }
 
