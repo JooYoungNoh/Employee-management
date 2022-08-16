@@ -83,4 +83,31 @@ class NoticeListVM {
             uv.navigationController?.pushViewController(nv, animated: true)
         }
     }
+    
+    func deleteNotice(tableView: UITableView, forRowAt indexPath: IndexPath, uv: UIViewController){
+        if self.realNoticeList.count != 0 {
+            if self.appDelegate.jobInfo == "2" {
+                let alert = UIAlertController(title: nil, message: "직원 이상의 직책만 사용가능합니다", preferredStyle: .alert)
+                
+                alert.addAction(UIAlertAction(title: "OK", style: .default))
+                uv.present(alert, animated: true)
+            } else {
+                self.db.collection("shop").document("\(self.appDelegate.schedulePartCompanyName)").collection("noticeList").whereField("title", isEqualTo: self.realNoticeList[indexPath.row].title).whereField("date", isEqualTo: self.realNoticeList[indexPath.row].date).getDocuments { snapShot, error in
+                    for doc in snapShot!.documents {
+                        self.db.collection("shop").document("\(self.appDelegate.schedulePartCompanyName)").collection("noticeList").document("\(doc.documentID)").delete()
+                    }
+                }
+                self.realNoticeList.remove(at: indexPath.row)
+                if self.realNoticeList.isEmpty == true {
+                    let cell = tableView.cellForRow(at: indexPath) as! NoticeListCell
+                    cell.accessoryType = .none
+                    cell.titleLabel.text = "공지사항이 없습니다."
+                    cell.titleLabel.textColor = .red
+                    cell.dateLabel.text = ""
+                } else {
+                    tableView.deleteRows(at: [indexPath], with: .fade)
+                }
+            }
+        }
+    }
 }

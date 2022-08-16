@@ -103,4 +103,11 @@ extension NoticeListVC: UITableViewDelegate, UITableViewDataSource {
         csview.addSubview(listTitle)
         return csview
     }
+    
+    //삭제 기능
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            self.viewModel.deleteNotice(tableView: tableView, forRowAt: indexPath, uv: self)
+        }
+    }
 }
