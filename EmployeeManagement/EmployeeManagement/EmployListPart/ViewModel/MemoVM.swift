@@ -33,6 +33,49 @@ class MemoVM {
         }
     }
     
+    //MARK: 테이블 뷰 메소드
+    func cellInfo(tableView: UITableView, indexPath: IndexPath, isFiltering: Bool) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: MemoCell.identifier, for: indexPath) as? MemoCell else { return UITableViewCell() }
+        if isFiltering == false {
+            if self.realMemoList.isEmpty == true {
+                cell.accessoryType = .none
+                cell.titleLabel.text = "메모가 없습니다"
+                cell.titleLabel.textColor = .red
+                cell.dateLabel.text = ""
+            } else {
+                let date = Date(timeIntervalSince1970: self.realMemoList[indexPath.row].date)
+                
+                let formatter = DateFormatter()
+                formatter.dateFormat = "yyyy-MM-dd HH:mm"
+                let fixDate = "\(formatter.string(from: date))"
+                
+                cell.accessoryType = .disclosureIndicator
+                cell.titleLabel.text = self.realMemoList[indexPath.row].title
+                cell.titleLabel.textColor = .black
+                cell.dateLabel.text = fixDate
+            }
+        } else {
+            if self.searchMemoList.isEmpty == true {
+                cell.accessoryType = .none
+                cell.titleLabel.text = "검색 결과가 없습니다"
+                cell.titleLabel.textColor = .red
+                cell.dateLabel.text = ""
+            } else {
+                let date2 = Date(timeIntervalSince1970: self.searchMemoList[indexPath.row].date)
+                
+                let formatter = DateFormatter()
+                formatter.dateFormat = "yyyy-MM-dd HH:mm"
+                let fixDate2 = "\(formatter.string(from: date2))"
+                
+                cell.accessoryType = .disclosureIndicator
+                cell.titleLabel.text = self.searchMemoList[indexPath.row].title
+                cell.titleLabel.textColor = .black
+                cell.dateLabel.text = fixDate2
+            }
+        }
+        return cell
+    }
+    
     func deleteMemo(tableView: UITableView, forRowAt indexPath: IndexPath, isFiltering: Bool){
         if isFiltering == false {
             let query = self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("memoList")
@@ -44,7 +87,15 @@ class MemoVM {
                 }
             }
             self.realMemoList.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
+            if self.realMemoList.isEmpty == true {
+                let cell = tableView.cellForRow(at: indexPath) as! MemoCell
+                cell.accessoryType = .none
+                cell.titleLabel.text = "메모가 없습니다"
+                cell.titleLabel.textColor = .red
+                cell.dateLabel.text = ""
+            } else {
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            }
         } else {
             let query = self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("memoList")
             
@@ -58,7 +109,15 @@ class MemoVM {
                 return list.title.contains(self.searchMemoList[indexPath.row].title)
             })!)
             self.searchMemoList.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
+            if self.searchMemoList.isEmpty == true {
+                let cell = tableView.cellForRow(at: indexPath) as! MemoCell
+                cell.accessoryType = .none
+                cell.titleLabel.text = "검색 결과가 없습니다"
+                cell.titleLabel.textColor = .red
+                cell.dateLabel.text = ""
+            } else {
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            }
         }
         
     }
@@ -74,6 +133,35 @@ class MemoVM {
     
     //테이블 뷰 섹션에 나타낼 로우 갯수
     func numberOfRowsInSection(section: Int, isFiltering: Bool) -> Int {
-        return isFiltering ? self.searchMemoList.count : self.realMemoList.count
+        if isFiltering == true {
+            return self.searchMemoList.isEmpty ? 1 : self.searchMemoList.count
+        } else {
+            return self.realMemoList.isEmpty ? 1 : self.realMemoList.count
+        }
+    }
+    
+    func selectCell(uv: UIViewController, isFiltering: Bool, indexPath: IndexPath){
+        guard let nv = uv.storyboard?.instantiateViewController(withIdentifier: "MemoReadVC") as? MemoReadVC else { return }
+        
+        //전달할 내용
+        if isFiltering == false{
+            if self.realMemoList.isEmpty == false {
+                nv.titleOnTable = self.realMemoList[indexPath.row].title
+                nv.dateOnTable = self.realMemoList[indexPath.row].date
+                nv.textOnTable = self.realMemoList[indexPath.row].text
+                nv.countOnTable = self.realMemoList[indexPath.row].count
+                
+                uv.navigationController?.pushViewController(nv, animated: true)
+            }
+        } else {
+            if self.searchMemoList.isEmpty == false {
+                nv.titleOnTable = self.searchMemoList[indexPath.row].title
+                nv.dateOnTable = self.searchMemoList[indexPath.row].date
+                nv.textOnTable = self.searchMemoList[indexPath.row].text
+                nv.countOnTable = self.searchMemoList[indexPath.row].count
+                
+                uv.navigationController?.pushViewController(nv, animated: true)
+            }
+        }
     }
 }

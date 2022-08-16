@@ -194,7 +194,7 @@ class ShopVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISe
             self.present(uv!, animated: true)
             
         } else {
-            let alert = UIAlertController(title: nil, message: "Only the CEO can use it", preferredStyle: .alert)
+            let alert = UIAlertController(title: nil, message: "CEO만 이용할 수 있습니다", preferredStyle: .alert)
             
             alert.addAction(UIAlertAction(title: "OK", style: .default))
             

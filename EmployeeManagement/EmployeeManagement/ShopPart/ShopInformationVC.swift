@@ -224,10 +224,8 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
                     if alert.textFields?[0].text == "Delete" {
                         let query2 =  self.db.collection("shop").document("\(self.companyOnTable!)")
                         
-                        /*
-                         self.db.collection("shop").document("\(naviTitle)").collection("recipe").document("\(realRecipeList[indexPath.row].title)").delete()
-                         
-                         */
+                        
+                        // 내 정보에서  회사 삭제
                         query2.collection("employeeControl").getDocuments{ (snapshot, error) in
                             for doc in snapshot!.documents{
                                 self.db.collection("users").document("\(doc.data()["id"] as! String)").collection("myCompany").document("\(self.companyOnTable!)").delete()
@@ -261,6 +259,24 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
                                 self.deleteRecipeImage(docName: doc.documentID, imageList: doc.data()["imageList"] as! [String])
                                 
                                 query2.collection("transition").document("\(doc.documentID)").delete()
+                            }
+                        }
+                        
+                        //공지 사항 목록 삭제
+                        query2.collection("noticeList").getDocuments{ (snapshot, error) in
+                            for doc in snapshot!.documents{
+                                query2.collection("noticeList").document("\(doc.documentID)").delete()
+                            }
+                        }
+                        //스케줄 목록 삭제
+                        query2.collection("scheduleList").getDocuments{ (snapshot, error) in
+                            for doc in snapshot!.documents{
+                                query2.collection("scheduleList").document("\(doc.documentID)").collection("attendanceList").getDocuments { snapshot2, error2 in
+                                    for doc2 in snapshot2!.documents {
+                                        query2.collection("scheduleList").document("\(doc.documentID)").collection("attendanceList").document("\(doc2.documentID)").delete()
+                                    }
+                                    query2.collection("scheduleList").document("\(doc.documentID)").delete()
+                                }
                             }
                         }
                         

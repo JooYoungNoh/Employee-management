@@ -28,6 +28,9 @@ class SelectVM{
     //중복여부 체크 리스트 (메모 작성때 쓸)
     var checkList: [String] = []
     
+    //회사 삭제시 작성 금지 (회사 삭제 했는데 다른 사람이 작성 화면에 있을 경우 작성 금지을 위한 객체)
+    var companyDelete: String = ""
+    
     //MARK: 레시피 부분 메소드
     func findRecipe(naviTitle: String, completion: @escaping([SelectModel]) -> ()){
         self.recipeList.removeAll()
@@ -95,14 +98,30 @@ class SelectVM{
                     self.deleteImage(titleOnTable: self.realRecipeList[indexPath.row].title, companyName: naviTitle, imageListOnTable: self.realRecipeList[indexPath.row].imageList)
                     
                     self.realRecipeList.remove(at: indexPath.row)
-                    tableView.deleteRows(at: [indexPath], with: .fade)
+                    if self.realRecipeList.isEmpty == true {
+                        let cell = tableView.cellForRow(at: indexPath) as! SelectCell
+                        cell.accessoryType = .none
+                        cell.titleLabel.text = "레시피가 없습니다"
+                        cell.titleLabel.textColor = .red
+                        cell.dateLabel.text = ""
+                    } else {
+                        tableView.deleteRows(at: [indexPath], with: .fade)
+                    }
                 } else {
                     self.db.collection("shop").document("\(naviTitle)").collection("transition").document("\(realTransitionList[indexPath.row].title)").delete()
                     
                     self.deleteImage(titleOnTable: self.realTransitionList[indexPath.row].title, companyName: naviTitle, imageListOnTable: self.realTransitionList[indexPath.row].imageList)
                     
                     self.realTransitionList.remove(at: indexPath.row)
-                    tableView.deleteRows(at: [indexPath], with: .fade)
+                    if self.realTransitionList.isEmpty == true {
+                        let cell = tableView.cellForRow(at: indexPath) as! SelectCell
+                        cell.accessoryType = .none
+                        cell.titleLabel.text = "인수인계가 없습니다"
+                        cell.titleLabel.textColor = .red
+                        cell.dateLabel.text = ""
+                    } else {
+                        tableView.deleteRows(at: [indexPath], with: .fade)
+                    }
                     
                 }
             } else {
@@ -115,7 +134,15 @@ class SelectVM{
                         return list.title.contains(self.searchRecipeList[indexPath.row].title)
                     })!)
                     self.searchRecipeList.remove(at: indexPath.row)
-                    tableView.deleteRows(at: [indexPath], with: .fade)
+                    if self.searchRecipeList.isEmpty == true {
+                        let cell = tableView.cellForRow(at: indexPath) as! SelectCell
+                        cell.accessoryType = .none
+                        cell.titleLabel.text = "검색 결과가 없습니다"
+                        cell.titleLabel.textColor = .red
+                        cell.dateLabel.text = ""
+                    } else {
+                        tableView.deleteRows(at: [indexPath], with: .fade)
+                    }
                     
                 } else {
                     self.db.collection("shop").document("\(naviTitle)").collection("transition").document("\(searchTransitionList[indexPath.row].title)").delete()
@@ -127,7 +154,15 @@ class SelectVM{
                     })!)
                    
                     self.searchTransitionList.remove(at: indexPath.row)
-                    tableView.deleteRows(at: [indexPath], with: .fade)
+                    if self.searchTransitionList.isEmpty == true {
+                        let cell = tableView.cellForRow(at: indexPath) as! SelectCell
+                        cell.accessoryType = .none
+                        cell.titleLabel.text = "검색 결과가 없습니다"
+                        cell.titleLabel.textColor = .red
+                        cell.dateLabel.text = ""
+                    } else {
+                        tableView.deleteRows(at: [indexPath], with: .fade)
+                    }
                     
                 }
             }
@@ -137,42 +172,58 @@ class SelectVM{
     //MARK: 액션 메소드
     //레시피 및 인수인계 추가
     func doAdd(uv: UIViewController, companyName: String) {
-        if self.appDelegate.jobInfo == "2" {
-            let alert = UIAlertController(title: nil, message: "직원 이상의 직책만 사용가능합니다", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default))
-            uv.present(alert, animated: true)
-            
-        } else {
-            self.checkList.removeAll()
-            for i in 0..<self.realRecipeList.count{
-                self.checkList.append(self.realRecipeList[i].title)
+        self.companyDelete = ""
+        self.db.collection("shop").whereField("company", isEqualTo: "\(companyName)").getDocuments { snapShot, error in
+            for doc in snapShot!.documents{
+                self.companyDelete = doc.documentID
             }
-            
-            for i in 0..<self.realTransitionList.count{
-                self.checkList.append(self.realTransitionList[i].title)
+            print(self.companyDelete)
+            if self.companyDelete == "" {
+                let alert = UIAlertController(title: "회사가 존재하지않습니다.", message: "확인해주세요", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default) { (_) in
+                    uv.navigationController?.popViewController(animated: true)
+                })
+                uv.present(alert, animated: true)
+            } else {
+                if self.appDelegate.jobInfo == "2" {
+                    let alert = UIAlertController(title: nil, message: "직원 이상의 직책만 사용가능합니다", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default))
+                    uv.present(alert, animated: true)
+                    
+                } else {
+                    self.checkList.removeAll()
+                    for i in 0..<self.realRecipeList.count{
+                        self.checkList.append(self.realRecipeList[i].title)
+                    }
+                    
+                    for i in 0..<self.realTransitionList.count{
+                        self.checkList.append(self.realTransitionList[i].title)
+                    }
+                    
+                    let alert = UIAlertController(title: "선택해주세요", message: nil, preferredStyle: .actionSheet)
+                    alert.addAction(UIAlertAction(title: "레시피 작성", style: .default) { (_) in
+                        let nv = uv.storyboard?.instantiateViewController(withIdentifier: "TransitionWriteVC") as! TransitionWriteVC
+                        nv.modalPresentationStyle = .fullScreen
+                        nv.naviTitle = "레시피 작성"
+                        nv.companyName = companyName
+                        nv.checkTitle = self.checkList
+                        uv.present(nv, animated: true)
+                    })
+                    alert.addAction(UIAlertAction(title: "인수인계 작성", style: .default){ (_) in
+                        let nv = uv.storyboard?.instantiateViewController(withIdentifier: "TransitionWriteVC") as! TransitionWriteVC
+                        nv.modalPresentationStyle = .fullScreen
+                        nv.naviTitle = "인수인계 작성"
+                        nv.companyName = companyName
+                        nv.checkTitle = self.checkList
+                        uv.present(nv, animated: true)
+                    })
+                    alert.addAction(UIAlertAction(title: "취소", style: .cancel))
+                    
+                    uv.present(alert, animated: true)
+                }
             }
-            
-            let alert = UIAlertController(title: "선택해주세요", message: nil, preferredStyle: .actionSheet)
-            alert.addAction(UIAlertAction(title: "레시피 작성", style: .default) { (_) in
-                let nv = uv.storyboard?.instantiateViewController(withIdentifier: "TransitionWriteVC") as! TransitionWriteVC
-                nv.modalPresentationStyle = .fullScreen
-                nv.naviTitle = "레시피 작성"
-                nv.companyName = companyName
-                nv.checkTitle = self.checkList
-                uv.present(nv, animated: true)
-            })
-            alert.addAction(UIAlertAction(title: "인수인계 작성", style: .default){ (_) in
-                let nv = uv.storyboard?.instantiateViewController(withIdentifier: "TransitionWriteVC") as! TransitionWriteVC
-                nv.modalPresentationStyle = .fullScreen
-                nv.naviTitle = "인수인계 작성"
-                nv.companyName = companyName
-                nv.checkTitle = self.checkList
-                uv.present(nv, animated: true)
-            })
-            alert.addAction(UIAlertAction(title: "취소", style: .cancel))
-            
-            uv.present(alert, animated: true)
         }
+        
     }
 
     //이미지 삭제
@@ -196,48 +247,75 @@ class SelectVM{
         
         if indexPath.section == 0{
             if isFiltering == false {           //검색 X
-                let date = Date(timeIntervalSince1970: self.realRecipeList[indexPath.row].date)
-                let formatter = DateFormatter()
-                formatter.dateFormat = "yyyy-MM-dd HH:mm"
-                let fixDate = "\(formatter.string(from: date))"
+                if self.realRecipeList.isEmpty == true {
+                    cell.accessoryType = .none
+                    cell.titleLabel.text = "레시피가 없습니다"
+                    cell.titleLabel.textColor = .red
+                    cell.dateLabel.text = ""
+                } else {
+                    let date = Date(timeIntervalSince1970: self.realRecipeList[indexPath.row].date)
+                    let formatter = DateFormatter()
+                    formatter.dateFormat = "yyyy-MM-dd HH:mm"
+                    let fixDate = "\(formatter.string(from: date))"
                     
-                cell.titleLabel.text = self.realRecipeList[indexPath.row].title
-                cell.titleLabel.textColor = .black
-                cell.dateLabel.text = fixDate
-                cell.accessoryType = .disclosureIndicator
+                    cell.titleLabel.text = self.realRecipeList[indexPath.row].title
+                    cell.titleLabel.textColor = .black
+                    cell.dateLabel.text = fixDate
+                    cell.accessoryType = .disclosureIndicator
+                }
             } else {                            //검색 O
-                let date = Date(timeIntervalSince1970: self.searchRecipeList[indexPath.row].date)
-                let formatter = DateFormatter()
-                formatter.dateFormat = "yyyy-MM-dd HH:mm"
-                let fixDate = "\(formatter.string(from: date))"
-                
-                cell.titleLabel.text = self.searchRecipeList[indexPath.row].title
-                cell.titleLabel.textColor = .black
-                cell.dateLabel.text = fixDate
-                cell.accessoryType = .disclosureIndicator
-                
+                if self.searchRecipeList.isEmpty == true {
+                    cell.accessoryType = .none
+                    cell.titleLabel.text = "검색 결과가 없습니다"
+                    cell.titleLabel.textColor = .red
+                    cell.dateLabel.text = ""
+                } else {
+                    let date = Date(timeIntervalSince1970: self.searchRecipeList[indexPath.row].date)
+                    let formatter = DateFormatter()
+                    formatter.dateFormat = "yyyy-MM-dd HH:mm"
+                    let fixDate = "\(formatter.string(from: date))"
+                    
+                    cell.titleLabel.text = self.searchRecipeList[indexPath.row].title
+                    cell.titleLabel.textColor = .black
+                    cell.dateLabel.text = fixDate
+                    cell.accessoryType = .disclosureIndicator
+                }
             }
         } else {
             if isFiltering == false {
-                let date = Date(timeIntervalSince1970: self.realTransitionList[indexPath.row].date)
-                let formatter = DateFormatter()
-                formatter.dateFormat = "yyyy-MM-dd HH:mm"
-                let fixDate = "\(formatter.string(from: date))"
-                    
-                cell.titleLabel.text = self.realTransitionList[indexPath.row].title
-                cell.titleLabel.textColor = .black
-                cell.dateLabel.text = fixDate
-                cell.accessoryType = .disclosureIndicator
+                if self.realTransitionList.isEmpty == true {
+                    cell.accessoryType = .none
+                    cell.titleLabel.text = "인수인계가 없습니다"
+                    cell.titleLabel.textColor = .red
+                    cell.dateLabel.text = ""
+                } else {
+                    let date = Date(timeIntervalSince1970: self.realTransitionList[indexPath.row].date)
+                    let formatter = DateFormatter()
+                    formatter.dateFormat = "yyyy-MM-dd HH:mm"
+                    let fixDate = "\(formatter.string(from: date))"
+                        
+                    cell.titleLabel.text = self.realTransitionList[indexPath.row].title
+                    cell.titleLabel.textColor = .black
+                    cell.dateLabel.text = fixDate
+                    cell.accessoryType = .disclosureIndicator
+                }
             } else {
-                let date = Date(timeIntervalSince1970: self.searchTransitionList[indexPath.row].date)
-                let formatter = DateFormatter()
-                formatter.dateFormat = "yyyy-MM-dd HH:mm"
-                let fixDate = "\(formatter.string(from: date))"
-                
-                cell.titleLabel.text = self.searchTransitionList[indexPath.row].title
-                cell.titleLabel.textColor = .black
-                cell.dateLabel.text = fixDate
-                cell.accessoryType = .disclosureIndicator
+                if self.searchTransitionList.isEmpty == true {
+                    cell.accessoryType = .none
+                    cell.titleLabel.text = "검색 결과가 없습니다"
+                    cell.titleLabel.textColor = .red
+                    cell.dateLabel.text = ""
+                } else {
+                    let date = Date(timeIntervalSince1970: self.searchTransitionList[indexPath.row].date)
+                    let formatter = DateFormatter()
+                    formatter.dateFormat = "yyyy-MM-dd HH:mm"
+                    let fixDate = "\(formatter.string(from: date))"
+                    
+                    cell.titleLabel.text = self.searchTransitionList[indexPath.row].title
+                    cell.titleLabel.textColor = .black
+                    cell.dateLabel.text = fixDate
+                    cell.accessoryType = .disclosureIndicator
+                }
             }
         }
         return cell
@@ -247,18 +325,71 @@ class SelectVM{
     func numberOfRowsInSection(section: Int, isFiltering: Bool) -> Int {
         if section == 0{
             if isFiltering == true {
-                return self.searchRecipeList.isEmpty ? 0 : self.searchRecipeList.count
+                return self.searchRecipeList.isEmpty ? 1 : self.searchRecipeList.count
             } else {
-                return self.realRecipeList.isEmpty ? 0 : self.realRecipeList.count
+                return self.realRecipeList.isEmpty ? 1 : self.realRecipeList.count
             }
         } else {
             if isFiltering == true {
-                return self.searchTransitionList.isEmpty ? 0 : self.searchTransitionList.count
+                return self.searchTransitionList.isEmpty ? 1 : self.searchTransitionList.count
             } else {
-                return self.realTransitionList.isEmpty ? 0 : self.realTransitionList.count
+                return self.realTransitionList.isEmpty ? 1 : self.realTransitionList.count
             }
         }
     }
     
+    func selectCell(uv: UIViewController, isFiltering: Bool, indexPath: IndexPath, companyName: String){
+        guard let nv = uv.storyboard?.instantiateViewController(withIdentifier: "TransitionInfoVC") as? TransitionInfoVC else { return }
+
+        if isFiltering == false {
+            if indexPath.section == 0 {
+                if self.realRecipeList.isEmpty == false {
+                    nv.titleOnTable = self.realRecipeList[indexPath.row].title
+                    nv.textOnTable = self.realRecipeList[indexPath.row].text
+                    nv.countOnTable = self.realRecipeList[indexPath.row].count
+                    nv.naviTitle = "레시피 정보"
+                    nv.companyName = companyName
+                    nv.checkTitle = self.checkList
+                    nv.imageListOnTable = self.realRecipeList[indexPath.row].imageList
+                    uv.navigationController?.pushViewController(nv, animated: true)
+                }
+            } else {
+                if self.realTransitionList.isEmpty == false {
+                    nv.titleOnTable = self.realTransitionList[indexPath.row].title
+                    nv.textOnTable = self.realTransitionList[indexPath.row].text
+                    nv.countOnTable = self.realTransitionList[indexPath.row].count
+                    nv.naviTitle = "인수인계 정보"
+                    nv.companyName = companyName
+                    nv.checkTitle = self.checkList
+                    nv.imageListOnTable = self.realTransitionList[indexPath.row].imageList
+                    uv.navigationController?.pushViewController(nv, animated: true)
+                }
+            }
+        } else {
+            if indexPath.section == 0 {
+                if self.searchRecipeList.isEmpty == false {
+                    nv.titleOnTable = self.searchRecipeList[indexPath.row].title
+                    nv.textOnTable = self.searchRecipeList[indexPath.row].text
+                    nv.countOnTable = self.searchRecipeList[indexPath.row].count
+                    nv.naviTitle = "레시피 정보"
+                    nv.companyName = companyName
+                    nv.checkTitle = self.checkList
+                    nv.imageListOnTable = self.searchRecipeList[indexPath.row].imageList
+                    uv.navigationController?.pushViewController(nv, animated: true)
+                }
+            } else {
+                if self.searchTransitionList.isEmpty == false {
+                    nv.titleOnTable = self.searchTransitionList[indexPath.row].title
+                    nv.textOnTable = self.searchTransitionList[indexPath.row].text
+                    nv.countOnTable = self.searchTransitionList[indexPath.row].count
+                    nv.naviTitle = "인수인계 정보"
+                    nv.companyName = companyName
+                    nv.checkTitle = self.checkList
+                    nv.imageListOnTable = self.searchTransitionList[indexPath.row].imageList
+                    uv.navigationController?.pushViewController(nv, animated: true)
+                }
+            }
+        }
+    }
 }
 

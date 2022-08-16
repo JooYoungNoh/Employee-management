@@ -105,7 +105,7 @@ class MemoWriteVC: UIViewController, UITextViewDelegate {
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-20)
             make.top.equalTo(self.saveButton.snp.bottom).offset(20)
-            make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom).offset(-320)
+            make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom).offset(-60)
         }
         
         //글자수 UI

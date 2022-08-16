@@ -25,6 +25,7 @@ class TransitionInfoCell: UICollectionViewCell {
         img.tintColor = .systemBlue
         img.backgroundColor = .white
         img.isHidden = true
+        img.image = UIImage(systemName: "checkmark.circle.fill")
         return img
     }()
     
