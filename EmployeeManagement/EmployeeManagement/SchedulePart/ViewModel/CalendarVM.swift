@@ -50,9 +50,6 @@ class CalendarVM {
                         let listDate2 = "\(self.phoneMyScheduleList[index].date) \(self.phoneMyScheduleList[index].startTime)"
                         let changeDate2 = formatter.date(from: listDate2)!
                         
-                        print("날짜: \(listDate2) 현재 시간: \(changeDate) 그날 시간: \(changeDate2)")
-                        print(formatter.string(from: changeDate))
-                        
                         if changeDate2 >= changeDate {
                             self.companyMyScheduleList.append(self.phoneMyScheduleList[index])
                         }
