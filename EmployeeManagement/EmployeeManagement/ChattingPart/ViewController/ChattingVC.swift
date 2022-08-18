@@ -62,7 +62,7 @@ class ChattingVC: UIViewController {
         
         let settingButton = UIBarButtonItem(image: UIImage(systemName: "gearshape"), style: .plain, target: self, action: #selector(goSetting(_:)))
         
-        self.navigationItem.rightBarButtonItems = [addButton, settingButton]
+        self.navigationItem.rightBarButtonItems = [settingButton, addButton]
         
         addButton.tintColor = UIColor.black
         settingButton.tintColor = UIColor.black
@@ -88,7 +88,7 @@ extension ChattingVC: UITableViewDataSource, UITableViewDelegate {
         cell.userImageView.image = UIImage(named: "account")
         cell.titleLabel.text = "임시 채팅방 이름111111111111111111111"
         cell.userCount.text = "100"
-        cell.dateLabel.text = "2022-12-11"
+        cell.dateLabel.text = "어제"
         cell.commentLabel.text = "임시 채팅방 내용 입니다~~~~~~~~~~~~~"
         
         return cell

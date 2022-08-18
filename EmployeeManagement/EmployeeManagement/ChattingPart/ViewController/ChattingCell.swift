@@ -67,7 +67,7 @@ class ChattingCell: UITableViewCell {
         titleLabel.snp.makeConstraints { make in
             make.top.equalTo(self.snp.top).offset(10)
             make.leading.equalTo(self.userImageView.snp.trailing).offset(10)
-            make.trailing.lessThanOrEqualTo(self.snp.trailing).offset(-110)
+            make.trailing.lessThanOrEqualTo(self.snp.trailing).offset(-115)
             make.height.equalTo(25)
         }
         
@@ -79,16 +79,16 @@ class ChattingCell: UITableViewCell {
         }
         
         dateLabel.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.trailing.equalTo(self.snp.trailing).offset(-10)
+            make.top.equalTo(self.snp.top).offset(10)
+            make.trailing.equalTo(self.snp.trailing).offset(-15)
             make.width.equalTo(70)
-            make.height.equalTo(20)
+            make.height.equalTo(25)
         }
         
         commentLabel.snp.makeConstraints { make in
             make.top.equalTo(self.titleLabel.snp.bottom)
             make.leading.equalTo(self.titleLabel.snp.leading)
-            make.trailing.equalTo(self.snp.trailing).offset(-75)
+            make.trailing.equalTo(self.snp.trailing).offset(-80)
             make.height.equalTo(25)
         }
     }
