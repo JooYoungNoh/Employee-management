@@ -125,11 +125,11 @@
                         <viewLayoutGuide key="safeArea" id="FRA-xT-XWq"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="oSD-eg-NB9"/>
+                    <navigationItem key="navigationItem" id="KBF-aa-9dH"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lsk-Jd-Wi3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2577" y="-845"/>
+            <point key="canvasLocation" x="3294" y="-845"/>
         </scene>
         <!--스케줄 화면-->
         <scene sceneID="o1s-QI-GP4">
@@ -237,7 +237,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="lm9-EW-ejx" kind="relationship" relationship="viewControllers" id="9sV-aL-ToN"/>
-                        <segue destination="6I6-0A-82w" kind="relationship" relationship="viewControllers" id="FcA-06-Qku"/>
+                        <segue destination="xFM-iQ-Epk" kind="relationship" relationship="viewControllers" id="FcA-06-Qku"/>
                         <segue destination="YqR-Zb-g3d" kind="relationship" relationship="viewControllers" id="9yi-pb-A9F"/>
                         <segue destination="9zW-Jd-fIv" kind="relationship" relationship="viewControllers" id="OeS-tg-O7h"/>
                         <segue destination="vb9-HU-rQk" kind="relationship" relationship="viewControllers" id="WnV-2D-Jnh"/>
@@ -514,7 +514,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SKS-vm-xbM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5605" y="-845"/>
+            <point key="canvasLocation" x="6533.8461538461534" y="-845.26066350710892"/>
         </scene>
         <!--공지사항 리스트 화면-->
         <scene sceneID="elQ-Us-H0y">
@@ -579,6 +579,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="P83-Sf-KGD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4781.538461538461" y="518.957345971564"/>
+        </scene>
+        <!--Item-->
+        <scene sceneID="i4C-va-djt">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="xFM-iQ-Epk" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="oSD-eg-NB9"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="FbV-cP-yrk">
+                        <rect key="frame" x="0.0" y="44" width="390" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="6I6-0A-82w" kind="relationship" relationship="rootViewController" id="6mv-u2-xaa"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tLa-QC-0JH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2576.9230769230767" y="-845.26066350710892"/>
         </scene>
     </scenes>
     <resources>
