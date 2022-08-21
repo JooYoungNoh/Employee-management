@@ -77,6 +77,11 @@ class CreateChatVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.uiCreate()
+        self.viewModel.findEmployList(){ (completion2) in
+        }
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1){
+            self.tableView.reloadData()
+        }
     }
     
     //MARK: 액션 메소드
@@ -182,13 +187,22 @@ extension CreateChatVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "CreateChatCell", for: indexPath) as? CreateChatCell else { return UITableViewCell() }
         
+        //이름
+        cell.nameLabel.text = self.viewModel.employeeRealResult[indexPath.row].name
+        
+        //프로필 이미지
+        if self.viewModel.employeeRealResult[indexPath.row].profileImg == true {
+            self.viewModel.employeeDownloadimage(imgView: cell.userImageView, phone: self.viewModel.employeeRealResult[indexPath.row].phone)
+        } else {
+            cell.userImageView.image = UIImage(named: "account")
+        }
+        
+        //체크 표시
         if self.viewModel.collectionList.contains(indexPath.row) == true {
             cell.checkImageView.isHidden = false
         } else {
             cell.checkImageView.isHidden = true
         }
-        cell.nameLabel.text = "실험중"
-        cell.userImageView.image = UIImage(named: "account")
         return cell
     }
     
@@ -230,7 +244,7 @@ extension CreateChatVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return self.viewModel.employeeRealResult.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

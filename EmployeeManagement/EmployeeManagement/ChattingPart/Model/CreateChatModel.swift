@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct CreateChatModel: Hashable {
     
@@ -29,5 +30,17 @@ struct CreateChatModel: Hashable {
 
     static func == (lhs: Self, rhs: Self) -> Bool {
       lhs.hashValue == rhs.hashValue
+    }
+}
+
+struct collectionListModel {
+    var name: String
+    var phone: String
+    var image: UIImage
+    
+    init(name: String, phone: String, image: UIImage){
+        self.name = name
+        self.phone = phone
+        self.image = image
     }
 }
