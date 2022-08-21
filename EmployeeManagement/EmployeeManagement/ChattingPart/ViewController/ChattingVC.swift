@@ -34,7 +34,7 @@ class ChattingVC: UIViewController {
     
     //MARK: 액션 메소드
     @objc func addChatting(_ sender: UIBarButtonItem){
-        
+        self.viewModel.addChatting(uv: self)
     }
     
     @objc func goSetting(_ sender: UIBarButtonItem){
