@@ -13,10 +13,6 @@ class CreateChatVC: UIViewController {
     //뷰 모델
     var viewModel = CreateChatVM()
     
-    //컬랙션 뷰 높이
-    var changeHeight: Int = 0
-    var heightConstraint: Constraint? = nil
-    
     //닫기 버튼
     let closeButton: UIButton = {
         let close = UIButton()
@@ -90,28 +86,7 @@ class CreateChatVC: UIViewController {
     }
     
     @objc func dosave(_ sender: UIButton){
-        // 컬랙션 뷰 크기 변경
-        /*self.viewModel.collectionList.append(1)
-
-        if self.changeHeight == 0 {
-            self.changeHeight = 70
-            self.heightConstraint?.update(offset: self.changeHeight)
-            
-            UIViewPropertyAnimator(duration: 0.2, curve: .easeOut, animations: {
-                self.view.layoutIfNeeded()
-            }).startAnimation()
-        } else {
-            if self.viewModel.collectionList.count == 5 {
-                self.viewModel.collectionList.removeAll()
-                self.changeHeight = 0
-                self.heightConstraint?.update(offset: self.changeHeight)
-                
-                UIViewPropertyAnimator(duration: 0.2, curve: .easeOut, animations: {
-                    self.view.layoutIfNeeded()
-                }).startAnimation()
-            }
-        }
-        collectionView.reloadData()*/
+        
     }
 
     //MARK: 화면 메소드
@@ -151,7 +126,7 @@ class CreateChatVC: UIViewController {
             make.top.equalTo(self.titleLabel.snp.bottom).offset(10)
             make.leading.equalTo(self.view.safeAreaLayoutGuide.snp.leading).offset(15)
             make.trailing.equalToSuperview()
-            self.heightConstraint = make.height.equalTo(0).constraint
+            self.viewModel.heightConstraint = make.height.equalTo(0).constraint
         }
         
         //테이블 뷰
@@ -168,14 +143,7 @@ class CreateChatVC: UIViewController {
 //MARK: 컬렉션 뷰 메소드
 extension CreateChatVC: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CreateChatCVCell.identifier, for: indexPath) as? CreateChatCVCell else { return UICollectionViewCell() }
-    
-        if self.viewModel.collectionList.count != 0 {
-            cell.nameLabel.text = "실험중"
-            cell.imageView.image = UIImage(named: "account")
-        }
-        
-        return cell
+        self.viewModel.cellInfoCollection(collectionView: collectionView, indexPath: indexPath)
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.viewModel.collectionList.count
@@ -185,62 +153,11 @@ extension CreateChatVC: UICollectionViewDataSource, UICollectionViewDelegate {
 //MARK: 테이블 뷰 메소드
 extension CreateChatVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "CreateChatCell", for: indexPath) as? CreateChatCell else { return UITableViewCell() }
-        
-        //이름
-        cell.nameLabel.text = self.viewModel.employeeRealResult[indexPath.row].name
-        
-        //프로필 이미지
-        if self.viewModel.employeeRealResult[indexPath.row].profileImg == true {
-            self.viewModel.employeeDownloadimage(imgView: cell.userImageView, phone: self.viewModel.employeeRealResult[indexPath.row].phone)
-        } else {
-            cell.userImageView.image = UIImage(named: "account")
-        }
-        
-        //체크 표시
-        if self.viewModel.collectionList.contains(indexPath.row) == true {
-            cell.checkImageView.isHidden = false
-        } else {
-            cell.checkImageView.isHidden = true
-        }
-        return cell
+        self.viewModel.cellInfoTable(tableView: tableView, indexPath: indexPath)
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        let cell  = tableView.cellForRow(at: indexPath) as! CreateChatCell
-        
-        if cell.checkImageView.isHidden == true {
-            cell.checkImageView.isHidden = false
-            self.viewModel.collectionList.append(indexPath.row)
-            
-            if self.changeHeight == 0 {
-                self.changeHeight = 70
-                self.heightConstraint?.update(offset: self.changeHeight)
-                
-                UIViewPropertyAnimator(duration: 0.2, curve: .easeOut, animations: {
-                    self.view.layoutIfNeeded()
-                }).startAnimation()
-            }
-            self.saveButton.isHidden = false
-        } else {
-            cell.checkImageView.isHidden = true
-            if let index = self.viewModel.collectionList.firstIndex(of: indexPath.row){
-                self.viewModel.collectionList.remove(at: index)
-                
-                if self.viewModel.collectionList.isEmpty == true {
-                    self.changeHeight = 0
-                    self.heightConstraint?.update(offset: self.changeHeight)
-                    
-                    UIViewPropertyAnimator(duration: 0.2, curve: .easeOut, animations: {
-                        self.view.layoutIfNeeded()
-                    }).startAnimation()
-                    
-                    self.saveButton.isHidden = true
-                }
-            }
-        }
-        self.collectionView.reloadData()
+        self.viewModel.selectCellTable(tableView: tableView, indexPath: indexPath, uv: self, saveButton: saveButton, collectionView: collectionView)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
