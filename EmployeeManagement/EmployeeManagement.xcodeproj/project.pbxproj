@@ -32,6 +32,8 @@
 		7346EC2D28B2728800C48AE2 /* CreateChatVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7346EC2C28B2728800C48AE2 /* CreateChatVM.swift */; };
 		7346EC2F28B2729800C48AE2 /* CreateChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7346EC2E28B2729800C48AE2 /* CreateChatCell.swift */; };
 		7346EC3128B272AA00C48AE2 /* CreateChatVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7346EC3028B272AA00C48AE2 /* CreateChatVC.swift */; };
+		7346EC3528B27D2500C48AE2 /* CreateChatCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7346EC3428B27D2500C48AE2 /* CreateChatCVCell.swift */; };
+		7346EC3728B27EFA00C48AE2 /* CreateChatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7346EC3628B27EFA00C48AE2 /* CreateChatModel.swift */; };
 		73502E182832BAB000920E3C /* Shopcell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73502E172832BAB000920E3C /* Shopcell.swift */; };
 		735180CF2852602E00CC30FB /* MyProfileVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 735180CE2852602E00CC30FB /* MyProfileVM.swift */; };
 		736ECC6428367E1A0092F7F7 /* ShopInformationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736ECC6328367E1A0092F7F7 /* ShopInformationVC.swift */; };
@@ -119,6 +121,8 @@
 		7346EC2C28B2728800C48AE2 /* CreateChatVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateChatVM.swift; sourceTree = "<group>"; };
 		7346EC2E28B2729800C48AE2 /* CreateChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateChatCell.swift; sourceTree = "<group>"; };
 		7346EC3028B272AA00C48AE2 /* CreateChatVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateChatVC.swift; sourceTree = "<group>"; };
+		7346EC3428B27D2500C48AE2 /* CreateChatCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateChatCVCell.swift; sourceTree = "<group>"; };
+		7346EC3628B27EFA00C48AE2 /* CreateChatModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateChatModel.swift; sourceTree = "<group>"; };
 		73502E172832BAB000920E3C /* Shopcell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shopcell.swift; sourceTree = "<group>"; };
 		735180CE2852602E00CC30FB /* MyProfileVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileVM.swift; sourceTree = "<group>"; };
 		736ECC6328367E1A0092F7F7 /* ShopInformationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopInformationVC.swift; sourceTree = "<group>"; };
@@ -406,6 +410,7 @@
 			isa = PBXGroup;
 			children = (
 				739DBAC128AE7FEA00E51498 /* ChattingModel.swift */,
+				7346EC3628B27EFA00C48AE2 /* CreateChatModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -425,6 +430,7 @@
 				73E2DA982832688100C4CF25 /* ChattingVC.swift */,
 				739DBAC328AE80A100E51498 /* ChattingCell.swift */,
 				7346EC3028B272AA00C48AE2 /* CreateChatVC.swift */,
+				7346EC3428B27D2500C48AE2 /* CreateChatCVCell.swift */,
 				7346EC2E28B2729800C48AE2 /* CreateChatCell.swift */,
 			);
 			path = ViewController;
@@ -588,6 +594,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7346EC3728B27EFA00C48AE2 /* CreateChatModel.swift in Sources */,
 				736ECC6428367E1A0092F7F7 /* ShopInformationVC.swift in Sources */,
 				731143B4282994EA00163A1B /* PickerController.swift in Sources */,
 				73A3AAF5282969D1001283CD /* SignUpVC.swift in Sources */,
@@ -652,6 +659,7 @@
 				730AA0A8289AC07300A93D5B /* ScheduleVM.swift in Sources */,
 				73E2DAA12832A5D000C4CF25 /* ShopVC.swift in Sources */,
 				73A3AADA28292BF9001283CD /* SceneDelegate.swift in Sources */,
+				7346EC3528B27D2500C48AE2 /* CreateChatCVCell.swift in Sources */,
 				73BE45AB28A1A59E00BC4BDC /* TimetableCell.swift in Sources */,
 				73301F7728A3E70A0042F84D /* TimetableCreateVC.swift in Sources */,
 				735180CF2852602E00CC30FB /* MyProfileVM.swift in Sources */,
