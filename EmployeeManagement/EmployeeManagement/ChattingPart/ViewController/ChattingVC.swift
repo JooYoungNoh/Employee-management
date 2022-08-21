@@ -101,6 +101,29 @@ extension ChattingVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 70
     }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let csview = UIView()
+        let listTitle = UILabel()
+        
+        csview.backgroundColor = UIColor.white
+        
+        listTitle.frame = CGRect(x: 20, y: 0, width: self.view.frame.width / 2, height: 30)
+        listTitle.font = UIFont.init(name: "CookieRun", size: 20)
+        listTitle.text = "채팅목록"
+        listTitle.textColor = UIColor.blue
+        
+        csview.addSubview(listTitle)
+        return csview
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 35
+    }
 }
 
 //MARK: 서치바 메소드
