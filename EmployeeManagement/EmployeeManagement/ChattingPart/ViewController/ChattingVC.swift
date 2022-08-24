@@ -29,7 +29,18 @@ class ChattingVC: UIViewController {
         self.tableView.dataSource = self
         self.tableView.delegate = self
         self.tableView.register(ChattingCell.self, forCellReuseIdentifier: ChattingCell.identifier)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         self.uiCreate()
+        self.viewModel.bringChattingList { completion in
+            self.tableView.reloadData()
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.viewModel.deleteListner()
     }
     
     //MARK: 액션 메소드
@@ -83,19 +94,11 @@ class ChattingVC: UIViewController {
 //MARK: 테이블 뷰 메소드
 extension ChattingVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "ChattingCell", for: indexPath) as? ChattingCell else { return UITableViewCell() }
-        
-        cell.userImageView.image = UIImage(named: "account")
-        cell.titleLabel.text = "임시 채팅방 이름111111111111111111111"
-        cell.userCount.text = "100"
-        cell.dateLabel.text = "어제"
-        cell.commentLabel.text = "임시 채팅방 내용 입니다~~~~~~~~~~~~~"
-        
-        return cell
+        self.viewModel.cellInfo(tableView: tableView, indexPath: indexPath, isFiltering: self.isFiltering)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return self.viewModel.numberOfRowsInSection(section: section, isFiltering: self.isFiltering)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -129,6 +132,6 @@ extension ChattingVC: UITableViewDataSource, UITableViewDelegate {
 //MARK: 서치바 메소드
 extension ChattingVC: UISearchResultsUpdating, UISearchBarDelegate {
     func updateSearchResults(for searchController: UISearchController) {
-        //self.viewModel.searchBarfilter(searchController: searchController, tableView: self.tableView)
+        self.viewModel.searchBarfilter(searchController: searchController, tableView: self.tableView)
     }
 }

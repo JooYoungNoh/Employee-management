@@ -34,6 +34,7 @@ class CreateChatVM {
     var dbPhone: [String] = []
     var dbRoom: String = ""
     var listCount: Int = 0
+    var dbcheck: String = ""
     
     
     //MARK: 액션 메소드
@@ -100,35 +101,72 @@ class CreateChatVM {
     
     //저장 버튼
     func dosave(uv: UIViewController) {
-        let alert = UIAlertController(title: "방을 생성하시겠습니까?", message: "메시지를 보내면 상대방도 채팅이 활성화됩니다", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default) { (_) in
-            self.listCount = 0
-            for i in self.collectionInfoList {
-                self.dbPhone.append(i.phone)
-                
-                if self.listCount == 0{
-                    self.dbRoom += i.name
-                } else {
-                    self.dbRoom += ", \(i.name)"
-                }
-                self.listCount += 1
-            }
-            let date = Date().timeIntervalSince1970
+        self.listCount = 0
+        self.dbPhone.removeAll()
+        self.dbRoom = ""
+        self.dbcheck = ""
+        for i in self.collectionInfoList {
+            self.dbPhone.append(i.phone)
             
-            self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").addDocument(data: [
-                "date" : date,
-                "roomTitle" : self.dbRoom,
-                "phoneList" : self.dbPhone,
-                "memberCount" : "\(self.dbPhone.count + 1)",
-                "newMessage" : "",
-                "newCount" : "0",
-                "activation" : false
-            ])
-            uv.dismiss(animated: true)
-        })
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+            if self.listCount == 0{
+                self.dbRoom += i.name
+            } else {
+                self.dbRoom += ", \(i.name)"
+            }
+            self.listCount += 1
+        }
+        let date = Date().timeIntervalSince1970
         
-        uv.present(alert, animated: true)
+        if self.collectionInfoList.count == 1{
+            self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").whereField("phoneList", isEqualTo: self.dbPhone).getDocuments { snapshot, error in
+                if error == nil {
+                    for doc in snapshot!.documents{
+                        self.dbcheck = doc.documentID
+                    }
+                    if self.dbcheck != "" {
+                        let alert = UIAlertController(title: "이미 있는 채팅방입니다", message: "확인해주세요", preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "OK", style: .default))
+                        uv.present(alert, animated: true)
+                    } else {
+                        let alert = UIAlertController(title: "방을 생성하시겠습니까?", message: "메시지를 보내면 상대방도 채팅이 활성화됩니다", preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "OK", style: .default) { (_) in
+                            self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").addDocument(data: [
+                                "date" : date,
+                                "roomTitle" : self.dbRoom,
+                                "phoneList" : self.dbPhone,
+                                "memberCount" : "\(self.dbPhone.count + 1)",
+                                "newMessage" : "",
+                                "newCount" : "0",
+                                "activation" : false
+                            ])
+                            uv.dismiss(animated: true)
+                        })
+                        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+                        
+                        uv.present(alert, animated: true)
+                    }
+                } else {
+                    print(error!.localizedDescription)
+                }
+            }
+        } else {
+            let alert = UIAlertController(title: "방을 생성하시겠습니까?", message: "메시지를 보내면 상대방도 채팅이 활성화됩니다", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default) { (_) in
+                self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").addDocument(data: [
+                    "date" : date,
+                    "roomTitle" : self.dbRoom,
+                    "phoneList" : self.dbPhone,
+                    "memberCount" : "\(self.dbPhone.count + 1)",
+                    "newMessage" : "",
+                    "newCount" : "0",
+                    "activation" : false
+                ])
+                uv.dismiss(animated: true)
+            })
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+            
+            uv.present(alert, animated: true)
+        }
     }
     
     //MARK: 테이블 뷰 메소드

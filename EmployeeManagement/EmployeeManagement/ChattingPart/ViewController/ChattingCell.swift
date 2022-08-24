@@ -22,7 +22,7 @@ class ChattingCell: UITableViewCell {
     
     let userTwoImageView1: UIImageView = {
         let imageView = UIImageView()
-        imageView.layer.cornerRadius = 20
+        imageView.layer.cornerRadius = 12
         imageView.layer.borderWidth = 0
         imageView.layer.masksToBounds = true
         imageView.isHidden = true
@@ -31,7 +31,7 @@ class ChattingCell: UITableViewCell {
     
     let userTwoImageView2: UIImageView = {
         let imageView = UIImageView()
-        imageView.layer.cornerRadius = 20
+        imageView.layer.cornerRadius = 12
         imageView.layer.borderWidth = 0
         imageView.layer.masksToBounds = true
         imageView.isHidden = true
@@ -40,7 +40,7 @@ class ChattingCell: UITableViewCell {
     
     let userThreeImageView1: UIImageView = {
         let imageView = UIImageView()
-        imageView.layer.cornerRadius = 20
+        imageView.layer.cornerRadius = 11
         imageView.layer.borderWidth = 0
         imageView.layer.masksToBounds = true
         imageView.isHidden = true
@@ -49,7 +49,7 @@ class ChattingCell: UITableViewCell {
     
     let userThreeImageView2: UIImageView = {
         let imageView = UIImageView()
-        imageView.layer.cornerRadius = 20
+        imageView.layer.cornerRadius = 11
         imageView.layer.borderWidth = 0
         imageView.layer.masksToBounds = true
         imageView.isHidden = true
@@ -58,7 +58,7 @@ class ChattingCell: UITableViewCell {
     
     let userThreeImageView3: UIImageView = {
         let imageView = UIImageView()
-        imageView.layer.cornerRadius = 20
+        imageView.layer.cornerRadius = 11
         imageView.layer.borderWidth = 0
         imageView.layer.masksToBounds = true
         imageView.isHidden = true
@@ -67,7 +67,7 @@ class ChattingCell: UITableViewCell {
     
     let userFourImageView1: UIImageView = {
         let imageView = UIImageView()
-        imageView.layer.cornerRadius = 20
+        imageView.layer.cornerRadius = 10
         imageView.layer.borderWidth = 0
         imageView.layer.masksToBounds = true
         imageView.isHidden = true
@@ -75,7 +75,7 @@ class ChattingCell: UITableViewCell {
     }()
     let userFourImageView2: UIImageView = {
         let imageView = UIImageView()
-        imageView.layer.cornerRadius = 20
+        imageView.layer.cornerRadius = 10
         imageView.layer.borderWidth = 0
         imageView.layer.masksToBounds = true
         imageView.isHidden = true
@@ -83,7 +83,7 @@ class ChattingCell: UITableViewCell {
     }()
     let userFourImageView3: UIImageView = {
         let imageView = UIImageView()
-        imageView.layer.cornerRadius = 20
+        imageView.layer.cornerRadius = 10
         imageView.layer.borderWidth = 0
         imageView.layer.masksToBounds = true
         imageView.isHidden = true
@@ -91,7 +91,7 @@ class ChattingCell: UITableViewCell {
     }()
     let userFourImageView4: UIImageView = {
         let imageView = UIImageView()
-        imageView.layer.cornerRadius = 20
+        imageView.layer.cornerRadius = 10
         imageView.layer.borderWidth = 0
         imageView.layer.masksToBounds = true
         imageView.isHidden = true
@@ -207,7 +207,7 @@ class ChattingCell: UITableViewCell {
         }
         //우하
         userFourImageView4.snp.makeConstraints { make in
-            make.top.equalTo(self.snp.top).offset(10)
+            make.bottom.equalTo(self.snp.bottom).offset(-10)
             make.leading.equalTo(self.userFourImageView2.snp.leading)
             make.width.height.equalTo(24)
         }
@@ -253,6 +253,7 @@ class ChattingCell: UITableViewCell {
 
     override func prepareForReuse() {
         super.prepareForReuse()
+        //이미지 뷰 숨김 초기화
         self.userImageView.isHidden = true
         self.userTwoImageView1.isHidden = true
         self.userTwoImageView2.isHidden = true
@@ -263,6 +264,23 @@ class ChattingCell: UITableViewCell {
         self.userFourImageView2.isHidden = true
         self.userFourImageView3.isHidden = true
         self.userFourImageView4.isHidden = true
+        
+        //이미지 뷰 이미지 초기화
+        self.userImageView.image = nil
+        self.userTwoImageView1.image = nil
+        self.userTwoImageView2.image = nil
+        self.userThreeImageView1.image = nil
+        self.userThreeImageView2.image = nil
+        self.userThreeImageView3.image = nil
+        self.userFourImageView1.image = nil
+        self.userFourImageView2.image = nil
+        self.userFourImageView3.image = nil
+        self.userFourImageView4.image = nil
+        
+        self.userCount.text = ""
+        self.titleLabel.text = ""
+        self.commentLabel.text = ""
+        self.dateLabel.text = ""
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
