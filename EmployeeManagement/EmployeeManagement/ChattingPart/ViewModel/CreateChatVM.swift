@@ -31,8 +31,9 @@ class CreateChatVM {
     var employeeRealResult: [CreateChatModel] = []    //정렬된 값
     
     //firebase 저장 변수
-    var dbName: [String] = []
     var dbPhone: [String] = []
+    var dbRoom: String = ""
+    var listCount: Int = 0
     
     
     //MARK: 액션 메소드
@@ -101,16 +102,22 @@ class CreateChatVM {
     func dosave(uv: UIViewController) {
         let alert = UIAlertController(title: "방을 생성하시겠습니까?", message: "메시지를 보내면 상대방도 채팅이 활성화됩니다", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default) { (_) in
+            self.listCount = 0
             for i in self.collectionInfoList {
-                self.dbName.append(i.name)
                 self.dbPhone.append(i.phone)
+                
+                if self.listCount == 0{
+                    self.dbRoom += i.name
+                } else {
+                    self.dbRoom += ", \(i.name)"
+                }
+                self.listCount += 1
             }
-            
             let date = Date().timeIntervalSince1970
             
             self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").addDocument(data: [
                 "date" : date,
-                "roomTitle" : self.dbName,
+                "roomTitle" : self.dbRoom,
                 "phoneList" : self.dbPhone,
                 "memberCount" : "\(self.dbPhone.count + 1)",
                 "newMessage" : "",
