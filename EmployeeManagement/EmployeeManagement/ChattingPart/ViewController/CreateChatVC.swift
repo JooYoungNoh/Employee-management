@@ -86,7 +86,7 @@ class CreateChatVC: UIViewController {
     }
     
     @objc func dosave(_ sender: UIButton){
-        
+        self.viewModel.dosave(uv: self)
     }
 
     //MARK: 화면 메소드

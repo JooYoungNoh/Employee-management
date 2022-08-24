@@ -30,6 +30,10 @@ class CreateChatVM {
     var employeeResult: [CreateChatModel] = []        //Set로 중복값 제거
     var employeeRealResult: [CreateChatModel] = []    //정렬된 값
     
+    //firebase 저장 변수
+    var dbName: [String] = []
+    var dbPhone: [String] = []
+    
     
     //MARK: 액션 메소드
     //내가 속한 회사 정보 불러오기
@@ -91,6 +95,33 @@ class CreateChatVM {
                 print(error!.localizedDescription)
             }
         }
+    }
+    
+    //저장 버튼
+    func dosave(uv: UIViewController) {
+        let alert = UIAlertController(title: "방을 생성하시겠습니까?", message: "메시지를 보내면 상대방도 채팅이 활성화됩니다", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default) { (_) in
+            for i in self.collectionInfoList {
+                self.dbName.append(i.name)
+                self.dbPhone.append(i.phone)
+            }
+            
+            let date = Date().timeIntervalSince1970
+            
+            self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").addDocument(data: [
+                "date" : date,
+                "roomTitle" : self.dbName,
+                "phoneList" : self.dbPhone,
+                "memberCount" : "\(self.dbPhone.count + 1)",
+                "newMessage" : "",
+                "newCount" : "0",
+                "activation" : false
+            ])
+            uv.dismiss(animated: true)
+        })
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        
+        uv.present(alert, animated: true)
     }
     
     //MARK: 테이블 뷰 메소드
