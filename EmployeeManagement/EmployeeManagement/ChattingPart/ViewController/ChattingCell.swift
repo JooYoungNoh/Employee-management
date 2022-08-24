@@ -16,7 +16,85 @@ class ChattingCell: UITableViewCell {
         imageView.layer.cornerRadius = 20
         imageView.layer.borderWidth = 0
         imageView.layer.masksToBounds = true
-        
+        imageView.isHidden = true
+        return imageView
+    }()
+    
+    let userTwoImageView1: UIImageView = {
+        let imageView = UIImageView()
+        imageView.layer.cornerRadius = 20
+        imageView.layer.borderWidth = 0
+        imageView.layer.masksToBounds = true
+        imageView.isHidden = true
+        return imageView
+    }()
+    
+    let userTwoImageView2: UIImageView = {
+        let imageView = UIImageView()
+        imageView.layer.cornerRadius = 20
+        imageView.layer.borderWidth = 0
+        imageView.layer.masksToBounds = true
+        imageView.isHidden = true
+        return imageView
+    }()
+    
+    let userThreeImageView1: UIImageView = {
+        let imageView = UIImageView()
+        imageView.layer.cornerRadius = 20
+        imageView.layer.borderWidth = 0
+        imageView.layer.masksToBounds = true
+        imageView.isHidden = true
+        return imageView
+    }()
+    
+    let userThreeImageView2: UIImageView = {
+        let imageView = UIImageView()
+        imageView.layer.cornerRadius = 20
+        imageView.layer.borderWidth = 0
+        imageView.layer.masksToBounds = true
+        imageView.isHidden = true
+        return imageView
+    }()
+    
+    let userThreeImageView3: UIImageView = {
+        let imageView = UIImageView()
+        imageView.layer.cornerRadius = 20
+        imageView.layer.borderWidth = 0
+        imageView.layer.masksToBounds = true
+        imageView.isHidden = true
+        return imageView
+    }()
+    
+    let userFourImageView1: UIImageView = {
+        let imageView = UIImageView()
+        imageView.layer.cornerRadius = 20
+        imageView.layer.borderWidth = 0
+        imageView.layer.masksToBounds = true
+        imageView.isHidden = true
+        return imageView
+    }()
+    let userFourImageView2: UIImageView = {
+        let imageView = UIImageView()
+        imageView.layer.cornerRadius = 20
+        imageView.layer.borderWidth = 0
+        imageView.layer.masksToBounds = true
+        imageView.isHidden = true
+        return imageView
+    }()
+    let userFourImageView3: UIImageView = {
+        let imageView = UIImageView()
+        imageView.layer.cornerRadius = 20
+        imageView.layer.borderWidth = 0
+        imageView.layer.masksToBounds = true
+        imageView.isHidden = true
+        return imageView
+    }()
+    let userFourImageView4: UIImageView = {
+        let imageView = UIImageView()
+        imageView.layer.cornerRadius = 20
+        imageView.layer.borderWidth = 0
+        imageView.layer.masksToBounds = true
+        imageView.isHidden = true
         return imageView
     }()
     
@@ -52,17 +130,88 @@ class ChattingCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?){
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.addSubview(userImageView)
+        contentView.addSubview(userTwoImageView1)
+        contentView.addSubview(userTwoImageView2)
+        contentView.addSubview(userThreeImageView1)
+        contentView.addSubview(userThreeImageView2)
+        contentView.addSubview(userThreeImageView3)
+        contentView.addSubview(userFourImageView1)
+        contentView.addSubview(userFourImageView2)
+        contentView.addSubview(userFourImageView3)
+        contentView.addSubview(userFourImageView4)
         contentView.addSubview(titleLabel)
         contentView.addSubview(userCount)
         contentView.addSubview(dateLabel)
         contentView.addSubview(commentLabel)
         
+        //1명인 경우(총 2명)
         userImageView.snp.makeConstraints { make in
             make.top.equalTo(self.snp.top).offset(10)
             make.leading.equalTo(self.snp.leading).offset(20)
             make.bottom.equalTo(self.snp.bottom).offset(-10)
             make.width.equalTo(50)
         }
+        
+        //2명인 경우(총 3명)
+        //좌상
+        userTwoImageView1.snp.makeConstraints { make in
+            make.top.equalTo(self.snp.top).offset(10)
+            make.leading.equalTo(self.snp.leading).offset(20)
+            make.width.height.equalTo(30)
+        }
+        //우하
+        userTwoImageView2.snp.makeConstraints { make in
+            make.top.equalTo(self.snp.top).offset(30)
+            make.leading.equalTo(self.snp.leading).offset(40)
+            make.width.height.equalTo(30)
+        }
+        
+        //3명인 경우(총 4명)
+        //좌하
+        userThreeImageView1.snp.makeConstraints { make in
+            make.bottom.equalTo(self.snp.bottom).offset(-10)
+            make.leading.equalTo(self.snp.leading).offset(20)
+            make.width.height.equalTo(28)
+        }
+        //우하
+        userThreeImageView2.snp.makeConstraints { make in
+            make.bottom.equalTo(self.snp.bottom).offset(-10)
+            make.leading.equalTo(self.snp.leading).offset(42)
+            make.width.height.equalTo(28)
+        }
+        //상 가운데
+        userThreeImageView3.snp.makeConstraints { make in
+            make.top.equalTo(self.snp.top).offset(10)
+            make.leading.equalTo(self.snp.leading).offset(31)
+            make.width.height.equalTo(28)
+        }
+        
+        //4명 이상(총 5명이상)
+        //좌상
+        userFourImageView1.snp.makeConstraints { make in
+            make.top.equalTo(self.snp.top).offset(10)
+            make.leading.equalTo(self.snp.leading).offset(20)
+            make.width.height.equalTo(24)
+        }
+        //우상
+        userFourImageView2.snp.makeConstraints { make in
+            make.top.equalTo(self.snp.top).offset(10)
+            make.leading.equalTo(self.userFourImageView1.snp.trailing).offset(2)
+            make.width.height.equalTo(24)
+        }
+        //좌하
+        userFourImageView3.snp.makeConstraints { make in
+            make.bottom.equalTo(self.snp.bottom).offset(-10)
+            make.leading.equalTo(self.snp.leading).offset(20)
+            make.width.height.equalTo(24)
+        }
+        //우하
+        userFourImageView4.snp.makeConstraints { make in
+            make.top.equalTo(self.snp.top).offset(10)
+            make.leading.equalTo(self.userFourImageView2.snp.leading)
+            make.width.height.equalTo(24)
+        }
+        
         
         titleLabel.snp.makeConstraints { make in
             make.top.equalTo(self.snp.top).offset(10)
@@ -102,6 +251,19 @@ class ChattingCell: UITableViewCell {
         // Initialization code
     }
 
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.userImageView.isHidden = true
+        self.userTwoImageView1.isHidden = true
+        self.userTwoImageView2.isHidden = true
+        self.userThreeImageView1.isHidden = true
+        self.userThreeImageView2.isHidden = true
+        self.userThreeImageView3.isHidden = true
+        self.userFourImageView1.isHidden = true
+        self.userFourImageView2.isHidden = true
+        self.userFourImageView3.isHidden = true
+        self.userFourImageView4.isHidden = true
+    }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
