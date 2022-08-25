@@ -33,6 +33,8 @@ class ChattingVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        let customTabBar = self.tabBarController as! CSTabBarController
+        customTabBar.csView.isHidden = false
         self.uiCreate()
         self.viewModel.bringChattingList { completion in
             self.tableView.reloadData()
@@ -41,6 +43,8 @@ class ChattingVC: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         //self.viewModel.deleteListner()
+        let customTabBar = self.tabBarController as! CSTabBarController
+        customTabBar.csView.isHidden = true
     }
     
     //MARK: 액션 메소드
