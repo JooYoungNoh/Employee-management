@@ -40,7 +40,7 @@ class ChattingVC: UIViewController {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        self.viewModel.deleteListner()
+        //self.viewModel.deleteListner()
     }
     
     //MARK: 액션 메소드

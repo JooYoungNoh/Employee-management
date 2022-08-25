@@ -27,15 +27,18 @@ class ChattingVM {
     //채팅방 리스트 불러오기
     func bringChattingList(completion: @escaping([ChattingModel]) -> () ){
         //구조체 배열 초기화
-        self.chattingList.removeAll()
-        self.sortChattingList.removeAll()
-        self.searchChattingList.removeAll()
+        
         self.listner = self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").addSnapshotListener { (snapShot, error) in
             if error == nil && snapShot != nil{
+                self.chattingList.removeAll()
+                self.sortChattingList.removeAll()
+                self.searchChattingList.removeAll()
+                
                 for doc in snapShot!.documents{
                     self.chattingList.append(ChattingModel.init(activation: doc.data()["activation"] as! Bool, date: doc.data()["date"] as! TimeInterval, memberCount: doc.data()["memberCount"] as! String, newCount: doc.data()["newCount"] as! String, newMessage: doc.data()["newMessage"] as! String, roomTitle: doc.data()["roomTitle"] as! String, phoneList: doc.data()["phoneList"] as! [String]))
                 }
                 self.sortChattingList = self.chattingList.sorted(by: {$0.date > $1.date})
+                print("listener called")
                 completion(self.sortChattingList)
             } else {
                 print(error!.localizedDescription)
