@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7306F29728B7CD3B00232334 /* ChattingRoomVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7306F29628B7CD3B00232334 /* ChattingRoomVM.swift */; };
+		7306F29928B7CD4E00232334 /* ChattingRoomVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7306F29828B7CD4E00232334 /* ChattingRoomVC.swift */; };
 		7309389028593EA8005B812E /* MemoReadVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7309388F28593EA8005B812E /* MemoReadVC.swift */; };
 		7309389228593EBC005B812E /* MemoReadVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7309389128593EBC005B812E /* MemoReadVM.swift */; };
 		730AA0A8289AC07300A93D5B /* ScheduleVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 730AA0A7289AC07300A93D5B /* ScheduleVM.swift */; };
@@ -96,6 +98,8 @@
 
 /* Begin PBXFileReference section */
 		33CFB31CB8870BD8CBBC6DAA /* Pods_EmployeeManagement.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EmployeeManagement.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7306F29628B7CD3B00232334 /* ChattingRoomVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingRoomVM.swift; sourceTree = "<group>"; };
+		7306F29828B7CD4E00232334 /* ChattingRoomVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingRoomVC.swift; sourceTree = "<group>"; };
 		7309388F28593EA8005B812E /* MemoReadVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoReadVC.swift; sourceTree = "<group>"; };
 		7309389128593EBC005B812E /* MemoReadVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoReadVM.swift; sourceTree = "<group>"; };
 		730AA0A7289AC07300A93D5B /* ScheduleVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleVM.swift; sourceTree = "<group>"; };
@@ -420,6 +424,7 @@
 			children = (
 				739DBABF28AE7FD500E51498 /* ChattingVM.swift */,
 				7346EC2C28B2728800C48AE2 /* CreateChatVM.swift */,
+				7306F29628B7CD3B00232334 /* ChattingRoomVM.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -432,6 +437,7 @@
 				7346EC3028B272AA00C48AE2 /* CreateChatVC.swift */,
 				7346EC3428B27D2500C48AE2 /* CreateChatCVCell.swift */,
 				7346EC2E28B2729800C48AE2 /* CreateChatCell.swift */,
+				7306F29828B7CD4E00232334 /* ChattingRoomVC.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -640,9 +646,11 @@
 				737F40EA28A0383300282C11 /* NoticeWriteVC.swift in Sources */,
 				738E76CB287C64C100BB38CB /* SelectCell.swift in Sources */,
 				738E76CF287C6A6F00BB38CB /* SelectModel.swift in Sources */,
+				7306F29928B7CD4E00232334 /* ChattingRoomVC.swift in Sources */,
 				73E2DA9D283268EC00C4CF25 /* TransitionVC.swift in Sources */,
 				73D3F5E828A197FA008B431C /* TimetableVM.swift in Sources */,
 				73752AA8287F00B200196435 /* TransitionWriteVC.swift in Sources */,
+				7306F29728B7CD3B00232334 /* ChattingRoomVM.swift in Sources */,
 				737F40F228A04C8500282C11 /* NoticeInfoVM.swift in Sources */,
 				7392F19C2875922900DD7F01 /* TransitionCell.swift in Sources */,
 				73E2DA992832688100C4CF25 /* ChattingVC.swift in Sources */,

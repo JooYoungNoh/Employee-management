@@ -146,6 +146,21 @@
             </objects>
             <point key="canvasLocation" x="3971" y="-665"/>
         </scene>
+        <!--채팅방 화면-->
+        <scene sceneID="8cr-la-gKL">
+            <objects>
+                <viewController storyboardIdentifier="ChattingRoomVC" title="채팅방 화면" id="bJd-6F-Ttw" customClass="ChattingRoomVC" customModule="EmployeeManagement" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="KuH-bi-hwX">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="1wi-Ew-0c6"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2ma-Ro-d7b" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4757" y="-838"/>
+        </scene>
         <!--스케줄 화면-->
         <scene sceneID="o1s-QI-GP4">
             <objects>
