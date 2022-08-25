@@ -49,7 +49,6 @@ class ChattingVC: UIViewController {
     }
     
     @objc func goSetting(_ sender: UIBarButtonItem){
-        
     }
 
     //MARK: 화면 메소드
@@ -99,6 +98,11 @@ extension ChattingVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.viewModel.numberOfRowsInSection(section: section, isFiltering: self.isFiltering)
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        self.viewModel.selectCell(uv: self, isFiltering: self.isFiltering, indexPath: indexPath)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

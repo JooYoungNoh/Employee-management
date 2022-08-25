@@ -18,7 +18,6 @@ class ChattingVM {
     var listner: ListenerRegistration?              //리스너 삭제
     
     var chattingList: [ChattingModel] = []
-    var sortChattingList: [ChattingModel] = []
     var searchChattingList: [ChattingModel] = []
     
     var userProfileImgCheck: Bool = false
@@ -28,18 +27,17 @@ class ChattingVM {
     func bringChattingList(completion: @escaping([ChattingModel]) -> () ){
         //구조체 배열 초기화
         
-        self.listner = self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").addSnapshotListener { (snapShot, error) in
+        self.listner = self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").order(by: "date", descending: true).addSnapshotListener { (snapShot, error) in
             if error == nil && snapShot != nil{
                 self.chattingList.removeAll()
-                self.sortChattingList.removeAll()
+                //self.sortChattingList.removeAll()
                 self.searchChattingList.removeAll()
                 
                 for doc in snapShot!.documents{
-                    self.chattingList.append(ChattingModel.init(activation: doc.data()["activation"] as! Bool, date: doc.data()["date"] as! TimeInterval, memberCount: doc.data()["memberCount"] as! String, newCount: doc.data()["newCount"] as! String, newMessage: doc.data()["newMessage"] as! String, roomTitle: doc.data()["roomTitle"] as! String, phoneList: doc.data()["phoneList"] as! [String]))
+                    self.chattingList.append(ChattingModel.init(activation: doc.data()["activation"] as! Bool, date: doc.data()["date"] as! TimeInterval, memberCount: doc.data()["memberCount"] as! String, newCount: doc.data()["newCount"] as! String, newMessage: doc.data()["newMessage"] as! String, roomTitle: doc.data()["roomTitle"] as! String, phoneList: doc.data()["phoneList"] as! [String], dbID: doc.documentID))
                 }
-                self.sortChattingList = self.chattingList.sorted(by: {$0.date > $1.date})
                 print("listener called")
-                completion(self.sortChattingList)
+                completion(self.chattingList)
             } else {
                 print(error!.localizedDescription)
             }
@@ -88,7 +86,7 @@ class ChattingVM {
      func cellInfo(tableView: UITableView, indexPath: IndexPath, isFiltering: Bool) -> UITableViewCell {
          guard let cell = tableView.dequeueReusableCell(withIdentifier: ChattingCell.identifier, for: indexPath) as? ChattingCell else { return UITableViewCell() }
          if isFiltering == false {
-             if self.sortChattingList.isEmpty == true {
+             if self.chattingList.isEmpty == true {
                  cell.titleLabel.text = "채팅방이 없습니다."
                  cell.titleLabel.textColor = .red
                  cell.commentLabel.text = "생성해주세여~"
@@ -96,7 +94,7 @@ class ChattingVM {
                  cell.dateLabel.text = ""
                  cell.userCount.text = ""
              } else {
-                 let date = Date(timeIntervalSince1970: self.sortChattingList[indexPath.row].date) + 32400
+                 let date = Date(timeIntervalSince1970: self.chattingList[indexPath.row].date) + 32400
                  
                  let formatter = DateFormatter()
                  formatter.dateFormat = "yyyy-MM-dd"
@@ -104,47 +102,47 @@ class ChattingVM {
                  let fixDate = "\(formatter.string(from: date))"
                  
                  //방 제목
-                 cell.titleLabel.text = self.sortChattingList[indexPath.row].roomTitle
+                 cell.titleLabel.text = self.chattingList[indexPath.row].roomTitle
                  cell.titleLabel.textColor = .black
                  
                  //방 업데이트 날짜
                  cell.dateLabel.text = fixDate
                  
                  //메시지
-                 if self.sortChattingList[indexPath.row].activation == false {
+                 if self.chattingList[indexPath.row].activation == false {
                      cell.commentLabel.text = "채팅을 입력하여 방을 활성화해주세요"
                  } else {
-                     cell.commentLabel.text = self.sortChattingList[indexPath.row].newMessage
+                     cell.commentLabel.text = self.chattingList[indexPath.row].newMessage
                  }
                  cell.commentLabel.textColor = .black
                  
                  //방 프로필 이미지
                  DispatchQueue.main.async {
-                     switch self.sortChattingList[indexPath.row].memberCount {
+                     switch self.chattingList[indexPath.row].memberCount {
                      case "2":
                          cell.userImageView.isHidden = false
-                         self.profileDownloadimage(imgView: cell.userImageView, phone: self.sortChattingList[indexPath.row].phoneList[0])
+                         self.profileDownloadimage(imgView: cell.userImageView, phone: self.chattingList[indexPath.row].phoneList[0])
                      case "3":
                          cell.userTwoImageView1.isHidden = false
                          cell.userTwoImageView2.isHidden = false
-                         self.profileDownloadimage(imgView: cell.userTwoImageView1, phone: self.sortChattingList[indexPath.row].phoneList[0])
-                         self.profileDownloadimage(imgView: cell.userTwoImageView2, phone: self.sortChattingList[indexPath.row].phoneList[1])
+                         self.profileDownloadimage(imgView: cell.userTwoImageView1, phone: self.chattingList[indexPath.row].phoneList[0])
+                         self.profileDownloadimage(imgView: cell.userTwoImageView2, phone: self.chattingList[indexPath.row].phoneList[1])
                      case "4":
                          cell.userThreeImageView1.isHidden = false
                          cell.userThreeImageView2.isHidden = false
                          cell.userThreeImageView3.isHidden = false
-                         self.profileDownloadimage(imgView: cell.userThreeImageView1, phone: self.sortChattingList[indexPath.row].phoneList[0])
-                         self.profileDownloadimage(imgView: cell.userThreeImageView2, phone: self.sortChattingList[indexPath.row].phoneList[1])
-                         self.profileDownloadimage(imgView: cell.userThreeImageView3, phone: self.sortChattingList[indexPath.row].phoneList[2])
+                         self.profileDownloadimage(imgView: cell.userThreeImageView1, phone: self.chattingList[indexPath.row].phoneList[0])
+                         self.profileDownloadimage(imgView: cell.userThreeImageView2, phone: self.chattingList[indexPath.row].phoneList[1])
+                         self.profileDownloadimage(imgView: cell.userThreeImageView3, phone: self.chattingList[indexPath.row].phoneList[2])
                      default:
                          cell.userFourImageView1.isHidden = false
                          cell.userFourImageView2.isHidden = false
                          cell.userFourImageView3.isHidden = false
                          cell.userFourImageView4.isHidden = false
-                         self.profileDownloadimage(imgView: cell.userFourImageView1, phone: self.sortChattingList[indexPath.row].phoneList[0])
-                         self.profileDownloadimage(imgView: cell.userFourImageView2, phone: self.sortChattingList[indexPath.row].phoneList[1])
-                         self.profileDownloadimage(imgView: cell.userFourImageView3, phone: self.sortChattingList[indexPath.row].phoneList[2])
-                         self.profileDownloadimage(imgView: cell.userFourImageView4, phone: self.sortChattingList[indexPath.row].phoneList[3])
+                         self.profileDownloadimage(imgView: cell.userFourImageView1, phone: self.chattingList[indexPath.row].phoneList[0])
+                         self.profileDownloadimage(imgView: cell.userFourImageView2, phone: self.chattingList[indexPath.row].phoneList[1])
+                         self.profileDownloadimage(imgView: cell.userFourImageView3, phone: self.chattingList[indexPath.row].phoneList[2])
+                         self.profileDownloadimage(imgView: cell.userFourImageView4, phone: self.chattingList[indexPath.row].phoneList[3])
                      }
 
                  }
@@ -215,12 +213,12 @@ class ChattingVM {
         if isFiltering == true {
             return self.searchChattingList.isEmpty ? 1 : self.searchChattingList.count
         } else {
-            return self.sortChattingList.isEmpty ? 1 : self.sortChattingList.count
+            return self.chattingList.isEmpty ? 1 : self.chattingList.count
         }
     }
     
-    /*func selectCell(uv: UIViewController, isFiltering: Bool, indexPath: IndexPath){
-        guard let nv = uv.storyboard?.instantiateViewController(withIdentifier: "MemoReadVC") as? MemoReadVC else { return }
+    func selectCell(uv: UIViewController, isFiltering: Bool, indexPath: IndexPath){
+       /* guard let nv = uv.storyboard?.instantiateViewController(withIdentifier: "MemoReadVC") as? MemoReadVC else { return }
         
         //전달할 내용
         if isFiltering == false{
@@ -241,14 +239,14 @@ class ChattingVM {
                 
                 uv.navigationController?.pushViewController(nv, animated: true)
             }
-        }
-    }*/
+        }*/
+    }
     
     //MARK: 서치바 메소드
     func searchBarfilter(searchController: UISearchController, tableView: UITableView){
         guard let text = searchController.searchBar.text else { return }
 
-        self.searchChattingList = self.sortChattingList.filter( { (list: ChattingModel) -> Bool in
+        self.searchChattingList = self.chattingList.filter( { (list: ChattingModel) -> Bool in
             return list.roomTitle.lowercased().contains(text.lowercased())
         })
         tableView.reloadData()
