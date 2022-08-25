@@ -218,8 +218,10 @@ class ChattingVM {
     }
     
     func selectCell(uv: UIViewController, isFiltering: Bool, indexPath: IndexPath){
-       /* guard let nv = uv.storyboard?.instantiateViewController(withIdentifier: "MemoReadVC") as? MemoReadVC else { return }
+        guard let nv = uv.storyboard?.instantiateViewController(withIdentifier: "ChattingRoomVC") as? ChattingRoomVC else { return }
         
+        uv.navigationController?.pushViewController(nv, animated: true)
+        /*
         //전달할 내용
         if isFiltering == false{
             if self.realMemoList.isEmpty == false {
