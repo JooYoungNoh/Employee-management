@@ -275,6 +275,7 @@ class ChattingVM {
                 
                 //다음 화면에 보낼 내용
                 nv.dbIDOnTable = self.chattingList[indexPath.row].dbID
+                nv.presentUserOnTable = newPresentUser
                 nv.imgListOnTable = self.userImageList
                 
                 //탭바 숨김
@@ -299,6 +300,7 @@ class ChattingVM {
                 
                 //다음 화면에 보낼 내용
                 nv.dbIDOnTable = self.searchChattingList[indexPath.row].dbID
+                nv.presentUserOnTable = newPresentUser
                 nv.imgListOnTable = self.userImageList
                 
                 //탭바 숨김
