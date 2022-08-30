@@ -265,18 +265,6 @@ class ChattingCell: UITableViewCell {
         self.userFourImageView3.isHidden = true
         self.userFourImageView4.isHidden = true
         
-        //이미지 뷰 이미지 초기화
-        self.userImageView.image = nil
-        self.userTwoImageView1.image = nil
-        self.userTwoImageView2.image = nil
-        self.userThreeImageView1.image = nil
-        self.userThreeImageView2.image = nil
-        self.userThreeImageView3.image = nil
-        self.userFourImageView1.image = nil
-        self.userFourImageView2.image = nil
-        self.userFourImageView3.image = nil
-        self.userFourImageView4.image = nil
-        
         self.userCount.text = ""
         self.titleLabel.text = ""
         self.commentLabel.text = ""
