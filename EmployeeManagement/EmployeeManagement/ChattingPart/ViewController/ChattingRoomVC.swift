@@ -11,6 +11,9 @@ import SnapKit
 class ChattingRoomVC: UIViewController {
 
     var dbIDOnTable: String = ""                //전 화면에서 가져온 문서 ID
+    var activationOnTable: Bool = false         //전 화면에서 가져온 활성화 여부
+    var presentUserOnTable: [String] = []       //전 화면에서 가져온 현재 방에 있는 사람
+    var imgListOnTable: [imageSave] = []        //전 화면에서 가져온 이미지 리스트
     
     var viewModel = ChattingRoomVM()
     
@@ -32,15 +35,16 @@ class ChattingRoomVC: UIViewController {
     }()
     
     //텍스트 필드
-    let writeTF: UITextField = {
-        let text = UITextField()
+    let writeTV: UITextView = {
+        let text = UITextView()
         text.backgroundColor = .systemGray6
         text.textColor = .black
         text.textAlignment = .left
-        text.font = UIFont(name: "CookieRun", size: 18)
+        text.font = UIFont(name: "CookieRun", size: 15)
         text.layer.cornerRadius = 10
         text.layer.masksToBounds = true
         text.layer.borderWidth = 0
+        text.isScrollEnabled = false
         return text
     }()
     
@@ -57,8 +61,13 @@ class ChattingRoomVC: UIViewController {
     //MARK: viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+       // self.writeTV.delegate = self
         self.setKeyboardNotification()          //키보드 올렷다 내렷다
         self.uiCreate()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.viewModel.deletePresentUser(presentUserOnTable: self.presentUserOnTable, dbIDOnTable: self.dbIDOnTable)
     }
     
     //MARK: 액션 메소드
@@ -93,12 +102,21 @@ class ChattingRoomVC: UIViewController {
             self.heightConstraint = make.height.equalTo(680).constraint
         }
         
+        //텍스트 필드
+        self.view.addSubview(self.writeTV)
+        writeTV.snp.makeConstraints { make in
+            make.leading.equalTo(self.view.safeAreaLayoutGuide.snp.leading).offset(55)
+            make.trailing.equalTo(self.view.safeAreaLayoutGuide.snp.trailing).offset(-55)
+            make.top.equalTo(self.tableview.snp.bottom).offset(6)
+            make.height.lessThanOrEqualTo(120)
+        }
+        
         //사진 추가 버튼
         self.addPictureButton.addTarget(self, action: #selector(sendPicture(_:)), for: .touchUpInside)
         self.view.addSubview(self.addPictureButton)
         addPictureButton.snp.makeConstraints { make in
             make.leading.equalTo(self.view.safeAreaLayoutGuide.snp.leading).offset(15)
-            make.top.equalTo(self.tableview.snp.bottom).offset(6)
+            make.bottom.equalTo(self.writeTV.snp.bottom)
             make.width.height.equalTo(30)
         }
         
@@ -107,17 +125,8 @@ class ChattingRoomVC: UIViewController {
         self.view.addSubview(self.sendButton)
         sendButton.snp.makeConstraints { make in
             make.trailing.equalTo(self.view.safeAreaLayoutGuide.snp.trailing).offset(-15)
-            make.top.equalTo(self.tableview.snp.bottom).offset(6)
+            make.bottom.equalTo(self.writeTV.snp.bottom)
             make.width.height.equalTo(30)
-        }
-        
-        //텍스트 필드
-        self.view.addSubview(self.writeTF)
-        writeTF.snp.makeConstraints { make in
-            make.leading.equalTo(self.addPictureButton.snp.trailing).offset(10)
-            make.trailing.equalTo(self.sendButton.snp.leading).offset(-10)
-            make.top.equalTo(self.tableview.snp.bottom).offset(6)
-            make.height.equalTo(30)
         }
     }
     
@@ -127,7 +136,7 @@ class ChattingRoomVC: UIViewController {
     }
 }
 
-//MARK: textField 클릭 시 뷰가 올라가도록
+//MARK: textView 클릭 시 뷰가 올라가도록
 extension ChattingRoomVC {
     func setKeyboardNotification() {
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -167,3 +176,19 @@ extension ChattingRoomVC {
         }
     }
 }
+
+/*//MARK: 텍스트 뷰 메소드
+extension ChattingRoomVC: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        if textView.frame.height <= 30 {
+            self.textViewHeight = 0
+        } else if textView.frame.height <= 60 {
+            self.textViewHeight = 30
+        } else if textView.frame.height <= 90 {
+            self.textViewHeight = 60
+        } else {
+            self.textViewHeight = 90
+        }
+    }
+   
+}*/
