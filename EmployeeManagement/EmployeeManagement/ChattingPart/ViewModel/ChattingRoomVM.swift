@@ -17,6 +17,15 @@ class ChattingRoomVM {
     var listner: ListenerRegistration?              //리스너 삭제
     
     var activationStatus: Bool = false              //활성화 여부
+    var imgCheck: Bool = false                      //이미지 유무
+    
+    var chatList: [ChattingRoomModel] = []
+    
+    //firebase 저장 변수(활성화 했을 떄 상대방에게 방 생성)
+    var dbPhone: [String] = []
+    var dbcheck: String = ""
+    var dbName: String = ""
+    var dbRoom: String = ""
     
     
     //MARK: 액션 메소드
@@ -25,7 +34,14 @@ class ChattingRoomVM {
         if activationOnTable == false && self.activationStatus == false {
             
         } else {
-            
+            self.activationStatus = true
+            self.listner = self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(dbOnTable)").collection("chat").order(by: "date", descending: true).addSnapshotListener({ snapshot, error in
+                if error == nil && snapshot != nil{
+                    
+                } else {
+                    print(error!.localizedDescription)
+                }
+            })
         }
         
         /*self.listner = query.order(by: "date", descending: true).addSnapshotListener { (snapShot, error) in
@@ -59,6 +75,154 @@ class ChattingRoomVM {
             self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(dbIDOnTable)").updateData([
                 "presentUser" : newpresentUser
             ])
+        }
+    }
+    
+    //보내기 버튼 누를 때
+    func doSendButton(activationOnTable: Bool, phoneListOnTable: [String], roomTitleOnTable: String, presentUserOnTable: [String], dbIDOnTable: String, writeTV: UITextView){
+        let date = Date().timeIntervalSince1970
+        
+        //비 활성화 상태 일때
+        if self.activationStatus == false && activationOnTable == false {
+            self.activationStatus = true
+            //내 채팅 리스트 정보 업데이트
+            self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(dbIDOnTable)").updateData([
+                "date" : date,
+                "newMessage" : "\(writeTV.text ?? "")",
+                "activation" : true
+            ])
+            
+            //내 채팅방 채팅 추가
+            self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(dbIDOnTable)").collection("chat").addDocument(data: [
+                "checkRead" : true,
+                "imgCheck" : self.imgCheck,
+                "date" : date,
+                "sender" : "\(self.appDelegate.phoneInfo!)",
+                "message" : "\(writeTV.text ?? "")",
+                "readList" : ["\(self.appDelegate.phoneInfo!)"]
+            ])
+            
+            //다른 방 사람들에게 처음 메시지 보내기
+            for i in phoneListOnTable {
+                self.dbPhone.removeAll()
+                self.dbcheck = ""
+                self.dbName = ""
+                self.dbRoom = roomTitleOnTable
+                self.dbPhone = phoneListOnTable
+                var realRoomTitle = ""
+                if let index = self.dbPhone.firstIndex(of: i){
+                    self.dbPhone.remove(at: index)
+                    self.dbPhone.append(self.appDelegate.phoneInfo!)
+                }
+               
+                self.db.collection("users").whereField("phone", isEqualTo: i).getDocuments { snapshot, error in
+                    if error == nil {
+                        for doc in snapshot!.documents{
+                            self.dbcheck = doc.documentID
+                            self.dbName = doc.data()["name"] as! String
+                        }
+                        //방 생성
+                        if self.dbcheck != "" {
+                            if let range: Range<String.Index> = self.dbRoom.range(of: "\(self.dbName)") {
+                                self.dbRoom.removeSubrange(range)
+                            }
+                            
+                            if self.dbPhone.count == 1 {
+                                self.dbRoom = ""
+                                realRoomTitle = "\(self.appDelegate.nameInfo!)"
+                            } else {
+                                if self.dbRoom[self.dbRoom.startIndex] == "," {
+                                    self.dbRoom.removeFirst()
+                                } else if self.dbRoom[self.dbRoom.index(before: self.dbRoom.endIndex)] == ","{
+                                    self.dbRoom.removeLast()
+                                }
+                                realRoomTitle = self.dbRoom + ", \(self.appDelegate.nameInfo!)"
+                            }
+
+                            self.db.collection("users").document("\(self.dbcheck)").collection("chattingList").document("\(dbIDOnTable)").setData([
+                                "date" : date,
+                                "roomTitle" : realRoomTitle,
+                                "phoneList" : self.dbPhone,
+                                "memberCount" : "\(self.dbPhone.count + 1)",
+                                "newMessage" : "\(writeTV.text ?? "")",
+                                "newCount" : "1",
+                                "activation" : true,
+                                "presentUser" : presentUserOnTable
+                            ])
+                            //메시지 보내기
+                            self.db.collection("users").document("\(self.dbcheck)").collection("chattingList").document("\(dbIDOnTable)").collection("chat").addDocument(data: [
+                                "checkRead" : false,
+                                "imgCheck" : self.imgCheck,
+                                "date" : date,
+                                "sender" : "\(self.appDelegate.phoneInfo!)",
+                                "message" : "\(writeTV.text ?? "")",
+                                "readList" : ["\(self.appDelegate.phoneInfo!)"]
+                            ])
+                        }
+                    } else {
+                        print(error!.localizedDescription)
+                    }
+                }
+            }
+        } else {        //활성화 상태
+            //내 채팅 리스트 정보 업데이트
+            self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(dbIDOnTable)").updateData([
+                "date" : date,
+                "newMessage" : "\(writeTV.text ?? "")",
+            ])
+            
+            //내 채팅방 채팅 추가
+            self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(dbIDOnTable)").collection("chat").addDocument(data: [
+                "checkRead" : true,
+                "imgCheck" : self.imgCheck,
+                "date" : date,
+                "sender" : "\(self.appDelegate.phoneInfo!)",
+                "message" : "\(writeTV.text ?? "")",
+                "readList" : presentUserOnTable
+            ])
+            
+            for i in phoneListOnTable {
+                self.dbPhone.removeAll()
+                self.dbcheck = ""
+                self.dbPhone = phoneListOnTable
+                if let index = self.dbPhone.firstIndex(of: i){
+                    self.dbPhone.remove(at: index)
+                    self.dbPhone.append(self.appDelegate.phoneInfo!)
+                }
+        
+                self.db.collection("users").whereField("phone", isEqualTo: i).getDocuments { snapshot, error in
+                    if error == nil {
+                        for doc in snapshot!.documents{
+                            self.dbcheck = doc.documentID
+                        }
+                        //다른 사람 방 업데이트
+                        if self.dbcheck != "" {
+                            self.db.collection("users").document("\(self.dbcheck)").collection("chattingList").document("\(dbIDOnTable)").getDocument { snapshot2, error2 in
+                                if error2 == nil {
+                                    print(Int(snapshot2!.data()!["newCount"] as! String)!)
+                                    self.db.collection("users").document("\(self.dbcheck)").collection("chattingList").document("\(dbIDOnTable)").updateData([
+                                        "date" : date,
+                                        "newMessage" : "\(writeTV.text ?? "")",
+                                        "newCount" : "\(Int(snapshot2!.data()!["newCount"] as! String)! + 1)",
+                                    ])
+                                }
+                            }
+                            
+                            //다른 사람에게 메시지 보내기
+                            self.db.collection("users").document("\(self.dbcheck)").collection("chattingList").document("\(dbIDOnTable)").collection("chat").addDocument(data: [
+                                "checkRead" : presentUserOnTable.contains(i) ? true : false,
+                                "imgCheck" : self.imgCheck,
+                                "date" : date,
+                                "sender" : "\(self.appDelegate.phoneInfo!)",
+                                "message" : "\(writeTV.text ?? "")",
+                                "readList" : presentUserOnTable
+                            ])
+                        }
+                    } else {
+                        print(error!.localizedDescription)
+                    }
+                }
+            }
         }
     }
     
