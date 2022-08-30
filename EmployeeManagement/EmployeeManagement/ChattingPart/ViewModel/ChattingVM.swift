@@ -274,6 +274,7 @@ class ChattingVM {
                 
                 //다음 화면에 보낼 내용
                 nv.dbIDOnTable = self.chattingList[indexPath.row].dbID
+                nv.imgListOnTable = self.userImageList
                 
                 //탭바 숨김
                 let customTabBar = uv.tabBarController as! CSTabBarController
@@ -297,6 +298,7 @@ class ChattingVM {
                 
                 //다음 화면에 보낼 내용
                 nv.dbIDOnTable = self.searchChattingList[indexPath.row].dbID
+                nv.imgListOnTable = self.userImageList
                 
                 //탭바 숨김
                 let customTabBar = uv.tabBarController as! CSTabBarController

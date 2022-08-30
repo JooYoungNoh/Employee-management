@@ -37,7 +37,7 @@ class ChattingVC: UIViewController {
         customTabBar.csView.isHidden = false
         self.uiCreate()
         self.viewModel.bringChattingList { completion in
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1){
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5){
                 self.tableView.reloadData()
             }
         }
