@@ -33,7 +33,7 @@ class ChattingVM {
                 self.searchChattingList.removeAll()
                 
                 for doc in snapShot!.documents{
-                    self.chattingList.append(ChattingModel.init(activation: doc.data()["activation"] as! Bool, date: doc.data()["date"] as! TimeInterval, memberCount: doc.data()["memberCount"] as! String, newCount: doc.data()["newCount"] as! String, newMessage: doc.data()["newMessage"] as! String, roomTitle: doc.data()["roomTitle"] as! String, phoneList: doc.data()["phoneList"] as! [String], presentUserCount: doc.data()["presentUserCount"] as! Int, dbID: doc.documentID))
+                    self.chattingList.append(ChattingModel.init(activation: doc.data()["activation"] as! Bool, date: doc.data()["date"] as! TimeInterval, memberCount: doc.data()["memberCount"] as! String, newCount: doc.data()["newCount"] as! String, newMessage: doc.data()["newMessage"] as! String, roomTitle: doc.data()["roomTitle"] as! String, phoneList: doc.data()["phoneList"] as! [String], presentUser: doc.data()["presentUser"] as! [String], dbID: doc.documentID))
                 }
                 completion(self.chattingList)
             } else {
@@ -229,37 +229,54 @@ class ChattingVM {
     func selectCell(uv: UIViewController, isFiltering: Bool, indexPath: IndexPath){
         guard let nv = uv.storyboard?.instantiateViewController(withIdentifier: "ChattingRoomVC") as? ChattingRoomVC else { return }
         
-        if self.chattingList.isEmpty == false {
-            self.deleteListner()
-            self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(self.chattingList[indexPath.row].dbID)").updateData([
-                "presentUserCount" : self.chattingList[indexPath.row].presentUserCount + 1 //"\(Int(self.chattingList[indexPath.row].presentUserCount)! + 1)"
-            ])
-            let customTabBar = uv.tabBarController as! CSTabBarController
-            customTabBar.csView.isHidden = true
-            
-            uv.navigationController?.pushViewController(nv, animated: true)
-        }
-        /*
         //전달할 내용
         if isFiltering == false{
-            if self.realMemoList.isEmpty == false {
-                nv.titleOnTable = self.realMemoList[indexPath.row].title
-                nv.dateOnTable = self.realMemoList[indexPath.row].date
-                nv.textOnTable = self.realMemoList[indexPath.row].text
-                nv.countOnTable = self.realMemoList[indexPath.row].count
+            if self.chattingList.isEmpty == false {
+                //리스너 제거
+                self.deleteListner()
+                
+                //변경할 내용
+                self.chattingList[indexPath.row].presentUser.append(self.appDelegate.phoneInfo!)
+                
+                let newPresentUser = self.chattingList[indexPath.row].presentUser
+                
+                self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(self.chattingList[indexPath.row].dbID)").updateData([
+                    "presentUser" : newPresentUser
+                ])
+                
+                //다음 화면에 보낼 내용
+                nv.dbIDOnTable = self.chattingList[indexPath.row].dbID
+                
+                //탭바 숨김
+                let customTabBar = uv.tabBarController as! CSTabBarController
+                customTabBar.csView.isHidden = true
                 
                 uv.navigationController?.pushViewController(nv, animated: true)
             }
         } else {
-            if self.searchMemoList.isEmpty == false {
-                nv.titleOnTable = self.searchMemoList[indexPath.row].title
-                nv.dateOnTable = self.searchMemoList[indexPath.row].date
-                nv.textOnTable = self.searchMemoList[indexPath.row].text
-                nv.countOnTable = self.searchMemoList[indexPath.row].count
+            if self.searchChattingList.isEmpty == false {
+                //리스너 제거
+                self.deleteListner()
+                
+                //변경할 내용
+                self.searchChattingList[indexPath.row].presentUser.append(self.appDelegate.phoneInfo!)
+                
+                let newPresentUser = self.searchChattingList[indexPath.row].presentUser
+                
+                self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(self.searchChattingList[indexPath.row].dbID)").updateData([
+                    "presentUser" : newPresentUser
+                ])
+                
+                //다음 화면에 보낼 내용
+                nv.dbIDOnTable = self.searchChattingList[indexPath.row].dbID
+                
+                //탭바 숨김
+                let customTabBar = uv.tabBarController as! CSTabBarController
+                customTabBar.csView.isHidden = true
                 
                 uv.navigationController?.pushViewController(nv, animated: true)
             }
-        }*/
+        }
     }
     
     //MARK: 서치바 메소드

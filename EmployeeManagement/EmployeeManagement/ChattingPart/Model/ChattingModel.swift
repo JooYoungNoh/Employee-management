@@ -15,10 +15,10 @@ struct ChattingModel {
     var newMessage: String
     var roomTitle: String
     var phoneList: [String]
-    var presentUserCount: Int
+    var presentUser: [String]
     var dbID: String
     
-    init(activation: Bool, date: TimeInterval, memberCount: String, newCount: String, newMessage: String, roomTitle: String, phoneList: [String], presentUserCount: Int, dbID: String){
+    init(activation: Bool, date: TimeInterval, memberCount: String, newCount: String, newMessage: String, roomTitle: String, phoneList: [String], presentUser: [String], dbID: String){
         self.activation = activation
         self.date = date
         self.memberCount = memberCount
@@ -26,7 +26,7 @@ struct ChattingModel {
         self.newMessage = newMessage
         self.roomTitle = roomTitle
         self.phoneList = phoneList
-        self.presentUserCount = presentUserCount
+        self.presentUser = presentUser
         self.dbID = dbID
     }
 }

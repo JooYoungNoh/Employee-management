@@ -138,7 +138,7 @@ class CreateChatVM {
                                 "newMessage" : "",
                                 "newCount" : "0",
                                 "activation" : false,
-                                "presentUserCount" : 0
+                                "presentUser" : []
                             ])
                             uv.dismiss(animated: true)
                         })
@@ -161,7 +161,7 @@ class CreateChatVM {
                     "newMessage" : "",
                     "newCount" : "0",                   //글자 수
                     "activation" : false,               //방 활성화 여부
-                    "presentUserCount" : 0            //현재 방에 들어와 있는 사람 수
+                    "presentUser" : []                  //현재 방에 들어와 있는 사람
                 ])
                 uv.dismiss(animated: true)
             })
