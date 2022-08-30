@@ -39,7 +39,7 @@ class ChattingVC: UIViewController {
         self.viewModel.bringChattingList { completion in
             self.tableView.reloadData()
             if self.viewModel.checkReload == false {
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.4){
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5){
                     self.tableView.reloadData()
                     self.viewModel.checkReload = true
                 }
