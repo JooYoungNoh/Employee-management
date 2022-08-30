@@ -103,6 +103,11 @@ class ChattingVM {
                  cell.titleLabel.text = self.chattingList[indexPath.row].roomTitle
                  cell.titleLabel.textColor = .black
                  
+                 //유저 수
+                 if self.chattingList[indexPath.row].memberCount != "2" {
+                     cell.userCount.text = self.chattingList[indexPath.row].memberCount
+                 }
+                 
                  //방 업데이트 날짜
                  cell.dateLabel.text = fixDate
                  
@@ -161,6 +166,12 @@ class ChattingVM {
                  //방 제목
                  cell.titleLabel.text = self.searchChattingList[indexPath.row].roomTitle
                  cell.titleLabel.textColor = .black
+                 
+                 //유저 수
+                 if self.searchChattingList[indexPath.row].memberCount != "2" {
+                     cell.userCount.text = self.searchChattingList[indexPath.row].memberCount
+                 }
+                 
                  //방 업데이트 날짜
                  cell.dateLabel.text = fixDate2
                  
