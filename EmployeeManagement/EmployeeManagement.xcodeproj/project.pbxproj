@@ -93,6 +93,7 @@
 		73F0B28E28884E0200307D62 /* TinfoVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73F0B28D28884E0200307D62 /* TinfoVM.swift */; };
 		73F0B29028884E2500307D62 /* TransitionInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73F0B28F28884E2500307D62 /* TransitionInfoCell.swift */; };
 		73F0B29228884E4400307D62 /* TransitionInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73F0B29128884E4400307D62 /* TransitionInfoVC.swift */; };
+		73FCD6A028BE558600DC0755 /* ChattingRoomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73FCD69F28BE558600DC0755 /* ChattingRoomCell.swift */; };
 		8871A60F9F712DA7DB7D54C7 /* Pods_EmployeeManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 33CFB31CB8870BD8CBBC6DAA /* Pods_EmployeeManagement.framework */; };
 /* End PBXBuildFile section */
 
@@ -186,6 +187,7 @@
 		73F0B28D28884E0200307D62 /* TinfoVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TinfoVM.swift; sourceTree = "<group>"; };
 		73F0B28F28884E2500307D62 /* TransitionInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionInfoCell.swift; sourceTree = "<group>"; };
 		73F0B29128884E4400307D62 /* TransitionInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionInfoVC.swift; sourceTree = "<group>"; };
+		73FCD69F28BE558600DC0755 /* ChattingRoomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingRoomCell.swift; sourceTree = "<group>"; };
 		752E65DEC89827793B4CDB17 /* Pods-EmployeeManagement.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmployeeManagement.release.xcconfig"; path = "Target Support Files/Pods-EmployeeManagement/Pods-EmployeeManagement.release.xcconfig"; sourceTree = "<group>"; };
 		DC62AE74520408F1C9144A0E /* Pods-EmployeeManagement.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmployeeManagement.debug.xcconfig"; path = "Target Support Files/Pods-EmployeeManagement/Pods-EmployeeManagement.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -438,6 +440,7 @@
 				7346EC3428B27D2500C48AE2 /* CreateChatCVCell.swift */,
 				7346EC2E28B2729800C48AE2 /* CreateChatCell.swift */,
 				7306F29828B7CD4E00232334 /* ChattingRoomVC.swift */,
+				73FCD69F28BE558600DC0755 /* ChattingRoomCell.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -656,6 +659,7 @@
 				73E2DA992832688100C4CF25 /* ChattingVC.swift in Sources */,
 				7334334028A95AD500723582 /* TimetableInfoVM.swift in Sources */,
 				737F40E428A0094300282C11 /* NoticeListVC.swift in Sources */,
+				73FCD6A028BE558600DC0755 /* ChattingRoomCell.swift in Sources */,
 				73E084A6282AA3BA00AFC582 /* EmployeeListVC.swift in Sources */,
 				73CDD2A928511C5D00E9EB32 /* ProfileInfoVC.swift in Sources */,
 				73752AAA287F2C6000196435 /* TransitionWriteCell.swift in Sources */,

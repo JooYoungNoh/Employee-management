@@ -101,21 +101,21 @@ class ChattingCell: UITableViewCell {
     let titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.init(name: "CookieRun", size: 15)
-        label.textColor = UIColor.black
+        label.textColor = .black
         return label
     }()
     
     let userCount: UILabel = {
         let label = UILabel()
         label.font = UIFont.init(name: "CookieRun", size: 12)
-        label.textColor = UIColor.systemGray
+        label.textColor = .systemGray
         return label
     }()
     
     let dateLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.init(name: "CookieRun", size: 10)
-        label.textColor = UIColor.systemGray
+        label.textColor = .systemGray
         label.textAlignment = .right
         return label
     }()
@@ -123,7 +123,7 @@ class ChattingCell: UITableViewCell {
     let commentLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.init(name: "CookieRun", size: 12)
-        label.textColor = UIColor.systemGray
+        label.textColor = .systemGray
         return label
     }()
     

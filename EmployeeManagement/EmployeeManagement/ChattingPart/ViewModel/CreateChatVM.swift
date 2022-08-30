@@ -137,7 +137,8 @@ class CreateChatVM {
                                 "memberCount" : "\(self.dbPhone.count + 1)",
                                 "newMessage" : "",
                                 "newCount" : "0",
-                                "activation" : false
+                                "activation" : false,
+                                "presentUserCount" : 0
                             ])
                             uv.dismiss(animated: true)
                         })
@@ -158,8 +159,9 @@ class CreateChatVM {
                     "phoneList" : self.dbPhone,
                     "memberCount" : "\(self.dbPhone.count + 1)",
                     "newMessage" : "",
-                    "newCount" : "0",
-                    "activation" : false
+                    "newCount" : "0",                   //글자 수
+                    "activation" : false,               //방 활성화 여부
+                    "presentUserCount" : 0            //현재 방에 들어와 있는 사람 수
                 ])
                 uv.dismiss(animated: true)
             })

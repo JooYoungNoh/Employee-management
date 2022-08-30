@@ -30,13 +30,11 @@ class ChattingVM {
         self.listner = self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").order(by: "date", descending: true).addSnapshotListener { (snapShot, error) in
             if error == nil && snapShot != nil{
                 self.chattingList.removeAll()
-                //self.sortChattingList.removeAll()
                 self.searchChattingList.removeAll()
                 
                 for doc in snapShot!.documents{
-                    self.chattingList.append(ChattingModel.init(activation: doc.data()["activation"] as! Bool, date: doc.data()["date"] as! TimeInterval, memberCount: doc.data()["memberCount"] as! String, newCount: doc.data()["newCount"] as! String, newMessage: doc.data()["newMessage"] as! String, roomTitle: doc.data()["roomTitle"] as! String, phoneList: doc.data()["phoneList"] as! [String], dbID: doc.documentID))
+                    self.chattingList.append(ChattingModel.init(activation: doc.data()["activation"] as! Bool, date: doc.data()["date"] as! TimeInterval, memberCount: doc.data()["memberCount"] as! String, newCount: doc.data()["newCount"] as! String, newMessage: doc.data()["newMessage"] as! String, roomTitle: doc.data()["roomTitle"] as! String, phoneList: doc.data()["phoneList"] as! [String], presentUserCount: doc.data()["presentUserCount"] as! Int, dbID: doc.documentID))
                 }
-                print("listener called")
                 completion(self.chattingList)
             } else {
                 print(error!.localizedDescription)
@@ -114,7 +112,7 @@ class ChattingVM {
                  } else {
                      cell.commentLabel.text = self.chattingList[indexPath.row].newMessage
                  }
-                 cell.commentLabel.textColor = .black
+                 cell.commentLabel.textColor = .systemGray
                  
                  //방 프로필 이미지
                  DispatchQueue.main.async {
@@ -172,7 +170,7 @@ class ChattingVM {
                  } else {
                      cell.commentLabel.text = self.searchChattingList[indexPath.row].newMessage
                  }
-                 cell.commentLabel.textColor = .black
+                 cell.commentLabel.textColor = .systemGray
                  
                  //방 프로필 이미지
                  DispatchQueue.main.async {
@@ -220,7 +218,16 @@ class ChattingVM {
     func selectCell(uv: UIViewController, isFiltering: Bool, indexPath: IndexPath){
         guard let nv = uv.storyboard?.instantiateViewController(withIdentifier: "ChattingRoomVC") as? ChattingRoomVC else { return }
         
-        uv.navigationController?.pushViewController(nv, animated: true)
+        if self.chattingList.isEmpty == false {
+            self.deleteListner()
+            self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(self.chattingList[indexPath.row].dbID)").updateData([
+                "presentUserCount" : self.chattingList[indexPath.row].presentUserCount + 1 //"\(Int(self.chattingList[indexPath.row].presentUserCount)! + 1)"
+            ])
+            let customTabBar = uv.tabBarController as! CSTabBarController
+            customTabBar.csView.isHidden = true
+            
+            uv.navigationController?.pushViewController(nv, animated: true)
+        }
         /*
         //전달할 내용
         if isFiltering == false{

@@ -42,9 +42,7 @@ class ChattingVC: UIViewController {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        //self.viewModel.deleteListner()
-        let customTabBar = self.tabBarController as! CSTabBarController
-        customTabBar.csView.isHidden = true
+        self.viewModel.deleteListner()
     }
     
     //MARK: 액션 메소드
