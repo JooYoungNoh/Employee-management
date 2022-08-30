@@ -20,6 +20,8 @@ class ChattingVM {
     var chattingList: [ChattingModel] = []
     var searchChattingList: [ChattingModel] = []
     
+    var userImageList: [imageSave] = []
+    
     var userProfileImgCheck: Bool = false
     
     //MARK: 액션 메소드
@@ -35,6 +37,13 @@ class ChattingVM {
                 for doc in snapShot!.documents{
                     self.chattingList.append(ChattingModel.init(activation: doc.data()["activation"] as! Bool, date: doc.data()["date"] as! TimeInterval, memberCount: doc.data()["memberCount"] as! String, newCount: doc.data()["newCount"] as! String, newMessage: doc.data()["newMessage"] as! String, roomTitle: doc.data()["roomTitle"] as! String, phoneList: doc.data()["phoneList"] as! [String], presentUser: doc.data()["presentUser"] as! [String], dbID: doc.documentID))
                 }
+                
+                for i in self.chattingList {
+                    for y in i.phoneList {
+                        self.profileDownloadimage(phone: y)
+                    }
+                }
+                
                 completion(self.chattingList)
             } else {
                 print(error!.localizedDescription)
@@ -42,21 +51,33 @@ class ChattingVM {
         }
     }
     
-    func profileDownloadimage(imgView: UIImageView, phone: String){
+    func profileDownloadimage(phone: String){
         self.db.collection("users").whereField("phone", isEqualTo: phone).getDocuments { snapShot, error in
             if error == nil {
                 for doc in snapShot!.documents{
                     self.userProfileImgCheck = doc.data()["profileImg"] as! Bool
                 }
                 if self.userProfileImgCheck == false {
-                    imgView.image = UIImage(named: "account")
+                    if self.userImageList.isEmpty == true {
+                        self.userImageList.append(imageSave.init(userPhone: phone, userImage: UIImage(named: "account")!))
+                    } else {
+                        if self.userImageList.firstIndex(where: {$0.userPhone == phone}) == nil{
+                            self.userImageList.append(imageSave.init(userPhone: phone, userImage: UIImage(named: "account")!))
+                        }
+                    }
                 } else {
                     self.storage.reference(forURL: "gs://employeemanagement-9d6eb.appspot.com/userprofile/\(phone)").downloadURL { (url, error) in
                         if error == nil && url != nil {
                             let data = NSData(contentsOf: url!)
                             let dbImage = UIImage(data: data! as Data)
                             
-                            imgView.image = dbImage
+                            if self.userImageList.isEmpty == true {
+                                self.userImageList.append(imageSave.init(userPhone: phone, userImage: dbImage!))
+                            } else {
+                                if self.userImageList.firstIndex(where: {$0.userPhone == phone}) == nil{
+                                    self.userImageList.append(imageSave.init(userPhone: phone, userImage: dbImage!))
+                                }
+                            }
                         } else {
                             print(error!.localizedDescription)
                         }
@@ -65,6 +86,13 @@ class ChattingVM {
             } else {
                 print(error!.localizedDescription)
             }
+        }
+    }
+    
+    //전화변호로 이미지 찾기
+    func findImage(imgView: UIImageView, phone: String){
+        if let index = self.userImageList.firstIndex(where: {$0.userPhone == phone}){
+            imgView.image = self.userImageList[index].userImage
         }
     }
     
@@ -124,28 +152,28 @@ class ChattingVM {
                      switch self.chattingList[indexPath.row].memberCount {
                      case "2":
                          cell.userImageView.isHidden = false
-                         self.profileDownloadimage(imgView: cell.userImageView, phone: self.chattingList[indexPath.row].phoneList[0])
+                         self.findImage(imgView: cell.userImageView, phone: self.chattingList[indexPath.row].phoneList[0])
                      case "3":
                          cell.userTwoImageView1.isHidden = false
                          cell.userTwoImageView2.isHidden = false
-                         self.profileDownloadimage(imgView: cell.userTwoImageView1, phone: self.chattingList[indexPath.row].phoneList[0])
-                         self.profileDownloadimage(imgView: cell.userTwoImageView2, phone: self.chattingList[indexPath.row].phoneList[1])
+                         self.findImage(imgView: cell.userTwoImageView1, phone: self.chattingList[indexPath.row].phoneList[0])
+                         self.findImage(imgView: cell.userTwoImageView2, phone: self.chattingList[indexPath.row].phoneList[1])
                      case "4":
                          cell.userThreeImageView1.isHidden = false
                          cell.userThreeImageView2.isHidden = false
                          cell.userThreeImageView3.isHidden = false
-                         self.profileDownloadimage(imgView: cell.userThreeImageView1, phone: self.chattingList[indexPath.row].phoneList[0])
-                         self.profileDownloadimage(imgView: cell.userThreeImageView2, phone: self.chattingList[indexPath.row].phoneList[1])
-                         self.profileDownloadimage(imgView: cell.userThreeImageView3, phone: self.chattingList[indexPath.row].phoneList[2])
+                         self.findImage(imgView: cell.userThreeImageView1, phone: self.chattingList[indexPath.row].phoneList[0])
+                         self.findImage(imgView: cell.userThreeImageView2, phone: self.chattingList[indexPath.row].phoneList[1])
+                         self.findImage(imgView: cell.userThreeImageView3, phone: self.chattingList[indexPath.row].phoneList[2])
                      default:
                          cell.userFourImageView1.isHidden = false
                          cell.userFourImageView2.isHidden = false
                          cell.userFourImageView3.isHidden = false
                          cell.userFourImageView4.isHidden = false
-                         self.profileDownloadimage(imgView: cell.userFourImageView1, phone: self.chattingList[indexPath.row].phoneList[0])
-                         self.profileDownloadimage(imgView: cell.userFourImageView2, phone: self.chattingList[indexPath.row].phoneList[1])
-                         self.profileDownloadimage(imgView: cell.userFourImageView3, phone: self.chattingList[indexPath.row].phoneList[2])
-                         self.profileDownloadimage(imgView: cell.userFourImageView4, phone: self.chattingList[indexPath.row].phoneList[3])
+                         self.findImage(imgView: cell.userFourImageView1, phone: self.chattingList[indexPath.row].phoneList[0])
+                         self.findImage(imgView: cell.userFourImageView2, phone: self.chattingList[indexPath.row].phoneList[1])
+                         self.findImage(imgView: cell.userFourImageView3, phone: self.chattingList[indexPath.row].phoneList[2])
+                         self.findImage(imgView: cell.userFourImageView4, phone: self.chattingList[indexPath.row].phoneList[3])
                      }
 
                  }
@@ -188,28 +216,28 @@ class ChattingVM {
                      switch self.searchChattingList[indexPath.row].memberCount {
                      case "2":
                          cell.userImageView.isHidden = false
-                         self.profileDownloadimage(imgView: cell.userImageView, phone: self.searchChattingList[indexPath.row].phoneList[0])
+                         self.findImage(imgView: cell.userImageView, phone: self.searchChattingList[indexPath.row].phoneList[0])
                      case "3":
                          cell.userTwoImageView1.isHidden = false
                          cell.userTwoImageView2.isHidden = false
-                         self.profileDownloadimage(imgView: cell.userTwoImageView1, phone: self.searchChattingList[indexPath.row].phoneList[0])
-                         self.profileDownloadimage(imgView: cell.userTwoImageView2, phone: self.searchChattingList[indexPath.row].phoneList[1])
+                         self.findImage(imgView: cell.userTwoImageView1, phone: self.searchChattingList[indexPath.row].phoneList[0])
+                         self.findImage(imgView: cell.userTwoImageView2, phone: self.searchChattingList[indexPath.row].phoneList[1])
                      case "4":
                          cell.userThreeImageView1.isHidden = false
                          cell.userThreeImageView2.isHidden = false
                          cell.userThreeImageView3.isHidden = false
-                         self.profileDownloadimage(imgView: cell.userThreeImageView1, phone: self.searchChattingList[indexPath.row].phoneList[0])
-                         self.profileDownloadimage(imgView: cell.userThreeImageView2, phone: self.searchChattingList[indexPath.row].phoneList[1])
-                         self.profileDownloadimage(imgView: cell.userThreeImageView3, phone: self.searchChattingList[indexPath.row].phoneList[2])
+                         self.findImage(imgView: cell.userThreeImageView1, phone: self.searchChattingList[indexPath.row].phoneList[0])
+                         self.findImage(imgView: cell.userThreeImageView2, phone: self.searchChattingList[indexPath.row].phoneList[1])
+                         self.findImage(imgView: cell.userThreeImageView3, phone: self.searchChattingList[indexPath.row].phoneList[2])
                      default:
                          cell.userFourImageView1.isHidden = false
                          cell.userFourImageView2.isHidden = false
                          cell.userFourImageView3.isHidden = false
                          cell.userFourImageView4.isHidden = false
-                         self.profileDownloadimage(imgView: cell.userFourImageView1, phone: self.searchChattingList[indexPath.row].phoneList[0])
-                         self.profileDownloadimage(imgView: cell.userFourImageView2, phone: self.searchChattingList[indexPath.row].phoneList[1])
-                         self.profileDownloadimage(imgView: cell.userFourImageView3, phone: self.searchChattingList[indexPath.row].phoneList[2])
-                         self.profileDownloadimage(imgView: cell.userFourImageView4, phone: self.searchChattingList[indexPath.row].phoneList[3])
+                         self.findImage(imgView: cell.userFourImageView1, phone: self.searchChattingList[indexPath.row].phoneList[0])
+                         self.findImage(imgView: cell.userFourImageView2, phone: self.searchChattingList[indexPath.row].phoneList[1])
+                         self.findImage(imgView: cell.userFourImageView3, phone: self.searchChattingList[indexPath.row].phoneList[2])
+                         self.findImage(imgView: cell.userFourImageView4, phone: self.searchChattingList[indexPath.row].phoneList[3])
                      }
                  }
              }

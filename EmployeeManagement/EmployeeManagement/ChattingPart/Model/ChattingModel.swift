@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct ChattingModel {
     var activation: Bool
@@ -28,5 +29,15 @@ struct ChattingModel {
         self.phoneList = phoneList
         self.presentUser = presentUser
         self.dbID = dbID
+    }
+}
+
+struct imageSave {
+    var userPhone: String
+    var userImage: UIImage
+    
+    init(userPhone: String, userImage: UIImage) {
+        self.userPhone = userPhone
+        self.userImage = userImage
     }
 }
