@@ -276,6 +276,9 @@ class ChattingVM {
                 //다음 화면에 보낼 내용
                 nv.dbIDOnTable = self.chattingList[indexPath.row].dbID
                 nv.presentUserOnTable = newPresentUser
+                nv.phoneListOnTable = self.chattingList[indexPath.row].phoneList
+                nv.roomTitleOnTable = self.chattingList[indexPath.row].roomTitle
+                nv.activationOnTable = self.chattingList[indexPath.row].activation
                 nv.imgListOnTable = self.userImageList
                 
                 //탭바 숨김
@@ -298,9 +301,14 @@ class ChattingVM {
                     "presentUser" : newPresentUser
                 ])
                 
+                //TODO: 방이 활성화된 상태면 폰 리스트에 잇는 사람들의 presentUser 도 바꾸기
+                
                 //다음 화면에 보낼 내용
                 nv.dbIDOnTable = self.searchChattingList[indexPath.row].dbID
                 nv.presentUserOnTable = newPresentUser
+                nv.phoneListOnTable = self.searchChattingList[indexPath.row].phoneList
+                nv.roomTitleOnTable = self.searchChattingList[indexPath.row].roomTitle
+                nv.activationOnTable = self.searchChattingList[indexPath.row].activation
                 nv.imgListOnTable = self.userImageList
                 
                 //탭바 숨김
