@@ -17,6 +17,7 @@ class ChattingVM {
     
     var listner: ListenerRegistration?              //리스너 삭제
     
+    var checkReload: Bool = false
     var chattingList: [ChattingModel] = []
     var searchChattingList: [ChattingModel] = []
     
