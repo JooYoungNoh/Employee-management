@@ -21,6 +21,8 @@ class ChattingVM {
     var chattingList: [ChattingModel] = []
     var searchChattingList: [ChattingModel] = []
     
+    var dbResultID: String = ""
+    
     var userImageList: [imageSave] = []
     
     var userProfileImgCheck: Bool = false
@@ -273,6 +275,24 @@ class ChattingVM {
                     "presentUser" : newPresentUser
                 ])
                 
+                if self.chattingList[indexPath.row].activation == true {
+                    for i in self.chattingList[indexPath.row].phoneList {
+                        self.dbResultID = ""
+                        self.db.collection("users").whereField("phone", isEqualTo: i).getDocuments { snapshot, error in
+                            if error == nil {
+                                for doc in snapshot!.documents{
+                                    self.dbResultID = doc.documentID
+                                }
+                                self.db.collection("users").document("\(self.dbResultID)").collection("chattingList").document("\(self.chattingList[indexPath.row].dbID)").updateData([
+                                    "presentUser" : newPresentUser
+                                ])
+                            } else {
+                                print(error!.localizedDescription)
+                            }
+                        }
+                    }
+                }
+                
                 //다음 화면에 보낼 내용
                 nv.dbIDOnTable = self.chattingList[indexPath.row].dbID
                 nv.presentUserOnTable = newPresentUser
@@ -302,6 +322,24 @@ class ChattingVM {
                 ])
                 
                 //TODO: 방이 활성화된 상태면 폰 리스트에 잇는 사람들의 presentUser 도 바꾸기
+                
+                if self.searchChattingList[indexPath.row].activation == true {
+                    for i in self.searchChattingList[indexPath.row].phoneList {
+                        self.dbResultID = ""
+                        self.db.collection("users").whereField("phone", isEqualTo: i).getDocuments { snapshot, error in
+                            if error == nil {
+                                for doc in snapshot!.documents{
+                                    self.dbResultID = doc.documentID
+                                }
+                                self.db.collection("users").document("\(self.dbResultID)").collection("chattingList").document("\(self.searchChattingList[indexPath.row].dbID)").updateData([
+                                    "presentUser" : newPresentUser
+                                ])
+                            } else {
+                                print(error!.localizedDescription)
+                            }
+                        }
+                    }
+                }
                 
                 //다음 화면에 보낼 내용
                 nv.dbIDOnTable = self.searchChattingList[indexPath.row].dbID

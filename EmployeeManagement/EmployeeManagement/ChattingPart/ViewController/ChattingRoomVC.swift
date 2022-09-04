@@ -69,7 +69,7 @@ class ChattingRoomVC: UIViewController {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        self.viewModel.deletePresentUser(presentUserOnTable: self.presentUserOnTable, dbIDOnTable: self.dbIDOnTable)
+        self.viewModel.deletePresentUser(presentUserOnTable: self.presentUserOnTable, dbIDOnTable: self.dbIDOnTable, phoneListOnTable: self.phoneListOnTable, activationOnTable: self.activationOnTable)
     }
     
     //MARK: 액션 메소드

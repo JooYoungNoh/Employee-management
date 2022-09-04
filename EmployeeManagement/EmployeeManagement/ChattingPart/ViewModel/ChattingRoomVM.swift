@@ -27,8 +27,12 @@ class ChattingRoomVM {
     var dbName: String = ""
     var dbRoom: String = ""
     
+    var dbResultID: String = ""
+    
     
     //MARK: 액션 메소드
+    //
+    
     //채팅 리스트 불러오기
     func bringChattingList(dbOnTable: String, activationOnTable: Bool, completion: @escaping([ChattingModel]) -> () ){
         if activationOnTable == false && self.activationStatus == false {
@@ -67,14 +71,30 @@ class ChattingRoomVM {
     }
     
     //현재 인원에서 이름 삭제
-    func deletePresentUser(presentUserOnTable: [String], dbIDOnTable: String){
+    func deletePresentUser(presentUserOnTable: [String], dbIDOnTable: String, phoneListOnTable: [String], activationOnTable: Bool){
         var newpresentUser = presentUserOnTable
         if let index = newpresentUser.firstIndex(of: self.appDelegate.phoneInfo!){
-            print(index)
             newpresentUser.remove(at: index)
             self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(dbIDOnTable)").updateData([
                 "presentUser" : newpresentUser
             ])
+            if self.activationStatus == true || activationOnTable == true {
+                for i in phoneListOnTable {
+                    self.dbResultID = ""
+                    self.db.collection("users").whereField("phone", isEqualTo: i).getDocuments { snapshot, error in
+                        if error == nil {
+                            for doc in snapshot!.documents{
+                                self.dbResultID = doc.documentID
+                            }
+                            self.db.collection("users").document("\(self.dbResultID)").collection("chattingList").document("\(dbIDOnTable)").updateData([
+                                "presentUser" : newpresentUser
+                            ])
+                        } else {
+                            print(error!.localizedDescription)
+                        }
+                    }
+                }
+            }
         }
     }
     
