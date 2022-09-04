@@ -295,7 +295,6 @@ class ChattingVM {
                 
                 //다음 화면에 보낼 내용
                 nv.dbIDOnTable = self.chattingList[indexPath.row].dbID
-                nv.presentUserOnTable = newPresentUser
                 nv.phoneListOnTable = self.chattingList[indexPath.row].phoneList
                 nv.roomTitleOnTable = self.chattingList[indexPath.row].roomTitle
                 nv.activationOnTable = self.chattingList[indexPath.row].activation
@@ -343,7 +342,6 @@ class ChattingVM {
                 
                 //다음 화면에 보낼 내용
                 nv.dbIDOnTable = self.searchChattingList[indexPath.row].dbID
-                nv.presentUserOnTable = newPresentUser
                 nv.phoneListOnTable = self.searchChattingList[indexPath.row].phoneList
                 nv.roomTitleOnTable = self.searchChattingList[indexPath.row].roomTitle
                 nv.activationOnTable = self.searchChattingList[indexPath.row].activation

@@ -14,7 +14,6 @@ class ChattingRoomVC: UIViewController {
     var roomTitleOnTable: String = ""           //전 화면에서 가져온 방 이름
     var activationOnTable: Bool = false         //전 화면에서 가져온 활성화 여부
     var phoneListOnTable: [String] = []         //전 화면에서 가져온 채팅방 전체 맴버
-    var presentUserOnTable: [String] = []       //전 화면에서 가져온 현재 방에 있는 사람
     var imgListOnTable: [imageSave] = []        //전 화면에서 가져온 이미지 리스트
     
     var viewModel = ChattingRoomVM()
@@ -69,7 +68,7 @@ class ChattingRoomVC: UIViewController {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        self.viewModel.deletePresentUser(presentUserOnTable: self.presentUserOnTable, dbIDOnTable: self.dbIDOnTable, phoneListOnTable: self.phoneListOnTable, activationOnTable: self.activationOnTable)
+        self.viewModel.deletePresentUser(dbIDOnTable: self.dbIDOnTable, phoneListOnTable: self.phoneListOnTable, activationOnTable: self.activationOnTable)
     }
     
     //MARK: 액션 메소드
@@ -78,7 +77,7 @@ class ChattingRoomVC: UIViewController {
     }
     
     @objc func sendMessage(_ sender: UIButton){
-        self.viewModel.doSendButton(activationOnTable: self.activationOnTable, phoneListOnTable: self.phoneListOnTable, roomTitleOnTable: self.roomTitleOnTable, presentUserOnTable: self.presentUserOnTable, dbIDOnTable: self.dbIDOnTable, writeTV: self.writeTV)
+        self.viewModel.doSendButton(activationOnTable: self.activationOnTable, phoneListOnTable: self.phoneListOnTable, roomTitleOnTable: self.roomTitleOnTable, dbIDOnTable: self.dbIDOnTable, writeTV: self.writeTV)
     }
 
     //MARK: 화면 메소드
