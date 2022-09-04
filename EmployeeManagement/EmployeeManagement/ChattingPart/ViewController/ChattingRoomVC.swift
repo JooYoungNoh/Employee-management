@@ -63,8 +63,22 @@ class ChattingRoomVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
        // self.writeTV.delegate = self
+        self.tableview.delegate = self
+        self.tableview.dataSource = self
+        self.tableview.register(ChattingRoomCell.self, forCellReuseIdentifier: ChattingRoomCell.identifier)
         self.setKeyboardNotification()          //키보드 올렷다 내렷다
         self.uiCreate()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.viewModel.bringChattingList(dbOnTable: self.dbIDOnTable, activationOnTable: self.activationOnTable, phoneListOnTable: self.phoneListOnTable) { completion in
+            DispatchQueue.main.async {
+                self.tableview.reloadData()
+                self.tableview.scrollToRow(at: IndexPath(row: self.viewModel.chatList.count - 1, section: 0), at: .bottom, animated: true)
+               // print(self.viewModel.userImageList.count)
+            }
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -90,6 +104,7 @@ class ChattingRoomVC: UIViewController {
         self.navigationController?.navigationBar.topItem?.title = "3"
         
         //테이블 뷰
+        self.tableview.separatorStyle = .none
         self.tableview.backgroundColor = .systemGray6
         //탭 제스처
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard(_:)))
@@ -176,6 +191,21 @@ extension ChattingRoomVC {
             }
         }
     }
+}
+
+//MARK: 테이블 뷰 메소드
+extension ChattingRoomVC: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        self.viewModel.cellInfo(tableView: tableView, indexPath: indexPath, dbOnTable: self.dbIDOnTable)
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        self.viewModel.numberOfRowsInSection()
+    }
+    
+    /*func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }*/
 }
 
 /*//MARK: 텍스트 뷰 메소드

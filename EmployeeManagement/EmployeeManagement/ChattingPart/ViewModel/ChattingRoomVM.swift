@@ -8,6 +8,7 @@
 import Foundation
 import FirebaseFirestore
 import FirebaseStorage
+import UIKit
 
 class ChattingRoomVM {
     let db = Firestore.firestore()
@@ -19,66 +20,178 @@ class ChattingRoomVM {
     var activationStatus: Bool = false              //활성화 여부
     var imgCheck: Bool = false                      //이미지 유무
     
+    //채팅 리스트(bringChattingList)
     var chatList: [ChattingRoomModel] = []
     
-    //firebase 저장 변수(활성화 했을 떄 상대방에게 방 생성)
+    //읽은 사람 표시를 위한 변수(saveChattingInfo)
+    var dbID: String = ""
+    var dbReadList: [String] = []
+    var dbOtherReadList: [String] = []
+    var userImageList: [roomImageSave] = []
+    var userProfileImgCheck: Bool = false
+    
+    //firebase 저장 변수(활성화 했을 떄 상대방에게 방 생성) (doSendButton)
     var dbPhone: [String] = []
     var dbcheck: String = ""
     var dbName: String = ""
     var dbRoom: String = ""
-    
-    //인원들 아이디 저장 변수
-    var dbResultID: String = ""
-    
-    //내가 방에서 나갈떄 있는 현재 인원
-    var newpresentUser: [String] = []
-    
     //내가 메시지 보낼때 있는 현재 인원
     var chatPresentUser: [String] = []
     
+    //(deletePresentUser)
+    //인원들 아이디 저장 변수
+    var dbResultID: String = ""
+    //내가 방에서 나갈떄 있는 현재 인원
+    var newpresentUser: [String] = []
+    
+    //(cellInfo)
+    var allUserCount: String = ""
+    var userName: String = ""
+    
     
     //MARK: 액션 메소드
-    //
+    //채팅 읽음 정보 저장
+    func saveChattingInfo(dbOnTable: String, phoneListOnTable: [String]){
+        //방에 입장시 안읽은 메시지 갯수 0으로 바꾸기
+        self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(dbOnTable)").updateData([
+            "newCount" : "0"
+        ])
+        
+        //메시지 각각 documentID에 정보 수정(읽은 사람 표시를 위함)
+        self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(dbOnTable)").collection("chat").whereField("checkRead", isEqualTo: false).getDocuments { snapshot, error in
+            if error == nil {
+                for doc in snapshot!.documents {
+                    self.dbReadList.removeAll()
+                    self.dbReadList = doc.data()["readList"] as! [String]
+                    self.dbReadList.append("\(self.appDelegate.phoneInfo!)")
+                    
+                    //Firebase에 저장
+                    self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(dbOnTable)").collection("chat").document("\(doc.documentID)").updateData([
+                        "checkRead" : true,
+                        "readList" : self.dbReadList
+                    ])
+                }
+            } else {
+                print(error!.localizedDescription)
+            }
+        }
+        
+        //채팅방에 있는 다른 사람 정보 수정
+        for i in phoneListOnTable{
+            self.db.collection("users").whereField("phone", isEqualTo: i).getDocuments { snapshot, error in
+                if error == nil {
+                    for doc in snapshot!.documents{
+                        self.dbID = doc.documentID
+                        self.userProfileImgCheck = doc.data()["profileImg"] as! Bool
+                    }
+                    //프로필 이미지 다운
+                    self.profileDownloadimage(phone: i)
+                    
+                    self.db.collection("users").document("\(self.dbID)").collection("chattingList").document("\(dbOnTable)").collection("chat").getDocuments(completion: { snapshot, error in
+                        if error == nil {
+                            for doc in snapshot!.documents{
+                                self.dbOtherReadList.removeAll()
+                                //읽은 사람 리스트에 이름이 없는 경우
+                                if (doc.data()["readList"] as! [String]).contains("\(self.appDelegate.phoneInfo!)") == false {
+                                    self.dbOtherReadList = doc.data()["readList"] as! [String]
+                                    self.dbOtherReadList.append("\(self.appDelegate.phoneInfo!)")
+                                    self.db.collection("users").document("\(self.dbID)").collection("chattingList").document("\(dbOnTable)").collection("chat").document("\(doc.documentID)").updateData([
+                                        "readList" : self.dbOtherReadList
+                                    ])
+                                }
+                            }
+                        } else {
+                            print(error!.localizedDescription)
+                        }
+                    })
+                } else {
+                    print(error!.localizedDescription)
+                }
+            }
+        }
+    }
     
     //채팅 리스트 불러오기
-    func bringChattingList(dbOnTable: String, activationOnTable: Bool, completion: @escaping([ChattingModel]) -> () ){
+    func bringChattingList(dbOnTable: String, activationOnTable: Bool, phoneListOnTable: [String], completion: @escaping([ChattingRoomModel]) -> () ){
         if activationOnTable == false && self.activationStatus == false {
             
         } else {
             self.activationStatus = true
-            self.listner = self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(dbOnTable)").collection("chat").order(by: "date", descending: true).addSnapshotListener({ snapshot, error in
+            
+            //채팅 읽음 정보 저장
+            self.saveChattingInfo(dbOnTable: dbOnTable, phoneListOnTable: phoneListOnTable)
+            
+            self.listner = self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(dbOnTable)").collection("chat").order(by: "date", descending: false).addSnapshotListener({ snapshot, error in
                 if error == nil && snapshot != nil{
+                    self.chatList.removeAll()
                     
+                    for doc in snapshot!.documents {
+                        self.chatList.append(ChattingRoomModel.init(checkRead: doc.data()["checkRead"] as! Bool, imgCheck: doc.data()["imgCheck"] as! Bool, date: doc.data()["date"] as! TimeInterval, sender: doc.data()["sender"] as! String, message: doc.data()["message"] as? String ?? "", readList: doc.data()["readList"] as! [String]))
+                    }
+                    
+                   /* //채팅이 이미지인 경우
+                    for i in self.chatList{
+                        if i.imgCheck == true {
+                            self.profileDownloadimage(phone: y)
+                        }
+                    }*/
+                    
+                    completion(self.chatList)
                 } else {
                     print(error!.localizedDescription)
                 }
             })
         }
-        
-        /*self.listner = query.order(by: "date", descending: true).addSnapshotListener { (snapShot, error) in
-            if error == nil && snapShot != nil{
-                self.chattingList.removeAll()
-                self.searchChattingList.removeAll()
-                
-                for doc in snapShot!.documents{
-                    self.chattingList.append(ChattingModel.init(activation: doc.data()["activation"] as! Bool, date: doc.data()["date"] as! TimeInterval, memberCount: doc.data()["memberCount"] as! String, newCount: doc.data()["newCount"] as! String, newMessage: doc.data()["newMessage"] as! String, roomTitle: doc.data()["roomTitle"] as! String, phoneList: doc.data()["phoneList"] as! [String], presentUser: doc.data()["presentUser"] as! [String], dbID: doc.documentID))
-                }
-                
-                for i in self.chattingList {
-                    for y in i.phoneList {
-                        self.profileDownloadimage(phone: y)
-                    }
-                }
-                
-                completion(self.chattingList)
-            } else {
-                print(error!.localizedDescription)
-            }
-        }*/
     }
+    
+    //프로필 이미지 다운
+    func profileDownloadimage(phone: String){
+        if self.userProfileImgCheck == false {
+            if self.userImageList.isEmpty == true {
+                self.userImageList.append(roomImageSave.init(userPhone: phone, userImage: UIImage(named: "account")!))
+            } else {
+                if self.userImageList.firstIndex(where: {$0.userPhone == phone}) == nil{
+                    self.userImageList.append(roomImageSave.init(userPhone: phone, userImage: UIImage(named: "account")!))
+                }
+            }
+        } else {
+            self.storage.reference(forURL: "gs://employeemanagement-9d6eb.appspot.com/userprofile/\(phone)").downloadURL { (url, error) in
+                if error == nil && url != nil {
+                    let data = NSData(contentsOf: url!)
+                    let dbImage = UIImage(data: data! as Data)
+                    
+                    if self.userImageList.isEmpty == true {
+                        self.userImageList.append(roomImageSave.init(userPhone: phone, userImage: dbImage!))
+                    } else {
+                        if self.userImageList.firstIndex(where: {$0.userPhone == phone}) == nil{
+                            self.userImageList.append(roomImageSave.init(userPhone: phone, userImage: dbImage!))
+                        }
+                    }
+                } else {
+                    print(error!.localizedDescription)
+                }
+            }
+        }
+    }
+    
+    
+    
+    //전화변호로 이미지 찾기
+    func findImage(imgView: UIImageView, phone: String){
+        if let index = self.userImageList.firstIndex(where: {$0.userPhone == phone}){
+            imgView.image = self.userImageList[index].userImage
+        }
+    }
+    
+    //리스너 여러개 달리는 오류해결(화면이 사라질때 리스너를 삭제)
+    func deleteListner(){
+        listner?.remove()
+    }
+    
     
     //현재 인원에서 이름 삭제
     func deletePresentUser(dbIDOnTable: String, phoneListOnTable: [String], activationOnTable: Bool){
+        self.deleteListner()
         self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(dbIDOnTable)").getDocument { snapshot2, error2 in
             if error2 == nil {
                 self.newpresentUser = (snapshot2!.data()!["presentUser"] as! [String])
@@ -237,7 +350,6 @@ class ChattingRoomVM {
                                 if self.dbcheck != "" {
                                     self.db.collection("users").document("\(self.dbcheck)").collection("chattingList").document("\(dbIDOnTable)").getDocument { snapshot2, error2 in
                                         if error2 == nil {
-                                            print(Int(snapshot2!.data()!["newCount"] as! String)!)
                                             self.db.collection("users").document("\(self.dbcheck)").collection("chattingList").document("\(dbIDOnTable)").updateData([
                                                 "date" : date,
                                                 "newMessage" : "\(writeTV.text ?? "")",
@@ -269,5 +381,237 @@ class ChattingRoomVM {
     }
     
     //MARK: 테이블 뷰 메소드
+    //셀 정보
+    func cellInfo(tableView: UITableView, indexPath: IndexPath, dbOnTable: String) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: ChattingRoomCell.identifier, for: indexPath) as? ChattingRoomCell else { return UITableViewCell() }
+        
+        //셀 기존 구조 초기화
+        cell.rightTalkBox.snp.removeConstraints()
+        cell.rightTime.snp.removeConstraints()
+        cell.rightcheck.snp.removeConstraints()
+        cell.leftImageView.snp.removeConstraints()
+        cell.leftnameLabel.snp.removeConstraints()
+        cell.leftTalkBox.snp.removeConstraints()
+        cell.leftTime.snp.removeConstraints()
+        cell.leftcheck.snp.removeConstraints()
+        
+        if self.chatList[indexPath.row].sender == "invitation" {      //초대할 경우
+            //TODO: 나중에 사람 초대 기능 넣을 경우(가운데에 셀에 레이블도 하나 만들어야됨
+            
+            
+        } else if self.chatList[indexPath.row].sender == "\(self.appDelegate.phoneInfo!)" {             //보낸사람이 나인 경우
+            cell.rightTalkBox.isHidden = false
+            cell.rightTime.isHidden = false
+            cell.rightcheck.isHidden = false
+            //셀 구조 재설정
+            cell.rightTalkBox.snp.makeConstraints { make in
+                make.top.equalTo(cell.snp.top).offset(10)
+                make.trailing.equalTo(cell.snp.trailing).offset(-10)
+                make.height.greaterThanOrEqualTo(50)
+                make.width.lessThanOrEqualTo(200)
+            }
+            
+            cell.rightTime.snp.makeConstraints { make in
+                make.bottom.equalTo(cell.rightTalkBox.snp.bottom)
+                make.trailing.equalTo(cell.rightTalkBox.snp.leading).offset(-5)
+                make.height.equalTo(30)
+                make.width.equalTo(70)
+            }
+            cell.rightcheck.snp.makeConstraints { make in
+                make.bottom.equalTo(cell.rightTime.snp.top).offset(-2)
+                make.trailing.equalTo(cell.rightTalkBox.snp.leading).offset(-5)
+                make.height.equalTo(10)
+                make.width.equalTo(30)
+            }
+            //시간 정제
+            let date = Date(timeIntervalSince1970: self.chatList[indexPath.row].date)
+            
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd HH:mm"
+            let fixDate = "\(formatter.string(from: date))"
+            
+            cell.rightTalkBox.text = self.chatList[indexPath.row].message
+            cell.rightTime.text = fixDate
+            
+            self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(dbOnTable)").getDocument { snapshot, error in
+                if error == nil {
+                    self.allUserCount = (snapshot!.data()!["memberCount"] as! String)
+                    let changeUserCount = Int(self.allUserCount)! - self.chatList[indexPath.row].readList.count
+                    
+                    cell.rightcheck.text = changeUserCount < 1 ? "" : "\(changeUserCount)"
+                } else {
+                    print(error!.localizedDescription)
+                }
+            }
+        } else {                       //보낸 사람이 내가 아닌경우
+            
+            //시간 정제
+            let date = Date(timeIntervalSince1970: self.chatList[indexPath.row].date)
+            
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd HH:mm"
+            let fixDate = "\(formatter.string(from: date))"
+            
+            cell.leftTalkBox.text = self.chatList[indexPath.row].message
+            cell.leftTime.text = fixDate
+            
+            self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(dbOnTable)").getDocument { snapshot, error in
+                if error == nil {
+                    self.allUserCount = (snapshot!.data()!["memberCount"] as! String)
+                    let changeUserCount = Int(self.allUserCount)! - self.chatList[indexPath.row].readList.count
+                    
+                    cell.leftcheck.text = changeUserCount < 1 ? "" : "\(changeUserCount)"
+                } else {
+                    print(error!.localizedDescription)
+                }
+            }
+            
+            if indexPath.row == 0 {                                //row가 0일 때
+                cell.leftImageView.isHidden = false
+                cell.leftnameLabel.isHidden = false
+                cell.leftTalkBox.isHidden = false
+                cell.leftTime.isHidden = false
+                cell.leftcheck.isHidden = false
+                
+                //셀 구조 재설정
+                cell.leftImageView.snp.makeConstraints { make in
+                    make.top.equalTo(cell.snp.top).offset(8)
+                    make.leading.equalTo(cell.snp.leading).offset(10)
+                    make.width.height.equalTo(40)
+                }
+                cell.leftnameLabel.snp.makeConstraints { make in
+                    make.top.equalTo(cell.snp.top).offset(5)
+                    make.leading.equalTo(cell.leftImageView.snp.trailing).offset(5)
+                    make.height.equalTo(20)
+                    make.width.lessThanOrEqualTo(150)
+                }
+                cell.leftTalkBox.snp.makeConstraints { make in
+                    make.top.equalTo(cell.leftnameLabel.snp.bottom).offset(5)
+                    make.leading.equalTo(cell.leftImageView.snp.trailing).offset(5)
+                    make.height.greaterThanOrEqualTo(50)
+                    make.width.lessThanOrEqualTo(150)
+                }
+                cell.leftTime.snp.makeConstraints { make in
+                    make.bottom.equalTo(cell.leftTalkBox.snp.bottom)
+                    make.leading.equalTo(cell.leftTalkBox.snp.trailing).offset(5)
+                    make.height.equalTo(30)
+                    make.width.equalTo(70)
+                }
+                cell.leftcheck.snp.makeConstraints { make in
+                    make.bottom.equalTo(cell.leftTime.snp.top).offset(-2)
+                    make.leading.equalTo(cell.leftTalkBox.snp.trailing).offset(5)
+                    make.height.equalTo(20)
+                    make.width.equalTo(30)
+                }
+                
+                //채팅친 사람 이름
+                self.db.collection("users").whereField("phone", isEqualTo: "\(self.chatList[indexPath.row].sender)").getDocuments { snapshot, error in
+                    if error == nil {
+                        for doc in snapshot!.documents{
+                            self.userName = doc.data()["name"] as! String
+                        }
+                        cell.leftnameLabel.text = self.userName
+                    } else {
+                        print(error!.localizedDescription)
+                    }
+                }
+                DispatchQueue.main.async {
+                    self.findImage(imgView: cell.leftImageView, phone: self.chatList[indexPath.row].sender)
+                }
+
+            } else {
+                if self.chatList[indexPath.row].sender == self.chatList[indexPath.row - 1].sender {  //전 셀과 보낸사람이 같을때
+                    cell.leftTalkBox.isHidden = false
+                    cell.leftTime.isHidden = false
+                    cell.leftcheck.isHidden = false
+                    
+                    //셀 구조 재설정
+                    cell.leftTalkBox.snp.makeConstraints { make in
+                        make.top.equalTo(cell.snp.top).offset(10)
+                        make.leading.equalTo(cell.snp.leading).offset(55)
+                        make.height.greaterThanOrEqualTo(50)
+                        make.width.lessThanOrEqualTo(150)
+                    }
+                    cell.leftTime.snp.makeConstraints { make in
+                        make.bottom.equalTo(cell.leftTalkBox.snp.bottom)
+                        make.leading.equalTo(cell.leftTalkBox.snp.trailing).offset(5)
+                        make.height.equalTo(30)
+                        make.width.equalTo(70)
+                    }
+                    cell.leftcheck.snp.makeConstraints { make in
+                        make.bottom.equalTo(cell.leftTime.snp.top).offset(-2)
+                        make.leading.equalTo(cell.leftTalkBox.snp.trailing).offset(5)
+                        make.height.equalTo(20)
+                        make.width.equalTo(30)
+                    }
+                    
+                } else {                                       //다를 때
+                    cell.leftImageView.isHidden = false
+                    cell.leftnameLabel.isHidden = false
+                    cell.leftTalkBox.isHidden = false
+                    cell.leftTime.isHidden = false
+                    cell.leftcheck.isHidden = false
+                    
+                    //셀 구조 재설정
+                    cell.leftImageView.snp.makeConstraints { make in
+                        make.top.equalTo(cell.snp.top).offset(8)
+                        make.leading.equalTo(cell.snp.leading).offset(10)
+                        make.width.height.equalTo(40)
+                    }
+                    cell.leftnameLabel.snp.makeConstraints { make in
+                        make.top.equalTo(cell.snp.top).offset(5)
+                        make.leading.equalTo(cell.leftImageView.snp.trailing).offset(5)
+                        make.height.equalTo(20)
+                        make.width.lessThanOrEqualTo(150)
+                    }
+                    cell.leftTalkBox.snp.makeConstraints { make in
+                        make.top.equalTo(cell.leftnameLabel.snp.bottom).offset(5)
+                        make.leading.equalTo(cell.leftImageView.snp.trailing).offset(5)
+                        make.height.greaterThanOrEqualTo(50)
+                        make.width.lessThanOrEqualTo(150)
+                    }
+                    cell.leftTime.snp.makeConstraints { make in
+                        make.bottom.equalTo(cell.leftTalkBox.snp.bottom)
+                        make.leading.equalTo(cell.leftTalkBox.snp.trailing).offset(5)
+                        make.height.equalTo(30)
+                        make.width.equalTo(70)
+                    }
+                    cell.leftcheck.snp.makeConstraints { make in
+                        make.bottom.equalTo(cell.leftTime.snp.top).offset(-2)
+                        make.leading.equalTo(cell.leftTalkBox.snp.trailing).offset(5)
+                        make.height.equalTo(20)
+                        make.width.equalTo(30)
+                    }
+                    
+                    //채팅친 사람 이름
+                    self.db.collection("users").whereField("phone", isEqualTo: "\(self.chatList[indexPath.row].sender)").getDocuments { snapshot, error in
+                        if error == nil {
+                            for doc in snapshot!.documents{
+                                self.userName = doc.data()["name"] as! String
+                            }
+                            cell.leftnameLabel.text = self.userName
+                        } else {
+                            print(error!.localizedDescription)
+                        }
+                    }
+                    DispatchQueue.main.async {
+                        self.findImage(imgView: cell.leftImageView, phone: self.chatList[indexPath.row].sender)
+                    }
+                }
+                
+            }
+            
+        }
+        
+        tableView.rowHeight = 80
+        tableView.estimatedRowHeight = UITableView.automaticDimension
+        
+        return cell
+    }
+    
+    //테이블 뷰 섹션에 나타낼 로우 갯수
+    func numberOfRowsInSection() -> Int {
+        return self.chatList.count
+    }
     
 }
