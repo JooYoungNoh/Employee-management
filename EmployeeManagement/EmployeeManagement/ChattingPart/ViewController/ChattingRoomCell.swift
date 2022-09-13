@@ -15,12 +15,13 @@ class ChattingRoomCell: UITableViewCell {
         let label = BasePaddingLabel()
         label.backgroundColor = .white
         label.textColor = .black
-        label.textAlignment = .right
+        label.textAlignment = .left
         label.font = UIFont(name: "CookieRun", size: 16)
         label.layer.cornerRadius = 10
         label.layer.masksToBounds = true
         label.layer.borderWidth = 0
         label.numberOfLines = 0
+        label.lineBreakMode = .byCharWrapping
         label.isHidden = true
         return label
     }()
@@ -61,7 +62,6 @@ class ChattingRoomCell: UITableViewCell {
         label.textColor = .black
         label.textAlignment = .left
         label.font = UIFont(name: "CookieRun", size: 15)
-        label.numberOfLines = 2
         label.isHidden = true
         return label
     }()
@@ -75,6 +75,7 @@ class ChattingRoomCell: UITableViewCell {
         label.layer.masksToBounds = true
         label.layer.borderWidth = 0
         label.numberOfLines = 0
+        label.lineBreakMode = .byCharWrapping
         label.isHidden = true
         return label
     }()
@@ -132,6 +133,9 @@ class ChattingRoomCell: UITableViewCell {
         self.leftTalkBox.text = ""
         self.leftTime.text = ""
         self.leftcheck.text = ""
+    
+        self.setNeedsLayout()
+        self.layoutIfNeeded()
     }
     
     required init?(coder: NSCoder) {
