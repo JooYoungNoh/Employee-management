@@ -16,7 +16,7 @@ class ChattingRoomCell: UITableViewCell {
         label.backgroundColor = .white
         label.textColor = .black
         label.textAlignment = .left
-        label.font = UIFont(name: "CookieRun", size: 16)
+        label.font = UIFont(name: "CookieRun", size: 15)
         label.layer.cornerRadius = 10
         label.layer.masksToBounds = true
         label.layer.borderWidth = 0
@@ -54,7 +54,7 @@ class ChattingRoomCell: UITableViewCell {
         self.rightTalkBox.snp.makeConstraints { make in
             make.top.equalTo(self.snp.top).offset(10)
             make.trailing.equalTo(self.snp.trailing).offset(-10)
-            make.height.greaterThanOrEqualTo(50)
+            make.bottom.equalTo(self.snp.bottom).offset(-10)
             make.width.lessThanOrEqualTo(200)
         }
         
@@ -74,13 +74,14 @@ class ChattingRoomCell: UITableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-
         self.rightTalkBox.text = ""
         self.rightTime.text = ""
         self.rightcheck.text = ""
     
         self.setNeedsLayout()
         self.layoutIfNeeded()
+        
+        
     }
     
     required init?(coder: NSCoder) {

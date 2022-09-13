@@ -119,6 +119,19 @@ class ChattingCell: UITableViewCell {
         label.textAlignment = .right
         return label
     }()
+    
+    let newMessageCount: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.init(name: "CookieRun", size: 12)
+        label.textColor = .white
+        label.textAlignment = .center
+        label.isHidden = true
+        label.backgroundColor = .systemRed
+        label.layer.cornerRadius = 11
+        label.layer.borderWidth = 0
+        label.layer.masksToBounds = true
+        return label
+    }()
 
     let commentLabel: UILabel = {
         let label = UILabel()
@@ -143,6 +156,7 @@ class ChattingCell: UITableViewCell {
         contentView.addSubview(userCount)
         contentView.addSubview(dateLabel)
         contentView.addSubview(commentLabel)
+        contentView.addSubview(newMessageCount)
         
         //1명인 경우(총 2명)
         userImageView.snp.makeConstraints { make in
@@ -240,6 +254,12 @@ class ChattingCell: UITableViewCell {
             make.trailing.equalTo(self.snp.trailing).offset(-80)
             make.height.equalTo(25)
         }
+        
+        newMessageCount.snp.makeConstraints { make in
+            make.top.equalTo(self.commentLabel.snp.top)
+            make.trailing.equalTo(self.dateLabel.snp.trailing)
+            make.width.height.equalTo(22)
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -253,22 +273,12 @@ class ChattingCell: UITableViewCell {
 
     override func prepareForReuse() {
         super.prepareForReuse()
-        //이미지 뷰 숨김 초기화
-        self.userImageView.isHidden = true
-        self.userTwoImageView1.isHidden = true
-        self.userTwoImageView2.isHidden = true
-        self.userThreeImageView1.isHidden = true
-        self.userThreeImageView2.isHidden = true
-        self.userThreeImageView3.isHidden = true
-        self.userFourImageView1.isHidden = true
-        self.userFourImageView2.isHidden = true
-        self.userFourImageView3.isHidden = true
-        self.userFourImageView4.isHidden = true
         
         self.userCount.text = ""
         self.titleLabel.text = ""
         self.commentLabel.text = ""
         self.dateLabel.text = ""
+        self.newMessageCount.text = ""
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

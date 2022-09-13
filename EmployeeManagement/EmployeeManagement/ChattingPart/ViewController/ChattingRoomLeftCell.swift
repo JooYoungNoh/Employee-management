@@ -31,7 +31,7 @@ class ChattingRoomLeftCell: UITableViewCell {
         label.backgroundColor = .white
         label.textColor = .black
         label.textAlignment = .left
-        label.font = UIFont(name: "CookieRun", size: 16)
+        label.font = UIFont(name: "CookieRun", size: 15)
         label.layer.cornerRadius = 10
         label.layer.masksToBounds = true
         label.layer.borderWidth = 0
@@ -82,7 +82,7 @@ class ChattingRoomLeftCell: UITableViewCell {
         self.leftTalkBox.snp.makeConstraints { make in
             make.top.equalTo(self.leftnameLabel.snp.bottom).offset(5)
             make.leading.equalTo(self.leftImageView.snp.trailing).offset(5)
-            make.height.greaterThanOrEqualTo(50)
+            make.bottom.equalTo(self.snp.bottom).offset(-10)
             make.width.lessThanOrEqualTo(150)
         }
         self.leftTime.snp.makeConstraints { make in
@@ -101,7 +101,6 @@ class ChattingRoomLeftCell: UITableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        
         self.leftnameLabel.text = ""
         self.leftTalkBox.text = ""
         self.leftTime.text = ""
