@@ -1,17 +1,18 @@
 //
-//  ChattingRoomCell.swift
+//  ChattingRoomSamePersonCell.swift
 //  EmployeeManagement
 //
-//  Created by 노주영 on 2022/08/30.
+//  Created by 노주영 on 2022/09/13.
 //
 
 import UIKit
 
-class ChattingRoomCell: UITableViewCell {
-    //내가 대화할 때
-    static let identifier = "ChattingRoomCell"
+class ChattingRoomSamePersonCell: UITableViewCell {
+    //상대방이 대화할 때 전 사람과 같을 경우
+    static let identifier = "ChattingRoomSamePersonCell"
     
-    let rightTalkBox: BasePaddingLabel = {
+    //상대방이 한 대화
+    let leftTalkBox: BasePaddingLabel = {
         let label = BasePaddingLabel()
         label.backgroundColor = .white
         label.textColor = .black
@@ -24,21 +25,21 @@ class ChattingRoomCell: UITableViewCell {
         label.lineBreakMode = .byCharWrapping
         return label
     }()
-    let rightTime: UILabel = {
+    let leftTime: UILabel = {
         let label = UILabel()
         label.backgroundColor = .systemGray6
         label.textColor = .black
-        label.textAlignment = .right
+        label.textAlignment = .left
         label.font = UIFont(name: "CookieRun", size: 10)
         label.numberOfLines = 2
         return label
     }()
     
-    let rightcheck: UILabel = {
+    let leftcheck: UILabel = {
         let label = UILabel()
         label.backgroundColor = .systemGray6
         label.textColor = .blue
-        label.textAlignment = .right
+        label.textAlignment = .left
         label.font = UIFont(name: "CookieRun", size: 12)
         label.numberOfLines = 1
         return label
@@ -47,37 +48,36 @@ class ChattingRoomCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?){
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.backgroundColor = .systemGray6
-        contentView.addSubview(rightTalkBox)
-        contentView.addSubview(rightTime)
-        contentView.addSubview(rightcheck)
+        contentView.addSubview(leftTalkBox)
+        contentView.addSubview(leftTime)
+        contentView.addSubview(leftcheck)
         
-        self.rightTalkBox.snp.makeConstraints { make in
+        self.leftTalkBox.snp.makeConstraints { make in
             make.top.equalTo(self.snp.top).offset(10)
-            make.trailing.equalTo(self.snp.trailing).offset(-10)
+            make.leading.equalTo(self.snp.leading).offset(55)
             make.height.greaterThanOrEqualTo(50)
-            make.width.lessThanOrEqualTo(200)
+            make.width.lessThanOrEqualTo(150)
         }
-        
-        self.rightTime.snp.makeConstraints { make in
-            make.bottom.equalTo(self.rightTalkBox.snp.bottom)
-            make.trailing.equalTo(self.rightTalkBox.snp.leading).offset(-5)
+        self.leftTime.snp.makeConstraints { make in
+            make.bottom.equalTo(self.leftTalkBox.snp.bottom)
+            make.leading.equalTo(self.leftTalkBox.snp.trailing).offset(5)
             make.height.equalTo(30)
             make.width.equalTo(70)
         }
-        self.rightcheck.snp.makeConstraints { make in
-            make.bottom.equalTo(self.rightTime.snp.top).offset(-2)
-            make.trailing.equalTo(self.rightTalkBox.snp.leading).offset(-5)
-            make.height.equalTo(10)
+        self.leftcheck.snp.makeConstraints { make in
+            make.bottom.equalTo(self.leftTime.snp.top).offset(-2)
+            make.leading.equalTo(self.leftTalkBox.snp.trailing).offset(5)
+            make.height.equalTo(20)
             make.width.equalTo(30)
         }
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
-
-        self.rightTalkBox.text = ""
-        self.rightTime.text = ""
-        self.rightcheck.text = ""
+        
+        self.leftTalkBox.text = ""
+        self.leftTime.text = ""
+        self.leftcheck.text = ""
     
         self.setNeedsLayout()
         self.layoutIfNeeded()
@@ -97,5 +97,6 @@ class ChattingRoomCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+
 
 }

@@ -18,6 +18,8 @@
 		73179DE62858F37F00086DBD /* MemoWriteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73179DE52858F37F00086DBD /* MemoWriteVC.swift */; };
 		73179DE8285906AC00086DBD /* MemoWriteVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73179DE7285906AC00086DBD /* MemoWriteVM.swift */; };
 		73179DEA28590DF000086DBD /* MemoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73179DE928590DF000086DBD /* MemoModel.swift */; };
+		731AA4D828D0C9C300928CB3 /* ChattingRoomLeftCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731AA4D728D0C9C300928CB3 /* ChattingRoomLeftCell.swift */; };
+		731AA4DA28D0C9E000928CB3 /* ChattingRoomSamePersonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731AA4D928D0C9E000928CB3 /* ChattingRoomSamePersonCell.swift */; };
 		732D4019283E6FD200E40F48 /* RequestJoinVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732D4018283E6FD200E40F48 /* RequestJoinVC.swift */; };
 		732D401B283E73E000E40F48 /* RequestJoincell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732D401A283E73E000E40F48 /* RequestJoincell.swift */; };
 		73301F7728A3E70A0042F84D /* TimetableCreateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73301F7628A3E70A0042F84D /* TimetableCreateVC.swift */; };
@@ -111,6 +113,8 @@
 		73179DE52858F37F00086DBD /* MemoWriteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoWriteVC.swift; sourceTree = "<group>"; };
 		73179DE7285906AC00086DBD /* MemoWriteVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoWriteVM.swift; sourceTree = "<group>"; };
 		73179DE928590DF000086DBD /* MemoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoModel.swift; sourceTree = "<group>"; };
+		731AA4D728D0C9C300928CB3 /* ChattingRoomLeftCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingRoomLeftCell.swift; sourceTree = "<group>"; };
+		731AA4D928D0C9E000928CB3 /* ChattingRoomSamePersonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingRoomSamePersonCell.swift; sourceTree = "<group>"; };
 		732D4018283E6FD200E40F48 /* RequestJoinVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestJoinVC.swift; sourceTree = "<group>"; };
 		732D401A283E73E000E40F48 /* RequestJoincell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestJoincell.swift; sourceTree = "<group>"; };
 		73301F7628A3E70A0042F84D /* TimetableCreateVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimetableCreateVC.swift; sourceTree = "<group>"; };
@@ -444,6 +448,8 @@
 				7346EC2E28B2729800C48AE2 /* CreateChatCell.swift */,
 				7306F29828B7CD4E00232334 /* ChattingRoomVC.swift */,
 				73FCD69F28BE558600DC0755 /* ChattingRoomCell.swift */,
+				731AA4D728D0C9C300928CB3 /* ChattingRoomLeftCell.swift */,
+				731AA4D928D0C9E000928CB3 /* ChattingRoomSamePersonCell.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -617,6 +623,7 @@
 				737F40E828A0096A00282C11 /* NoticeListCell.swift in Sources */,
 				7373BEA82852487100336B0B /* ProfileInfoCVCell.swift in Sources */,
 				7390F3EC2858E0D10036B632 /* MemoVC.swift in Sources */,
+				731AA4D828D0C9C300928CB3 /* ChattingRoomLeftCell.swift in Sources */,
 				730AA0AE289B15D300A93D5B /* ScheduleCell.swift in Sources */,
 				73F0B28E28884E0200307D62 /* TinfoVM.swift in Sources */,
 				732D401B283E73E000E40F48 /* RequestJoincell.swift in Sources */,
@@ -646,6 +653,7 @@
 				7385193828BEBD0E001FC613 /* ChattingRoomModel.swift in Sources */,
 				7392F19A28758E7800DD7F01 /* TransitionVM.swift in Sources */,
 				7379EEDE2877228500BB7568 /* SelectVC.swift in Sources */,
+				731AA4DA28D0C9E000928CB3 /* ChattingRoomSamePersonCell.swift in Sources */,
 				73C8ED9B2887052100545587 /* TwriteVM.swift in Sources */,
 				73DA2E25289B18F9006FE401 /* CalendarVM.swift in Sources */,
 				73BCD85F2833DBCD00DF6F74 /* ShopAddVC.swift in Sources */,

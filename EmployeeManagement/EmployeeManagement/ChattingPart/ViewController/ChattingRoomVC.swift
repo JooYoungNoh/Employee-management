@@ -66,6 +66,8 @@ class ChattingRoomVC: UIViewController {
         self.tableview.delegate = self
         self.tableview.dataSource = self
         self.tableview.register(ChattingRoomCell.self, forCellReuseIdentifier: ChattingRoomCell.identifier)
+        self.tableview.register(ChattingRoomLeftCell.self, forCellReuseIdentifier: ChattingRoomLeftCell.identifier)
+        self.tableview.register(ChattingRoomSamePersonCell.self, forCellReuseIdentifier: ChattingRoomSamePersonCell.identifier)
         self.setKeyboardNotification()          //키보드 올렷다 내렷다
         self.uiCreate()
     }
@@ -106,6 +108,7 @@ class ChattingRoomVC: UIViewController {
         //테이블 뷰
         self.tableview.separatorStyle = .none
         self.tableview.backgroundColor = .systemGray6
+        self.tableview.allowsSelection = false
         //탭 제스처
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard(_:)))
         view.addGestureRecognizer(tapGesture)
@@ -203,9 +206,10 @@ extension ChattingRoomVC: UITableViewDataSource, UITableViewDelegate {
         self.viewModel.numberOfRowsInSection()
     }
     
-    /*func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
-    }*/
+    }
+    
 }
 
 /*//MARK: 텍스트 뷰 메소드

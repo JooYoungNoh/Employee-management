@@ -383,46 +383,17 @@ class ChattingRoomVM {
     //MARK: 테이블 뷰 메소드
     //셀 정보
     func cellInfo(tableView: UITableView, indexPath: IndexPath, dbOnTable: String) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: ChattingRoomCell.identifier, for: indexPath) as? ChattingRoomCell else { return UITableViewCell() }
-        
-        //셀 기존 구조 초기화
-        cell.rightTalkBox.snp.removeConstraints()
-        cell.rightTime.snp.removeConstraints()
-        cell.rightcheck.snp.removeConstraints()
-        cell.leftImageView.snp.removeConstraints()
-        cell.leftnameLabel.snp.removeConstraints()
-        cell.leftTalkBox.snp.removeConstraints()
-        cell.leftTime.snp.removeConstraints()
-        cell.leftcheck.snp.removeConstraints()
         
         if self.chatList[indexPath.row].sender == "invitation" {      //초대할 경우
             //TODO: 나중에 사람 초대 기능 넣을 경우(가운데에 셀에 레이블도 하나 만들어야됨
+            //cell도 바꾸기
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: ChattingRoomCell.identifier, for: indexPath) as? ChattingRoomCell else { return UITableViewCell() }
             
+            return cell
             
         } else if self.chatList[indexPath.row].sender == "\(self.appDelegate.phoneInfo!)" {             //보낸사람이 나인 경우
-            cell.rightTalkBox.isHidden = false
-            cell.rightTime.isHidden = false
-            cell.rightcheck.isHidden = false
-            //셀 구조 재설정
-            cell.rightTalkBox.snp.makeConstraints { make in
-                make.top.equalTo(cell.snp.top).offset(10)
-                make.trailing.equalTo(cell.snp.trailing).offset(-10)
-                make.height.greaterThanOrEqualTo(50)
-                make.width.lessThanOrEqualTo(200)
-            }
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: ChattingRoomCell.identifier, for: indexPath) as? ChattingRoomCell else { return UITableViewCell() }
             
-            cell.rightTime.snp.makeConstraints { make in
-                make.bottom.equalTo(cell.rightTalkBox.snp.bottom)
-                make.trailing.equalTo(cell.rightTalkBox.snp.leading).offset(-5)
-                make.height.equalTo(30)
-                make.width.equalTo(70)
-            }
-            cell.rightcheck.snp.makeConstraints { make in
-                make.bottom.equalTo(cell.rightTime.snp.top).offset(-2)
-                make.trailing.equalTo(cell.rightTalkBox.snp.leading).offset(-5)
-                make.height.equalTo(10)
-                make.width.equalTo(30)
-            }
             //시간 정제
             let date = Date(timeIntervalSince1970: self.chatList[indexPath.row].date)
             
@@ -443,65 +414,31 @@ class ChattingRoomVM {
                     print(error!.localizedDescription)
                 }
             }
+            
+            return cell
         } else {                       //보낸 사람이 내가 아닌경우
-            
-            //시간 정제
-            let date = Date(timeIntervalSince1970: self.chatList[indexPath.row].date)
-            
-            let formatter = DateFormatter()
-            formatter.dateFormat = "yyyy-MM-dd HH:mm"
-            let fixDate = "\(formatter.string(from: date))"
-            
-            cell.leftTalkBox.text = self.chatList[indexPath.row].message
-            cell.leftTime.text = fixDate
-            
-            self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(dbOnTable)").getDocument { snapshot, error in
-                if error == nil {
-                    self.allUserCount = (snapshot!.data()!["memberCount"] as! String)
-                    let changeUserCount = Int(self.allUserCount)! - self.chatList[indexPath.row].readList.count
-                    
-                    cell.leftcheck.text = changeUserCount < 1 ? "" : "\(changeUserCount)"
-                } else {
-                    print(error!.localizedDescription)
-                }
-            }
-            
             if indexPath.row == 0 {                                //row가 0일 때
-                cell.leftImageView.isHidden = false
-                cell.leftnameLabel.isHidden = false
-                cell.leftTalkBox.isHidden = false
-                cell.leftTime.isHidden = false
-                cell.leftcheck.isHidden = false
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: ChattingRoomLeftCell.identifier, for: indexPath) as? ChattingRoomLeftCell else { return UITableViewCell() }
                 
-                //셀 구조 재설정
-                cell.leftImageView.snp.makeConstraints { make in
-                    make.top.equalTo(cell.snp.top).offset(8)
-                    make.leading.equalTo(cell.snp.leading).offset(10)
-                    make.width.height.equalTo(40)
-                }
-                cell.leftnameLabel.snp.makeConstraints { make in
-                    make.top.equalTo(cell.snp.top).offset(5)
-                    make.leading.equalTo(cell.leftImageView.snp.trailing).offset(5)
-                    make.height.equalTo(20)
-                    make.width.lessThanOrEqualTo(150)
-                }
-                cell.leftTalkBox.snp.makeConstraints { make in
-                    make.top.equalTo(cell.leftnameLabel.snp.bottom).offset(5)
-                    make.leading.equalTo(cell.leftImageView.snp.trailing).offset(5)
-                    make.height.greaterThanOrEqualTo(50)
-                    make.width.lessThanOrEqualTo(150)
-                }
-                cell.leftTime.snp.makeConstraints { make in
-                    make.bottom.equalTo(cell.leftTalkBox.snp.bottom)
-                    make.leading.equalTo(cell.leftTalkBox.snp.trailing).offset(5)
-                    make.height.equalTo(30)
-                    make.width.equalTo(70)
-                }
-                cell.leftcheck.snp.makeConstraints { make in
-                    make.bottom.equalTo(cell.leftTime.snp.top).offset(-2)
-                    make.leading.equalTo(cell.leftTalkBox.snp.trailing).offset(5)
-                    make.height.equalTo(20)
-                    make.width.equalTo(30)
+                //시간 정제
+                let date = Date(timeIntervalSince1970: self.chatList[indexPath.row].date)
+                
+                let formatter = DateFormatter()
+                formatter.dateFormat = "yyyy-MM-dd HH:mm"
+                let fixDate = "\(formatter.string(from: date))"
+                
+                cell.leftTalkBox.text = self.chatList[indexPath.row].message
+                cell.leftTime.text = fixDate
+                
+                self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(dbOnTable)").getDocument { snapshot, error in
+                    if error == nil {
+                        self.allUserCount = (snapshot!.data()!["memberCount"] as! String)
+                        let changeUserCount = Int(self.allUserCount)! - self.chatList[indexPath.row].readList.count
+                        
+                        cell.leftcheck.text = changeUserCount < 1 ? "" : "\(changeUserCount)"
+                    } else {
+                        print(error!.localizedDescription)
+                    }
                 }
                 
                 //채팅친 사람 이름
@@ -518,69 +455,56 @@ class ChattingRoomVM {
                 DispatchQueue.main.async {
                     self.findImage(imgView: cell.leftImageView, phone: self.chatList[indexPath.row].sender)
                 }
+                return cell
 
             } else {
                 if self.chatList[indexPath.row].sender == self.chatList[indexPath.row - 1].sender {  //전 셀과 보낸사람이 같을때
-                    cell.leftTalkBox.isHidden = false
-                    cell.leftTime.isHidden = false
-                    cell.leftcheck.isHidden = false
                     
-                    //셀 구조 재설정
-                    cell.leftTalkBox.snp.makeConstraints { make in
-                        make.top.equalTo(cell.snp.top).offset(10)
-                        make.leading.equalTo(cell.snp.leading).offset(55)
-                        make.height.greaterThanOrEqualTo(50)
-                        make.width.lessThanOrEqualTo(150)
-                    }
-                    cell.leftTime.snp.makeConstraints { make in
-                        make.bottom.equalTo(cell.leftTalkBox.snp.bottom)
-                        make.leading.equalTo(cell.leftTalkBox.snp.trailing).offset(5)
-                        make.height.equalTo(30)
-                        make.width.equalTo(70)
-                    }
-                    cell.leftcheck.snp.makeConstraints { make in
-                        make.bottom.equalTo(cell.leftTime.snp.top).offset(-2)
-                        make.leading.equalTo(cell.leftTalkBox.snp.trailing).offset(5)
-                        make.height.equalTo(20)
-                        make.width.equalTo(30)
-                    }
+                    guard let cell = tableView.dequeueReusableCell(withIdentifier: ChattingRoomSamePersonCell.identifier, for: indexPath) as? ChattingRoomSamePersonCell else { return UITableViewCell() }
                     
+                    //시간 정제
+                    let date = Date(timeIntervalSince1970: self.chatList[indexPath.row].date)
+                    
+                    let formatter = DateFormatter()
+                    formatter.dateFormat = "yyyy-MM-dd HH:mm"
+                    let fixDate = "\(formatter.string(from: date))"
+                    
+                    cell.leftTalkBox.text = self.chatList[indexPath.row].message
+                    cell.leftTime.text = fixDate
+                    
+                    self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(dbOnTable)").getDocument { snapshot, error in
+                        if error == nil {
+                            self.allUserCount = (snapshot!.data()!["memberCount"] as! String)
+                            let changeUserCount = Int(self.allUserCount)! - self.chatList[indexPath.row].readList.count
+                            
+                            cell.leftcheck.text = changeUserCount < 1 ? "" : "\(changeUserCount)"
+                        } else {
+                            print(error!.localizedDescription)
+                        }
+                    }
+                    return cell
                 } else {                                       //다를 때
-                    cell.leftImageView.isHidden = false
-                    cell.leftnameLabel.isHidden = false
-                    cell.leftTalkBox.isHidden = false
-                    cell.leftTime.isHidden = false
-                    cell.leftcheck.isHidden = false
+                    guard let cell = tableView.dequeueReusableCell(withIdentifier: ChattingRoomLeftCell.identifier, for: indexPath) as? ChattingRoomLeftCell else { return UITableViewCell() }
                     
-                    //셀 구조 재설정
-                    cell.leftImageView.snp.makeConstraints { make in
-                        make.top.equalTo(cell.snp.top).offset(8)
-                        make.leading.equalTo(cell.snp.leading).offset(10)
-                        make.width.height.equalTo(40)
-                    }
-                    cell.leftnameLabel.snp.makeConstraints { make in
-                        make.top.equalTo(cell.snp.top).offset(5)
-                        make.leading.equalTo(cell.leftImageView.snp.trailing).offset(5)
-                        make.height.equalTo(20)
-                        make.width.lessThanOrEqualTo(150)
-                    }
-                    cell.leftTalkBox.snp.makeConstraints { make in
-                        make.top.equalTo(cell.leftnameLabel.snp.bottom).offset(5)
-                        make.leading.equalTo(cell.leftImageView.snp.trailing).offset(5)
-                        make.height.greaterThanOrEqualTo(50)
-                        make.width.lessThanOrEqualTo(150)
-                    }
-                    cell.leftTime.snp.makeConstraints { make in
-                        make.bottom.equalTo(cell.leftTalkBox.snp.bottom)
-                        make.leading.equalTo(cell.leftTalkBox.snp.trailing).offset(5)
-                        make.height.equalTo(30)
-                        make.width.equalTo(70)
-                    }
-                    cell.leftcheck.snp.makeConstraints { make in
-                        make.bottom.equalTo(cell.leftTime.snp.top).offset(-2)
-                        make.leading.equalTo(cell.leftTalkBox.snp.trailing).offset(5)
-                        make.height.equalTo(20)
-                        make.width.equalTo(30)
+                    //시간 정제
+                    let date = Date(timeIntervalSince1970: self.chatList[indexPath.row].date)
+                    
+                    let formatter = DateFormatter()
+                    formatter.dateFormat = "yyyy-MM-dd HH:mm"
+                    let fixDate = "\(formatter.string(from: date))"
+                    
+                    cell.leftTalkBox.text = self.chatList[indexPath.row].message
+                    cell.leftTime.text = fixDate
+                    
+                    self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(dbOnTable)").getDocument { snapshot, error in
+                        if error == nil {
+                            self.allUserCount = (snapshot!.data()!["memberCount"] as! String)
+                            let changeUserCount = Int(self.allUserCount)! - self.chatList[indexPath.row].readList.count
+                            
+                            cell.leftcheck.text = changeUserCount < 1 ? "" : "\(changeUserCount)"
+                        } else {
+                            print(error!.localizedDescription)
+                        }
                     }
                     
                     //채팅친 사람 이름
@@ -597,16 +521,10 @@ class ChattingRoomVM {
                     DispatchQueue.main.async {
                         self.findImage(imgView: cell.leftImageView, phone: self.chatList[indexPath.row].sender)
                     }
+                    return cell
                 }
-                
             }
-            
         }
-        
-        tableView.rowHeight = 80
-        tableView.estimatedRowHeight = UITableView.automaticDimension
-        
-        return cell
     }
     
     //테이블 뷰 섹션에 나타낼 로우 갯수
