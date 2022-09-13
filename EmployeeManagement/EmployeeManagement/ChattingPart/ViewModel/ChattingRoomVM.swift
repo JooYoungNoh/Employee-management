@@ -37,6 +37,7 @@ class ChattingRoomVM {
     var dbRoom: String = ""
     //내가 메시지 보낼때 있는 현재 인원
     var chatPresentUser: [String] = []
+    var saveMessage: String = ""
     
     //(deletePresentUser)
     //인원들 아이디 저장 변수
@@ -231,6 +232,8 @@ class ChattingRoomVM {
     func doSendButton(activationOnTable: Bool, phoneListOnTable: [String], roomTitleOnTable: String, dbIDOnTable: String, writeTV: UITextView){
         let date = Date().timeIntervalSince1970
         
+        self.saveMessage = writeTV.text
+        
         self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(dbIDOnTable)").getDocument { snapshot3, error3 in
             if error3 == nil {
                 self.chatPresentUser = (snapshot3!.data()!["presentUser"] as! [String])
@@ -241,7 +244,7 @@ class ChattingRoomVM {
                     //내 채팅 리스트 정보 업데이트
                     self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(dbIDOnTable)").updateData([
                         "date" : date,
-                        "newMessage" : "\(writeTV.text ?? "")",
+                        "newMessage" : "\(self.saveMessage)",
                         "activation" : true
                     ])
                     
@@ -251,7 +254,7 @@ class ChattingRoomVM {
                         "imgCheck" : self.imgCheck,
                         "date" : date,
                         "sender" : "\(self.appDelegate.phoneInfo!)",
-                        "message" : "\(writeTV.text ?? "")",
+                        "message" : "\(self.saveMessage)",
                         "readList" : ["\(self.appDelegate.phoneInfo!)"]
                     ])
                     
@@ -297,7 +300,7 @@ class ChattingRoomVM {
                                         "roomTitle" : realRoomTitle,
                                         "phoneList" : self.dbPhone,
                                         "memberCount" : "\(self.dbPhone.count + 1)",
-                                        "newMessage" : "\(writeTV.text ?? "")",
+                                        "newMessage" : "\(self.saveMessage)",
                                         "newCount" : "1",
                                         "activation" : true,
                                         "presentUser" : self.chatPresentUser
@@ -308,7 +311,7 @@ class ChattingRoomVM {
                                         "imgCheck" : self.imgCheck,
                                         "date" : date,
                                         "sender" : "\(self.appDelegate.phoneInfo!)",
-                                        "message" : "\(writeTV.text ?? "")",
+                                        "message" : "\(self.saveMessage)",
                                         "readList" : ["\(self.appDelegate.phoneInfo!)"]
                                     ])
                                 }
@@ -321,7 +324,7 @@ class ChattingRoomVM {
                     //내 채팅 리스트 정보 업데이트
                     self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(dbIDOnTable)").updateData([
                         "date" : date,
-                        "newMessage" : "\(writeTV.text ?? "")",
+                        "newMessage" : "\(self.saveMessage)",
                     ])
                     
                     //내 채팅방 채팅 추가
@@ -330,7 +333,7 @@ class ChattingRoomVM {
                         "imgCheck" : self.imgCheck,
                         "date" : date,
                         "sender" : "\(self.appDelegate.phoneInfo!)",
-                        "message" : "\(writeTV.text ?? "")",
+                        "message" : "\(self.saveMessage)",
                         "readList" : self.chatPresentUser
                     ])
                     
@@ -354,8 +357,8 @@ class ChattingRoomVM {
                                         if error2 == nil {
                                             self.db.collection("users").document("\(self.dbcheck)").collection("chattingList").document("\(dbIDOnTable)").updateData([
                                                 "date" : date,
-                                                "newMessage" : "\(writeTV.text ?? "")",
-                                                "newCount" : "\(Int(snapshot2!.data()!["newCount"] as! String)! + 1)",
+                                                "newMessage" : "\(self.saveMessage)",
+                                                "newCount" : "\(self.chatPresentUser.contains(i) ? 0 : Int(snapshot2!.data()!["newCount"] as! String)! + 1)",
                                             ])
                                         }
                                     }
@@ -366,7 +369,7 @@ class ChattingRoomVM {
                                         "imgCheck" : self.imgCheck,
                                         "date" : date,
                                         "sender" : "\(self.appDelegate.phoneInfo!)",
-                                        "message" : "\(writeTV.text ?? "")",
+                                        "message" : "\(self.saveMessage)",
                                         "readList" : self.chatPresentUser
                                     ])
                                 }
@@ -385,7 +388,6 @@ class ChattingRoomVM {
     //MARK: 테이블 뷰 메소드
     //셀 정보
     func cellInfo(tableView: UITableView, indexPath: IndexPath, dbOnTable: String) -> UITableViewCell {
-        
         tableView.rowHeight = 0
         
         if self.chatList[indexPath.row].sender == "invitation" {      //초대할 경우
@@ -482,6 +484,7 @@ class ChattingRoomVM {
                     
                     tableView.rowHeight = cell.leftTalkBox.intrinsicContentSize.height + 20
                     
+                    
                     self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(dbOnTable)").getDocument { snapshot, error in
                         if error == nil {
                             self.allUserCount = (snapshot!.data()!["memberCount"] as! String)
@@ -507,6 +510,7 @@ class ChattingRoomVM {
                     cell.leftTime.text = fixDate
                     
                     tableView.rowHeight = cell.leftTalkBox.intrinsicContentSize.height + 40
+                    
                     
                     self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(dbOnTable)").getDocument { snapshot, error in
                         if error == nil {

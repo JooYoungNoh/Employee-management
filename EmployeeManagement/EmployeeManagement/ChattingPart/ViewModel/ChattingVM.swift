@@ -134,6 +134,17 @@ class ChattingVM {
                  cell.commentLabel.textColor = .red
                  cell.dateLabel.text = ""
                  cell.userCount.text = ""
+                 cell.newMessageCount.isHidden = true
+                 cell.userImageView.isHidden = true
+                 cell.userTwoImageView1.isHidden = true
+                 cell.userTwoImageView2.isHidden = true
+                 cell.userThreeImageView1.isHidden = true
+                 cell.userThreeImageView2.isHidden = true
+                 cell.userThreeImageView3.isHidden = true
+                 cell.userFourImageView1.isHidden = true
+                 cell.userFourImageView2.isHidden = true
+                 cell.userFourImageView3.isHidden = true
+                 cell.userFourImageView4.isHidden = true
              } else {
                  let date = Date(timeIntervalSince1970: self.chattingList[indexPath.row].date) + 32400
                  
@@ -154,6 +165,14 @@ class ChattingVM {
                  //방 업데이트 날짜
                  cell.dateLabel.text = fixDate
                  
+                 //새로운 메시지 갯수
+                 if self.chattingList[indexPath.row].newCount != "0" {
+                     cell.newMessageCount.isHidden = false
+                     cell.newMessageCount.text = self.chattingList[indexPath.row].newCount
+                 } else {
+                     cell.newMessageCount.isHidden = true
+                 }
+                 
                  //메시지
                  if self.chattingList[indexPath.row].activation == false {
                      cell.commentLabel.text = "채팅을 입력하여 방을 활성화해주세요"
@@ -167,24 +186,56 @@ class ChattingVM {
                      switch self.chattingList[indexPath.row].memberCount {
                      case "2":
                          cell.userImageView.isHidden = false
+                         cell.userTwoImageView1.isHidden = true
+                         cell.userTwoImageView2.isHidden = true
+                         cell.userThreeImageView1.isHidden = true
+                         cell.userThreeImageView2.isHidden = true
+                         cell.userThreeImageView3.isHidden = true
+                         cell.userFourImageView1.isHidden = true
+                         cell.userFourImageView2.isHidden = true
+                         cell.userFourImageView3.isHidden = true
+                         cell.userFourImageView4.isHidden = true
                          self.findImage(imgView: cell.userImageView, phone: self.chattingList[indexPath.row].phoneList[0])
                      case "3":
+                         cell.userImageView.isHidden = true
                          cell.userTwoImageView1.isHidden = false
                          cell.userTwoImageView2.isHidden = false
+                         cell.userThreeImageView1.isHidden = true
+                         cell.userThreeImageView2.isHidden = true
+                         cell.userThreeImageView3.isHidden = true
+                         cell.userFourImageView1.isHidden = true
+                         cell.userFourImageView2.isHidden = true
+                         cell.userFourImageView3.isHidden = true
+                         cell.userFourImageView4.isHidden = true
                          self.findImage(imgView: cell.userTwoImageView1, phone: self.chattingList[indexPath.row].phoneList[0])
                          self.findImage(imgView: cell.userTwoImageView2, phone: self.chattingList[indexPath.row].phoneList[1])
                      case "4":
+                         cell.userImageView.isHidden = true
+                         cell.userTwoImageView1.isHidden = true
+                         cell.userTwoImageView2.isHidden = true
                          cell.userThreeImageView1.isHidden = false
                          cell.userThreeImageView2.isHidden = false
                          cell.userThreeImageView3.isHidden = false
+                         cell.userFourImageView1.isHidden = true
+                         cell.userFourImageView2.isHidden = true
+                         cell.userFourImageView3.isHidden = true
+                         cell.userFourImageView4.isHidden = true
+
                          self.findImage(imgView: cell.userThreeImageView1, phone: self.chattingList[indexPath.row].phoneList[0])
                          self.findImage(imgView: cell.userThreeImageView2, phone: self.chattingList[indexPath.row].phoneList[1])
                          self.findImage(imgView: cell.userThreeImageView3, phone: self.chattingList[indexPath.row].phoneList[2])
                      default:
+                         cell.userImageView.isHidden = true
+                         cell.userTwoImageView1.isHidden = true
+                         cell.userTwoImageView2.isHidden = true
+                         cell.userThreeImageView1.isHidden = true
+                         cell.userThreeImageView2.isHidden = true
+                         cell.userThreeImageView3.isHidden = true
                          cell.userFourImageView1.isHidden = false
                          cell.userFourImageView2.isHidden = false
                          cell.userFourImageView3.isHidden = false
                          cell.userFourImageView4.isHidden = false
+                         
                          self.findImage(imgView: cell.userFourImageView1, phone: self.chattingList[indexPath.row].phoneList[0])
                          self.findImage(imgView: cell.userFourImageView2, phone: self.chattingList[indexPath.row].phoneList[1])
                          self.findImage(imgView: cell.userFourImageView3, phone: self.chattingList[indexPath.row].phoneList[2])
@@ -198,6 +249,17 @@ class ChattingVM {
                  cell.titleLabel.text = "검색 결과가 없습니다"
                  cell.titleLabel.textColor = .red
                  cell.dateLabel.text = ""
+                 cell.newMessageCount.isHidden = true
+                 cell.userImageView.isHidden = true
+                 cell.userTwoImageView1.isHidden = true
+                 cell.userTwoImageView2.isHidden = true
+                 cell.userThreeImageView1.isHidden = true
+                 cell.userThreeImageView2.isHidden = true
+                 cell.userThreeImageView3.isHidden = true
+                 cell.userFourImageView1.isHidden = true
+                 cell.userFourImageView2.isHidden = true
+                 cell.userFourImageView3.isHidden = true
+                 cell.userFourImageView4.isHidden = true
              } else {
                  let date2 = Date(timeIntervalSince1970: self.searchChattingList[indexPath.row].date) + 32400
                  let formatter = DateFormatter()
@@ -218,6 +280,14 @@ class ChattingVM {
                  //방 업데이트 날짜
                  cell.dateLabel.text = fixDate2
                  
+                 //새로운 메시지 갯수
+                 if self.searchChattingList[indexPath.row].newCount != "0" {
+                     cell.newMessageCount.isHidden = false
+                     cell.newMessageCount.text = self.searchChattingList[indexPath.row].newCount
+                 } else {
+                     cell.newMessageCount.isHidden = true
+                 }
+                 
                  //메시지
                  if self.searchChattingList[indexPath.row].activation == false {
                      cell.commentLabel.text = "채팅을 입력하여 방을 활성화해주세요"
@@ -231,20 +301,50 @@ class ChattingVM {
                      switch self.searchChattingList[indexPath.row].memberCount {
                      case "2":
                          cell.userImageView.isHidden = false
+                         cell.userTwoImageView1.isHidden = true
+                         cell.userTwoImageView2.isHidden = true
+                         cell.userThreeImageView1.isHidden = true
+                         cell.userThreeImageView2.isHidden = true
+                         cell.userThreeImageView3.isHidden = true
+                         cell.userFourImageView1.isHidden = true
+                         cell.userFourImageView2.isHidden = true
+                         cell.userFourImageView3.isHidden = true
+                         cell.userFourImageView4.isHidden = true
                          self.findImage(imgView: cell.userImageView, phone: self.searchChattingList[indexPath.row].phoneList[0])
                      case "3":
+                         cell.userImageView.isHidden = true
                          cell.userTwoImageView1.isHidden = false
                          cell.userTwoImageView2.isHidden = false
+                         cell.userThreeImageView1.isHidden = true
+                         cell.userThreeImageView2.isHidden = true
+                         cell.userThreeImageView3.isHidden = true
+                         cell.userFourImageView1.isHidden = true
+                         cell.userFourImageView2.isHidden = true
+                         cell.userFourImageView3.isHidden = true
+                         cell.userFourImageView4.isHidden = true
                          self.findImage(imgView: cell.userTwoImageView1, phone: self.searchChattingList[indexPath.row].phoneList[0])
                          self.findImage(imgView: cell.userTwoImageView2, phone: self.searchChattingList[indexPath.row].phoneList[1])
                      case "4":
+                         cell.userImageView.isHidden = true
+                         cell.userTwoImageView1.isHidden = true
+                         cell.userTwoImageView2.isHidden = true
                          cell.userThreeImageView1.isHidden = false
                          cell.userThreeImageView2.isHidden = false
                          cell.userThreeImageView3.isHidden = false
+                         cell.userFourImageView1.isHidden = true
+                         cell.userFourImageView2.isHidden = true
+                         cell.userFourImageView3.isHidden = true
+                         cell.userFourImageView4.isHidden = true
                          self.findImage(imgView: cell.userThreeImageView1, phone: self.searchChattingList[indexPath.row].phoneList[0])
                          self.findImage(imgView: cell.userThreeImageView2, phone: self.searchChattingList[indexPath.row].phoneList[1])
                          self.findImage(imgView: cell.userThreeImageView3, phone: self.searchChattingList[indexPath.row].phoneList[2])
                      default:
+                         cell.userImageView.isHidden = true
+                         cell.userTwoImageView1.isHidden = true
+                         cell.userTwoImageView2.isHidden = true
+                         cell.userThreeImageView1.isHidden = true
+                         cell.userThreeImageView2.isHidden = true
+                         cell.userThreeImageView3.isHidden = true
                          cell.userFourImageView1.isHidden = false
                          cell.userFourImageView2.isHidden = false
                          cell.userFourImageView3.isHidden = false
@@ -311,6 +411,7 @@ class ChattingVM {
                 nv.roomTitleOnTable = self.chattingList[indexPath.row].roomTitle
                 nv.activationOnTable = self.chattingList[indexPath.row].activation
                 nv.imgListOnTable = self.userImageList
+                nv.reloadOnTable = false
                 
                 //탭바 숨김
                 let customTabBar = uv.tabBarController as! CSTabBarController
@@ -358,6 +459,7 @@ class ChattingVM {
                 nv.roomTitleOnTable = self.searchChattingList[indexPath.row].roomTitle
                 nv.activationOnTable = self.searchChattingList[indexPath.row].activation
                 nv.imgListOnTable = self.userImageList
+                nv.reloadOnTable = false
                 
                 //탭바 숨김
                 let customTabBar = uv.tabBarController as! CSTabBarController

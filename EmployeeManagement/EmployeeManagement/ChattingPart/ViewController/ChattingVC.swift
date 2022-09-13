@@ -36,14 +36,14 @@ class ChattingVC: UIViewController {
         let customTabBar = self.tabBarController as! CSTabBarController
         customTabBar.csView.isHidden = false
         self.uiCreate()
-        print(self.viewModel.checkReload)
         self.viewModel.bringChattingList { completion in
-            self.tableView.reloadData()
             if self.viewModel.checkReload == false {
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5){
                     self.tableView.reloadData()
                     self.viewModel.checkReload = true
                 }
+            } else {
+                self.tableView.reloadData()
             }
         }
     }

@@ -16,6 +16,8 @@ class ChattingRoomVC: UIViewController {
     var phoneListOnTable: [String] = []         //전 화면에서 가져온 채팅방 전체 맴버
     var imgListOnTable: [imageSave] = []        //전 화면에서 가져온 이미지 리스트
     
+    var reloadOnTable: Bool = false             //전 화면에서 왓다는 증거
+    
     var viewModel = ChattingRoomVM()
     
     //테이블 뷰 높이
@@ -75,8 +77,8 @@ class ChattingRoomVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.viewModel.bringChattingList(dbOnTable: self.dbIDOnTable, activationOnTable: self.activationOnTable, phoneListOnTable: self.phoneListOnTable) { completion in
-            DispatchQueue.main.async {
-                self.tableview.reloadData()
+            self.tableview.reloadData()
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5){
                 self.tableview.scrollToRow(at: IndexPath(row: self.viewModel.chatList.count - 1, section: 0), at: .bottom, animated: true)
             }
         }
@@ -93,16 +95,21 @@ class ChattingRoomVC: UIViewController {
     
     @objc func sendMessage(_ sender: UIButton){
         self.viewModel.doSendButton(activationOnTable: self.activationOnTable, phoneListOnTable: self.phoneListOnTable, roomTitleOnTable: self.roomTitleOnTable, dbIDOnTable: self.dbIDOnTable, writeTV: self.writeTV)
+        self.writeTV.text = ""
     }
 
     //MARK: 화면 메소드
     func uiCreate(){
         //내비게이션
-        self.navigationItem.title = "그룹채팅"
+        if self.phoneListOnTable.count == 1 {
+            self.navigationItem.title = self.roomTitleOnTable
+        } else {
+            self.navigationItem.title = "그룹채팅"
+        }
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font : UIFont(name: "CookieRun", size: 20)!]
         self.navigationController?.navigationBar.prefersLargeTitles = false
         self.navigationController?.navigationBar.tintColor = UIColor.black
-        self.navigationController?.navigationBar.topItem?.title = "3"
+        self.navigationController?.navigationBar.topItem?.title = ""
         
         //테이블 뷰
         self.tableview.separatorStyle = .none
@@ -203,7 +210,7 @@ extension ChattingRoomVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         self.viewModel.numberOfRowsInSection()
-    }    
+    }
 }
 
 /*//MARK: 텍스트 뷰 메소드
