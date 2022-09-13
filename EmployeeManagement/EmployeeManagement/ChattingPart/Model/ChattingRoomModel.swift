@@ -38,7 +38,7 @@ struct roomImageSave {
 
 //커스텀 레이블(패딩)
 class BasePaddingLabel: UILabel {
-    private var padding = UIEdgeInsets(top: 0.0, left: 10.0, bottom: 0.0, right: 10.0)
+    private var padding = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0)
 
     convenience init(padding: UIEdgeInsets) {
         self.init()
