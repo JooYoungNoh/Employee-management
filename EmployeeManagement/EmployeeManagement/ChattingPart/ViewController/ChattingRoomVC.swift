@@ -78,7 +78,6 @@ class ChattingRoomVC: UIViewController {
             DispatchQueue.main.async {
                 self.tableview.reloadData()
                 self.tableview.scrollToRow(at: IndexPath(row: self.viewModel.chatList.count - 1, section: 0), at: .bottom, animated: true)
-               // print(self.viewModel.userImageList.count)
             }
         }
     }
@@ -204,12 +203,7 @@ extension ChattingRoomVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         self.viewModel.numberOfRowsInSection()
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
-    }
-    
+    }    
 }
 
 /*//MARK: 텍스트 뷰 메소드

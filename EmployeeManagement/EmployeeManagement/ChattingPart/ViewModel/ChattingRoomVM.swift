@@ -85,7 +85,9 @@ class ChattingRoomVM {
                         self.userProfileImgCheck = doc.data()["profileImg"] as! Bool
                     }
                     //프로필 이미지 다운
-                    self.profileDownloadimage(phone: i)
+                    DispatchQueue.main.async {
+                        self.profileDownloadimage(phone: i)
+                    }
                     
                     self.db.collection("users").document("\(self.dbID)").collection("chattingList").document("\(dbOnTable)").collection("chat").getDocuments(completion: { snapshot, error in
                         if error == nil {
@@ -384,6 +386,8 @@ class ChattingRoomVM {
     //셀 정보
     func cellInfo(tableView: UITableView, indexPath: IndexPath, dbOnTable: String) -> UITableViewCell {
         
+        tableView.rowHeight = 0
+        
         if self.chatList[indexPath.row].sender == "invitation" {      //초대할 경우
             //TODO: 나중에 사람 초대 기능 넣을 경우(가운데에 셀에 레이블도 하나 만들어야됨
             //cell도 바꾸기
@@ -403,6 +407,8 @@ class ChattingRoomVM {
             
             cell.rightTalkBox.text = self.chatList[indexPath.row].message
             cell.rightTime.text = fixDate
+            
+            tableView.rowHeight = cell.rightTalkBox.intrinsicContentSize.height + 20
             
             self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(dbOnTable)").getDocument { snapshot, error in
                 if error == nil {
@@ -429,6 +435,8 @@ class ChattingRoomVM {
                 
                 cell.leftTalkBox.text = self.chatList[indexPath.row].message
                 cell.leftTime.text = fixDate
+                
+                tableView.rowHeight = cell.leftTalkBox.intrinsicContentSize.height + 40
                 
                 self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(dbOnTable)").getDocument { snapshot, error in
                     if error == nil {
@@ -472,6 +480,8 @@ class ChattingRoomVM {
                     cell.leftTalkBox.text = self.chatList[indexPath.row].message
                     cell.leftTime.text = fixDate
                     
+                    tableView.rowHeight = cell.leftTalkBox.intrinsicContentSize.height + 20
+                    
                     self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(dbOnTable)").getDocument { snapshot, error in
                         if error == nil {
                             self.allUserCount = (snapshot!.data()!["memberCount"] as! String)
@@ -495,6 +505,8 @@ class ChattingRoomVM {
                     
                     cell.leftTalkBox.text = self.chatList[indexPath.row].message
                     cell.leftTime.text = fixDate
+                    
+                    tableView.rowHeight = cell.leftTalkBox.intrinsicContentSize.height + 40
                     
                     self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(dbOnTable)").getDocument { snapshot, error in
                         if error == nil {
