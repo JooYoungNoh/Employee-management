@@ -114,6 +114,18 @@ class ChattingVM {
     //MARK: 테이블 뷰 메소드
      func cellInfo(tableView: UITableView, indexPath: IndexPath, isFiltering: Bool) -> UITableViewCell {
          guard let cell = tableView.dequeueReusableCell(withIdentifier: ChattingCell.identifier, for: indexPath) as? ChattingCell else { return UITableViewCell() }
+         
+         cell.userImageView.image = UIImage(named: "account")
+         cell.userTwoImageView1.image = UIImage(named: "account")
+         cell.userTwoImageView2.image = UIImage(named: "account")
+         cell.userThreeImageView1.image = UIImage(named: "account")
+         cell.userThreeImageView2.image = UIImage(named: "account")
+         cell.userThreeImageView3.image = UIImage(named: "account")
+         cell.userFourImageView1.image = UIImage(named: "account")
+         cell.userFourImageView2.image = UIImage(named: "account")
+         cell.userFourImageView3.image = UIImage(named: "account")
+         cell.userFourImageView4.image = UIImage(named: "account")
+         
          if isFiltering == false {
              if self.chattingList.isEmpty == true {
                  cell.titleLabel.text = "채팅방이 없습니다."
