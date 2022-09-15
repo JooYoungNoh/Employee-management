@@ -81,7 +81,6 @@ class ChattingRoomCell: UITableViewCell {
         self.setNeedsLayout()
         self.layoutIfNeeded()
         
-        
     }
     
     required init?(coder: NSCoder) {
