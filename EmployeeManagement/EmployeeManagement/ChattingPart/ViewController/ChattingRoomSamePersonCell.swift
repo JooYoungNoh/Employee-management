@@ -11,6 +11,12 @@ class ChattingRoomSamePersonCell: UITableViewCell {
     //상대방이 대화할 때 전 사람과 같을 경우
     static let identifier = "ChattingRoomSamePersonCell"
     
+    let stackView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .systemGray6
+        return view
+    }()
+    
     //상대방이 한 대화
     let leftTalkBox: BasePaddingLabel = {
         let label = BasePaddingLabel()
@@ -48,14 +54,20 @@ class ChattingRoomSamePersonCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?){
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.backgroundColor = .systemGray6
-        contentView.addSubview(leftTalkBox)
-        contentView.addSubview(leftTime)
-        contentView.addSubview(leftcheck)
+        contentView.addSubview(self.stackView)
+        
+        self.stackView.addSubview(leftTalkBox)
+        self.stackView.addSubview(leftTime)
+        self.stackView.addSubview(leftcheck)
+        
+        self.stackView.snp.makeConstraints { make in
+            make.top.leading.trailing.bottom.equalToSuperview()
+        }
         
         self.leftTalkBox.snp.makeConstraints { make in
-            make.top.equalTo(self.snp.top).offset(10)
-            make.leading.equalTo(self.snp.leading).offset(55)
-            make.bottom.equalTo(self.snp.bottom).offset(-10)
+            make.top.equalTo(stackView.snp.top).offset(10)
+            make.leading.equalTo(stackView.snp.leading).offset(55)
+            make.bottom.equalTo(stackView.snp.bottom).offset(-10)
             make.width.lessThanOrEqualTo(150)
         }
         self.leftTime.snp.makeConstraints { make in

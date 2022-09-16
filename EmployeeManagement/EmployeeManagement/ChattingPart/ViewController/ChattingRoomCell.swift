@@ -11,6 +11,12 @@ class ChattingRoomCell: UITableViewCell {
     //내가 대화할 때
     static let identifier = "ChattingRoomCell"
     
+    let stackView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .systemGray6
+        return view
+    }()
+    
     let rightTalkBox: BasePaddingLabel = {
         let label = BasePaddingLabel()
         label.backgroundColor = .white
@@ -47,14 +53,20 @@ class ChattingRoomCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?){
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.backgroundColor = .systemGray6
-        contentView.addSubview(rightTalkBox)
-        contentView.addSubview(rightTime)
-        contentView.addSubview(rightcheck)
+        contentView.addSubview(self.stackView)
+        
+        self.stackView.addSubview(rightTalkBox)
+        self.stackView.addSubview(rightTime)
+        self.stackView.addSubview(rightcheck)
+        
+        self.stackView.snp.makeConstraints { make in
+            make.top.leading.trailing.bottom.equalToSuperview()
+        }
         
         self.rightTalkBox.snp.makeConstraints { make in
-            make.top.equalTo(self.snp.top).offset(10)
-            make.trailing.equalTo(self.snp.trailing).offset(-10)
-            make.bottom.equalTo(self.snp.bottom).offset(-10)
+            make.top.equalTo(stackView.snp.top).offset(10)
+            make.trailing.equalTo(stackView.snp.trailing).offset(-10)
+            make.bottom.equalTo(stackView.snp.bottom).offset(-10)
             make.width.lessThanOrEqualTo(200)
         }
         

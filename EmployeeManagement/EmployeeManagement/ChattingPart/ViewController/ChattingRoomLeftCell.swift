@@ -11,6 +11,12 @@ class ChattingRoomLeftCell: UITableViewCell {
     //상대방이 대화할 때
     static let identifier = "ChattingRoomLeftCell"
     
+    let stackView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .systemGray6
+        return view
+    }()
+    
     let leftImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.layer.cornerRadius = 20
@@ -62,19 +68,25 @@ class ChattingRoomLeftCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?){
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.backgroundColor = .systemGray6
-        contentView.addSubview(leftImageView)
-        contentView.addSubview(leftnameLabel)
-        contentView.addSubview(leftTalkBox)
-        contentView.addSubview(leftTime)
-        contentView.addSubview(leftcheck)
+        contentView.addSubview(self.stackView)
+        
+        self.stackView.addSubview(leftImageView)
+        self.stackView.addSubview(leftnameLabel)
+        self.stackView.addSubview(leftTalkBox)
+        self.stackView.addSubview(leftTime)
+        self.stackView.addSubview(leftcheck)
+        
+        self.stackView.snp.makeConstraints { make in
+            make.top.leading.trailing.bottom.equalToSuperview()
+        }
         
         self.leftImageView.snp.makeConstraints { make in
-            make.top.equalTo(self.snp.top).offset(8)
-            make.leading.equalTo(self.snp.leading).offset(10)
+            make.top.equalTo(stackView.snp.top).offset(8)
+            make.leading.equalTo(stackView.snp.leading).offset(10)
             make.width.height.equalTo(40)
         }
         self.leftnameLabel.snp.makeConstraints { make in
-            make.top.equalTo(self.snp.top).offset(5)
+            make.top.equalTo(stackView.snp.top).offset(5)
             make.leading.equalTo(self.leftImageView.snp.trailing).offset(5)
             make.height.equalTo(20)
             make.width.lessThanOrEqualTo(150)
@@ -82,7 +94,7 @@ class ChattingRoomLeftCell: UITableViewCell {
         self.leftTalkBox.snp.makeConstraints { make in
             make.top.equalTo(self.leftnameLabel.snp.bottom).offset(5)
             make.leading.equalTo(self.leftImageView.snp.trailing).offset(5)
-            make.bottom.equalTo(self.snp.bottom).offset(-10)
+            make.bottom.equalTo(stackView.snp.bottom).offset(-10)
             make.width.lessThanOrEqualTo(150)
         }
         self.leftTime.snp.makeConstraints { make in
