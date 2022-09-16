@@ -77,8 +77,8 @@ class ChattingRoomVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.viewModel.bringChattingList(dbOnTable: self.dbIDOnTable, activationOnTable: self.activationOnTable, phoneListOnTable: self.phoneListOnTable) { completion in
-            self.tableview.reloadData()
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5){
+            DispatchQueue.main.async {
+                self.tableview.reloadData()
                 self.tableview.scrollToRow(at: IndexPath(row: self.viewModel.chatList.count - 1, section: 0), at: .bottom, animated: true)
             }
         }
@@ -210,6 +210,10 @@ extension ChattingRoomVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         self.viewModel.numberOfRowsInSection()
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
     }
 }
 
