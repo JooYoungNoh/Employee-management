@@ -231,10 +231,7 @@ extension ChattingRoomVC: UITableViewDataSource, UITableViewDelegate {
 //MARK: 텍스트 뷰 메소드
 extension ChattingRoomVC: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
-        self.viewModel.textViewDidChange(textView: textView, sendButton: self.sendButton)
-        if self.textviewHeight != textView.bounds.height {
-            self.tableview.scrollToRow(at: IndexPath.init(row: self.viewModel.chatList.count - 1, section: 0), at: .bottom, animated: false)
-        }
+        self.viewModel.textViewDidChange(textView: textView, sendButton: self.sendButton, textviewHeight: self.textviewHeight, tableview: self.tableview)
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {

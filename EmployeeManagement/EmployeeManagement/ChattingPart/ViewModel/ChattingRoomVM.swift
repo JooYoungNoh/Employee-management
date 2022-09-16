@@ -569,11 +569,15 @@ class ChattingRoomVM {
     
     
     //MARK: 텍스트 뷰 메소드
-    func textViewDidChange(textView: UITextView, sendButton: UIButton) {
+    func textViewDidChange(textView: UITextView, sendButton: UIButton, textviewHeight: CGFloat, tableview: UITableView) {
         if textView.text == ""{
             sendButton.isHidden = true
         } else {
             sendButton.isHidden = false
+        }
+        
+        if textviewHeight != textView.bounds.height {
+            tableview.scrollToRow(at: IndexPath.init(row: self.chatList.count - 1, section: 0), at: .bottom, animated: false)
         }
     }
     
