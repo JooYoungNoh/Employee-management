@@ -24,6 +24,9 @@ class ChattingRoomVC: UIViewController {
     var changeHeight: Int = 680
     var heightConstraint: Constraint? = nil
     
+    //텍스트 뷰 높이
+    var textviewHeight: CGFloat = 0
+    
     //테이블 뷰
     let tableview = UITableView()
     
@@ -129,30 +132,13 @@ class ChattingRoomVC: UIViewController {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard(_:)))
         view.addGestureRecognizer(tapGesture)
         
-        self.view.addSubview(self.tableview)
-        tableview.snp.makeConstraints { make in
-            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
-            make.leading.equalTo(self.view.safeAreaLayoutGuide.snp.leading)
-            make.trailing.equalTo(self.view.safeAreaLayoutGuide.snp.trailing)
-            self.heightConstraint = make.height.equalTo(680).constraint
-        }
-        
-        //텍스트 필드
-        self.view.addSubview(self.writeTV)
-        writeTV.snp.makeConstraints { make in
-            make.leading.equalTo(self.view.safeAreaLayoutGuide.snp.leading).offset(55)
-            make.trailing.equalTo(self.view.safeAreaLayoutGuide.snp.trailing).offset(-55)
-            make.top.equalTo(self.tableview.snp.bottom).offset(6)
-            make.height.lessThanOrEqualTo(120)
-        }
-        
         //사진 추가 버튼
         self.addPictureButton.addTarget(self, action: #selector(sendPicture(_:)), for: .touchUpInside)
         self.view.addSubview(self.addPictureButton)
         addPictureButton.snp.makeConstraints { make in
             make.leading.equalTo(self.view.safeAreaLayoutGuide.snp.leading).offset(15)
-            make.bottom.equalTo(self.writeTV.snp.bottom)
-            make.width.height.equalTo(30)
+            make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom)
+            make.width.height.equalTo(40)
         }
         
         //전송 버튼
@@ -160,8 +146,26 @@ class ChattingRoomVC: UIViewController {
         self.view.addSubview(self.sendButton)
         sendButton.snp.makeConstraints { make in
             make.trailing.equalTo(self.view.safeAreaLayoutGuide.snp.trailing).offset(-15)
-            make.bottom.equalTo(self.writeTV.snp.bottom)
-            make.width.height.equalTo(30)
+            make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom)
+            make.width.height.equalTo(40)
+        }
+        
+        //텍스트 필드
+        self.view.addSubview(self.writeTV)
+        writeTV.snp.makeConstraints { make in
+            make.leading.equalTo(self.addPictureButton.snp.trailing).offset(10)
+            make.trailing.equalTo(self.sendButton.snp.leading).offset(-10)
+            make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom)
+            make.height.lessThanOrEqualTo(120)
+        }
+        
+        self.view.addSubview(self.tableview)
+        tableview.snp.makeConstraints { make in
+            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
+            make.leading.equalTo(self.view.safeAreaLayoutGuide.snp.leading)
+            make.trailing.equalTo(self.view.safeAreaLayoutGuide.snp.trailing)
+            make.bottom.equalTo(self.writeTV.snp.top).offset(-10)
+            //self.heightConstraint = make.height.equalTo(680).constraint
         }
     }
     
@@ -231,6 +235,13 @@ extension ChattingRoomVC: UITableViewDataSource, UITableViewDelegate {
 extension ChattingRoomVC: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         self.viewModel.textViewDidChange(textView: textView, sendButton: self.sendButton)
+        if self.textviewHeight != textView.bounds.height {
+            self.tableview.scrollToRow(at: IndexPath.init(row: self.viewModel.chatList.count - 1, section: 0), at: .bottom, animated: false)
+        }
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        self.textviewHeight = textView.bounds.height
     }
    
 }
