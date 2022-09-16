@@ -58,13 +58,14 @@ class ChattingRoomVC: UIViewController {
         config.baseForegroundColor = .black
         config.image = UIImage(systemName: "arrow.up.circle.fill")
         let button = UIButton(configuration: config)
+        button.isHidden = true
         return button
     }()
     
     //MARK: viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-       // self.writeTV.delegate = self
+        self.writeTV.delegate = self
         self.tableview.delegate = self
         self.tableview.dataSource = self
         self.tableview.register(ChattingRoomCell.self, forCellReuseIdentifier: ChattingRoomCell.identifier)
@@ -104,6 +105,7 @@ class ChattingRoomVC: UIViewController {
     @objc func sendMessage(_ sender: UIButton){
         self.viewModel.doSendButton(activationOnTable: self.activationOnTable, phoneListOnTable: self.phoneListOnTable, roomTitleOnTable: self.roomTitleOnTable, dbIDOnTable: self.dbIDOnTable, writeTV: self.writeTV)
         self.writeTV.text = ""
+        self.sendButton.isHidden = true
     }
 
     //MARK: 화면 메소드
@@ -225,18 +227,14 @@ extension ChattingRoomVC: UITableViewDataSource, UITableViewDelegate {
     }
 }
 
-/*//MARK: 텍스트 뷰 메소드
+//MARK: 텍스트 뷰 메소드
 extension ChattingRoomVC: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
-        if textView.frame.height <= 30 {
-            self.textViewHeight = 0
-        } else if textView.frame.height <= 60 {
-            self.textViewHeight = 30
-        } else if textView.frame.height <= 90 {
-            self.textViewHeight = 60
+        if textView.text == ""{
+            self.sendButton.isHidden = true
         } else {
-            self.textViewHeight = 90
+            self.sendButton.isHidden = false
         }
     }
    
-}*/
+}
