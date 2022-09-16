@@ -567,4 +567,14 @@ class ChattingRoomVM {
         return self.chatList.count
     }
     
+    
+    //MARK: 텍스트 뷰 메소드
+    func textViewDidChange(textView: UITextView, sendButton: UIButton) {
+        if textView.text == ""{
+            sendButton.isHidden = true
+        } else {
+            sendButton.isHidden = false
+        }
+    }
+    
 }
