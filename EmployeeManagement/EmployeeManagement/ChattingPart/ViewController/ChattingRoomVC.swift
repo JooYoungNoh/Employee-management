@@ -20,9 +20,10 @@ class ChattingRoomVC: UIViewController {
     
     var viewModel = ChattingRoomVM()
     
-    //테이블 뷰 높이
-    var changeHeight: Int = 680
-    var heightConstraint: Constraint? = nil
+    //키보드에 따른 높이조절
+    var heightConstraint1: Constraint? = nil
+    var heightConstraint2: Constraint? = nil
+    var heightConstraint3: Constraint? = nil
     
     //텍스트 뷰 높이
     var textviewHeight: CGFloat = 0
@@ -137,7 +138,7 @@ class ChattingRoomVC: UIViewController {
         self.view.addSubview(self.addPictureButton)
         addPictureButton.snp.makeConstraints { make in
             make.leading.equalTo(self.view.safeAreaLayoutGuide.snp.leading).offset(15)
-            make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom)
+            self.heightConstraint1 = make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom).constraint
             make.width.height.equalTo(40)
         }
         
@@ -146,7 +147,7 @@ class ChattingRoomVC: UIViewController {
         self.view.addSubview(self.sendButton)
         sendButton.snp.makeConstraints { make in
             make.trailing.equalTo(self.view.safeAreaLayoutGuide.snp.trailing).offset(-15)
-            make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom)
+            self.heightConstraint2 = make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom).constraint
             make.width.height.equalTo(40)
         }
         
@@ -155,7 +156,7 @@ class ChattingRoomVC: UIViewController {
         writeTV.snp.makeConstraints { make in
             make.leading.equalTo(self.addPictureButton.snp.trailing).offset(10)
             make.trailing.equalTo(self.sendButton.snp.leading).offset(-10)
-            make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom)
+            self.heightConstraint3 = make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom).constraint
             make.height.lessThanOrEqualTo(120)
         }
         
@@ -186,33 +187,29 @@ extension ChattingRoomVC {
     
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
-                let keyboardRectangle = keyboardFrame.cgRectValue
-                let keyboardHeight = keyboardRectangle.height
+            let keyboardRectangle = keyboardFrame.cgRectValue
+            let keyboardHeight = keyboardRectangle.height
             
-            if self.changeHeight == 680 {
-                self.changeHeight -= (Int(keyboardHeight - 30))
-                self.heightConstraint?.update(offset: self.changeHeight)
+            self.heightConstraint1?.update(offset: -(keyboardHeight-20))
+            self.heightConstraint2?.update(offset: -(keyboardHeight-20))
+            self.heightConstraint3?.update(offset: -(keyboardHeight-20))
                 
-                UIViewPropertyAnimator(duration: 0.2, curve: .easeOut, animations: {
-                    self.view.layoutIfNeeded()
-                }).startAnimation()
-            }
+            UIViewPropertyAnimator(duration: 0.2, curve: .easeOut, animations: {
+                self.view.layoutIfNeeded()
+                self.tableview.scrollToRow(at: IndexPath.init(row: self.viewModel.chatList.count - 1, section: 0), at: .bottom, animated: false)
+            }).startAnimation()
         }
     }
     
     @objc func keyboardWillHide(notification: NSNotification) {
-        if self.changeHeight != 680 {
-            if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
-                    let keyboardRectangle = keyboardFrame.cgRectValue
-                    let keyboardHeight = keyboardRectangle.height
-                self.changeHeight += (Int(keyboardHeight - 30))
-                self.heightConstraint?.update(offset: self.changeHeight)
-                
-                UIViewPropertyAnimator(duration: 0.2, curve: .easeOut, animations: {
-                    self.view.layoutIfNeeded()
-                }).startAnimation()
-            }
-        }
+        self.heightConstraint1?.update(offset: 0)
+        self.heightConstraint2?.update(offset: 0)
+        self.heightConstraint3?.update(offset: 0)
+        
+        UIViewPropertyAnimator(duration: 0.2, curve: .easeOut, animations: {
+            self.view.layoutIfNeeded()
+            self.tableview.scrollToRow(at: IndexPath.init(row: self.viewModel.chatList.count - 1, section: 0), at: .bottom, animated: false)
+        }).startAnimation()
     }
 }
 
