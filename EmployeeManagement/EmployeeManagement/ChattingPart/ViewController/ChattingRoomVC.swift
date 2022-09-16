@@ -230,11 +230,7 @@ extension ChattingRoomVC: UITableViewDataSource, UITableViewDelegate {
 //MARK: 텍스트 뷰 메소드
 extension ChattingRoomVC: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
-        if textView.text == ""{
-            self.sendButton.isHidden = true
-        } else {
-            self.sendButton.isHidden = false
-        }
+        self.viewModel.textViewDidChange(textView: textView, sendButton: self.sendButton)
     }
    
 }
