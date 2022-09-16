@@ -229,7 +229,7 @@ class ChattingRoomVM {
     }
     
     //보내기 버튼 누를 때
-    func doSendButton(activationOnTable: Bool, phoneListOnTable: [String], roomTitleOnTable: String, dbIDOnTable: String, writeTV: UITextView){
+    func doSendButton(activationOnTable: Bool, phoneListOnTable: [String], roomTitleOnTable: String, dbIDOnTable: String, writeTV: UITextView, tableView: UITableView){
         let date = Date().timeIntervalSince1970
         
         self.saveMessage = writeTV.text
@@ -257,6 +257,29 @@ class ChattingRoomVM {
                         "message" : "\(self.saveMessage)",
                         "readList" : ["\(self.appDelegate.phoneInfo!)"]
                     ])
+                    
+                    //화면에 바로 보여주기
+                    self.listner = self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(dbIDOnTable)").collection("chat").order(by: "date", descending: false).addSnapshotListener({ snapshot, error in
+                        if error == nil && snapshot != nil{
+                            self.chatList.removeAll()
+                            
+                            for doc in snapshot!.documents {
+                                self.chatList.append(ChattingRoomModel.init(checkRead: doc.data()["checkRead"] as! Bool, imgCheck: doc.data()["imgCheck"] as! Bool, date: doc.data()["date"] as! TimeInterval, sender: doc.data()["sender"] as! String, message: doc.data()["message"] as? String ?? "", readList: doc.data()["readList"] as! [String]))
+                            }
+                            
+                           /* //채팅이 이미지인 경우
+                            for i in self.chatList{
+                                if i.imgCheck == true {
+                                    self.profileDownloadimage(phone: y)
+                                }
+                            }*/
+                            
+                            tableView.reloadData()
+                            tableView.scrollToRow(at: IndexPath(row: self.chatList.count - 1, section: 0), at: .bottom, animated: true)
+                        } else {
+                            print(error!.localizedDescription)
+                        }
+                    })
                     
                     //다른 방 사람들에게 처음 메시지 보내기
                     for i in phoneListOnTable {

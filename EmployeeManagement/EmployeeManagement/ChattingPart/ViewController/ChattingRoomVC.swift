@@ -103,7 +103,7 @@ class ChattingRoomVC: UIViewController {
     }
     
     @objc func sendMessage(_ sender: UIButton){
-        self.viewModel.doSendButton(activationOnTable: self.activationOnTable, phoneListOnTable: self.phoneListOnTable, roomTitleOnTable: self.roomTitleOnTable, dbIDOnTable: self.dbIDOnTable, writeTV: self.writeTV)
+        self.viewModel.doSendButton(activationOnTable: self.activationOnTable, phoneListOnTable: self.phoneListOnTable, roomTitleOnTable: self.roomTitleOnTable, dbIDOnTable: self.dbIDOnTable, writeTV: self.writeTV, tableView: self.tableview)
         self.writeTV.text = ""
         self.sendButton.isHidden = true
     }
