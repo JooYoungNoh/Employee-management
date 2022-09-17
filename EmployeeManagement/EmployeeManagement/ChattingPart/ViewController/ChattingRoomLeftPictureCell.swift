@@ -38,7 +38,7 @@ class ChattingRoomLeftPictureCell: UITableViewCell {
         imageView.layer.cornerRadius = 0
         imageView.layer.borderWidth = 0
         imageView.layer.masksToBounds = true
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleToFill
         return imageView
     }()
     let leftTime: UILabel = {
