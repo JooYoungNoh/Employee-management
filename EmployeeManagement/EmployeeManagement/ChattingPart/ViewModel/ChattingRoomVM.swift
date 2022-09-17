@@ -18,7 +18,6 @@ class ChattingRoomVM {
     var listner: ListenerRegistration?              //리스너 삭제
     
     var activationStatus: Bool = false              //활성화 여부
-    var imgCheck: Bool = false                      //이미지 유무
     
     //채팅 리스트(bringChattingList)
     var chatList: [ChattingRoomModel] = []
@@ -27,7 +26,6 @@ class ChattingRoomVM {
     var dbID: String = ""
     var dbReadList: [String] = []
     var dbOtherReadList: [String] = []
-    var userImageList: [roomImageSave] = []
     var userProfileImgCheck: Bool = false
     
     //firebase 저장 변수(활성화 했을 떄 상대방에게 방 생성) (doSendButton)
@@ -48,6 +46,8 @@ class ChattingRoomVM {
     //(cellInfo)
     var allUserCount: String = ""
     var userName: String = ""
+    var userImageList: [roomImageSave] = []
+    var chatImageList: [roomImageSave] = []
     
     
     //MARK: 액션 메소드
@@ -177,12 +177,113 @@ class ChattingRoomVM {
         }
     }
     
-    
-    
     //전화변호로 이미지 찾기
-    func findImage(imgView: UIImageView, phone: String){
+    func findProfileImage(imgView: UIImageView, phone: String){
         if let index = self.userImageList.firstIndex(where: {$0.userPhone == phone}){
             imgView.image = self.userImageList[index].userImage
+        }
+    }
+    
+    //MARK: 사진 버튼
+    //사진 선택 종류 후 메시지 업데이트
+    func pictureMessageSend(dbIDOnTable: String, date: TimeInterval, phoneListOnTable: [String]){
+        self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(dbIDOnTable)").getDocument { snapshot3, error3 in
+            if error3 == nil {
+                self.chatPresentUser.removeAll()
+                self.chatPresentUser = (snapshot3!.data()!["presentUser"] as! [String])
+                
+                //내 채팅 리스트 정보 업데이트
+                self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(dbIDOnTable)").updateData([
+                    "date" : date,
+                    "newMessage" : "사진",
+                ])
+                
+                //내 채팅방 채팅 추가
+                self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(dbIDOnTable)").collection("chat").addDocument(data: [
+                    "checkRead" : true,
+                    "imgCheck" : true,
+                    "date" : date,
+                    "sender" : "\(self.appDelegate.phoneInfo!)",
+                    "message" : "",
+                    "readList" : self.chatPresentUser
+                ])
+                
+                for i in phoneListOnTable {
+                    self.dbPhone.removeAll()
+                    self.dbcheck = ""
+                    self.dbPhone = phoneListOnTable
+                    if let index = self.dbPhone.firstIndex(of: i){
+                        self.dbPhone.remove(at: index)
+                        self.dbPhone.append(self.appDelegate.phoneInfo!)
+                    }
+            
+                    self.db.collection("users").whereField("phone", isEqualTo: i).getDocuments { snapshot, error in
+                        if error == nil {
+                            for doc in snapshot!.documents{
+                                self.dbcheck = doc.documentID
+                            }
+                            //다른 사람 방 업데이트
+                            if self.dbcheck != "" {
+                                self.db.collection("users").document("\(self.dbcheck)").collection("chattingList").document("\(dbIDOnTable)").getDocument { snapshot2, error2 in
+                                    if error2 == nil {
+                                        self.db.collection("users").document("\(self.dbcheck)").collection("chattingList").document("\(dbIDOnTable)").updateData([
+                                            "date" : date,
+                                            "newMessage" : "사진",
+                                            "newCount" : "\(self.chatPresentUser.contains(i) ? 0 : Int(snapshot2!.data()!["newCount"] as! String)! + 1)",
+                                        ])
+                                    }
+                                }
+                                
+                                //다른 사람에게 메시지 보내기
+                                self.db.collection("users").document("\(self.dbcheck)").collection("chattingList").document("\(dbIDOnTable)").collection("chat").addDocument(data: [
+                                    "checkRead" : self.chatPresentUser.contains(i) ? true : false,
+                                    "imgCheck" : true,
+                                    "date" : date,
+                                    "sender" : "\(self.appDelegate.phoneInfo!)",
+                                    "message" : "",
+                                    "readList" : self.chatPresentUser
+                                ])
+                            }
+                        } else {
+                            print(error!.localizedDescription)
+                        }
+                    }
+                }
+            } else {
+                print(error3!.localizedDescription)
+            }
+        }
+    }
+    
+    //이미지 업로드(대화가 사진일 경우)
+    func chatUploadimage(img: UIImage, dbIDOnTable: String, date: TimeInterval){
+        var data = Data()
+        data = img.jpegData(compressionQuality: 0.8)!
+        
+        let filePath = "chattingRoom/\(dbIDOnTable)/chat/\(self.appDelegate.phoneInfo!)_\(date)"
+        let metaData = StorageMetadata()
+        metaData.contentType = "image/png"
+        
+        storage.reference().child(filePath).putData(data, metadata: metaData) { (metaData,error) in
+            if error != nil {
+                print(error!.localizedDescription)
+            } else {
+                print("성공")
+            }
+        }
+    }
+    
+    //이미지 다운로드(대화가 사진인 경우)
+    func chatDownloadimage(imgView: UIImageView, dbIDOnTable: String, sender: String, date: TimeInterval){
+        self.storage.reference(forURL: "gs://employeemanagement-9d6eb.appspot.com/chattingRoom/\(dbIDOnTable)/chat/\(sender)_\(date)").downloadURL { (url, error) in
+            if error == nil && url != nil {
+                let data = NSData(contentsOf: url!)
+                let dbImage = UIImage(data: data! as Data)
+                
+                imgView.image = dbImage
+            } else {
+                print(error!.localizedDescription)
+            }
         }
     }
     
@@ -192,6 +293,7 @@ class ChattingRoomVM {
     }
     
     
+    //MARK: 뒤로가기 버튼
     //현재 인원에서 이름 삭제
     func deletePresentUser(dbIDOnTable: String, phoneListOnTable: [String], activationOnTable: Bool){
         self.deleteListner()
@@ -228,7 +330,7 @@ class ChattingRoomVM {
         }
     }
     
-    //보내기 버튼 누를 때
+    //MARK: 메시지 보내기 버튼
     func doSendButton(activationOnTable: Bool, phoneListOnTable: [String], roomTitleOnTable: String, dbIDOnTable: String, writeTV: UITextView, tableView: UITableView){
         let date = Date().timeIntervalSince1970
         
@@ -236,6 +338,8 @@ class ChattingRoomVM {
         
         self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(dbIDOnTable)").getDocument { snapshot3, error3 in
             if error3 == nil {
+                self.chatPresentUser.removeAll()
+                
                 self.chatPresentUser = (snapshot3!.data()!["presentUser"] as! [String])
                 
                 //비 활성화 상태 일때
@@ -251,7 +355,7 @@ class ChattingRoomVM {
                     //내 채팅방 채팅 추가
                     self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(dbIDOnTable)").collection("chat").addDocument(data: [
                         "checkRead" : true,
-                        "imgCheck" : self.imgCheck,
+                        "imgCheck" : false,
                         "date" : date,
                         "sender" : "\(self.appDelegate.phoneInfo!)",
                         "message" : "\(self.saveMessage)",
@@ -266,13 +370,6 @@ class ChattingRoomVM {
                             for doc in snapshot!.documents {
                                 self.chatList.append(ChattingRoomModel.init(checkRead: doc.data()["checkRead"] as! Bool, imgCheck: doc.data()["imgCheck"] as! Bool, date: doc.data()["date"] as! TimeInterval, sender: doc.data()["sender"] as! String, message: doc.data()["message"] as? String ?? "", readList: doc.data()["readList"] as! [String]))
                             }
-                            
-                           /* //채팅이 이미지인 경우
-                            for i in self.chatList{
-                                if i.imgCheck == true {
-                                    self.profileDownloadimage(phone: y)
-                                }
-                            }*/
                             
                             tableView.reloadData()
                             tableView.scrollToRow(at: IndexPath(row: self.chatList.count - 1, section: 0), at: .bottom, animated: true)
@@ -331,7 +428,7 @@ class ChattingRoomVM {
                                     //메시지 보내기
                                     self.db.collection("users").document("\(self.dbcheck)").collection("chattingList").document("\(dbIDOnTable)").collection("chat").addDocument(data: [
                                         "checkRead" : false,
-                                        "imgCheck" : self.imgCheck,
+                                        "imgCheck" : false,
                                         "date" : date,
                                         "sender" : "\(self.appDelegate.phoneInfo!)",
                                         "message" : "\(self.saveMessage)",
@@ -353,7 +450,7 @@ class ChattingRoomVM {
                     //내 채팅방 채팅 추가
                     self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(dbIDOnTable)").collection("chat").addDocument(data: [
                         "checkRead" : true,
-                        "imgCheck" : self.imgCheck,
+                        "imgCheck" : false,
                         "date" : date,
                         "sender" : "\(self.appDelegate.phoneInfo!)",
                         "message" : "\(self.saveMessage)",
@@ -389,7 +486,7 @@ class ChattingRoomVM {
                                     //다른 사람에게 메시지 보내기
                                     self.db.collection("users").document("\(self.dbcheck)").collection("chattingList").document("\(dbIDOnTable)").collection("chat").addDocument(data: [
                                         "checkRead" : self.chatPresentUser.contains(i) ? true : false,
-                                        "imgCheck" : self.imgCheck,
+                                        "imgCheck" : false,
                                         "date" : date,
                                         "sender" : "\(self.appDelegate.phoneInfo!)",
                                         "message" : "\(self.saveMessage)",
@@ -412,6 +509,13 @@ class ChattingRoomVM {
     //셀 정보
     func cellInfo(tableView: UITableView, indexPath: IndexPath, dbOnTable: String) -> UITableViewCell {
         
+        //시간 정제
+        let date = Date(timeIntervalSince1970: self.chatList[indexPath.row].date)
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm"
+        let fixDate = "\(formatter.string(from: date))"
+        
         if self.chatList[indexPath.row].sender == "invitation" {      //초대할 경우
             //TODO: 나중에 사람 초대 기능 넣을 경우(가운데에 셀에 레이블도 하나 만들어야됨
             //cell도 바꾸기
@@ -420,46 +524,60 @@ class ChattingRoomVM {
             return cell
             
         } else if self.chatList[indexPath.row].sender == "\(self.appDelegate.phoneInfo!)" {             //보낸사람이 나인 경우
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: ChattingRoomCell.identifier, for: indexPath) as? ChattingRoomCell else { return UITableViewCell() }
             
-            //시간 정제
-            let date = Date(timeIntervalSince1970: self.chatList[indexPath.row].date)
-            
-            let formatter = DateFormatter()
-            formatter.dateFormat = "yyyy-MM-dd HH:mm"
-            let fixDate = "\(formatter.string(from: date))"
-            
-            cell.rightTalkBox.text = self.chatList[indexPath.row].message
-            cell.rightTime.text = fixDate
-            
-            
-            self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(dbOnTable)").getDocument { snapshot, error in
-                if error == nil {
-                    self.allUserCount = (snapshot!.data()!["memberCount"] as! String)
-                    let changeUserCount = Int(self.allUserCount)! - self.chatList[indexPath.row].readList.count
-                    
-                    cell.rightcheck.text = changeUserCount < 1 ? "" : "\(changeUserCount)"
-                } else {
-                    print(error!.localizedDescription)
+            if self.chatList[indexPath.row].imgCheck == true {  //메시지가 사진인 경우
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: ChattingRoomRightPictureCell.identifier, for: indexPath) as? ChattingRoomRightPictureCell else { return UITableViewCell() }
+                
+                DispatchQueue.main.async {
+                    self.chatDownloadimage(imgView: cell.rightTalkImageView, dbIDOnTable: dbOnTable, sender: self.chatList[indexPath.row].sender, date: self.chatList[indexPath.row].date)
                 }
+                cell.rightTime.text = fixDate
+                
+                //채팅 본 사람 인원 계산
+                self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(dbOnTable)").getDocument { snapshot, error in
+                    if error == nil {
+                        self.allUserCount = (snapshot!.data()!["memberCount"] as! String)
+                        let changeUserCount = Int(self.allUserCount)! - self.chatList[indexPath.row].readList.count
+                        
+                        cell.rightcheck.text = changeUserCount < 1 ? "" : "\(changeUserCount)"
+                    } else {
+                        print(error!.localizedDescription)
+                    }
+                }
+                
+                return cell
+                
+            } else {                                           //사진이 아닌 경우
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: ChattingRoomCell.identifier, for: indexPath) as? ChattingRoomCell else { return UITableViewCell() }
+                
+                
+                cell.rightTalkBox.text = self.chatList[indexPath.row].message
+                cell.rightTime.text = fixDate
+                
+                //채팅 본 사람 인원 계산
+                self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(dbOnTable)").getDocument { snapshot, error in
+                    if error == nil {
+                        self.allUserCount = (snapshot!.data()!["memberCount"] as! String)
+                        let changeUserCount = Int(self.allUserCount)! - self.chatList[indexPath.row].readList.count
+                        
+                        cell.rightcheck.text = changeUserCount < 1 ? "" : "\(changeUserCount)"
+                    } else {
+                        print(error!.localizedDescription)
+                    }
+                }
+                
+                return cell
             }
-            
-            return cell
         } else {                       //보낸 사람이 내가 아닌경우
-            if indexPath.row == 0 {                                //row가 0일 때
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: ChattingRoomLeftCell.identifier, for: indexPath) as? ChattingRoomLeftCell else { return UITableViewCell() }
+            if self.chatList[indexPath.row].imgCheck == true {     //대화가 사진인 경우
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: ChattingRoomLeftPictureCell.identifier, for: indexPath) as? ChattingRoomLeftPictureCell else { return UITableViewCell() }
                 
-                //시간 정제
-                let date = Date(timeIntervalSince1970: self.chatList[indexPath.row].date)
-                
-                let formatter = DateFormatter()
-                formatter.dateFormat = "yyyy-MM-dd HH:mm"
-                let fixDate = "\(formatter.string(from: date))"
-                
-                cell.leftTalkBox.text = self.chatList[indexPath.row].message
+                DispatchQueue.main.async {
+                    self.chatDownloadimage(imgView: cell.leftTalkImageView, dbIDOnTable: dbOnTable, sender: self.chatList[indexPath.row].sender, date: self.chatList[indexPath.row].date)
+                }
                 cell.leftTime.text = fixDate
                 
-                
+                //채팅 본 사람 인원 계산
                 self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(dbOnTable)").getDocument { snapshot, error in
                     if error == nil {
                         self.allUserCount = (snapshot!.data()!["memberCount"] as! String)
@@ -483,54 +601,19 @@ class ChattingRoomVM {
                     }
                 }
                 DispatchQueue.main.async {
-                    self.findImage(imgView: cell.leftImageView, phone: self.chatList[indexPath.row].sender)
+                    self.findProfileImage(imgView: cell.leftImageView, phone: self.chatList[indexPath.row].sender)
                 }
+                
                 return cell
-
-            } else {
-                if self.chatList[indexPath.row].sender == self.chatList[indexPath.row - 1].sender {  //전 셀과 보낸사람이 같을때
-                    
-                    guard let cell = tableView.dequeueReusableCell(withIdentifier: ChattingRoomSamePersonCell.identifier, for: indexPath) as? ChattingRoomSamePersonCell else { return UITableViewCell() }
-                    
-                    //시간 정제
-                    let date = Date(timeIntervalSince1970: self.chatList[indexPath.row].date)
-                    
-                    let formatter = DateFormatter()
-                    formatter.dateFormat = "yyyy-MM-dd HH:mm"
-                    let fixDate = "\(formatter.string(from: date))"
-                    
-                    cell.leftTalkBox.text = self.chatList[indexPath.row].message
-                    cell.leftTime.text = fixDate
-                    
-                    
-                    
-                    self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(dbOnTable)").getDocument { snapshot, error in
-                        if error == nil {
-                            self.allUserCount = (snapshot!.data()!["memberCount"] as! String)
-                            let changeUserCount = Int(self.allUserCount)! - self.chatList[indexPath.row].readList.count
-                            
-                            cell.leftcheck.text = changeUserCount < 1 ? "" : "\(changeUserCount)"
-                        } else {
-                            print(error!.localizedDescription)
-                        }
-                    }
-                    return cell
-                } else {                                       //다를 때
+            } else {                                               //사진이 아닌 경우
+                if indexPath.row == 0 {                            //row가 0일 때
                     guard let cell = tableView.dequeueReusableCell(withIdentifier: ChattingRoomLeftCell.identifier, for: indexPath) as? ChattingRoomLeftCell else { return UITableViewCell() }
-                    
-                    //시간 정제
-                    let date = Date(timeIntervalSince1970: self.chatList[indexPath.row].date)
-                    
-                    let formatter = DateFormatter()
-                    formatter.dateFormat = "yyyy-MM-dd HH:mm"
-                    let fixDate = "\(formatter.string(from: date))"
+                
                     
                     cell.leftTalkBox.text = self.chatList[indexPath.row].message
                     cell.leftTime.text = fixDate
                     
-                    //tableView.rowHeight = cell.leftTalkBox.intrinsicContentSize.height + 40
-                    
-                    
+                    //채팅 본 사람 인원 계산
                     self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(dbOnTable)").getDocument { snapshot, error in
                         if error == nil {
                             self.allUserCount = (snapshot!.data()!["memberCount"] as! String)
@@ -554,9 +637,64 @@ class ChattingRoomVM {
                         }
                     }
                     DispatchQueue.main.async {
-                        self.findImage(imgView: cell.leftImageView, phone: self.chatList[indexPath.row].sender)
+                        self.findProfileImage(imgView: cell.leftImageView, phone: self.chatList[indexPath.row].sender)
                     }
                     return cell
+
+                } else {
+                    if self.chatList[indexPath.row].sender == self.chatList[indexPath.row - 1].sender {  //전 셀과 보낸사람이 같을때
+                        
+                        guard let cell = tableView.dequeueReusableCell(withIdentifier: ChattingRoomSamePersonCell.identifier, for: indexPath) as? ChattingRoomSamePersonCell else { return UITableViewCell() }
+                        
+                        cell.leftTalkBox.text = self.chatList[indexPath.row].message
+                        cell.leftTime.text = fixDate
+                        
+                        //채팅 본 사람 인원 계산
+                        self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(dbOnTable)").getDocument { snapshot, error in
+                            if error == nil {
+                                self.allUserCount = (snapshot!.data()!["memberCount"] as! String)
+                                let changeUserCount = Int(self.allUserCount)! - self.chatList[indexPath.row].readList.count
+                                
+                                cell.leftcheck.text = changeUserCount < 1 ? "" : "\(changeUserCount)"
+                            } else {
+                                print(error!.localizedDescription)
+                            }
+                        }
+                        return cell
+                    } else {                                       //다를 때
+                        guard let cell = tableView.dequeueReusableCell(withIdentifier: ChattingRoomLeftCell.identifier, for: indexPath) as? ChattingRoomLeftCell else { return UITableViewCell() }
+                        
+                        cell.leftTalkBox.text = self.chatList[indexPath.row].message
+                        cell.leftTime.text = fixDate
+                        
+                        //채팅 본 사람 인원 계산
+                        self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(dbOnTable)").getDocument { snapshot, error in
+                            if error == nil {
+                                self.allUserCount = (snapshot!.data()!["memberCount"] as! String)
+                                let changeUserCount = Int(self.allUserCount)! - self.chatList[indexPath.row].readList.count
+                                
+                                cell.leftcheck.text = changeUserCount < 1 ? "" : "\(changeUserCount)"
+                            } else {
+                                print(error!.localizedDescription)
+                            }
+                        }
+                        
+                        //채팅친 사람 이름
+                        self.db.collection("users").whereField("phone", isEqualTo: "\(self.chatList[indexPath.row].sender)").getDocuments { snapshot, error in
+                            if error == nil {
+                                for doc in snapshot!.documents{
+                                    self.userName = doc.data()["name"] as! String
+                                }
+                                cell.leftnameLabel.text = self.userName
+                            } else {
+                                print(error!.localizedDescription)
+                            }
+                        }
+                        DispatchQueue.main.async {
+                            self.findProfileImage(imgView: cell.leftImageView, phone: self.chatList[indexPath.row].sender)
+                        }
+                        return cell
+                    }
                 }
             }
         }
@@ -580,5 +718,6 @@ class ChattingRoomVM {
             tableview.scrollToRow(at: IndexPath.init(row: self.chatList.count - 1, section: 0), at: .bottom, animated: false)
         }
     }
+    
     
 }

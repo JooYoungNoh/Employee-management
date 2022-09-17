@@ -75,6 +75,9 @@ class ChattingRoomVC: UIViewController {
         self.tableview.register(ChattingRoomCell.self, forCellReuseIdentifier: ChattingRoomCell.identifier)
         self.tableview.register(ChattingRoomLeftCell.self, forCellReuseIdentifier: ChattingRoomLeftCell.identifier)
         self.tableview.register(ChattingRoomSamePersonCell.self, forCellReuseIdentifier: ChattingRoomSamePersonCell.identifier)
+        self.tableview.register(ChattingRoomLeftPictureCell.self, forCellReuseIdentifier: ChattingRoomLeftPictureCell.identifier)
+        self.tableview.register(ChattingRoomRightPictureCell.self, forCellReuseIdentifier: ChattingRoomRightPictureCell.identifier)
+        
         self.setKeyboardNotification()          //키보드 올렷다 내렷다
         self.uiCreate()
     }
@@ -103,7 +106,13 @@ class ChattingRoomVC: UIViewController {
     
     //MARK: 액션 메소드
     @objc func sendPicture(_ sender: UIButton){
-        
+        if self.activationOnTable == false && self.viewModel.activationStatus == false {
+            let alert = UIAlertController(title: nil, message: "방을 활성화해주세요", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            self.present(alert, animated: true)
+        } else {
+            self.selectPicture()            //사진 선택
+        }
     }
     
     @objc func sendMessage(_ sender: UIButton){
@@ -224,7 +233,15 @@ extension ChattingRoomVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
+        if self.viewModel.chatList[indexPath.row].imgCheck == true {
+            if self.viewModel.chatList[indexPath.row].sender == self.viewModel.appDelegate.phoneInfo! {
+                return 270
+            } else {
+                return 240
+            }
+        } else {
+            return UITableView.automaticDimension
+        }
     }
 }
 
@@ -238,4 +255,58 @@ extension ChattingRoomVC: UITextViewDelegate {
         self.textviewHeight = textView.bounds.height
     }
    
+}
+
+//MARK: ImagePicker 메소드
+extension ChattingRoomVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+    // 이미지를 가져올 장소(?) 카메라 앨범 등 선택 메소드
+    func imgPicker(_ source: UIImagePickerController.SourceType){
+        let picker = UIImagePickerController()
+        picker.sourceType = source
+        picker.delegate = self
+        picker.allowsEditing = true
+        self.present(picker, animated: true)
+        
+    }
+    //이미지 선택하면 호출될 메소드
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let img = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+            //TODO: 메시지 업데이트 및 업로드
+            let date = Date().timeIntervalSince1970
+            //이미지 업로드
+            self.viewModel.chatUploadimage(img: img, dbIDOnTable: self.dbIDOnTable, date: date)
+            
+            //메시지 업데이트
+            self.viewModel.pictureMessageSend(dbIDOnTable: self.dbIDOnTable, date: date, phoneListOnTable: self.phoneListOnTable)
+        }
+        //이미지 피커 컨트롤창 닫기
+        picker.dismiss(animated: true)
+    }
+    
+    func selectPicture(){
+        let alert2 = UIAlertController(title: "선택해주세요", message: nil, preferredStyle: .actionSheet)
+        
+        //카메라를 사용할 수 있으면 (시뮬레이터 불가)
+        if UIImagePickerController.isSourceTypeAvailable(.camera){
+            alert2.addAction(UIAlertAction(title: "카메라", style: .default){(_) in
+                self.imgPicker(.camera)
+            })
+        }
+        //저장된 앨범을 사용할 수 있으면
+        if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum){
+            alert2.addAction(UIAlertAction(title: "앨범", style: .default){(_) in
+                self.imgPicker(.savedPhotosAlbum)
+            })
+        }
+        //포토 라이브러리를 사용할 수 있으면
+        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary){
+            alert2.addAction(UIAlertAction(title: "포토 라이브러리", style: .default){(_) in
+                self.imgPicker(.photoLibrary)
+            })
+        }
+        //취소 버튼 추가
+        alert2.addAction(UIAlertAction(title: "취소", style: .cancel))
+        
+        self.present(alert2, animated: true)
+    }
 }

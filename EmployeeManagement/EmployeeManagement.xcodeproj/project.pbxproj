@@ -78,6 +78,8 @@
 		73BE45AB28A1A59E00BC4BDC /* TimetableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BE45AA28A1A59E00BC4BDC /* TimetableCell.swift */; };
 		73C411B2283520A6001EC8F6 /* BusinessTypePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C411B1283520A6001EC8F6 /* BusinessTypePicker.swift */; };
 		73C8ED9B2887052100545587 /* TwriteVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C8ED9A2887052100545587 /* TwriteVM.swift */; };
+		73C9F67128D66708007AE630 /* ChattingRoomLeftPictureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C9F67028D66708007AE630 /* ChattingRoomLeftPictureCell.swift */; };
+		73C9F67328D66721007AE630 /* ChattingRoomRightPictureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C9F67228D66721007AE630 /* ChattingRoomRightPictureCell.swift */; };
 		73CDD2A928511C5D00E9EB32 /* ProfileInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73CDD2A828511C5D00E9EB32 /* ProfileInfoVC.swift */; };
 		73CDD2AB28511E5900E9EB32 /* MyProfileInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73CDD2AA28511E5900E9EB32 /* MyProfileInfoVC.swift */; };
 		73D3F5E628A197EB008B431C /* TimetableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D3F5E528A197EB008B431C /* TimetableVC.swift */; };
@@ -175,6 +177,8 @@
 		73BE45AA28A1A59E00BC4BDC /* TimetableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimetableCell.swift; sourceTree = "<group>"; };
 		73C411B1283520A6001EC8F6 /* BusinessTypePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessTypePicker.swift; sourceTree = "<group>"; };
 		73C8ED9A2887052100545587 /* TwriteVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwriteVM.swift; sourceTree = "<group>"; };
+		73C9F67028D66708007AE630 /* ChattingRoomLeftPictureCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingRoomLeftPictureCell.swift; sourceTree = "<group>"; };
+		73C9F67228D66721007AE630 /* ChattingRoomRightPictureCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingRoomRightPictureCell.swift; sourceTree = "<group>"; };
 		73CDD2A828511C5D00E9EB32 /* ProfileInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInfoVC.swift; sourceTree = "<group>"; };
 		73CDD2AA28511E5900E9EB32 /* MyProfileInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileInfoVC.swift; sourceTree = "<group>"; };
 		73D3F5E528A197EB008B431C /* TimetableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimetableVC.swift; sourceTree = "<group>"; };
@@ -450,6 +454,8 @@
 				73FCD69F28BE558600DC0755 /* ChattingRoomCell.swift */,
 				731AA4D728D0C9C300928CB3 /* ChattingRoomLeftCell.swift */,
 				731AA4D928D0C9E000928CB3 /* ChattingRoomSamePersonCell.swift */,
+				73C9F67028D66708007AE630 /* ChattingRoomLeftPictureCell.swift */,
+				73C9F67228D66721007AE630 /* ChattingRoomRightPictureCell.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -684,6 +690,7 @@
 				73E2DAA12832A5D000C4CF25 /* ShopVC.swift in Sources */,
 				73A3AADA28292BF9001283CD /* SceneDelegate.swift in Sources */,
 				7346EC3528B27D2500C48AE2 /* CreateChatCVCell.swift in Sources */,
+				73C9F67128D66708007AE630 /* ChattingRoomLeftPictureCell.swift in Sources */,
 				73BE45AB28A1A59E00BC4BDC /* TimetableCell.swift in Sources */,
 				73301F7728A3E70A0042F84D /* TimetableCreateVC.swift in Sources */,
 				735180CF2852602E00CC30FB /* MyProfileVM.swift in Sources */,
@@ -693,6 +700,7 @@
 				7309389028593EA8005B812E /* MemoReadVC.swift in Sources */,
 				73435D32285A523B00B52A98 /* CalculatorVC.swift in Sources */,
 				73A3AAF12829694E001283CD /* FindVC.swift in Sources */,
+				73C9F67328D66721007AE630 /* ChattingRoomRightPictureCell.swift in Sources */,
 				7334334228A95AF000723582 /* TimetableInfoVC.swift in Sources */,
 				7331C5E628491CA6009F5210 /* EmployeeListCell.swift in Sources */,
 				73C411B2283520A6001EC8F6 /* BusinessTypePicker.swift in Sources */,
