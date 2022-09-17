@@ -132,12 +132,12 @@ class ChattingRoomVM {
                         self.chatList.append(ChattingRoomModel.init(checkRead: doc.data()["checkRead"] as! Bool, imgCheck: doc.data()["imgCheck"] as! Bool, date: doc.data()["date"] as! TimeInterval, sender: doc.data()["sender"] as! String, message: doc.data()["message"] as? String ?? "", readList: doc.data()["readList"] as! [String]))
                     }
                     
-                   /* //채팅이 이미지인 경우
+                    //채팅이 이미지인 경우
                     for i in self.chatList{
                         if i.imgCheck == true {
-                            self.profileDownloadimage(phone: y)
+                            self.chatDownloadimage(dbOnTable: dbOnTable, sender: i.sender, date: i.date)
                         }
-                    }*/
+                    }
                     
                     completion(self.chatList)
                 } else {
@@ -264,6 +264,14 @@ class ChattingRoomVM {
         let metaData = StorageMetadata()
         metaData.contentType = "image/png"
         
+        if self.chatImageList.isEmpty == true {
+            self.chatImageList.append(roomImageSave.init(userPhone: "\(self.appDelegate.phoneInfo!)_\(date)", userImage: img))
+        } else {
+            if self.chatImageList.firstIndex(where: {$0.userPhone == "\(self.appDelegate.phoneInfo!)_\(date)"}) == nil{
+                self.chatImageList.append(roomImageSave.init(userPhone: "\(self.appDelegate.phoneInfo!)_\(date)", userImage: img))
+            }
+        }
+        
         storage.reference().child(filePath).putData(data, metadata: metaData) { (metaData,error) in
             if error != nil {
                 print(error!.localizedDescription)
@@ -274,16 +282,29 @@ class ChattingRoomVM {
     }
     
     //이미지 다운로드(대화가 사진인 경우)
-    func chatDownloadimage(imgView: UIImageView, dbIDOnTable: String, sender: String, date: TimeInterval){
-        self.storage.reference(forURL: "gs://employeemanagement-9d6eb.appspot.com/chattingRoom/\(dbIDOnTable)/chat/\(sender)_\(date)").downloadURL { (url, error) in
+    func chatDownloadimage(dbOnTable: String, sender: String, date: TimeInterval){
+        self.storage.reference(forURL: "gs://employeemanagement-9d6eb.appspot.com/chattingRoom/\(dbOnTable)/chat/\(sender)_\(date)").downloadURL { (url, error) in
             if error == nil && url != nil {
                 let data = NSData(contentsOf: url!)
                 let dbImage = UIImage(data: data! as Data)
                 
-                imgView.image = dbImage
+                if self.chatImageList.isEmpty == true {
+                    self.chatImageList.append(roomImageSave.init(userPhone: "\(sender)_\(date)", userImage: dbImage!))
+                } else {
+                    if self.chatImageList.firstIndex(where: {$0.userPhone == "\(sender)_\(date)"}) == nil{
+                        self.chatImageList.append(roomImageSave.init(userPhone: "\(sender)_\(date)", userImage: dbImage!))
+                    }
+                }
             } else {
                 print(error!.localizedDescription)
             }
+        }
+    }
+    
+    //전화변호로 이미지 찾기
+    func findChatImage(imgView: UIImageView, sender: String, date: TimeInterval){
+        if let index = self.chatImageList.firstIndex(where: {$0.userPhone == "\(sender)_\(date)"}){
+            imgView.image = self.chatImageList[index].userImage
         }
     }
     
@@ -529,7 +550,7 @@ class ChattingRoomVM {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: ChattingRoomRightPictureCell.identifier, for: indexPath) as? ChattingRoomRightPictureCell else { return UITableViewCell() }
                 
                 DispatchQueue.main.async {
-                    self.chatDownloadimage(imgView: cell.rightTalkImageView, dbIDOnTable: dbOnTable, sender: self.chatList[indexPath.row].sender, date: self.chatList[indexPath.row].date)
+                    self.findChatImage(imgView: cell.rightTalkImageView, sender: self.chatList[indexPath.row].sender, date: self.chatList[indexPath.row].date)
                 }
                 cell.rightTime.text = fixDate
                 
@@ -573,7 +594,7 @@ class ChattingRoomVM {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: ChattingRoomLeftPictureCell.identifier, for: indexPath) as? ChattingRoomLeftPictureCell else { return UITableViewCell() }
                 
                 DispatchQueue.main.async {
-                    self.chatDownloadimage(imgView: cell.leftTalkImageView, dbIDOnTable: dbOnTable, sender: self.chatList[indexPath.row].sender, date: self.chatList[indexPath.row].date)
+                    self.findChatImage(imgView: cell.leftTalkImageView, sender: self.chatList[indexPath.row].sender, date: self.chatList[indexPath.row].date)
                 }
                 cell.leftTime.text = fixDate
                 
