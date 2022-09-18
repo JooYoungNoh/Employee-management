@@ -105,6 +105,10 @@ class ChattingRoomVC: UIViewController {
     }
     
     //MARK: 액션 메소드
+    @objc func selectFunction(_ sender: UIBarButtonItem){
+        
+    }
+    
     @objc func sendPicture(_ sender: UIButton){
         if self.activationOnTable == false && self.viewModel.activationStatus == false {
             let alert = UIAlertController(title: nil, message: "방을 활성화해주세요", preferredStyle: .alert)
@@ -133,6 +137,11 @@ class ChattingRoomVC: UIViewController {
         self.navigationController?.navigationBar.prefersLargeTitles = false
         self.navigationController?.navigationBar.tintColor = UIColor.black
         self.navigationController?.navigationBar.topItem?.title = ""
+        
+        //내비게이션 바 버튼
+        let settingButton = UIBarButtonItem(image: UIImage(systemName: "gearshape"), style: .plain, target: self, action: #selector(selectFunction(_:)))
+        self.navigationItem.rightBarButtonItem = settingButton
+        settingButton.tintColor = UIColor.black
         
         //테이블 뷰
         self.tableview.separatorStyle = .none

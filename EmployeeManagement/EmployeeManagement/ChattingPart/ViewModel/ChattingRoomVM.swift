@@ -51,6 +51,7 @@ class ChattingRoomVM {
     
     
     //MARK: 액션 메소드
+    //MARK: 방 입장
     //채팅 읽음 정보 저장
     func saveChattingInfo(dbOnTable: String, phoneListOnTable: [String]){
         //방에 입장시 안읽은 메시지 갯수 0으로 바꾸기
@@ -182,6 +183,26 @@ class ChattingRoomVM {
         if let index = self.userImageList.firstIndex(where: {$0.userPhone == phone}){
             imgView.image = self.userImageList[index].userImage
         }
+    }
+    
+    //MARK: 기능 선택 버튼
+    func selectFunction(uv: UIViewController){
+        let alert = UIAlertController(title: "선택해주세요", message: nil, preferredStyle: .actionSheet)
+        //대화상대 초대
+        alert.addAction(UIAlertAction(title: "대화상대 초대", style: .default){ (_) in
+            
+        })
+        
+        //모든 사진 보기
+        alert.addAction(UIAlertAction(title: "모든 사진 보기", style: .default){ (_) in
+            
+        })
+        
+        //채팅방 나가기
+        alert.addAction(UIAlertAction(title: "채팅방 나가기", style: .default){ (_) in
+            
+        })
+        uv.present(alert, animated: true)
     }
     
     //MARK: 사진 버튼
