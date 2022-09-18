@@ -100,13 +100,14 @@ class ChattingRoomVC: UIViewController {
         }
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
+    //MARK: 액션 메소드
+    @objc func doBack(_ sender: UIBarButtonItem){
         self.viewModel.deletePresentUser(dbIDOnTable: self.dbIDOnTable, phoneListOnTable: self.phoneListOnTable, activationOnTable: self.activationOnTable)
+        self.navigationController?.popViewController(animated: true)
     }
     
-    //MARK: 액션 메소드
     @objc func selectFunction(_ sender: UIBarButtonItem){
-        
+        self.viewModel.selectFunction(uv: self)
     }
     
     @objc func sendPicture(_ sender: UIButton){
@@ -137,11 +138,16 @@ class ChattingRoomVC: UIViewController {
         self.navigationController?.navigationBar.prefersLargeTitles = false
         self.navigationController?.navigationBar.tintColor = UIColor.black
         self.navigationController?.navigationBar.topItem?.title = ""
+        self.navigationItem.hidesBackButton = true
         
         //내비게이션 바 버튼
         let settingButton = UIBarButtonItem(image: UIImage(systemName: "gearshape"), style: .plain, target: self, action: #selector(selectFunction(_:)))
         self.navigationItem.rightBarButtonItem = settingButton
         settingButton.tintColor = UIColor.black
+        
+        let backButton = UIBarButtonItem.init(image: UIImage(systemName: "chevron.backward"), style: .plain, target: self, action: #selector(doBack(_:)))
+        self.navigationItem.leftBarButtonItem = backButton
+        backButton.tintColor = UIColor.black
         
         //테이블 뷰
         self.tableview.separatorStyle = .none

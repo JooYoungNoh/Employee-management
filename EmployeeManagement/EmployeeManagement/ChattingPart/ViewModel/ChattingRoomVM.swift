@@ -188,13 +188,17 @@ class ChattingRoomVM {
     //MARK: 기능 선택 버튼
     func selectFunction(uv: UIViewController){
         let alert = UIAlertController(title: "선택해주세요", message: nil, preferredStyle: .actionSheet)
-        //대화상대 초대
-        alert.addAction(UIAlertAction(title: "대화상대 초대", style: .default){ (_) in
-            
-        })
-        
         //모든 사진 보기
         alert.addAction(UIAlertAction(title: "모든 사진 보기", style: .default){ (_) in
+            self.appDelegate.imageList = self.chatImageList
+            
+            let chatNV = uv.storyboard?.instantiateViewController(withIdentifier: "ChatNV")
+            chatNV?.modalPresentationStyle = .fullScreen
+            uv.present(chatNV!, animated: true)
+        })
+        
+        //대화상대 초대
+        alert.addAction(UIAlertAction(title: "대화상대 초대", style: .default){ (_) in
             
         })
         
@@ -202,6 +206,7 @@ class ChattingRoomVM {
         alert.addAction(UIAlertAction(title: "채팅방 나가기", style: .default){ (_) in
             
         })
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         uv.present(alert, animated: true)
     }
     

@@ -15,6 +15,7 @@
 		730AA0AE289B15D300A93D5B /* ScheduleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 730AA0AD289B15D300A93D5B /* ScheduleCell.swift */; };
 		730D2CBB28D7C550001B78FC /* ChattingImageListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 730D2CBA28D7C550001B78FC /* ChattingImageListVC.swift */; };
 		730D2CBD28D7C567001B78FC /* ChattingImageListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 730D2CBC28D7C567001B78FC /* ChattingImageListVM.swift */; };
+		730D2CBF28D7CEE7001B78FC /* ChattingImageListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 730D2CBE28D7CEE7001B78FC /* ChattingImageListCell.swift */; };
 		731143B4282994EA00163A1B /* PickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731143B3282994EA00163A1B /* PickerController.swift */; };
 		7313A484283D831400057273 /* CookieRun.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7313A483283D82FD00057273 /* CookieRun.ttf */; };
 		73179DE62858F37F00086DBD /* MemoWriteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73179DE52858F37F00086DBD /* MemoWriteVC.swift */; };
@@ -114,6 +115,7 @@
 		730AA0AD289B15D300A93D5B /* ScheduleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleCell.swift; sourceTree = "<group>"; };
 		730D2CBA28D7C550001B78FC /* ChattingImageListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingImageListVC.swift; sourceTree = "<group>"; };
 		730D2CBC28D7C567001B78FC /* ChattingImageListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingImageListVM.swift; sourceTree = "<group>"; };
+		730D2CBE28D7CEE7001B78FC /* ChattingImageListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingImageListCell.swift; sourceTree = "<group>"; };
 		731143B3282994EA00163A1B /* PickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerController.swift; sourceTree = "<group>"; };
 		7313A483283D82FD00057273 /* CookieRun.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = CookieRun.ttf; sourceTree = "<group>"; };
 		73179DE52858F37F00086DBD /* MemoWriteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoWriteVC.swift; sourceTree = "<group>"; };
@@ -462,6 +464,7 @@
 				73C9F67028D66708007AE630 /* ChattingRoomLeftPictureCell.swift */,
 				73C9F67228D66721007AE630 /* ChattingRoomRightPictureCell.swift */,
 				730D2CBA28D7C550001B78FC /* ChattingImageListVC.swift */,
+				730D2CBE28D7CEE7001B78FC /* ChattingImageListCell.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -681,6 +684,7 @@
 				7306F29728B7CD3B00232334 /* ChattingRoomVM.swift in Sources */,
 				737F40F228A04C8500282C11 /* NoticeInfoVM.swift in Sources */,
 				7392F19C2875922900DD7F01 /* TransitionCell.swift in Sources */,
+				730D2CBF28D7CEE7001B78FC /* ChattingImageListCell.swift in Sources */,
 				73E2DA992832688100C4CF25 /* ChattingVC.swift in Sources */,
 				7334334028A95AD500723582 /* TimetableInfoVM.swift in Sources */,
 				737F40E428A0094300282C11 /* NoticeListVC.swift in Sources */,

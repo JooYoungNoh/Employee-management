@@ -19,7 +19,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var comment: String!
     var profileState: Bool!
     
+    //채팅 부분
+    var imageList: [roomImageSave] = []
+    
+    //매장 부분
     var schedulePartCompanyName: String = ""                   //스케줄 부분 회사 이름 저장
+    
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
