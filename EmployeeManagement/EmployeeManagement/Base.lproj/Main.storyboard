@@ -180,7 +180,7 @@
         <!--사진 확대 화면-->
         <scene sceneID="A65-8M-2KS">
             <objects>
-                <viewController title="사진 확대 화면" id="eE2-qn-0jv" customClass="ChattingImageInfoVC" customModule="EmployeeManagement" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ChattingImageInfoVC" title="사진 확대 화면" id="eE2-qn-0jv" customClass="ChattingImageInfoVC" customModule="EmployeeManagement" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="mAQ-CB-9P6">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

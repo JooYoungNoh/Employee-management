@@ -87,7 +87,7 @@ class ChattingRoomVC: UIViewController {
         self.viewModel.bringChattingList(dbOnTable: self.dbIDOnTable, activationOnTable: self.activationOnTable, phoneListOnTable: self.phoneListOnTable) { completion in
             if self.reloadOnTable == false {
                 self.reloadOnTable = true
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5){
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1){
                     self.tableview.reloadData()
                     self.tableview.scrollToRow(at: IndexPath(row: self.viewModel.chatList.count - 1, section: 0), at: .bottom, animated: true)
                 }
@@ -220,7 +220,9 @@ extension ChattingRoomVC {
                 
             UIViewPropertyAnimator(duration: 0.2, curve: .easeOut, animations: {
                 self.view.layoutIfNeeded()
-                self.tableview.scrollToRow(at: IndexPath.init(row: self.viewModel.chatList.count - 1, section: 0), at: .bottom, animated: false)
+                if self.viewModel.chatList.isEmpty == false {
+                    self.tableview.scrollToRow(at: IndexPath.init(row: self.viewModel.chatList.count - 1, section: 0), at: .bottom, animated: false)
+                }
             }).startAnimation()
         }
     }
@@ -232,7 +234,9 @@ extension ChattingRoomVC {
         
         UIViewPropertyAnimator(duration: 0.2, curve: .easeOut, animations: {
             self.view.layoutIfNeeded()
-            self.tableview.scrollToRow(at: IndexPath.init(row: self.viewModel.chatList.count - 1, section: 0), at: .bottom, animated: false)
+            if self.viewModel.chatList.isEmpty == false {
+                self.tableview.scrollToRow(at: IndexPath.init(row: self.viewModel.chatList.count - 1, section: 0), at: .bottom, animated: false)
+            }
         }).startAnimation()
     }
 }
