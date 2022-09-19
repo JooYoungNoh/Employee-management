@@ -36,6 +36,18 @@ struct roomImageSave {
     }
 }
 
+struct chatImageSave {
+    var title: String
+    var image: UIImage
+    var date: TimeInterval
+    
+    init(title: String, image: UIImage, date: TimeInterval) {
+        self.title = title
+        self.image = image
+        self.date = date
+    }
+}
+
 //커스텀 레이블(패딩)
 class BasePaddingLabel: UILabel {
     private var padding = UIEdgeInsets(top: 14.0, left: 10.0, bottom: 14.0, right: 10.0)

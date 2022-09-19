@@ -22,7 +22,7 @@ class ChattingImageListVM {
     func cellInfo(collectionView: UICollectionView, indexPath: IndexPath) -> UICollectionViewCell{
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ChattingImageListCell.identifier, for: indexPath) as? ChattingImageListCell else { return UICollectionViewCell() }
     
-        cell.imageView.image = self.appDelegate.imageList[indexPath.row].userImage
+        cell.imageView.image = self.appDelegate.imageList[indexPath.row].image
         return cell
     }
     

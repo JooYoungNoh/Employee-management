@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var profileState: Bool!
     
     //채팅 부분
-    var imageList: [roomImageSave] = []
+    var imageList: [chatImageSave] = []
     
     //매장 부분
     var schedulePartCompanyName: String = ""                   //스케줄 부분 회사 이름 저장

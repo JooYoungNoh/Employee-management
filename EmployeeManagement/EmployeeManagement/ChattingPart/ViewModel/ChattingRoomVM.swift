@@ -47,7 +47,7 @@ class ChattingRoomVM {
     var allUserCount: String = ""
     var userName: String = ""
     var userImageList: [roomImageSave] = []
-    var chatImageList: [roomImageSave] = []
+    var chatImageList: [chatImageSave] = []
     
     
     //MARK: 액션 메소드
@@ -190,8 +190,9 @@ class ChattingRoomVM {
         let alert = UIAlertController(title: "선택해주세요", message: nil, preferredStyle: .actionSheet)
         //모든 사진 보기
         alert.addAction(UIAlertAction(title: "모든 사진 보기", style: .default){ (_) in
-            self.appDelegate.imageList = self.chatImageList
-            
+            let sortedList = self.chatImageList.sorted(by: {$0.date > $1.date})
+            self.appDelegate.imageList = sortedList
+    
             let chatNV = uv.storyboard?.instantiateViewController(withIdentifier: "ChatNV")
             chatNV?.modalPresentationStyle = .fullScreen
             uv.present(chatNV!, animated: true)
@@ -291,10 +292,10 @@ class ChattingRoomVM {
         metaData.contentType = "image/png"
         
         if self.chatImageList.isEmpty == true {
-            self.chatImageList.append(roomImageSave.init(userPhone: "\(self.appDelegate.phoneInfo!)_\(date)", userImage: img))
+            self.chatImageList.append(chatImageSave.init(title: "\(self.appDelegate.phoneInfo!)_\(date)", image: img, date: date))
         } else {
-            if self.chatImageList.firstIndex(where: {$0.userPhone == "\(self.appDelegate.phoneInfo!)_\(date)"}) == nil{
-                self.chatImageList.append(roomImageSave.init(userPhone: "\(self.appDelegate.phoneInfo!)_\(date)", userImage: img))
+            if self.chatImageList.firstIndex(where: {$0.title == "\(self.appDelegate.phoneInfo!)_\(date)"}) == nil{
+                self.chatImageList.append(chatImageSave.init(title: "\(self.appDelegate.phoneInfo!)_\(date)", image: img, date: date))
             }
         }
         
@@ -315,10 +316,10 @@ class ChattingRoomVM {
                 let dbImage = UIImage(data: data! as Data)
                 
                 if self.chatImageList.isEmpty == true {
-                    self.chatImageList.append(roomImageSave.init(userPhone: "\(sender)_\(date)", userImage: dbImage!))
+                    self.chatImageList.append(chatImageSave.init(title: "\(sender)_\(date)", image: dbImage!, date: date))
                 } else {
-                    if self.chatImageList.firstIndex(where: {$0.userPhone == "\(sender)_\(date)"}) == nil{
-                        self.chatImageList.append(roomImageSave.init(userPhone: "\(sender)_\(date)", userImage: dbImage!))
+                    if self.chatImageList.firstIndex(where: {$0.title == "\(sender)_\(date)"}) == nil{
+                        self.chatImageList.append(chatImageSave.init(title: "\(sender)_\(date)", image: dbImage!, date: date))
                     }
                 }
             } else {
@@ -329,8 +330,8 @@ class ChattingRoomVM {
     
     //전화변호로 이미지 찾기
     func findChatImage(imgView: UIImageView, sender: String, date: TimeInterval){
-        if let index = self.chatImageList.firstIndex(where: {$0.userPhone == "\(sender)_\(date)"}){
-            imgView.image = self.chatImageList[index].userImage
+        if let index = self.chatImageList.firstIndex(where: {$0.title == "\(sender)_\(date)"}){
+            imgView.image = self.chatImageList[index].image
         }
     }
     
