@@ -16,6 +16,7 @@
 		730D2CBB28D7C550001B78FC /* ChattingImageListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 730D2CBA28D7C550001B78FC /* ChattingImageListVC.swift */; };
 		730D2CBD28D7C567001B78FC /* ChattingImageListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 730D2CBC28D7C567001B78FC /* ChattingImageListVM.swift */; };
 		730D2CBF28D7CEE7001B78FC /* ChattingImageListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 730D2CBE28D7CEE7001B78FC /* ChattingImageListCell.swift */; };
+		730D2CC328D7ECC6001B78FC /* ChattingImageInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 730D2CC228D7ECC6001B78FC /* ChattingImageInfoVC.swift */; };
 		731143B4282994EA00163A1B /* PickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731143B3282994EA00163A1B /* PickerController.swift */; };
 		7313A484283D831400057273 /* CookieRun.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7313A483283D82FD00057273 /* CookieRun.ttf */; };
 		73179DE62858F37F00086DBD /* MemoWriteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73179DE52858F37F00086DBD /* MemoWriteVC.swift */; };
@@ -116,6 +117,7 @@
 		730D2CBA28D7C550001B78FC /* ChattingImageListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingImageListVC.swift; sourceTree = "<group>"; };
 		730D2CBC28D7C567001B78FC /* ChattingImageListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingImageListVM.swift; sourceTree = "<group>"; };
 		730D2CBE28D7CEE7001B78FC /* ChattingImageListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingImageListCell.swift; sourceTree = "<group>"; };
+		730D2CC228D7ECC6001B78FC /* ChattingImageInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingImageInfoVC.swift; sourceTree = "<group>"; };
 		731143B3282994EA00163A1B /* PickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerController.swift; sourceTree = "<group>"; };
 		7313A483283D82FD00057273 /* CookieRun.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = CookieRun.ttf; sourceTree = "<group>"; };
 		73179DE52858F37F00086DBD /* MemoWriteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoWriteVC.swift; sourceTree = "<group>"; };
@@ -465,6 +467,7 @@
 				73C9F67228D66721007AE630 /* ChattingRoomRightPictureCell.swift */,
 				730D2CBA28D7C550001B78FC /* ChattingImageListVC.swift */,
 				730D2CBE28D7CEE7001B78FC /* ChattingImageListCell.swift */,
+				730D2CC228D7ECC6001B78FC /* ChattingImageInfoVC.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -632,6 +635,7 @@
 				731143B4282994EA00163A1B /* PickerController.swift in Sources */,
 				73A3AAF5282969D1001283CD /* SignUpVC.swift in Sources */,
 				7346EC2F28B2729800C48AE2 /* CreateChatCell.swift in Sources */,
+				730D2CC328D7ECC6001B78FC /* ChattingImageInfoVC.swift in Sources */,
 				73E2DA9B283268C100C4CF25 /* ScheduleVC.swift in Sources */,
 				732D4019283E6FD200E40F48 /* RequestJoinVC.swift in Sources */,
 				737F40EC28A0384200282C11 /* NoticeWriteVM.swift in Sources */,
