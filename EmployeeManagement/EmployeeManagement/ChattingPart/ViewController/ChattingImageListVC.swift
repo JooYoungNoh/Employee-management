@@ -34,7 +34,8 @@ class ChattingImageListVC: UIViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        self.navigationItem.titleView?.isHidden = true
+        self.navigationItem.title = "모든 사진"
     }
     
     //MARK: 액션 메소드
@@ -76,9 +77,7 @@ extension ChattingImageListVC: UICollectionViewDelegate,UICollectionViewDataSour
     
     //셀 선택
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-       /* guard let uv = self.storyboard?.instantiateViewController(withIdentifier: "CalendarVC") as? CalendarVC else { return }
-        uv.companyNameOnTable = self.viewModel.dbmyCompany[indexPath.row]
-        self.navigationController?.pushViewController(uv, animated: true)*/
+        self.viewModel.selectCell(collectionView: collectionView, indexPath: indexPath, uv: self)
     }    
 }
 

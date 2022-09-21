@@ -53,6 +53,10 @@ class ChattingImageInfoVC: UIViewController {
         uiCreate()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationItem.titleView?.isHidden = false
+    }
+    
     //MARK: 액션 메소드
     
     //MARK: 화면 메소드
@@ -66,7 +70,6 @@ class ChattingImageInfoVC: UIViewController {
         self.navigationItem.titleView = self.nvView
         
         //타이틀 뷰 안에 레이블들
-        print(self.nameOnTable)
         self.nameLabel.text = self.nameOnTable
         self.nvView.addSubview(self.nameLabel)
         nameLabel.snp.makeConstraints { make in
