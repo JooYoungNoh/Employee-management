@@ -6,18 +6,53 @@
 //
 
 import UIKit
+import SnapKit
 
-class ChattingInviteCVCell: UITableViewCell {
+class ChattingInviteCVCell: UICollectionViewCell {
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+    static let identifier = "ChattingInviteCVCell"
+    
+    var imageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.layer.cornerRadius = 20
+        imageView.layer.borderWidth = 0
+        imageView.layer.masksToBounds = true
+        return imageView
+    }()
+    
+    var nameLabel: UILabel = {
+        let title = UILabel()
+        title.font = UIFont(name: "CookieRun", size: 10)
+        title.textColor = UIColor.black
+        title.textAlignment = .center
+        return title
+    }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        contentView.addSubview(self.imageView)
+        contentView.addSubview(self.nameLabel)
+        
+        imageView.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(50)
+        }
+        
+        nameLabel.snp.makeConstraints { make in
+            make.top.equalTo(self.imageView.snp.bottom)
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(20)
+        }
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.imageView.image = nil
     }
-
+    
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }
