@@ -205,7 +205,7 @@ class ChattingRoomVM {
     }
     
     //MARK: 기능 선택 버튼
-    func selectFunction(uv: UIViewController){
+    func selectFunction(uv: UIViewController, roomTitleOnTable: String, dbIDOnTable: String){
         let alert = UIAlertController(title: "선택해주세요", message: nil, preferredStyle: .actionSheet)
         //모든 사진 보기
         alert.addAction(UIAlertAction(title: "모든 사진 보기", style: .default){ (_) in
@@ -215,6 +215,37 @@ class ChattingRoomVM {
             let chatNV = uv.storyboard?.instantiateViewController(withIdentifier: "ChatNV")
             chatNV?.modalPresentationStyle = .fullScreen
             uv.present(chatNV!, animated: true)
+        })
+        
+        //방 이름 변경(나만)
+        alert.addAction(UIAlertAction(title: "채팅방 이름 변경", style: .default) { (_) in
+            let alert1 = UIAlertController(title: "채팅방 이름 설정", message: nil, preferredStyle: .alert)
+            
+            alert1.addTextField(){ (tf) in
+                tf.placeholder = "채팅방 이름"
+                tf.font = UIFont(name: "CookieRun", size: 15)
+                tf.text = roomTitleOnTable
+                tf.textColor = .black
+            }
+            alert1.addAction(UIAlertAction(title: "OK", style: .default){ (_) in
+                if alert1.textFields?[0].text != "" && alert1.textFields?[0].text != roomTitleOnTable {
+                    let alert2 = UIAlertController(title: "채팅방 이름을 변경하시겠습니까?", message: "내 채팅방만 이름이 변경됩니다", preferredStyle: .alert)
+                    alert2.addAction(UIAlertAction(title: "OK", style: .default) { (_) in
+                        self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(dbIDOnTable)").updateData([
+                            "roomTitle" : alert1.textFields?[0].text
+                        ])
+                    })
+                    alert2.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+                    uv.present(alert2, animated: true)
+           
+                } else {
+                    let alert3 = UIAlertController(title: "채팅방 이름이 없거나 변경사항이 없습니다", message: "다시 설정해주세요", preferredStyle: .alert)
+                    alert3.addAction(UIAlertAction(title: "OK", style: .default))
+                    uv.present(alert3, animated: true)
+                }
+            })
+           alert1.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+           uv.present(alert1, animated: true)
         })
         
         //대화상대 초대

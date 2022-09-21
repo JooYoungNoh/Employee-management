@@ -107,7 +107,13 @@ class ChattingRoomVC: UIViewController {
     }
     
     @objc func selectFunction(_ sender: UIBarButtonItem){
-        self.viewModel.selectFunction(uv: self)
+        if self.activationOnTable == false && self.viewModel.activationStatus == false {
+            let alert = UIAlertController(title: nil, message: "방을 활성화해주세요", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            self.present(alert, animated: true)
+        } else {
+            self.viewModel.selectFunction(uv: self, roomTitleOnTable: self.roomTitleOnTable, dbIDOnTable: self.dbIDOnTable)           //기능 선택
+        }
     }
     
     @objc func sendPicture(_ sender: UIButton){
