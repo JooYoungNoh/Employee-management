@@ -77,6 +77,7 @@ class ChattingRoomVC: UIViewController {
         self.tableview.register(ChattingRoomSamePersonCell.self, forCellReuseIdentifier: ChattingRoomSamePersonCell.identifier)
         self.tableview.register(ChattingRoomLeftPictureCell.self, forCellReuseIdentifier: ChattingRoomLeftPictureCell.identifier)
         self.tableview.register(ChattingRoomRightPictureCell.self, forCellReuseIdentifier: ChattingRoomRightPictureCell.identifier)
+        self.tableview.register(ChattingRoomInviteCell.self, forCellReuseIdentifier: ChattingRoomInviteCell.identifier)
         
         self.setKeyboardNotification()          //키보드 올렷다 내렷다
         self.uiCreate()
@@ -112,7 +113,7 @@ class ChattingRoomVC: UIViewController {
             alert.addAction(UIAlertAction(title: "OK", style: .default))
             self.present(alert, animated: true)
         } else {
-            self.viewModel.selectFunction(uv: self, roomTitleOnTable: self.roomTitleOnTable, dbIDOnTable: self.dbIDOnTable)           //기능 선택
+            self.viewModel.selectFunction(uv: self, roomTitleOnTable: self.roomTitleOnTable, dbIDOnTable: self.dbIDOnTable, phoneListOnTable: self.phoneListOnTable)           //기능 선택
         }
     }
     
@@ -127,7 +128,7 @@ class ChattingRoomVC: UIViewController {
     }
     
     @objc func sendMessage(_ sender: UIButton){
-        self.viewModel.doSendButton(activationOnTable: self.activationOnTable, phoneListOnTable: self.phoneListOnTable, roomTitleOnTable: self.roomTitleOnTable, dbIDOnTable: self.dbIDOnTable, writeTV: self.writeTV, tableView: self.tableview)
+        self.viewModel.doSendButton(activationOnTable: self.activationOnTable, roomTitleOnTable: self.roomTitleOnTable, dbIDOnTable: self.dbIDOnTable, writeTV: self.writeTV, tableView: self.tableview)
         self.writeTV.text = ""
         self.sendButton.isHidden = true
     }
@@ -265,7 +266,11 @@ extension ChattingRoomVC: UITableViewDataSource, UITableViewDelegate {
                 return 240
             }
         } else {
-            return UITableView.automaticDimension
+            if self.viewModel.chatList[indexPath.row].sender == "invitation"{
+                return 50
+            } else {
+                return UITableView.automaticDimension
+            }
         }
     }
 }
@@ -296,13 +301,14 @@ extension ChattingRoomVC: UIImagePickerControllerDelegate, UINavigationControlle
     //이미지 선택하면 호출될 메소드
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let img = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
-            //TODO: 메시지 업데이트 및 업로드
             let date = Date().timeIntervalSince1970
-            //이미지 업로드
-            self.viewModel.chatUploadimage(img: img, dbIDOnTable: self.dbIDOnTable, date: date)
+            DispatchQueue.global().async {
+                //이미지 업로드
+                self.viewModel.chatUploadimage(img: img, dbIDOnTable: self.dbIDOnTable, date: date)
+            }
             
             //메시지 업데이트
-            self.viewModel.pictureMessageSend(dbIDOnTable: self.dbIDOnTable, date: date, phoneListOnTable: self.phoneListOnTable)
+            self.viewModel.pictureMessageSend(dbIDOnTable: self.dbIDOnTable, date: date)
         }
         //이미지 피커 컨트롤창 닫기
         picker.dismiss(animated: true)

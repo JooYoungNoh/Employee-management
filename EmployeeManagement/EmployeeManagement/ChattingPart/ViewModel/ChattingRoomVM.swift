@@ -44,6 +44,7 @@ class ChattingRoomVM {
     let group = DispatchGroup()
     //내가 메시지 보낼때 있는 현재 인원
     var chatPresentUser: [String] = []
+    var chatPhoneList: [String] = []
     var saveMessage: String = ""
     
     //(deletePresentUser)
@@ -149,7 +150,7 @@ class ChattingRoomVM {
                     self.chatList.removeAll()
                     
                     for doc in snapshot!.documents {
-                        self.chatList.append(ChattingRoomModel.init(checkRead: doc.data()["checkRead"] as! Bool, imgCheck: doc.data()["imgCheck"] as! Bool, date: doc.data()["date"] as! TimeInterval, sender: doc.data()["sender"] as! String, message: doc.data()["message"] as? String ?? "", readList: doc.data()["readList"] as! [String]))
+                        self.chatList.append(ChattingRoomModel.init(checkRead: doc.data()["checkRead"] as! Bool, imgCheck: doc.data()["imgCheck"] as! Bool, date: doc.data()["date"] as! TimeInterval, sender: doc.data()["sender"] as! String, message: doc.data()["message"] as? String ?? "", readList: doc.data()["readList"] as! [String], userCount: doc.data()["userCount"] as? String ?? "0"))
                     }
                     
                     //채팅이 이미지인 경우
@@ -205,7 +206,7 @@ class ChattingRoomVM {
     }
     
     //MARK: 기능 선택 버튼
-    func selectFunction(uv: UIViewController, roomTitleOnTable: String, dbIDOnTable: String){
+    func selectFunction(uv: UIViewController, roomTitleOnTable: String, dbIDOnTable: String, phoneListOnTable: [String]){
         let alert = UIAlertController(title: "선택해주세요", message: nil, preferredStyle: .actionSheet)
         //모든 사진 보기
         alert.addAction(UIAlertAction(title: "모든 사진 보기", style: .default){ (_) in
@@ -250,7 +251,12 @@ class ChattingRoomVM {
         
         //대화상대 초대
         alert.addAction(UIAlertAction(title: "대화상대 초대", style: .default){ (_) in
-            
+            let nv = uv.storyboard?.instantiateViewController(withIdentifier: "ChattingInviteVC") as! ChattingInviteVC
+            nv.modalPresentationStyle = .fullScreen
+            nv.dbIDOnTable = dbIDOnTable
+            nv.roomTitleOnTable = roomTitleOnTable
+            nv.phoneListOnTable = phoneListOnTable
+            uv.present(nv, animated: true)
         })
         
         //채팅방 나가기
@@ -263,11 +269,13 @@ class ChattingRoomVM {
     
     //MARK: 사진 버튼
     //사진 선택 종류 후 메시지 업데이트
-    func pictureMessageSend(dbIDOnTable: String, date: TimeInterval, phoneListOnTable: [String]){
+    func pictureMessageSend(dbIDOnTable: String, date: TimeInterval){
         self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(dbIDOnTable)").getDocument { snapshot3, error3 in
             if error3 == nil {
                 self.chatPresentUser.removeAll()
+                self.chatPhoneList.removeAll()
                 self.chatPresentUser = (snapshot3!.data()!["presentUser"] as! [String])
+                self.chatPhoneList = (snapshot3!.data()!["phoneList"] as! [String])
                 
                 //내 채팅 리스트 정보 업데이트
                 self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(dbIDOnTable)").updateData([
@@ -282,17 +290,18 @@ class ChattingRoomVM {
                     "date" : date,
                     "sender" : "\(self.appDelegate.phoneInfo!)",
                     "message" : "",
-                    "readList" : self.chatPresentUser
+                    "readList" : self.chatPresentUser,
+                    "userCount" : "\(self.chatPhoneList.count + 1)"
                 ])
                 
                 DispatchQueue.global().async {
-                    for i in phoneListOnTable {
+                    for i in self.chatPhoneList {
                         self.group.enter()
                         self.db.collection("users").whereField("phone", isEqualTo: i).getDocuments { snapshot, error in
                             if error == nil {
                                 self.dbImagePhone.removeAll()
                                 self.dbImagecheck = ""
-                                self.dbImagePhone = phoneListOnTable
+                                self.dbImagePhone = self.chatPhoneList
                                 for doc in snapshot!.documents{
                                     self.dbImagecheck = doc.documentID
                                 }
@@ -309,21 +318,21 @@ class ChattingRoomVM {
                                                 "date" : date,
                                                 "newMessage" : "사진",
                                                 "newCount" : "\(self.chatPresentUser.contains(i) ? 0 : Int(snapshot2!.data()!["newCount"] as! String)! + 1)",
-                                            ])
+                                            ]) { (_) in
+                                                //다른 사람에게 메시지 보내기
+                                                self.db.collection("users").document("\(self.dbImagecheck)").collection("chattingList").document("\(dbIDOnTable)").collection("chat").addDocument(data: [
+                                                    "checkRead" : self.chatPresentUser.contains(i) ? true : false,
+                                                    "imgCheck" : true,
+                                                    "date" : date,
+                                                    "sender" : "\(self.appDelegate.phoneInfo!)",
+                                                    "message" : "",
+                                                    "readList" : self.chatPresentUser
+                                                ]) { (_) in
+                                                    self.semaphore.signal()
+                                                    self.group.leave()
+                                                }
+                                            }
                                         }
-                                    }
-                                    
-                                    //다른 사람에게 메시지 보내기
-                                    self.db.collection("users").document("\(self.dbImagecheck)").collection("chattingList").document("\(dbIDOnTable)").collection("chat").addDocument(data: [
-                                        "checkRead" : self.chatPresentUser.contains(i) ? true : false,
-                                        "imgCheck" : true,
-                                        "date" : date,
-                                        "sender" : "\(self.appDelegate.phoneInfo!)",
-                                        "message" : "",
-                                        "readList" : self.chatPresentUser
-                                    ]) { (_) in
-                                        self.semaphore.signal()
-                                        self.group.leave()
                                     }
                                 }
                             } else {
@@ -449,7 +458,7 @@ class ChattingRoomVM {
     }
     
     //MARK: 메시지 보내기 버튼
-    func doSendButton(activationOnTable: Bool, phoneListOnTable: [String], roomTitleOnTable: String, dbIDOnTable: String, writeTV: UITextView, tableView: UITableView){
+    func doSendButton(activationOnTable: Bool, roomTitleOnTable: String, dbIDOnTable: String, writeTV: UITextView, tableView: UITableView){
         let date = Date().timeIntervalSince1970
         
         self.saveMessage = writeTV.text
@@ -457,8 +466,9 @@ class ChattingRoomVM {
         self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(dbIDOnTable)").getDocument { snapshot3, error3 in
             if error3 == nil {
                 self.chatPresentUser.removeAll()
-                
+                self.chatPhoneList.removeAll()
                 self.chatPresentUser = (snapshot3!.data()!["presentUser"] as! [String])
+                self.chatPhoneList = (snapshot3!.data()!["phoneList"] as! [String])
                 
                 //비 활성화 상태 일때
                 if self.activationStatus == false && activationOnTable == false {
@@ -477,7 +487,8 @@ class ChattingRoomVM {
                         "date" : date,
                         "sender" : "\(self.appDelegate.phoneInfo!)",
                         "message" : "\(self.saveMessage)",
-                        "readList" : ["\(self.appDelegate.phoneInfo!)"]
+                        "readList" : ["\(self.appDelegate.phoneInfo!)"],
+                        "userCount" : "\(self.chatPhoneList.count + 1)"
                     ])
                     
                     //화면에 바로 보여주기
@@ -486,7 +497,7 @@ class ChattingRoomVM {
                             self.chatList.removeAll()
                             
                             for doc in snapshot!.documents {
-                                self.chatList.append(ChattingRoomModel.init(checkRead: doc.data()["checkRead"] as! Bool, imgCheck: doc.data()["imgCheck"] as! Bool, date: doc.data()["date"] as! TimeInterval, sender: doc.data()["sender"] as! String, message: doc.data()["message"] as? String ?? "", readList: doc.data()["readList"] as! [String]))
+                                self.chatList.append(ChattingRoomModel.init(checkRead: doc.data()["checkRead"] as! Bool, imgCheck: doc.data()["imgCheck"] as! Bool, date: doc.data()["date"] as! TimeInterval, sender: doc.data()["sender"] as! String, message: doc.data()["message"] as? String ?? "", readList: doc.data()["readList"] as! [String], userCount: doc.data()["userCount"] as! String))
                             }
                             
                             tableView.reloadData()
@@ -498,7 +509,7 @@ class ChattingRoomVM {
                     
                     //다른 방 사람들에게 처음 메시지 보내기
                     DispatchQueue.global().async {
-                        for i in phoneListOnTable {
+                        for i in self.chatPhoneList {
                             self.group.enter()
                             self.db.collection("users").whereField("phone", isEqualTo: i).getDocuments { snapshot, error in
                                 if error == nil {
@@ -506,7 +517,7 @@ class ChattingRoomVM {
                                     self.dbcheck = ""
                                     self.dbName = ""
                                     self.dbRoom = roomTitleOnTable
-                                    self.dbPhone = phoneListOnTable
+                                    self.dbPhone = self.chatPhoneList
                                     
                                     for doc in snapshot!.documents{
                                         self.dbcheck = doc.documentID
@@ -522,7 +533,7 @@ class ChattingRoomVM {
                                     if self.dbcheck != "" {
                                         self.db.collection("users").document("\(self.dbcheck)").collection("chattingList").document("\(dbIDOnTable)").setData([
                                             "date" : date,
-                                            "roomTitle" : self.dbRoom,
+                                            "roomTitle" : self.dbPhone.count == 1 ? "\(self.appDelegate.nameInfo!)" : self.dbRoom,
                                             "phoneList" : self.dbPhone,
                                             "memberCount" : "\(self.dbPhone.count + 1)",
                                             "newMessage" : "\(self.saveMessage)",
@@ -537,7 +548,8 @@ class ChattingRoomVM {
                                             "date" : date,
                                             "sender" : "\(self.appDelegate.phoneInfo!)",
                                             "message" : "\(self.saveMessage)",
-                                            "readList" : ["\(self.appDelegate.phoneInfo!)"]
+                                            "readList" : ["\(self.appDelegate.phoneInfo!)"],
+                                            "userCount" : "\(self.chatPhoneList.count + 1)"
                                         ]) { (_) in
                                             self.semaphore.signal()
                                             self.group.leave()
@@ -567,12 +579,13 @@ class ChattingRoomVM {
                         "date" : date,
                         "sender" : "\(self.appDelegate.phoneInfo!)",
                         "message" : "\(self.saveMessage)",
-                        "readList" : self.chatPresentUser
+                        "readList" : self.chatPresentUser,
+                        "userCount" : "\(self.chatPhoneList.count + 1)"
                     ])
                     
                     //다른 사람 방에 채팅 추가
                     DispatchQueue.global().async {
-                        for i in phoneListOnTable {
+                        for i in self.chatPhoneList {
                             self.group.enter()
                             self.db.collection("users").whereField("phone", isEqualTo: i).getDocuments { snapshot, error in
                                 if error == nil {
@@ -592,7 +605,7 @@ class ChattingRoomVM {
                                                 self.db.collection("users").document("\(self.dbcheck)").collection("chattingList").document("\(dbIDOnTable)").updateData([
                                                     "date" : date,
                                                     "newMessage" : "\(self.saveMessage)",
-                                                    "newCount" : "\(self.chatPresentUser.contains(i) ? 0 : (Int(snapshot2!.data()!["newCount"] as! String)! + 1))",
+                                                    "newCount" : "\(self.chatPresentUser.contains(i) ? 0 : (Int(snapshot2!.data()!["newCount"] as! String)! + 1))"
                                                 ])
                                             } else {
                                                 print(error2!.localizedDescription)
@@ -606,7 +619,8 @@ class ChattingRoomVM {
                                             "date" : date,
                                             "sender" : "\(self.appDelegate.phoneInfo!)",
                                             "message" : "\(self.saveMessage)",
-                                            "readList" : self.chatPresentUser
+                                            "readList" : self.chatPresentUser,
+                                            "userCount" : "\(self.chatPhoneList.count + 1)"
                                         ]) { _ in
                                             self.semaphore.signal()
                                             self.group.leave()
@@ -643,10 +657,9 @@ class ChattingRoomVM {
         if self.chatList[indexPath.row].sender == "invitation" {      //초대할 경우
             //TODO: 나중에 사람 초대 기능 넣을 경우(가운데에 셀에 레이블도 하나 만들어야됨
             //cell도 바꾸기
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: ChattingRoomCell.identifier, for: indexPath) as? ChattingRoomCell else { return UITableViewCell() }
-            
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: ChattingRoomInviteCell.identifier, for: indexPath) as? ChattingRoomInviteCell else { return UITableViewCell() }
+            cell.inviteLabel.text = self.chatList[indexPath.row].message
             return cell
-            
         } else if self.chatList[indexPath.row].sender == "\(self.appDelegate.phoneInfo!)" {             //보낸사람이 나인 경우
             
             if self.chatList[indexPath.row].imgCheck == true {  //메시지가 사진인 경우
@@ -658,16 +671,9 @@ class ChattingRoomVM {
                 cell.rightTime.text = fixDate
                 
                 //채팅 본 사람 인원 계산
-                self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(dbOnTable)").getDocument { snapshot, error in
-                    if error == nil {
-                        self.allUserCount = (snapshot!.data()!["memberCount"] as! String)
-                        let changeUserCount = Int(self.allUserCount)! - self.chatList[indexPath.row].readList.count
-                        
-                        cell.rightcheck.text = changeUserCount < 1 ? "" : "\(changeUserCount)"
-                    } else {
-                        print(error!.localizedDescription)
-                    }
-                }
+                let changeUserCount = Int(self.chatList[indexPath.row].userCount)! - self.chatList[indexPath.row].readList.count
+                
+                cell.rightcheck.text = changeUserCount < 1 ? "" : "\(changeUserCount)"
                 
                 return cell
                 
@@ -678,17 +684,9 @@ class ChattingRoomVM {
                 cell.rightTalkBox.text = self.chatList[indexPath.row].message
                 cell.rightTime.text = fixDate
                 
-                //채팅 본 사람 인원 계산
-                self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(dbOnTable)").getDocument { snapshot, error in
-                    if error == nil {
-                        self.allUserCount = (snapshot!.data()!["memberCount"] as! String)
-                        let changeUserCount = Int(self.allUserCount)! - self.chatList[indexPath.row].readList.count
-                        
-                        cell.rightcheck.text = changeUserCount < 1 ? "" : "\(changeUserCount)"
-                    } else {
-                        print(error!.localizedDescription)
-                    }
-                }
+                let changeUserCount = Int(self.chatList[indexPath.row].userCount)! - self.chatList[indexPath.row].readList.count
+                
+                cell.rightcheck.text = changeUserCount < 1 ? "" : "\(changeUserCount)"
                 
                 return cell
             }
@@ -701,17 +699,9 @@ class ChattingRoomVM {
                 }
                 cell.leftTime.text = fixDate
                 
-                //채팅 본 사람 인원 계산
-                self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(dbOnTable)").getDocument { snapshot, error in
-                    if error == nil {
-                        self.allUserCount = (snapshot!.data()!["memberCount"] as! String)
-                        let changeUserCount = Int(self.allUserCount)! - self.chatList[indexPath.row].readList.count
-                        
-                        cell.leftcheck.text = changeUserCount < 1 ? "" : "\(changeUserCount)"
-                    } else {
-                        print(error!.localizedDescription)
-                    }
-                }
+                let changeUserCount = Int(self.chatList[indexPath.row].userCount)! - self.chatList[indexPath.row].readList.count
+                
+                cell.leftcheck.text = changeUserCount < 1 ? "" : "\(changeUserCount)"
                 
                 //채팅친 사람 이름
                 self.db.collection("users").whereField("phone", isEqualTo: "\(self.chatList[indexPath.row].sender)").getDocuments { snapshot, error in
@@ -737,17 +727,9 @@ class ChattingRoomVM {
                     cell.leftTalkBox.text = self.chatList[indexPath.row].message
                     cell.leftTime.text = fixDate
                     
-                    //채팅 본 사람 인원 계산
-                    self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(dbOnTable)").getDocument { snapshot, error in
-                        if error == nil {
-                            self.allUserCount = (snapshot!.data()!["memberCount"] as! String)
-                            let changeUserCount = Int(self.allUserCount)! - self.chatList[indexPath.row].readList.count
-                            
-                            cell.leftcheck.text = changeUserCount < 1 ? "" : "\(changeUserCount)"
-                        } else {
-                            print(error!.localizedDescription)
-                        }
-                    }
+                    let changeUserCount = Int(self.chatList[indexPath.row].userCount)! - self.chatList[indexPath.row].readList.count
+                    
+                    cell.leftcheck.text = changeUserCount < 1 ? "" : "\(changeUserCount)"
                     
                     //채팅친 사람 이름
                     self.db.collection("users").whereField("phone", isEqualTo: "\(self.chatList[indexPath.row].sender)").getDocuments { snapshot, error in
@@ -773,17 +755,10 @@ class ChattingRoomVM {
                         cell.leftTalkBox.text = self.chatList[indexPath.row].message
                         cell.leftTime.text = fixDate
                         
-                        //채팅 본 사람 인원 계산
-                        self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(dbOnTable)").getDocument { snapshot, error in
-                            if error == nil {
-                                self.allUserCount = (snapshot!.data()!["memberCount"] as! String)
-                                let changeUserCount = Int(self.allUserCount)! - self.chatList[indexPath.row].readList.count
-                                
-                                cell.leftcheck.text = changeUserCount < 1 ? "" : "\(changeUserCount)"
-                            } else {
-                                print(error!.localizedDescription)
-                            }
-                        }
+                        let changeUserCount = Int(self.chatList[indexPath.row].userCount)! - self.chatList[indexPath.row].readList.count
+                        
+                        cell.leftcheck.text = changeUserCount < 1 ? "" : "\(changeUserCount)"
+                        
                         return cell
                     } else {                                       //다를 때
                         guard let cell = tableView.dequeueReusableCell(withIdentifier: ChattingRoomLeftCell.identifier, for: indexPath) as? ChattingRoomLeftCell else { return UITableViewCell() }
@@ -791,17 +766,9 @@ class ChattingRoomVM {
                         cell.leftTalkBox.text = self.chatList[indexPath.row].message
                         cell.leftTime.text = fixDate
                         
-                        //채팅 본 사람 인원 계산
-                        self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(dbOnTable)").getDocument { snapshot, error in
-                            if error == nil {
-                                self.allUserCount = (snapshot!.data()!["memberCount"] as! String)
-                                let changeUserCount = Int(self.allUserCount)! - self.chatList[indexPath.row].readList.count
-                                
-                                cell.leftcheck.text = changeUserCount < 1 ? "" : "\(changeUserCount)"
-                            } else {
-                                print(error!.localizedDescription)
-                            }
-                        }
+                        let changeUserCount = Int(self.chatList[indexPath.row].userCount)! - self.chatList[indexPath.row].readList.count
+                        
+                        cell.leftcheck.text = changeUserCount < 1 ? "" : "\(changeUserCount)"
                         
                         //채팅친 사람 이름
                         self.db.collection("users").whereField("phone", isEqualTo: "\(self.chatList[indexPath.row].sender)").getDocuments { snapshot, error in
@@ -839,7 +806,9 @@ class ChattingRoomVM {
         }
         
         if textviewHeight != textView.bounds.height {
-            tableview.scrollToRow(at: IndexPath.init(row: self.chatList.count - 1, section: 0), at: .bottom, animated: false)
+            if self.chatList.isEmpty == false {
+                tableview.scrollToRow(at: IndexPath.init(row: self.chatList.count - 1, section: 0), at: .bottom, animated: false)
+            }
         }
     }
     

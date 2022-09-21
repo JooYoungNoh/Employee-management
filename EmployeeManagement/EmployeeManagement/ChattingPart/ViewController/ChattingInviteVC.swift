@@ -66,11 +66,11 @@ class ChattingInviteVC: UIViewController {
         super.viewDidLoad()
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
-        self.collectionView.register(CreateChatCVCell.self, forCellWithReuseIdentifier: CreateChatCVCell.identifier)
+        self.collectionView.register(ChattingInviteCVCell.self, forCellWithReuseIdentifier: ChattingInviteCVCell.identifier)
         
         self.tableView.dataSource = self
         self.tableView.delegate = self
-        self.tableView.register(CreateChatCell.self, forCellReuseIdentifier: CreateChatCell.identifier)
+        self.tableView.register(ChattingInviteCell.self, forCellReuseIdentifier: ChattingInviteCell.identifier)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -89,7 +89,7 @@ class ChattingInviteVC: UIViewController {
     }
     
     @objc func dosave(_ sender: UIButton){
-        self.viewModel.dosave(uv: self)
+        self.viewModel.dosave(uv: self, phoneListOnTable: self.phoneListOnTable, roomTitleOnTable: self.roomTitleOnTable, dbIDOnTable: self.dbIDOnTable)
     }
 
     //MARK: 화면 메소드

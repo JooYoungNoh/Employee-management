@@ -49,6 +49,7 @@
 		735CD0F528DAFFE000A0430D /* ChattingInviteVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 735CD0F428DAFFE000A0430D /* ChattingInviteVM.swift */; };
 		735CD0F728DB005400A0430D /* ChattingInviteCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 735CD0F628DB005400A0430D /* ChattingInviteCVCell.swift */; };
 		735CD0F928DB016B00A0430D /* ChattingInviteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 735CD0F828DB016B00A0430D /* ChattingInviteModel.swift */; };
+		735CD0FB28DB25C600A0430D /* ChattingRoomInviteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 735CD0FA28DB25C600A0430D /* ChattingRoomInviteCell.swift */; };
 		736ECC6428367E1A0092F7F7 /* ShopInformationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736ECC6328367E1A0092F7F7 /* ShopInformationVC.swift */; };
 		7373BEA82852487100336B0B /* ProfileInfoCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7373BEA72852487100336B0B /* ProfileInfoCVCell.swift */; };
 		73752AA8287F00B200196435 /* TransitionWriteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73752AA7287F00B200196435 /* TransitionWriteVC.swift */; };
@@ -155,6 +156,7 @@
 		735CD0F428DAFFE000A0430D /* ChattingInviteVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingInviteVM.swift; sourceTree = "<group>"; };
 		735CD0F628DB005400A0430D /* ChattingInviteCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingInviteCVCell.swift; sourceTree = "<group>"; };
 		735CD0F828DB016B00A0430D /* ChattingInviteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingInviteModel.swift; sourceTree = "<group>"; };
+		735CD0FA28DB25C600A0430D /* ChattingRoomInviteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingRoomInviteCell.swift; sourceTree = "<group>"; };
 		736ECC6328367E1A0092F7F7 /* ShopInformationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopInformationVC.swift; sourceTree = "<group>"; };
 		7373BEA72852487100336B0B /* ProfileInfoCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInfoCVCell.swift; sourceTree = "<group>"; };
 		73752AA7287F00B200196435 /* TransitionWriteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionWriteVC.swift; sourceTree = "<group>"; };
@@ -477,6 +479,7 @@
 				731AA4D928D0C9E000928CB3 /* ChattingRoomSamePersonCell.swift */,
 				73C9F67028D66708007AE630 /* ChattingRoomLeftPictureCell.swift */,
 				73C9F67228D66721007AE630 /* ChattingRoomRightPictureCell.swift */,
+				735CD0FA28DB25C600A0430D /* ChattingRoomInviteCell.swift */,
 				730D2CBA28D7C550001B78FC /* ChattingImageListVC.swift */,
 				730D2CBE28D7CEE7001B78FC /* ChattingImageListCell.swift */,
 				730D2CC228D7ECC6001B78FC /* ChattingImageInfoVC.swift */,
@@ -740,6 +743,7 @@
 				7334334228A95AF000723582 /* TimetableInfoVC.swift in Sources */,
 				7331C5E628491CA6009F5210 /* EmployeeListCell.swift in Sources */,
 				73C411B2283520A6001EC8F6 /* BusinessTypePicker.swift in Sources */,
+				735CD0FB28DB25C600A0430D /* ChattingRoomInviteCell.swift in Sources */,
 				737F40EE28A0491C00282C11 /* NoticeListModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

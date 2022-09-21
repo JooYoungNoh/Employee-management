@@ -15,14 +15,16 @@ struct ChattingRoomModel {
     var sender: String
     var message: String
     var readList: [String]
+    var userCount: String
     
-    init(checkRead: Bool, imgCheck: Bool, date: TimeInterval, sender: String, message: String, readList: [String]){
+    init(checkRead: Bool, imgCheck: Bool, date: TimeInterval, sender: String, message: String, readList: [String], userCount: String){
         self.checkRead = checkRead
         self.imgCheck = imgCheck
         self.date = date
         self.sender = sender
         self.message = message
         self.readList = readList
+        self.userCount = userCount
     }
 }
 
