@@ -476,7 +476,6 @@ class ChattingRoomVM {
                                     self.dbName = ""
                                     self.dbRoom = roomTitleOnTable
                                     self.dbPhone = phoneListOnTable
-                                    var realRoomTitle = ""
                                     
                                     for doc in snapshot!.documents{
                                         self.dbcheck = doc.documentID
@@ -490,25 +489,9 @@ class ChattingRoomVM {
                                     
                                     //방 생성
                                     if self.dbcheck != "" {
-                                        if let range: Range<String.Index> = self.dbRoom.range(of: "\(self.dbName)") {
-                                            self.dbRoom.removeSubrange(range)
-                                        }
-                                        
-                                        if self.dbPhone.count == 1 {
-                                            self.dbRoom = ""
-                                            realRoomTitle = "\(self.appDelegate.nameInfo!)"
-                                        } else {
-                                            if self.dbRoom[self.dbRoom.startIndex] == "," {
-                                                self.dbRoom.removeFirst()
-                                            } else if self.dbRoom[self.dbRoom.index(before: self.dbRoom.endIndex)] == ","{
-                                                self.dbRoom.removeLast()
-                                            }
-                                            realRoomTitle = self.dbRoom + ", \(self.appDelegate.nameInfo!)"
-                                        }
-                                        
                                         self.db.collection("users").document("\(self.dbcheck)").collection("chattingList").document("\(dbIDOnTable)").setData([
                                             "date" : date,
-                                            "roomTitle" : realRoomTitle,
+                                            "roomTitle" : self.dbRoom,
                                             "phoneList" : self.dbPhone,
                                             "memberCount" : "\(self.dbPhone.count + 1)",
                                             "newMessage" : "\(self.saveMessage)",

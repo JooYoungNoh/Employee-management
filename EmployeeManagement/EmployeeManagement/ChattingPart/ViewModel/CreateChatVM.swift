@@ -151,22 +151,39 @@ class CreateChatVM {
                 }
             }
         } else {
-            let alert = UIAlertController(title: "방을 생성하시겠습니까?", message: "메시지를 보내면 상대방도 채팅이 활성화됩니다", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default) { (_) in
-                self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").addDocument(data: [
-                    "date" : date,
-                    "roomTitle" : self.dbRoom,
-                    "phoneList" : self.dbPhone,
-                    "memberCount" : "\(self.dbPhone.count + 1)",
-                    "newMessage" : "",
-                    "newCount" : "0",                   //글자 수
-                    "activation" : false,               //방 활성화 여부
-                    "presentUser" : []                  //현재 방에 들어와 있는 사람
-                ])
-                uv.dismiss(animated: true)
-            })
-            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+             let alert = UIAlertController(title: "채팅방 이름 설정", message: nil, preferredStyle: .alert)
+             
+             alert.addTextField(){ (tf) in
+                 tf.placeholder = "채팅방 이름"
+                 tf.font = UIFont(name: "CookieRun", size: 15)
+                 tf.textColor = .black
+             }
+             alert.addAction(UIAlertAction(title: "OK", style: .default){ (_) in
+                 if alert.textFields?[0].text != "" {
+                     let alert2 = UIAlertController(title: "방을 생성하시겠습니까?", message: "메시지를 보내면 상대방도 채팅이 활성화됩니다", preferredStyle: .alert)
+                     alert2.addAction(UIAlertAction(title: "OK", style: .default) { (_) in
+                         self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").addDocument(data: [
+                             "date" : date,
+                             "roomTitle" : alert.textFields?[0].text,
+                             "phoneList" : self.dbPhone,
+                             "memberCount" : "\(self.dbPhone.count + 1)",
+                             "newMessage" : "",
+                             "newCount" : "0",                   //글자 수
+                             "activation" : false,               //방 활성화 여부
+                             "presentUser" : []                  //현재 방에 들어와 있는 사람
+                         ])
+                         uv.dismiss(animated: true)
+                     })
+                     alert2.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+                     uv.present(alert2, animated: true)
             
+                 } else {
+                     let alert1 = UIAlertController(title: "채팅방 이름이 없습니다", message: "다시 설정해주세요", preferredStyle: .alert)
+                     alert1.addAction(UIAlertAction(title: "OK", style: .default))
+                     uv.present(alert1, animated: true)
+                 }
+             })
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
             uv.present(alert, animated: true)
         }
     }
