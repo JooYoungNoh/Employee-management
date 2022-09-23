@@ -343,6 +343,12 @@ class ChattingRoomVM {
                                 uv.navigationController?.popViewController(animated: true)
                                 self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(dbIDOnTable)").collection("chat").order(by: "date", descending: true).getDocuments{ (snapshot, error) in
                                     for doc in snapshot!.documents{
+                                        if self.findPhoneList.isEmpty == true {
+                                            if doc.data()["imgCheck"] as! Bool == true {
+                                                let imgName = "\(doc.data()["sender"] as! String)_\(doc.data()["date"] as! TimeInterval)"
+                                                self.deleteImage(dbIDOnTable: dbIDOnTable, imgName: imgName)
+                                            }
+                                        }
                                         self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(dbIDOnTable)").collection("chat").document("\(doc.documentID)").delete()
                                     }
                                     self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(dbIDOnTable)").delete()
@@ -359,6 +365,17 @@ class ChattingRoomVM {
         })
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         uv.present(alert, animated: true)
+    }
+    
+    //채팅 이미지 삭제(마지막에 방 나갈 경우)
+    func deleteImage(dbIDOnTable: String, imgName: String) {
+        storage.reference(forURL: "gs://employeemanagement-9d6eb.appspot.com/chattingRoom/\(dbIDOnTable)/chat/\(imgName)").delete { (error) in
+            if let error = error{
+                print(error.localizedDescription)
+            } else {
+                print("이미지 삭제 성공")
+            }
+        }
     }
     
     //MARK: 사진 버튼
