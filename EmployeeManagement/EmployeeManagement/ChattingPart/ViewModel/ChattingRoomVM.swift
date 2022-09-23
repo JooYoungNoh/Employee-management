@@ -60,6 +60,13 @@ class ChattingRoomVM {
     var userImageList: [roomImageSave] = []
     var chatImageList: [chatImageSave] = []
     
+    //(selectFunction)
+    var findPhoneList: [String] = []
+    var deletePhoneList: [String] = []
+    var deletepresentUser: [String] = []
+    var deleteMemberCount: String = ""
+    var deleteBool: Bool = false
+    
     
     //MARK: 액션 메소드
     //MARK: 방 입장
@@ -203,6 +210,8 @@ class ChattingRoomVM {
     func findProfileImage(imgView: UIImageView, phone: String){
         if let index = self.userImageList.firstIndex(where: {$0.userPhone == phone}){
             imgView.image = self.userImageList[index].userImage
+        } else {
+            imgView.image = UIImage(named: "account")
         }
     }
     
@@ -270,7 +279,80 @@ class ChattingRoomVM {
         alert.addAction(UIAlertAction(title: "채팅방 나가기", style: .default){ (_) in
             let alert1 = UIAlertController(title: "채팅방 나가기", message: "채팅방을 나갈시 기존에 대화내용 복구가 불가능합니다", preferredStyle: .alert)
             alert1.addAction(UIAlertAction(title: "OK", style: .default) { (_) in
-                
+                self.deleteListner()
+                self.deleteBool = true
+                let date = Date().timeIntervalSince1970
+                self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(dbIDOnTable)").getDocument { (snapshot, error) in
+                    if error == nil {
+                        self.findPhoneList = (snapshot!.data()!["phoneList"] as! [String])
+                        //다른 인원에 내 정보 빼기
+                        DispatchQueue.global().async {
+                            for i in self.findPhoneList{
+                                self.group.enter()
+                                self.dbResultID = ""
+                                self.db.collection("users").whereField("phone", isEqualTo: i).getDocuments { snapshot1, error1 in
+                                    if error1 == nil {
+                                        for doc in snapshot1!.documents{
+                                            self.dbResultID = doc.documentID
+                                        }
+                                        self.db.collection("users").document("\(self.dbResultID)").collection("chattingList").document("\(dbIDOnTable)").getDocument { snapshot2, error2 in
+                                            if error2 == nil {
+                                                self.deletePhoneList.removeAll()
+                                                self.deletepresentUser.removeAll()
+                                                self.deleteMemberCount = ""
+                                                self.deletePhoneList = (snapshot2!.data()!["phoneList"] as! [String])
+                                                self.deletepresentUser = (snapshot2!.data()!["presentUser"] as! [String])
+                                                self.deleteMemberCount = (snapshot2!.data()!["memberCount"] as! String)
+                                                if let index = self.deletePhoneList.firstIndex(of: "\(self.appDelegate.phoneInfo!)"){
+                                                    self.deletePhoneList.remove(at: index)
+                                                }
+                                                if let index = self.deletepresentUser.firstIndex(of: "\(self.appDelegate.phoneInfo!)"){
+                                                    self.deletepresentUser.remove(at: index)
+                                                }
+                                                self.db.collection("users").document("\(self.dbResultID)").collection("chattingList").document("\(dbIDOnTable)").updateData([
+                                                    "phoneList" : self.deletePhoneList,
+                                                    "presentUser" : self.deletepresentUser,
+                                                    "memberCount" : "\(Int(self.deleteMemberCount)! - 1)"
+                                                ]){ (_) in
+                                                    //방 나갓다고 채팅
+                                                    self.db.collection("users").document("\(self.dbResultID)").collection("chattingList").document("\(dbIDOnTable)").collection("chat").addDocument(data: [
+                                                        "checkRead" : true,
+                                                        "imgCheck" : false,
+                                                        "date" : date,
+                                                        "sender" : "invitation",
+                                                        "message" : "\(self.appDelegate.nameInfo!)님이 방을 나갔습니다",
+                                                        "readList" : [],
+                                                        "userCount" : "\(Int(self.deleteMemberCount)! - 1)"
+                                                    ]) { (_) in
+                                                        self.semaphore.signal()
+                                                        self.group.leave()
+                                                    }
+                                                }
+                                            } else {
+                                                print(error2!.localizedDescription)
+                                            }
+                                        }
+                                    } else {
+                                        print(error1!.localizedDescription)
+                                    }
+                                }
+                                self.semaphore.wait()
+                            }
+                            self.group.notify(queue: DispatchQueue.main) {
+        
+                                uv.navigationController?.popViewController(animated: true)
+                                self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(dbIDOnTable)").collection("chat").order(by: "date", descending: true).getDocuments{ (snapshot, error) in
+                                    for doc in snapshot!.documents{
+                                        self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(dbIDOnTable)").collection("chat").document("\(doc.documentID)").delete()
+                                    }
+                                    self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(dbIDOnTable)").delete()
+                                }
+                            }
+                        }
+                    } else {
+                        print(error!.localizedDescription)
+                    }
+                }
             })
             alert1.addAction(UIAlertAction(title: "Cancel", style: .cancel))
             uv.present(alert1, animated: true)
@@ -607,14 +689,10 @@ class ChattingRoomVM {
                                     for doc in snapshot!.documents{
                                         self.dbcheck = doc.documentID
                                     }
-                                    print(self.dbcheck)
                                     //다른 사람 방 업데이트
                                     if self.dbcheck != "" {
                                         self.db.collection("users").document("\(self.dbcheck)").collection("chattingList").document("\(dbIDOnTable)").getDocument { snapshot2, error2 in
                                             if error2 == nil {
-                                                
-                                                print(self.dbcheck)
-                                                
                                                 self.db.collection("users").document("\(self.dbcheck)").collection("chattingList").document("\(dbIDOnTable)").updateData([
                                                     "date" : date,
                                                     "newMessage" : "\(self.saveMessage)",

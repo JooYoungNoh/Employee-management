@@ -167,7 +167,7 @@ class ChattingInviteVM {
                                         "imgCheck" : false,
                                         "date" : date,
                                         "sender" : "invitation",
-                                        "message" : self.collectionInfoList.count == 1 ? "\(i.name)님이 초대되었습니다" : "\(i.name)외 \(self.collectionInfoList.count - 1)명이 초대되었습니다",
+                                        "message" : self.collectionInfoList.count == 1 ? "\(i.name)님이 초대되었습니다" : "\(i.name)님외 \(self.collectionInfoList.count - 1)명이 초대되었습니다",
                                         "readList" : self.chatPresentUser,
                                         "userCount" : "\(self.dbPhone.count + 1)"
                                     ]) { (_) in
@@ -201,7 +201,7 @@ class ChattingInviteVM {
                             "imgCheck" : false,
                             "date" : date,
                             "sender" : "invitation",
-                            "message" : self.collectionInfoList.count == 1 ? "\(self.collectionInfoList[0].name)님이 초대되었습니다" : "\(self.collectionInfoList[0].name)외 \(self.collectionInfoList.count - 1)명이 초대되었습니다",
+                            "message" : self.collectionInfoList.count == 1 ? "\(self.collectionInfoList[0].name)님이 초대되었습니다" : "\(self.collectionInfoList[0].name)님외 \(self.collectionInfoList.count - 1)명이 초대되었습니다",
                             "readList" : self.chatPresentUser,
                             "userCount" : "\(self.myPhone.count + 1)"
                         ])
