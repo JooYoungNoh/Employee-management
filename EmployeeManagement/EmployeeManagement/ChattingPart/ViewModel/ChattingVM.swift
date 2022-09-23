@@ -159,7 +159,11 @@ class ChattingVM {
                  
                  //유저 수
                  if self.chattingList[indexPath.row].memberCount != "2" {
-                     cell.userCount.text = self.chattingList[indexPath.row].memberCount
+                     if self.chattingList[indexPath.row].memberCount == "1"{
+                         cell.userCount.text = "(방에 아무도 없습니다)"
+                     } else {
+                         cell.userCount.text = self.chattingList[indexPath.row].memberCount
+                     }
                  }
                  
                  //방 업데이트 날짜
@@ -184,6 +188,18 @@ class ChattingVM {
                  //방 프로필 이미지
                  DispatchQueue.main.async {
                      switch self.chattingList[indexPath.row].memberCount {
+                     case "1":
+                         cell.userImageView.isHidden = false
+                         cell.userTwoImageView1.isHidden = true
+                         cell.userTwoImageView2.isHidden = true
+                         cell.userThreeImageView1.isHidden = true
+                         cell.userThreeImageView2.isHidden = true
+                         cell.userThreeImageView3.isHidden = true
+                         cell.userFourImageView1.isHidden = true
+                         cell.userFourImageView2.isHidden = true
+                         cell.userFourImageView3.isHidden = true
+                         cell.userFourImageView4.isHidden = true
+                         cell.userImageView.image = UIImage(named: "account")
                      case "2":
                          cell.userImageView.isHidden = false
                          cell.userTwoImageView1.isHidden = true
@@ -274,7 +290,11 @@ class ChattingVM {
                  
                  //유저 수
                  if self.searchChattingList[indexPath.row].memberCount != "2" {
-                     cell.userCount.text = self.searchChattingList[indexPath.row].memberCount
+                     if self.searchChattingList[indexPath.row].memberCount == "1"{
+                         cell.userCount.text = "(방에 아무도 없습니다)"
+                     } else {
+                         cell.userCount.text = self.searchChattingList[indexPath.row].memberCount
+                     }
                  }
                  
                  //방 업데이트 날짜
@@ -299,6 +319,18 @@ class ChattingVM {
                  //방 프로필 이미지
                  DispatchQueue.main.async {
                      switch self.searchChattingList[indexPath.row].memberCount {
+                     case "1":
+                         cell.userImageView.isHidden = false
+                         cell.userTwoImageView1.isHidden = true
+                         cell.userTwoImageView2.isHidden = true
+                         cell.userThreeImageView1.isHidden = true
+                         cell.userThreeImageView2.isHidden = true
+                         cell.userThreeImageView3.isHidden = true
+                         cell.userFourImageView1.isHidden = true
+                         cell.userFourImageView2.isHidden = true
+                         cell.userFourImageView3.isHidden = true
+                         cell.userFourImageView4.isHidden = true
+                         cell.userImageView.image = UIImage(named: "account")
                      case "2":
                          cell.userImageView.isHidden = false
                          cell.userTwoImageView1.isHidden = true

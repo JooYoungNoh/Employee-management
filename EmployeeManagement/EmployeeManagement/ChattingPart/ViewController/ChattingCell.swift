@@ -153,8 +153,8 @@ class ChattingCell: UITableViewCell {
         contentView.addSubview(userFourImageView3)
         contentView.addSubview(userFourImageView4)
         contentView.addSubview(titleLabel)
-        contentView.addSubview(userCount)
         contentView.addSubview(dateLabel)
+        contentView.addSubview(userCount)
         contentView.addSubview(commentLabel)
         contentView.addSubview(newMessageCount)
         
@@ -234,17 +234,17 @@ class ChattingCell: UITableViewCell {
             make.height.equalTo(25)
         }
         
-        userCount.snp.makeConstraints { make in
-            make.top.equalTo(self.snp.top).offset(10)
-            make.leading.equalTo(self.titleLabel.snp.trailing).offset(5)
-            make.width.lessThanOrEqualTo(30)
-            make.height.equalTo(25)
-        }
-        
         dateLabel.snp.makeConstraints { make in
             make.top.equalTo(self.snp.top).offset(10)
             make.trailing.equalTo(self.snp.trailing).offset(-15)
             make.width.equalTo(70)
+            make.height.equalTo(25)
+        }
+        
+        userCount.snp.makeConstraints { make in
+            make.top.equalTo(self.snp.top).offset(10)
+            make.leading.equalTo(self.titleLabel.snp.trailing).offset(5)
+            make.trailing.equalTo(self.dateLabel.snp.leading).offset(-10)
             make.height.equalTo(25)
         }
         
