@@ -254,15 +254,26 @@ class ChattingRoomVM {
         alert.addAction(UIAlertAction(title: "대화상대 초대", style: .default){ (_) in
             let nv = uv.storyboard?.instantiateViewController(withIdentifier: "ChattingInviteVC") as! ChattingInviteVC
             nv.modalPresentationStyle = .fullScreen
-            nv.dbIDOnTable = dbIDOnTable
-            nv.roomTitleOnTable = roomTitleOnTable
-            nv.phoneListOnTable = phoneListOnTable
-            uv.present(nv, animated: true)
+            self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(dbIDOnTable)").getDocument { (snapshot, error) in
+                if error == nil {
+                    nv.dbIDOnTable = dbIDOnTable
+                    nv.roomTitleOnTable = roomTitleOnTable
+                    nv.phoneListOnTable = (snapshot!.data()!["phoneList"] as! [String])
+                    uv.present(nv, animated: true)
+                } else {
+                    print(error!.localizedDescription)
+                }
+            }
         })
         
         //채팅방 나가기
         alert.addAction(UIAlertAction(title: "채팅방 나가기", style: .default){ (_) in
-            
+            let alert1 = UIAlertController(title: "채팅방 나가기", message: "채팅방을 나갈시 기존에 대화내용 복구가 불가능합니다", preferredStyle: .alert)
+            alert1.addAction(UIAlertAction(title: "OK", style: .default) { (_) in
+                
+            })
+            alert1.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+            uv.present(alert1, animated: true)
         })
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         uv.present(alert, animated: true)
