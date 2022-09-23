@@ -51,6 +51,7 @@ class ChattingRoomVM {
     //인원들 아이디 저장 변수
     var dbResultID: String = ""
     //내가 방에서 나갈떄 있는 현재 인원
+    var searchPhoneList: [String] = []
     var newpresentUser: [String] = []
     
     //(cellInfo)
@@ -412,11 +413,12 @@ class ChattingRoomVM {
     
     //MARK: 뒤로가기 버튼
     //현재 인원에서 이름 삭제
-    func deletePresentUser(dbIDOnTable: String, phoneListOnTable: [String], activationOnTable: Bool){
+    func deletePresentUser(dbIDOnTable: String, activationOnTable: Bool){
         self.deleteListner()
         self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(dbIDOnTable)").getDocument { snapshot2, error2 in
             if error2 == nil {
                 self.newpresentUser = (snapshot2!.data()!["presentUser"] as! [String])
+                self.searchPhoneList = (snapshot2!.data()!["phoneList"] as! [String])
                 
                 if let index = self.newpresentUser.firstIndex(of: self.appDelegate.phoneInfo!){
                     self.newpresentUser.remove(at: index)
@@ -425,7 +427,7 @@ class ChattingRoomVM {
                     ])
                     if self.activationStatus == true || activationOnTable == true {
                         DispatchQueue.global().async {
-                            for i in phoneListOnTable {
+                            for i in self.searchPhoneList {
                                 self.group.enter()
                                 self.dbResultID = ""
                                 self.db.collection("users").whereField("phone", isEqualTo: i).getDocuments { snapshot, error in

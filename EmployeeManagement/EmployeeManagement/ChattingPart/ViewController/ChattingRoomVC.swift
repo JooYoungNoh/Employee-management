@@ -103,7 +103,7 @@ class ChattingRoomVC: UIViewController {
     
     //MARK: 액션 메소드
     @objc func doBack(_ sender: UIBarButtonItem){
-        self.viewModel.deletePresentUser(dbIDOnTable: self.dbIDOnTable, phoneListOnTable: self.phoneListOnTable, activationOnTable: self.activationOnTable)
+        self.viewModel.deletePresentUser(dbIDOnTable: self.dbIDOnTable, activationOnTable: self.activationOnTable)
         self.navigationController?.popViewController(animated: true)
     }
     
