@@ -45,6 +45,7 @@ class ChattingRoomVM {
     //내가 메시지 보낼때 있는 현재 인원
     var chatPresentUser: [String] = []
     var chatPhoneList: [String] = []
+    var chatType: String = ""
     var saveMessage: String = ""
     
     //(deletePresentUser)
@@ -579,8 +580,10 @@ class ChattingRoomVM {
             if error3 == nil {
                 self.chatPresentUser.removeAll()
                 self.chatPhoneList.removeAll()
+                self.chatType = ""
                 self.chatPresentUser = (snapshot3!.data()!["presentUser"] as! [String])
                 self.chatPhoneList = (snapshot3!.data()!["phoneList"] as! [String])
+                self.chatType = (snapshot3!.data()!["type"] as! String)
                 
                 //비 활성화 상태 일때
                 if self.activationStatus == false && activationOnTable == false {
@@ -651,7 +654,8 @@ class ChattingRoomVM {
                                             "newMessage" : "\(self.saveMessage)",
                                             "newCount" : "1",
                                             "activation" : true,
-                                            "presentUser" : self.chatPresentUser
+                                            "presentUser" : self.chatPresentUser,
+                                            "type" : self.chatType
                                         ])
                                         //메시지 보내기
                                         self.db.collection("users").document("\(self.dbcheck)").collection("chattingList").document("\(dbIDOnTable)").collection("chat").addDocument(data: [

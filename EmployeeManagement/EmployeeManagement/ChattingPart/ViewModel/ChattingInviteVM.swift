@@ -159,7 +159,8 @@ class ChattingInviteVM {
                                         "newMessage" : "",
                                         "newCount" : "0",
                                         "activation" : true,
-                                        "presentUser" : self.chatPresentUser
+                                        "presentUser" : self.chatPresentUser,
+                                        "type" : "multi"
                                     ])
                                     //메시지 보내기
                                     self.db.collection("users").document("\(self.dbcheck)").collection("chattingList").document("\(dbIDOnTable)").collection("chat").addDocument(data: [
@@ -193,7 +194,8 @@ class ChattingInviteVM {
                         
                         self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(dbIDOnTable)").updateData([
                             "memberCount" : "\(self.myPhone.count + 1)",
-                            "phoneList" : self.myPhone
+                            "phoneList" : self.myPhone,
+                            "type" : "multi"
                         ])
                         
                         self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(dbIDOnTable)").collection("chat").addDocument(data: [
@@ -233,7 +235,8 @@ class ChattingInviteVM {
                                     
                                     self.db.collection("users").document("\(self.existCheck)").collection("chattingList").document("\(dbIDOnTable)").updateData([
                                         "memberCount" : "\(self.existPhone.count + 1)",
-                                        "phoneList" : self.existPhone
+                                        "phoneList" : self.existPhone,
+                                        "type" : "multi"
                                     ])
                                     //메시지 보내기
                                     self.db.collection("users").document("\(self.existCheck)").collection("chattingList").document("\(dbIDOnTable)").collection("chat").addDocument(data: [

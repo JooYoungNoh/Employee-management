@@ -118,7 +118,7 @@ class CreateChatVM {
         let date = Date().timeIntervalSince1970
         
         if self.collectionInfoList.count == 1{
-            self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").whereField("phoneList", isEqualTo: self.dbPhone).getDocuments { snapshot, error in
+            self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").whereField("phoneList", isEqualTo: self.dbPhone).whereField("type", isEqualTo: "solo").getDocuments { snapshot, error in
                 if error == nil {
                     for doc in snapshot!.documents{
                         self.dbcheck = doc.documentID
@@ -138,7 +138,8 @@ class CreateChatVM {
                                 "newMessage" : "",
                                 "newCount" : "0",
                                 "activation" : false,
-                                "presentUser" : []
+                                "presentUser" : [],
+                                "type" : "solo"
                             ])
                             uv.dismiss(animated: true)
                         })
@@ -170,7 +171,8 @@ class CreateChatVM {
                              "newMessage" : "",
                              "newCount" : "0",                   //글자 수
                              "activation" : false,               //방 활성화 여부
-                             "presentUser" : []                  //현재 방에 들어와 있는 사람
+                             "presentUser" : [],            //현재 방에 들어와 있는 사람
+                             "type" : "multi"
                          ])
                          uv.dismiss(animated: true)
                      })
