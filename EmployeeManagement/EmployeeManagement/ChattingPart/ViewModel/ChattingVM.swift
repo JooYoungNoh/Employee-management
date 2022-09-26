@@ -442,7 +442,6 @@ class ChattingVM {
                 nv.phoneListOnTable = self.chattingList[indexPath.row].phoneList
                 nv.roomTitleOnTable = self.chattingList[indexPath.row].roomTitle
                 nv.activationOnTable = self.chattingList[indexPath.row].activation
-                nv.imgListOnTable = self.userImageList
                 nv.reloadOnTable = false
                 
                 //탭바 숨김
@@ -490,7 +489,6 @@ class ChattingVM {
                 nv.phoneListOnTable = self.searchChattingList[indexPath.row].phoneList
                 nv.roomTitleOnTable = self.searchChattingList[indexPath.row].roomTitle
                 nv.activationOnTable = self.searchChattingList[indexPath.row].activation
-                nv.imgListOnTable = self.userImageList
                 nv.reloadOnTable = false
                 
                 //탭바 숨김

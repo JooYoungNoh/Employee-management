@@ -14,8 +14,6 @@ class ChattingRoomVC: UIViewController {
     var roomTitleOnTable: String = ""           //전 화면에서 가져온 방 이름
     var activationOnTable: Bool = false         //전 화면에서 가져온 활성화 여부
     var phoneListOnTable: [String] = []         //전 화면에서 가져온 채팅방 전체 맴버
-    var imgListOnTable: [imageSave] = []        //전 화면에서 가져온 이미지 리스트
-    
     var reloadOnTable: Bool = false             //전 화면에서 왓다는 증거
     
     var viewModel = ChattingRoomVM()
