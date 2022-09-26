@@ -444,10 +444,6 @@ class ChattingVM {
                 nv.activationOnTable = self.chattingList[indexPath.row].activation
                 nv.reloadOnTable = false
                 
-                //탭바 숨김
-                let customTabBar = uv.tabBarController as! CSTabBarController
-                customTabBar.csView.isHidden = true
-                
                 uv.navigationController?.pushViewController(nv, animated: true)
             }
         } else {

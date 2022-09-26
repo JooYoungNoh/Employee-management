@@ -21,6 +21,9 @@ class ProfileVM {
     var dbmyCompanyLogo: Bool = false           //회사 로고 유무
     
     var dbchatID: String  = ""                  //chat 있는지 없는 지 유무
+    var dbActivation: Bool = false              //chat 활성화 유무
+    var dbRoomTitle: String = ""                //chat 방이름
+    var dbpresentUser: [String] = []            //chat 현재 인원
      
     func findProfileImage(phoneOnTable: String, imageChooseOnTable: Bool, profileView: UIImageView){
         if imageChooseOnTable == true {
@@ -89,31 +92,60 @@ class ProfileVM {
     }
     
     //1대1 채팅 버튼
-    func doChat(uv: UIViewController, phoneOnTable: String){
+    func doChat(uv: UIViewController, phoneOnTable: String, idOnTable: String){
         self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").whereField("phoneList", isEqualTo: [phoneOnTable]).whereField("type", isEqualTo: "solo").getDocuments{ (snapshot, error) in
             if error == nil {
                 for doc in snapshot!.documents{
                     self.dbchatID = doc.documentID
+                    self.dbActivation = doc.data()["activation"] as! Bool
+                    self.dbRoomTitle = doc.data()["roomTitle"] as! String
+                    self.dbpresentUser = doc.data()["presentUser"] as! [String]
                 }
                 if self.dbchatID != ""{
                     let pvc = uv.presentingViewController
                     uv.dismiss(animated: true){
                         let cs = pvc?.children[1] as! CSTabBarController
-                        cs.selectedIndex = 1
-                        let wqew = cs.children[1].children[0] as! ChattingVC
+                        cs.onTabBarClick(cs.chattingButton)
+                        let chatVC = cs.children[1].children[0] as! ChattingVC
                         //TODO: 셀 자동 찾기 가능?
-                        //print(wqew.viewModel.chattingList)
+                        guard let chatRoomVC = chatVC.storyboard?.instantiateViewController(withIdentifier: "ChattingRoomVC") as? ChattingRoomVC else { return }
+                        chatRoomVC.dbIDOnTable = self.dbchatID
+                        chatRoomVC.roomTitleOnTable = self.dbRoomTitle
+                        chatRoomVC.activationOnTable = self.dbActivation
+                        chatRoomVC.phoneListOnTable = [phoneOnTable]
+                        chatRoomVC.reloadOnTable = false
+                        
+                        self.dbpresentUser.append(self.appDelegate.phoneInfo!)
+                        let newPresentUser = self.dbpresentUser
+                        
+                        //내 현재인원
+                        self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(self.dbchatID)").updateData([
+                            "presentUser" : newPresentUser
+                        ])
+                        
+                        //상대방 현재인원
+                        if self.dbActivation == true {
+                            self.db.collection("users").document("\(idOnTable)").collection("chattingList").document("\(self.dbchatID)").updateData([
+                                "presentUser" : newPresentUser
+                            ])
+                        }
+                        
+                        chatVC.navigationController?.pushViewController(chatRoomVC, animated: true)
                     }
                 } else {
                     let alert = UIAlertController(title: "채팅중인 방이 없습니다", message: "채팅방 생성 화면으로 이동하시겠습니까?", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "OK", style: .default){ (_) in
                         let pvc = uv.presentingViewController
                         uv.dismiss(animated: true){
+                            //채팅 리스트 화면
                             let cs = pvc?.children[1] as! CSTabBarController
-                            cs.selectedIndex = 1
-                            let wqew = cs.children[1].children[0] as! ChattingVC
-                            //TODO: 버튼 자동누르기 가능?
-                            //print(wqew.viewModel.chattingList)
+                            cs.onTabBarClick(cs.chattingButton)
+                            let chatVC = cs.children[1].children[0] as! ChattingVC
+                            
+                            //화면 이동(채팅방 생성)
+                            guard let createVC = chatVC.storyboard?.instantiateViewController(withIdentifier: "CreateChatVC") as? CreateChatVC else { return }
+                            createVC.modalPresentationStyle = .fullScreen
+                            chatVC.present(createVC, animated: true)
                         }
                     })
                     alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))

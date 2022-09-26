@@ -12,6 +12,7 @@ class ProfileInfoVC: UIViewController {
     var nameOnTable: String = ""                //전 화면 셀에 있는 이름
     var commentOnTable: String = ""             //전 회면 셀에 있는 코멘트
     var phoneOnTable: String = ""               //전 화면 셀에 있는 번호
+    var idOnTable: String = ""                  //전 화면 셀에 있는 아이디
     var imageChooseOnTable: Bool = false        //전 화면 셀에 있는 사진유무
     
     var viewModel = ProfileVM()                 //프로필 뷰모델
@@ -224,7 +225,7 @@ class ProfileInfoVC: UIViewController {
     }
     
     @objc func doChat(_ sender: UIButton){
-        self.viewModel.doChat(uv: self, phoneOnTable: self.phoneOnTable)
+        self.viewModel.doChat(uv: self, phoneOnTable: self.phoneOnTable, idOnTable: self.idOnTable)
     }
 
 }

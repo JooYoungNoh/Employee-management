@@ -83,6 +83,16 @@ class ChattingRoomVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        //탭바 숨김
+        let customTabBar = self.tabBarController as! CSTabBarController
+        customTabBar.csView.isHidden = true
+        
+        if self.phoneListOnTable.count == 1 {
+            self.navigationItem.title = self.roomTitleOnTable
+        } else {
+            self.navigationItem.title = "그룹채팅"
+        }
+        
         self.viewModel.bringChattingList(dbOnTable: self.dbIDOnTable, activationOnTable: self.activationOnTable, phoneListOnTable: self.phoneListOnTable) { completion in
             if self.viewModel.deleteBool == false {
                 if self.reloadOnTable == false {
@@ -136,11 +146,6 @@ class ChattingRoomVC: UIViewController {
     //MARK: 화면 메소드
     func uiCreate(){
         //내비게이션
-        if self.phoneListOnTable.count == 1 {
-            self.navigationItem.title = self.roomTitleOnTable
-        } else {
-            self.navigationItem.title = "그룹채팅"
-        }
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font : UIFont(name: "CookieRun", size: 20)!]
         self.navigationController?.navigationBar.prefersLargeTitles = false
         self.navigationController?.navigationBar.tintColor = UIColor.black
