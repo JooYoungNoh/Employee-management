@@ -161,10 +161,6 @@ class ChattingRoomVC: UIViewController {
         self.navigationItem.leftBarButtonItem = backButton
         backButton.tintColor = UIColor.black
         
-        //테이블 뷰
-        self.tableview.separatorStyle = .none
-        self.tableview.backgroundColor = .systemGray6
-        self.tableview.allowsSelection = false
         //탭 제스처
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard(_:)))
         view.addGestureRecognizer(tapGesture)
@@ -196,13 +192,17 @@ class ChattingRoomVC: UIViewController {
             make.height.lessThanOrEqualTo(120)
         }
         
+        //테이블 뷰
+        self.tableview.separatorStyle = .none
+        self.tableview.backgroundColor = .systemGray6
+        self.tableview.allowsSelection = false
+        
         self.view.addSubview(self.tableview)
         tableview.snp.makeConstraints { make in
             make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
             make.leading.equalTo(self.view.safeAreaLayoutGuide.snp.leading)
             make.trailing.equalTo(self.view.safeAreaLayoutGuide.snp.trailing)
             make.bottom.equalTo(self.writeTV.snp.top).offset(-10)
-            //self.heightConstraint = make.height.equalTo(680).constraint
         }
     }
     

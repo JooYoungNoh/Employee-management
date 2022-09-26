@@ -260,6 +260,23 @@ class ChattingRoomVM {
            uv.present(alert1, animated: true)
         })
         
+        //대화상대 보기
+        alert.addAction(UIAlertAction(title: "대화상대 보기", style: .default) { (_) in
+            let nv = uv.storyboard?.instantiateViewController(withIdentifier: "ChattingInterlocutorVC") as! ChattingInterlocutorVC
+            nv.modalPresentationStyle = .fullScreen
+            self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(dbIDOnTable)").getDocument { (snapshot, error) in
+                if error == nil {
+                    var dbResultPhone = (snapshot!.data()!["phoneList"] as! [String])
+                    dbResultPhone.insert(self.appDelegate.phoneInfo!, at: 0)
+                    nv.phoneListOnTable = dbResultPhone
+                    nv.userImageList = self.userImageList
+                    uv.present(nv, animated: true)
+                } else {
+                    print(error!.localizedDescription)
+                }
+            }
+        })
+        
         //대화상대 초대
         alert.addAction(UIAlertAction(title: "대화상대 초대", style: .default){ (_) in
             let nv = uv.storyboard?.instantiateViewController(withIdentifier: "ChattingInviteVC") as! ChattingInviteVC
@@ -767,11 +784,10 @@ class ChattingRoomVM {
         let fixDate = "\(formatter.string(from: date))"
         
         if self.chatList[indexPath.row].sender == "invitation" {      //초대할 경우
-            //TODO: 나중에 사람 초대 기능 넣을 경우(가운데에 셀에 레이블도 하나 만들어야됨
-            //cell도 바꾸기
             guard let cell = tableView.dequeueReusableCell(withIdentifier: ChattingRoomInviteCell.identifier, for: indexPath) as? ChattingRoomInviteCell else { return UITableViewCell() }
             cell.inviteLabel.text = self.chatList[indexPath.row].message
             return cell
+            
         } else if self.chatList[indexPath.row].sender == "\(self.appDelegate.phoneInfo!)" {             //보낸사람이 나인 경우
             
             if self.chatList[indexPath.row].imgCheck == true {  //메시지가 사진인 경우

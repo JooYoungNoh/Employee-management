@@ -84,6 +84,9 @@
 		73A3AAEF282944E1001283CD /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A3AAEE282944E1001283CD /* LoginVC.swift */; };
 		73A3AAF12829694E001283CD /* FindVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A3AAF02829694E001283CD /* FindVC.swift */; };
 		73A3AAF5282969D1001283CD /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A3AAF4282969D1001283CD /* SignUpVC.swift */; };
+		73B7AC2128E1AA75002371CA /* ChattingInterlocutorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B7AC2028E1AA75002371CA /* ChattingInterlocutorVC.swift */; };
+		73B7AC2328E1AA8F002371CA /* ChattingInterlocutorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B7AC2228E1AA8F002371CA /* ChattingInterlocutorCell.swift */; };
+		73B7AC2528E1AB95002371CA /* ChattingInterlocutorVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B7AC2428E1AB95002371CA /* ChattingInterlocutorVM.swift */; };
 		73BCD85F2833DBCD00DF6F74 /* ShopAddVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BCD85E2833DBCD00DF6F74 /* ShopAddVC.swift */; };
 		73BE45AB28A1A59E00BC4BDC /* TimetableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BE45AA28A1A59E00BC4BDC /* TimetableCell.swift */; };
 		73C411B2283520A6001EC8F6 /* BusinessTypePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C411B1283520A6001EC8F6 /* BusinessTypePicker.swift */; };
@@ -193,6 +196,9 @@
 		73A3AAEE282944E1001283CD /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		73A3AAF02829694E001283CD /* FindVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindVC.swift; sourceTree = "<group>"; };
 		73A3AAF4282969D1001283CD /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
+		73B7AC2028E1AA75002371CA /* ChattingInterlocutorVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingInterlocutorVC.swift; sourceTree = "<group>"; };
+		73B7AC2228E1AA8F002371CA /* ChattingInterlocutorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingInterlocutorCell.swift; sourceTree = "<group>"; };
+		73B7AC2428E1AB95002371CA /* ChattingInterlocutorVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingInterlocutorVM.swift; sourceTree = "<group>"; };
 		73BCD85E2833DBCD00DF6F74 /* ShopAddVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopAddVC.swift; sourceTree = "<group>"; };
 		73BE45AA28A1A59E00BC4BDC /* TimetableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimetableCell.swift; sourceTree = "<group>"; };
 		73C411B1283520A6001EC8F6 /* BusinessTypePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessTypePicker.swift; sourceTree = "<group>"; };
@@ -460,6 +466,7 @@
 				7346EC2C28B2728800C48AE2 /* CreateChatVM.swift */,
 				7306F29628B7CD3B00232334 /* ChattingRoomVM.swift */,
 				730D2CBC28D7C567001B78FC /* ChattingImageListVM.swift */,
+				73B7AC2428E1AB95002371CA /* ChattingInterlocutorVM.swift */,
 				735CD0F428DAFFE000A0430D /* ChattingInviteVM.swift */,
 			);
 			path = ViewModel;
@@ -483,6 +490,8 @@
 				730D2CBA28D7C550001B78FC /* ChattingImageListVC.swift */,
 				730D2CBE28D7CEE7001B78FC /* ChattingImageListCell.swift */,
 				730D2CC228D7ECC6001B78FC /* ChattingImageInfoVC.swift */,
+				73B7AC2028E1AA75002371CA /* ChattingInterlocutorVC.swift */,
+				73B7AC2228E1AA8F002371CA /* ChattingInterlocutorCell.swift */,
 				735CD0F028DAFFA400A0430D /* ChattingInviteVC.swift */,
 				735CD0F628DB005400A0430D /* ChattingInviteCVCell.swift */,
 				735CD0F228DAFFD400A0430D /* ChattingInviteCell.swift */,
@@ -682,6 +691,7 @@
 				730D2CBD28D7C567001B78FC /* ChattingImageListVM.swift in Sources */,
 				7390F3F02858ED470036B632 /* MemoCell.swift in Sources */,
 				73435D34285A525100B52A98 /* CalculatorVM.swift in Sources */,
+				73B7AC2528E1AB95002371CA /* ChattingInterlocutorVM.swift in Sources */,
 				735CD0F328DAFFD400A0430D /* ChattingInviteCell.swift in Sources */,
 				7346EC3128B272AA00C48AE2 /* CreateChatVC.swift in Sources */,
 				739DBAC428AE80A100E51498 /* ChattingCell.swift in Sources */,
@@ -740,10 +750,12 @@
 				73435D32285A523B00B52A98 /* CalculatorVC.swift in Sources */,
 				73A3AAF12829694E001283CD /* FindVC.swift in Sources */,
 				73C9F67328D66721007AE630 /* ChattingRoomRightPictureCell.swift in Sources */,
+				73B7AC2328E1AA8F002371CA /* ChattingInterlocutorCell.swift in Sources */,
 				7334334228A95AF000723582 /* TimetableInfoVC.swift in Sources */,
 				7331C5E628491CA6009F5210 /* EmployeeListCell.swift in Sources */,
 				73C411B2283520A6001EC8F6 /* BusinessTypePicker.swift in Sources */,
 				735CD0FB28DB25C600A0430D /* ChattingRoomInviteCell.swift in Sources */,
+				73B7AC2128E1AA75002371CA /* ChattingInterlocutorVC.swift in Sources */,
 				737F40EE28A0491C00282C11 /* NoticeListModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

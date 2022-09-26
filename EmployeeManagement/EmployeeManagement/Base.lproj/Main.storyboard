@@ -100,6 +100,21 @@
             </objects>
             <point key="canvasLocation" x="4745" y="-1558"/>
         </scene>
+        <!--대화상대 화면-->
+        <scene sceneID="y9k-oY-VFl">
+            <objects>
+                <viewController storyboardIdentifier="ChattingInterlocutorVC" title="대화상대 화면" id="IUv-iN-nZ8" customClass="ChattingInterlocutorVC" customModule="EmployeeManagement" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="6Uo-SZ-YpF">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="DJ4-Fy-HrF"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Cwl-cc-gnK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5462" y="-1220"/>
+        </scene>
         <!--프로필 정보-->
         <scene sceneID="GOd-im-B0l">
             <objects>
@@ -174,7 +189,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3Kd-Lx-lU3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5471" y="-690"/>
+            <point key="canvasLocation" x="5463" y="-576"/>
         </scene>
         <!--모든 사진 화면-->
         <scene sceneID="eLc-WK-H0r">
