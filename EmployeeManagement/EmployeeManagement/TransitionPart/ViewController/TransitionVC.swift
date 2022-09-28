@@ -16,9 +16,10 @@ class TransitionVC: UIViewController {
     //컬렉션 뷰
     let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.minimumLineSpacing = 10
+        layout.minimumLineSpacing = 30
         layout.minimumInteritemSpacing = 10
-        layout.itemSize = CGSize(width: 190, height: 150)
+        let widthAndHeight: CGFloat = (UIScreen.main.bounds.width - 100) / 2.0
+        layout.itemSize = CGSize(width: widthAndHeight, height: widthAndHeight)
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collection.backgroundColor = .white
         return collection
@@ -48,7 +49,7 @@ class TransitionVC: UIViewController {
     //MARK: 화면 메소드
     func uiCreate(){
         //내비게이션
-        self.navigationItem.title = "Transition"
+        self.navigationItem.title = "Recipe"
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font : UIFont(name: "CookieRun", size: 20)!]
         self.navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.font : UIFont(name: "CookieRun", size: 30)!]
         self.navigationItem.largeTitleDisplayMode = .always
@@ -65,7 +66,8 @@ class TransitionVC: UIViewController {
         
         self.collectionView.snp.makeConstraints { make in
             make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
-            make.leading.trailing.equalToSuperview()
+            make.leading.equalToSuperview().offset(10)
+            make.trailing.equalToSuperview().offset(-10)
             make.bottom.equalTo(self.view.snp.bottom).offset(-90)
         }
     }

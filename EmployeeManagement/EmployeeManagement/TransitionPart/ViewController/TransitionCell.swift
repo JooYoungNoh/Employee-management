@@ -35,15 +35,15 @@ class TransitionCell: UICollectionViewCell {
         titleLabel.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
             make.bottom.equalTo(self.snp.bottom)
-            make.height.equalTo(30)
+            make.height.equalTo(20)
         }
         
         imageView.contentMode = .scaleToFill
         imageView.snp.makeConstraints { make in
-            make.centerX.equalTo(self.titleLabel.snp.centerX)
-            make.bottom.equalTo(self.titleLabel.snp.top).offset(-6)
-            make.width.equalTo(100)
-            make.height.equalTo(85)
+            make.leading.equalTo(self.snp.leading).offset(10)
+            make.trailing.equalTo(self.snp.trailing).offset(-10)
+            make.bottom.equalTo(self.titleLabel.snp.top)
+            make.top.equalToSuperview()
         }
         
     }
