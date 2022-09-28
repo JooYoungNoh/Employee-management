@@ -173,7 +173,7 @@ class ProfileInfoVC: UIViewController {
         self.view.addSubview(chatLabel)
         chatLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom).offset(-30)
+            make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom).offset(-10)
             make.width.equalTo(80)
             make.height.equalTo(30)
         }
@@ -197,7 +197,7 @@ class ProfileInfoVC: UIViewController {
         collectionView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
             make.bottom.equalTo(self.buttonUpView.snp.top).offset(-20)
-            make.height.equalTo(150)
+            make.height.equalTo(130)
         }
         
         //컬렉션 뷰 위 선 UI
