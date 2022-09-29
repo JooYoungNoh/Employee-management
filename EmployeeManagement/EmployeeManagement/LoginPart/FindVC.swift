@@ -257,13 +257,13 @@ class FindVC: UIViewController, UITextFieldDelegate {
         
         self.view.addSubview(phoneImage)
         phoneImage.snp.makeConstraints { make in
-            make.bottom.equalTo(findIdButton.snp.top).offset(-10)
+            make.bottom.equalTo(findIdButton.snp.top).offset(-15)
             make.leading.equalTo(self.view.snp.leading).offset(70)
             make.width.height.equalTo(30)
         }
         self.view.addSubview(phoneTextField)
         phoneTextField.snp.makeConstraints { make in
-            make.bottom.equalTo(findIdButton.snp.top).offset(-10)
+            make.bottom.equalTo(findIdButton.snp.top).offset(-15)
             make.leading.equalTo(phoneImage.snp.trailing).offset(10)
             make.trailing.equalTo(self.view.snp.trailing).offset(-70)
             make.height.equalTo(30)
@@ -281,13 +281,13 @@ class FindVC: UIViewController, UITextFieldDelegate {
         
         self.view.addSubview(birthImage)
         birthImage.snp.makeConstraints { make in
-            make.bottom.equalTo(phoneImage.snp.top).offset(-10)
+            make.bottom.equalTo(phoneImage.snp.top).offset(-15)
             make.leading.equalTo(self.view.snp.leading).offset(70)
             make.width.height.equalTo(30)
         }
         self.view.addSubview(birthTextField)
         birthTextField.snp.makeConstraints { make in
-            make.bottom.equalTo(phoneImage.snp.top).offset(-10)
+            make.bottom.equalTo(phoneImage.snp.top).offset(-15)
             make.leading.equalTo(birthImage.snp.trailing).offset(10)
             make.trailing.equalTo(self.view.snp.trailing).offset(-70)
             make.height.equalTo(30)
@@ -304,13 +304,13 @@ class FindVC: UIViewController, UITextFieldDelegate {
         
         self.view.addSubview(nameImage)
         nameImage.snp.makeConstraints { make in
-            make.bottom.equalTo(birthImage.snp.top).offset(-10)
+            make.bottom.equalTo(birthImage.snp.top).offset(-15)
             make.leading.equalTo(self.view.snp.leading).offset(70)
             make.width.height.equalTo(30)
         }
         self.view.addSubview(nameTextField)
         nameTextField.snp.makeConstraints { make in
-            make.bottom.equalTo(birthImage.snp.top).offset(-10)
+            make.bottom.equalTo(birthImage.snp.top).offset(-15)
             make.leading.equalTo(nameImage.snp.trailing).offset(10)
             make.trailing.equalTo(self.view.snp.trailing).offset(-70)
             make.height.equalTo(30)
@@ -326,7 +326,7 @@ class FindVC: UIViewController, UITextFieldDelegate {
         
         self.view.addSubview(findID)
         findID.snp.makeConstraints { make in
-            make.bottom.equalTo(nameImage.snp.top).offset(-15)
+            make.bottom.equalTo(nameImage.snp.top).offset(-20)
             make.leading.trailing.equalToSuperview()
             make.height.equalTo(50)
         }
@@ -359,13 +359,13 @@ class FindVC: UIViewController, UITextFieldDelegate {
         
         self.view.addSubview(idImage)
         idImage.snp.makeConstraints { make in
-            make.top.equalTo(findPW.snp.bottom).offset(15)
+            make.top.equalTo(findPW.snp.bottom).offset(20)
             make.leading.equalTo(self.view.snp.leading).offset(70)
             make.width.height.equalTo(30)
         }
         self.view.addSubview(idTextField)
         idTextField.snp.makeConstraints { make in
-            make.top.equalTo(findPW.snp.bottom).offset(15)
+            make.top.equalTo(findPW.snp.bottom).offset(25)
             make.leading.equalTo(idImage.snp.trailing).offset(10)
             make.trailing.equalTo(self.view.snp.trailing).offset(-70)
             make.height.equalTo(30)
@@ -399,20 +399,20 @@ class FindVC: UIViewController, UITextFieldDelegate {
         
         self.view.addSubview(pwQuestionImage)
         pwQuestionImage.snp.makeConstraints { make in
-            make.top.equalTo(idImage.snp.bottom).offset(10)
+            make.top.equalTo(idImage.snp.bottom).offset(15)
             make.leading.equalTo(self.view.snp.leading).offset(70)
             make.width.height.equalTo(30)
         }
         self.view.addSubview(pwButton)
         pwButton.snp.makeConstraints { make in
-            make.top.equalTo(idImage.snp.bottom).offset(10)
+            make.top.equalTo(idImage.snp.bottom).offset(15)
             make.trailing.equalTo(self.view.snp.trailing).offset(-70)
             make.width.equalTo(40)
             make.height.equalTo(30)
         }
         self.view.addSubview(pwLabel)
         pwLabel.snp.makeConstraints { make in
-            make.top.equalTo(idImage.snp.bottom).offset(10)
+            make.top.equalTo(idImage.snp.bottom).offset(15)
             make.leading.equalTo(pwQuestionImage.snp.trailing).offset(10)
             make.trailing.equalTo(pwButton.snp.leading).offset(-10)
             make.height.equalTo(30)
@@ -429,13 +429,13 @@ class FindVC: UIViewController, UITextFieldDelegate {
         
         self.view.addSubview(pwAnswerImage)
         pwAnswerImage.snp.makeConstraints { make in
-            make.top.equalTo(pwQuestionImage.snp.bottom).offset(10)
+            make.top.equalTo(pwQuestionImage.snp.bottom).offset(15)
             make.leading.equalTo(self.view.snp.leading).offset(70)
             make.width.height.equalTo(30)
         }
         self.view.addSubview(pwAnswerTextField)
         pwAnswerTextField.snp.makeConstraints { make in
-            make.top.equalTo(pwQuestionImage.snp.bottom).offset(10)
+            make.top.equalTo(pwQuestionImage.snp.bottom).offset(15)
             make.leading.equalTo(pwAnswerImage.snp.trailing).offset(10)
             make.trailing.equalTo(self.view.snp.trailing).offset(-70)
             make.height.equalTo(30)
@@ -457,7 +457,7 @@ class FindVC: UIViewController, UITextFieldDelegate {
         
         self.view.addSubview(findpwButton)
         findpwButton.snp.makeConstraints { make in
-            make.top.equalTo(pwAnswerTextField.snp.bottom).offset(10)
+            make.top.equalTo(pwAnswerTextField.snp.bottom).offset(15)
             make.trailing.equalTo(self.view.snp.trailing).offset(-70)
             make.width.equalTo(50)
             make.height.equalTo(30)
