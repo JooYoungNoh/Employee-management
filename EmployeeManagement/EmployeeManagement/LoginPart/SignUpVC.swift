@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 import FirebaseFirestore
 
 class SignUpVC: UIViewController, UITextFieldDelegate {
@@ -315,9 +316,6 @@ class SignUpVC: UIViewController, UITextFieldDelegate {
     func signUpUIDeployment(){
         //닫기 버튼
         let closeButton = UIButton()
-        
-        closeButton.frame = CGRect(x: 20, y: 50, width: 80, height: 40)
-        
         closeButton.setTitle("Close", for: .normal)
         closeButton.setTitleColor(UIColor.black, for: .normal)
         closeButton.titleLabel?.font = UIFont.init(name: "CookieRun", size: 20)
@@ -325,27 +323,134 @@ class SignUpVC: UIViewController, UITextFieldDelegate {
         closeButton.addTarget(self, action: #selector(doclose(_:)), for: .touchUpInside)
         
         self.view.addSubview(closeButton)
+        closeButton.snp.makeConstraints { make in
+            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(10)
+            make.leading.equalTo(self.view.snp.leading).offset(20)
+            make.width.equalTo(80)
+            make.height.equalTo(40)
+        }
         
-        //회원가입 레이블
-        let signUp = UILabel()
+        //이름
+        nameImage.tintColor = UIColor.systemGray2
         
-        signUp.frame = CGRect(x: self.view.frame.width/2 - 80, y: 90, width: 160, height: 50)
-        signUp.text = "Sign Up"
-        signUp.textColor = UIColor.black
-        signUp.font = UIFont.init(name: "CookieRun", size: 30)
-        signUp.textAlignment = .center
+        nameTextField.placeholder = "Name"
+        nameTextField.borderStyle = .roundedRect
+        nameTextField.layer.borderWidth = 1
+        nameTextField.layer.borderColor = UIColor.systemGray2.cgColor
+        nameTextField.font = UIFont.init(name: "CookieRun", size: 15)
         
-        self.view.addSubview(signUp)
+        self.view.addSubview(nameImage)
+        nameImage.snp.makeConstraints { make in
+            make.bottom.equalTo(self.view.snp.centerY)
+            make.leading.equalTo(self.view.snp.leading).offset(70)
+            make.width.height.equalTo(30)
+        }
+        self.view.addSubview(nameTextField)
+        nameTextField.snp.makeConstraints { make in
+            make.bottom.equalTo(self.view.snp.centerY)
+            make.leading.equalTo(nameImage.snp.trailing).offset(10)
+            make.trailing.equalTo(self.view.snp.trailing).offset(-70)
+            make.height.equalTo(30)
+        }
+        
+        //비밀번호 질문 답변 창
+        pwAnswerImage.tintColor = UIColor.systemGray2
+        
+        pwAnswerTextField.placeholder = "Password Qusetion Answer"
+        pwAnswerTextField.borderStyle = .roundedRect
+        pwAnswerTextField.layer.borderWidth = 1
+        pwAnswerTextField.layer.borderColor = UIColor.systemGray2.cgColor
+        pwAnswerTextField.font = UIFont.init(name: "CookieRun", size: 14)
+        
+        self.view.addSubview(pwAnswerImage)
+        pwAnswerImage.snp.makeConstraints { make in
+            make.bottom.equalTo(nameImage.snp.top).offset(-20)
+            make.leading.equalTo(self.view.snp.leading).offset(70)
+            make.width.height.equalTo(30)
+        }
+        self.view.addSubview(pwAnswerTextField)
+        pwAnswerTextField.snp.makeConstraints { make in
+            make.bottom.equalTo(nameImage.snp.top).offset(-20)
+            make.leading.equalTo(pwAnswerImage.snp.trailing).offset(10)
+            make.trailing.equalTo(self.view.snp.trailing).offset(-70)
+            make.height.equalTo(30)
+        }
+        
+        //비밀번호 질문 창
+        let pwButton = UIButton()
+            //이미지
+        pwQuestionImage.tintColor = UIColor.systemGray2
+        
+            //레이블
+        pwLabel.text = " Password Question"
+        pwLabel.textColor = UIColor.systemGray3
+        pwLabel.font = UIFont.init(name: "CookieRun", size: 14)
+        
+        pwLabel.layer.borderWidth = 1
+        pwLabel.layer.borderColor = UIColor.systemGray2.cgColor
+        
+            //버튼
+        pwButton.setTitle("선택", for: .normal)
+        pwButton.setTitleColor(UIColor.black, for: .normal)
+        pwButton.titleLabel?.font = UIFont.init(name: "CookieRun", size: 15)
+        pwButton.alpha = 0.7
+        
+        pwButton.layer.cornerRadius = 5
+        pwButton.layer.borderWidth = 1
+        pwButton.layer.borderColor = UIColor.black.cgColor
+        
+        pwButton.addTarget(self, action: #selector(doselectedQuesetion(_:)), for: .touchUpInside)
+        
+        self.view.addSubview(pwQuestionImage)
+        pwQuestionImage.snp.makeConstraints { make in
+            make.bottom.equalTo(pwAnswerImage.snp.top).offset(-20)
+            make.leading.equalTo(self.view.snp.leading).offset(70)
+            make.width.height.equalTo(30)
+        }
+        self.view.addSubview(pwButton)
+        pwButton.snp.makeConstraints { make in
+            make.bottom.equalTo(pwAnswerImage.snp.top).offset(-20)
+            make.trailing.equalTo(self.view.snp.trailing).offset(-70)
+            make.width.equalTo(40)
+            make.height.equalTo(30)
+        }
+        self.view.addSubview(pwLabel)
+        pwLabel.snp.makeConstraints { make in
+            make.bottom.equalTo(pwAnswerImage.snp.top).offset(-20)
+            make.leading.equalTo(pwQuestionImage.snp.trailing).offset(10)
+            make.trailing.equalTo(pwButton.snp.leading).offset(-10)
+            make.height.equalTo(30)
+        }
+        
+        //비밀번호
+        passwordImage.tintColor = UIColor.systemGray2
+    
+        passwordTextField.placeholder = "Password"
+        passwordTextField.borderStyle = .roundedRect
+        passwordTextField.layer.borderWidth = 1
+        passwordTextField.layer.borderColor = UIColor.systemGray2.cgColor
+        passwordTextField.font = UIFont.init(name: "CookieRun", size: 15)
+        
+        self.view.addSubview(passwordImage)
+        passwordImage.snp.makeConstraints { make in
+            make.bottom.equalTo(pwQuestionImage.snp.top).offset(-20)
+            make.leading.equalTo(self.view.snp.leading).offset(70)
+            make.width.height.equalTo(30)
+        }
+        self.view.addSubview(passwordTextField)
+        passwordTextField.snp.makeConstraints { make in
+            make.bottom.equalTo(pwQuestionImage.snp.top).offset(-20)
+            make.leading.equalTo(passwordImage.snp.trailing).offset(10)
+            make.trailing.equalTo(self.view.snp.trailing).offset(-70)
+            make.height.equalTo(30)
+        }
         
         //아이디
         let idButton = UIButton()
-        
             //이미지
-        idImage.frame = CGRect(x: 70, y: 160, width: 30, height: 30)
         idImage.tintColor = UIColor.systemGray2
         
             //텍스트필드
-        idTextField.frame = CGRect(x: 110, y: 160, width: 150, height: 30)
         idTextField.placeholder = "Id"
         idTextField.borderStyle = .roundedRect
         idTextField.layer.borderWidth = 1
@@ -353,8 +458,6 @@ class SignUpVC: UIViewController, UITextFieldDelegate {
         idTextField.font = UIFont.init(name: "CookieRun", size: 15)
         
             //버튼
-        idButton.frame = CGRect(x: 270, y: 160, width: 40, height: 30)
-    
         idButton.setTitle("확인", for: .normal)
         idButton.setTitleColor(UIColor.black, for: .normal)
         idButton.titleLabel?.font = UIFont.init(name: "CookieRun", size: 15)
@@ -368,91 +471,44 @@ class SignUpVC: UIViewController, UITextFieldDelegate {
         idButton.addTarget(self, action: #selector(doCheckId(_:)), for: .touchUpInside)
         
         self.view.addSubview(idImage)
-        self.view.addSubview(idTextField)
+        idImage.snp.makeConstraints { make in
+            make.bottom.equalTo(passwordImage.snp.top).offset(-20)
+            make.leading.equalTo(self.view.snp.leading).offset(70)
+            make.width.height.equalTo(30)
+        }
         self.view.addSubview(idButton)
+        idButton.snp.makeConstraints { make in
+            make.bottom.equalTo(passwordImage.snp.top).offset(-20)
+            make.trailing.equalTo(self.view.snp.trailing).offset(-70)
+            make.width.equalTo(40)
+            make.height.equalTo(30)
+        }
+        self.view.addSubview(idTextField)
+        idTextField.snp.makeConstraints { make in
+            make.bottom.equalTo(passwordImage.snp.top).offset(-20)
+            make.leading.equalTo(idImage.snp.trailing).offset(10)
+            make.trailing.equalTo(idButton.snp.leading).offset(-10)
+            make.height.equalTo(30)
+        }
         
-        //비밀번호
-        passwordImage.frame = CGRect(x: 70, y: 200, width: 30, height: 30)
-        passwordImage.tintColor = UIColor.systemGray2
+        //회원가입 레이블
+        let signUp = UILabel()
+
+        signUp.text = "Sign Up"
+        signUp.textColor = UIColor.black
+        signUp.font = UIFont.init(name: "CookieRun", size: 30)
+        signUp.textAlignment = .center
         
-        passwordTextField.frame = CGRect(x: 110, y: 200, width: 200, height: 30)
-        passwordTextField.placeholder = "Password"
-        passwordTextField.borderStyle = .roundedRect
-        passwordTextField.layer.borderWidth = 1
-        passwordTextField.layer.borderColor = UIColor.systemGray2.cgColor
-        passwordTextField.font = UIFont.init(name: "CookieRun", size: 15)
-        
-        self.view.addSubview(passwordImage)
-        self.view.addSubview(passwordTextField)
-        
-        //비밀번호 질문 창
-        let pwButton = UIButton()
-        
-            //이미지
-        pwQuestionImage.frame = CGRect(x: 70, y: 240, width: 30, height: 30)
-        pwQuestionImage.tintColor = UIColor.systemGray2
-        
-            //레이블
-        pwLabel.frame = CGRect(x: 110, y: 240, width: 150, height: 30)
-        pwLabel.text = " Password Question"
-        pwLabel.textColor = UIColor.systemGray3
-        pwLabel.font = UIFont.init(name: "CookieRun", size: 14)
-        
-        pwLabel.layer.borderWidth = 1
-        pwLabel.layer.borderColor = UIColor.systemGray2.cgColor
-        
-            //버튼
-        pwButton.frame = CGRect(x: 270, y: 240, width: 40, height: 30)
-        
-        pwButton.setTitle("선택", for: .normal)
-        pwButton.setTitleColor(UIColor.black, for: .normal)
-        pwButton.titleLabel?.font = UIFont.init(name: "CookieRun", size: 15)
-        pwButton.alpha = 0.7
-        
-        pwButton.layer.cornerRadius = 5
-        pwButton.layer.borderWidth = 1
-        pwButton.layer.borderColor = UIColor.black.cgColor
-        
-        //MARK: 비밀번호 질문 창 버튼 이벤트
-        pwButton.addTarget(self, action: #selector(doselectedQuesetion(_:)), for: .touchUpInside)
-        
-        self.view.addSubview(pwQuestionImage)
-        self.view.addSubview(pwLabel)
-        self.view.addSubview(pwButton)
-        
-        //비밀번호 질문 답변 창
-        pwAnswerImage.frame = CGRect(x: 70, y: 280, width: 30, height: 30)
-        pwAnswerImage.tintColor = UIColor.systemGray2
-        
-        pwAnswerTextField.frame = CGRect(x: 110, y: 280, width: 200, height: 30)
-        pwAnswerTextField.placeholder = "Password Qusetion Answer"
-        pwAnswerTextField.borderStyle = .roundedRect
-        pwAnswerTextField.layer.borderWidth = 1
-        pwAnswerTextField.layer.borderColor = UIColor.systemGray2.cgColor
-        pwAnswerTextField.font = UIFont.init(name: "CookieRun", size: 14)
-        
-        self.view.addSubview(pwAnswerImage)
-        self.view.addSubview(pwAnswerTextField)
-        
-        //이름
-        nameImage.frame = CGRect(x: 70, y: 320, width: 30, height: 30)
-        nameImage.tintColor = UIColor.systemGray2
-        
-        nameTextField.frame = CGRect(x: 110, y: 320, width: 200, height: 30)
-        nameTextField.placeholder = "Name"
-        nameTextField.borderStyle = .roundedRect
-        nameTextField.layer.borderWidth = 1
-        nameTextField.layer.borderColor = UIColor.systemGray2.cgColor
-        nameTextField.font = UIFont.init(name: "CookieRun", size: 15)
-        
-        self.view.addSubview(nameImage)
-        self.view.addSubview(nameTextField)
+        self.view.addSubview(signUp)
+        signUp.snp.makeConstraints { make in
+            make.bottom.equalTo(idImage.snp.top).offset(-20)
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(50)
+        }
         
         //생년월일
-        birthImage.frame = CGRect(x: 70, y: 360, width: 30, height: 30)
         birthImage.tintColor = UIColor.systemGray2
         
-        birthTextField.frame = CGRect(x: 110, y: 360, width: 200, height: 30)
         birthTextField.keyboardType = .phonePad
         birthTextField.placeholder = "ex) 970101"
         birthTextField.borderStyle = .roundedRect
@@ -461,15 +517,24 @@ class SignUpVC: UIViewController, UITextFieldDelegate {
         birthTextField.font = UIFont.init(name: "CookieRun", size: 15)
         
         self.view.addSubview(birthImage)
+        birthImage.snp.makeConstraints { make in
+            make.top.equalTo(nameImage.snp.bottom).offset(20)
+            make.leading.equalTo(self.view.snp.leading).offset(70)
+            make.width.height.equalTo(30)
+        }
         self.view.addSubview(birthTextField)
+        birthTextField.snp.makeConstraints { make in
+            make.top.equalTo(nameImage.snp.bottom).offset(20)
+            make.leading.equalTo(birthImage.snp.trailing).offset(10)
+            make.trailing.equalTo(self.view.snp.trailing).offset(-70)
+            make.height.equalTo(30)
+        }
         
         //전화번호
         let phoneButton = UIButton()
         
-        phoneImage.frame = CGRect(x: 70, y: 400, width: 30, height: 30)
         phoneImage.tintColor = UIColor.systemGray2
         
-        phoneTextField.frame = CGRect(x: 110, y: 400, width: 150, height: 30)
         phoneTextField.keyboardType = .phonePad
         phoneTextField.placeholder = "ex) 01012345678"
         phoneTextField.borderStyle = .roundedRect
@@ -478,8 +543,6 @@ class SignUpVC: UIViewController, UITextFieldDelegate {
         phoneTextField.font = UIFont.init(name: "CookieRun", size: 14)
         
         //버튼
-        phoneButton.frame = CGRect(x: 270, y: 400, width: 40, height: 30)
-
         phoneButton.setTitle("확인", for: .normal)
         phoneButton.setTitleColor(UIColor.black, for: .normal)
         phoneButton.titleLabel?.font = UIFont.init(name: "CookieRun", size: 15)
@@ -493,41 +556,69 @@ class SignUpVC: UIViewController, UITextFieldDelegate {
         phoneButton.addTarget(self, action: #selector(doCheckPhone(_:)), for: .touchUpInside)
         
         self.view.addSubview(phoneImage)
-        self.view.addSubview(phoneTextField)
+        phoneImage.snp.makeConstraints { make in
+            make.top.equalTo(birthImage.snp.bottom).offset(20)
+            make.leading.equalTo(self.view.snp.leading).offset(70)
+            make.width.height.equalTo(30)
+        }
         self.view.addSubview(phoneButton)
+        phoneButton.snp.makeConstraints { make in
+            make.top.equalTo(birthImage.snp.bottom).offset(20)
+            make.trailing.equalTo(self.view.snp.trailing).offset(-70)
+            make.width.equalTo(40)
+            make.height.equalTo(30)
+        }
+        self.view.addSubview(phoneTextField)
+        phoneTextField.snp.makeConstraints { make in
+            make.top.equalTo(birthImage.snp.bottom).offset(20)
+            make.leading.equalTo(phoneImage.snp.trailing).offset(10)
+            make.trailing.equalTo(phoneButton.snp.leading).offset(-10)
+            make.height.equalTo(30)
+        }
         
         //성별
         let genderControl = UISegmentedControl(items: ["남자","여자"])
-        
-        genderImage.frame = CGRect(x: 70, y: 440, width: 30, height: 25)
+
         genderImage.tintColor = UIColor.systemGray2
-        
-        genderControl.frame = CGRect(x: 110, y: 440, width: 200, height: 25)
-        
-        //MARK: 성별 저장을 위한 값 변경 이벤트
         genderControl.addTarget(self, action: #selector(changeGender(_:)), for: .valueChanged)
             
         self.view.addSubview(genderImage)
+        genderImage.snp.makeConstraints { make in
+            make.top.equalTo(phoneImage.snp.bottom).offset(20)
+            make.leading.equalTo(self.view.snp.leading).offset(70)
+            make.width.height.equalTo(30)
+        }
         self.view.addSubview(genderControl)
+        genderControl.snp.makeConstraints { make in
+            make.top.equalTo(phoneImage.snp.bottom).offset(20)
+            make.leading.equalTo(genderImage.snp.trailing).offset(10)
+            make.trailing.equalTo(self.view.snp.trailing).offset(-70)
+            make.height.equalTo(30)
+        }
         
         //직책
         let jobControl = UISegmentedControl(items: ["사장", "직원", "알바"])
-        
-        jobImage.frame = CGRect(x: 70, y: 475, width: 30, height: 25)
+
         jobImage.tintColor = UIColor.systemGray2
-        
-        jobControl.frame = CGRect(x: 110, y: 475, width: 200, height: 25)
-        
-        //MARK: 직책 저장을 위한 값 변경 이벤트
+
         jobControl.addTarget(self, action: #selector(changeJob(_:)), for: .valueChanged)
         
         self.view.addSubview(jobImage)
+        jobImage.snp.makeConstraints { make in
+            make.top.equalTo(genderImage.snp.bottom).offset(20)
+            make.leading.equalTo(self.view.snp.leading).offset(70)
+            make.width.height.equalTo(30)
+        }
         self.view.addSubview(jobControl)
+        jobControl.snp.makeConstraints { make in
+            make.top.equalTo(genderImage.snp.bottom).offset(20)
+            make.leading.equalTo(jobImage.snp.trailing).offset(10)
+            make.trailing.equalTo(self.view.snp.trailing).offset(-70)
+            make.height.equalTo(30)
+        }
         
         //완료 버튼
         let successButton = UIButton()
-        
-        successButton.frame = CGRect(x: 70, y: 520, width: 240, height: 50)
         
         successButton.setTitle("Join", for: .normal)
         successButton.setTitleColor(UIColor.black, for: .normal)
@@ -538,10 +629,15 @@ class SignUpVC: UIViewController, UITextFieldDelegate {
         successButton.layer.borderWidth = 2
         successButton.layer.borderColor = UIColor.systemGray.cgColor
         
-        //MARK: Join 버튼 이벤트
         successButton.addTarget(self, action: #selector(doJoin(_:)), for: .touchUpInside)
         
         self.view.addSubview(successButton)
+        successButton.snp.makeConstraints { make in
+            make.top.equalTo(jobImage.snp.bottom).offset(20)
+            make.leading.equalTo(self.view.snp.leading).offset(70)
+            make.trailing.equalTo(self.view.snp.trailing).offset(-70)
+            make.height.equalTo(50)
+        }
     }
 
 }
