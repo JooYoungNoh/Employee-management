@@ -177,7 +177,7 @@ class SignUpVC: UIViewController, UITextFieldDelegate {
             self.pwLabel.textColor = UIColor.black
         })
         alert.addAction(UIAlertAction(title: "취소", style: .cancel){ (_) in
-            if self.pwLabel.text == " Password Question"{
+            if self.pwLabel.text == "  password Question"{
                 self.pwQuestionImage.tintColor = UIColor.systemGray2
             } else {
                 self.pwQuestionImage.tintColor = UIColor.black
@@ -324,8 +324,8 @@ class SignUpVC: UIViewController, UITextFieldDelegate {
         
         self.view.addSubview(closeButton)
         closeButton.snp.makeConstraints { make in
-            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(10)
-            make.leading.equalTo(self.view.snp.leading).offset(20)
+            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
+            make.leading.equalTo(self.view.snp.leading).offset(5)
             make.width.equalTo(80)
             make.height.equalTo(40)
         }
@@ -333,11 +333,11 @@ class SignUpVC: UIViewController, UITextFieldDelegate {
         //이름
         nameImage.tintColor = UIColor.systemGray2
         
-        nameTextField.placeholder = "Name"
+        nameTextField.placeholder = "name"
         nameTextField.borderStyle = .roundedRect
         nameTextField.layer.borderWidth = 1
         nameTextField.layer.borderColor = UIColor.systemGray2.cgColor
-        nameTextField.font = UIFont.init(name: "CookieRun", size: 15)
+        nameTextField.font = UIFont.init(name: "CookieRun", size: 14)
         
         self.view.addSubview(nameImage)
         nameImage.snp.makeConstraints { make in
@@ -356,11 +356,11 @@ class SignUpVC: UIViewController, UITextFieldDelegate {
         //비밀번호 질문 답변 창
         pwAnswerImage.tintColor = UIColor.systemGray2
         
-        pwAnswerTextField.placeholder = "Password Qusetion Answer"
+        pwAnswerTextField.placeholder = "password Qusetion Answer"
         pwAnswerTextField.borderStyle = .roundedRect
         pwAnswerTextField.layer.borderWidth = 1
         pwAnswerTextField.layer.borderColor = UIColor.systemGray2.cgColor
-        pwAnswerTextField.font = UIFont.init(name: "CookieRun", size: 14)
+        pwAnswerTextField.font = UIFont.init(name: "CookieRun", size: 13)
         
         self.view.addSubview(pwAnswerImage)
         pwAnswerImage.snp.makeConstraints { make in
@@ -382,9 +382,9 @@ class SignUpVC: UIViewController, UITextFieldDelegate {
         pwQuestionImage.tintColor = UIColor.systemGray2
         
             //레이블
-        pwLabel.text = " Password Question"
+        pwLabel.text = "  password Question"
         pwLabel.textColor = UIColor.systemGray3
-        pwLabel.font = UIFont.init(name: "CookieRun", size: 14)
+        pwLabel.font = UIFont.init(name: "CookieRun", size: 13)
         
         pwLabel.layer.borderWidth = 1
         pwLabel.layer.borderColor = UIColor.systemGray2.cgColor
@@ -425,11 +425,11 @@ class SignUpVC: UIViewController, UITextFieldDelegate {
         //비밀번호
         passwordImage.tintColor = UIColor.systemGray2
     
-        passwordTextField.placeholder = "Password"
+        passwordTextField.placeholder = "password"
         passwordTextField.borderStyle = .roundedRect
         passwordTextField.layer.borderWidth = 1
         passwordTextField.layer.borderColor = UIColor.systemGray2.cgColor
-        passwordTextField.font = UIFont.init(name: "CookieRun", size: 15)
+        passwordTextField.font = UIFont.init(name: "CookieRun", size: 14)
         
         self.view.addSubview(passwordImage)
         passwordImage.snp.makeConstraints { make in
@@ -451,11 +451,11 @@ class SignUpVC: UIViewController, UITextFieldDelegate {
         idImage.tintColor = UIColor.systemGray2
         
             //텍스트필드
-        idTextField.placeholder = "Id"
+        idTextField.placeholder = "id"
         idTextField.borderStyle = .roundedRect
         idTextField.layer.borderWidth = 1
         idTextField.layer.borderColor = UIColor.systemGray2.cgColor
-        idTextField.font = UIFont.init(name: "CookieRun", size: 15)
+        idTextField.font = UIFont.init(name: "CookieRun", size: 14)
         
             //버튼
         idButton.setTitle("확인", for: .normal)
@@ -514,7 +514,7 @@ class SignUpVC: UIViewController, UITextFieldDelegate {
         birthTextField.borderStyle = .roundedRect
         birthTextField.layer.borderWidth = 1
         birthTextField.layer.borderColor = UIColor.systemGray2.cgColor
-        birthTextField.font = UIFont.init(name: "CookieRun", size: 15)
+        birthTextField.font = UIFont.init(name: "CookieRun", size: 14)
         
         self.view.addSubview(birthImage)
         birthImage.snp.makeConstraints { make in

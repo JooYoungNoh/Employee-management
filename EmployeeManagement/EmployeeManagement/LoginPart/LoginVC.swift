@@ -136,9 +136,9 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         
         //아이디
         idImage.tintColor = UIColor.systemGray3
-        idTextField.placeholder = "Id"
+        idTextField.placeholder = "id"
         idTextField.borderStyle = .roundedRect
-        idTextField.font = UIFont.init(name: "CookieRun", size: 15)
+        idTextField.font = UIFont.init(name: "CookieRun", size: 14)
         
         self.view.addSubview(idImage)
         idImage.snp.makeConstraints { make in
@@ -156,9 +156,9 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         
         //비밀번호
         pwImage.tintColor = UIColor.systemGray3
-        pwTextField.placeholder = "Password"
+        pwTextField.placeholder = "password"
         pwTextField.borderStyle = .roundedRect
-        pwTextField.font = UIFont.init(name: "CookieRun", size: 15)
+        pwTextField.font = UIFont.init(name: "CookieRun", size: 14)
         
         self.view.addSubview(pwImage)
         pwImage.snp.makeConstraints { make in
