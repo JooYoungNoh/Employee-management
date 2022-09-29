@@ -605,6 +605,8 @@ class ChattingRoomVM {
                 //비 활성화 상태 일때
                 if self.activationStatus == false && activationOnTable == false {
                     self.activationStatus = true
+                    self.appDelegate.presentActive = true
+                    self.appDelegate.dbOnTable = dbIDOnTable
                     //내 채팅 리스트 정보 업데이트
                     self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(dbIDOnTable)").updateData([
                         "date" : date,

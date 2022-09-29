@@ -83,6 +83,12 @@ class ChattingRoomVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.viewModel.appDelegate.dbOnTable = self.dbIDOnTable
+        self.viewModel.appDelegate.activeChatting = true
+        if self.activationOnTable == true {
+            self.viewModel.appDelegate.presentActive = true
+        }
+        
         //탭바 숨김
         let customTabBar = self.tabBarController as! CSTabBarController
         customTabBar.csView.isHidden = true

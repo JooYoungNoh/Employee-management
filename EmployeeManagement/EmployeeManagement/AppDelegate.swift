@@ -21,6 +21,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     //채팅 부분
     var imageList: [chatImageSave] = []
+    var activeChatting: Bool = false
+    var presentActive: Bool = false
+    var dbOnTable: String = ""
     
     //매장 부분
     var schedulePartCompanyName: String = ""                   //스케줄 부분 회사 이름 저장

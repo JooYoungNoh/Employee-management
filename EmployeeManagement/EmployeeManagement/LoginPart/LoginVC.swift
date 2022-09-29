@@ -38,6 +38,13 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         self.pwTextField.delegate = self
         
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.appDelegate.presentActive = false
+        self.appDelegate.dbOnTable = ""
+        self.appDelegate.activeChatting = false
+    }
     //MARK: 액션 메소드
     @objc func goFind(_ sender: UIButton){
         let nv = self.storyboard?.instantiateViewController(withIdentifier: "FindVC")

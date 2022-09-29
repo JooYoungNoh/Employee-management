@@ -33,6 +33,9 @@ class ChattingVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.viewModel.appDelegate.presentActive = false
+        self.viewModel.appDelegate.dbOnTable = ""
+        self.viewModel.appDelegate.activeChatting = false
         let customTabBar = self.tabBarController as! CSTabBarController
         customTabBar.csView.isHidden = false
         self.uiCreate()
