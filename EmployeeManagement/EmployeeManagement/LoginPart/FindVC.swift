@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 import FirebaseFirestore
 
 class FindVC: UIViewController, UITextFieldDelegate {
@@ -210,9 +211,6 @@ class FindVC: UIViewController, UITextFieldDelegate {
     func idUIDeployment(){
         //닫기 버튼
         let closeButton = UIButton()
-        
-        closeButton.frame = CGRect(x: 20, y: 50, width: 80, height: 40)
-        
         closeButton.setTitle("Close", for: .normal)
         closeButton.setTitleColor(UIColor.black, for: .normal)
         closeButton.titleLabel?.font = UIFont.init(name: "CookieRun", size: 20)
@@ -220,67 +218,15 @@ class FindVC: UIViewController, UITextFieldDelegate {
         closeButton.addTarget(self, action: #selector(doclose(_:)), for: .touchUpInside)
         
         self.view.addSubview(closeButton)
-        
-        //아이디 찾기 레이블
-        let findID = UILabel()
-        
-        findID.frame = CGRect(x: self.view.frame.width/2 - 80, y: 90, width: 160, height: 50)
-        findID.text = "Find ID"
-        findID.textColor = UIColor.black
-        findID.font = UIFont.init(name: "CookieRun", size: 30)
-        findID.textAlignment = .center
-        
-        self.view.addSubview(findID)
-        
-        //이름
-        nameImage.frame = CGRect(x: 70, y: 150, width: 30, height: 30)
-        nameImage.tintColor = UIColor.systemGray2
-        
-        nameTextField.frame = CGRect(x: 110, y: 150, width: 200, height: 30)
-        nameTextField.placeholder = "Name"
-        nameTextField.borderStyle = .roundedRect
-        nameTextField.layer.borderWidth = 1
-        nameTextField.layer.borderColor = UIColor.systemGray2.cgColor
-        nameTextField.font = UIFont.init(name: "CookieRun", size: 15)
-        
-        self.view.addSubview(nameImage)
-        self.view.addSubview(nameTextField)
-        
-        //생년월일
-        birthImage.frame = CGRect(x: 70, y: 190, width: 30, height: 30)
-        birthImage.tintColor = UIColor.systemGray2
-        
-        birthTextField.frame = CGRect(x: 110, y: 190, width: 200, height: 30)
-        birthTextField.keyboardType = .phonePad
-        birthTextField.placeholder = "ex) 970101"
-        birthTextField.borderStyle = .roundedRect
-        birthTextField.layer.borderWidth = 1
-        birthTextField.layer.borderColor = UIColor.systemGray2.cgColor
-        birthTextField.font = UIFont.init(name: "CookieRun", size: 15)
-        
-        self.view.addSubview(birthImage)
-        self.view.addSubview(birthTextField)
-        
-        //전화번호
-        phoneImage.frame = CGRect(x: 70, y: 230, width: 30, height: 30)
-        phoneImage.tintColor = UIColor.systemGray2
-        
-        phoneTextField.frame = CGRect(x: 110, y: 230, width: 200, height: 30)
-        phoneTextField.keyboardType = .phonePad
-        phoneTextField.placeholder = "ex) 01000000000"
-        phoneTextField.borderStyle = .roundedRect
-        phoneTextField.layer.borderWidth = 1
-        phoneTextField.layer.borderColor = UIColor.systemGray2.cgColor
-        phoneTextField.font = UIFont.init(name: "CookieRun", size: 15)
-        
-        self.view.addSubview(phoneImage)
-        self.view.addSubview(phoneTextField)
+        closeButton.snp.makeConstraints { make in
+            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(10)
+            make.leading.equalTo(self.view.snp.leading).offset(20)
+            make.width.equalTo(80)
+            make.height.equalTo(40)
+        }
         
         //아이디 찾기 버튼
         let findIdButton = UIButton()
-        
-        findIdButton.frame = CGRect(x: 260, y: 270, width: 50, height: 30)
-        
         findIdButton.setTitle("Find", for: .normal)
         findIdButton.setTitleColor(UIColor.black, for: .normal)
         findIdButton.titleLabel?.font = UIFont.init(name: "CookieRun", size: 15)
@@ -289,32 +235,122 @@ class FindVC: UIViewController, UITextFieldDelegate {
         findIdButton.layer.cornerRadius = 5
         findIdButton.layer.borderWidth = 1
         findIdButton.layer.borderColor = UIColor.black.cgColor
-        
-        //MARK: 아이디 찾기 버튼 이벤트
         findIdButton.addTarget(self, action: #selector(doIdFind(_:)), for: .touchUpInside)
         
         self.view.addSubview(findIdButton)
+        findIdButton.snp.makeConstraints { make in
+            make.bottom.equalTo(self.view.snp.centerY).offset(-80)
+            make.trailing.equalTo(self.view.snp.trailing).offset(-70)
+            make.width.equalTo(50)
+            make.height.equalTo(30)
+        }
+        
+        //전화번호
+        phoneImage.tintColor = UIColor.systemGray2
+        
+        phoneTextField.keyboardType = .phonePad
+        phoneTextField.placeholder = "ex) 01000000000"
+        phoneTextField.borderStyle = .roundedRect
+        phoneTextField.layer.borderWidth = 1
+        phoneTextField.layer.borderColor = UIColor.systemGray2.cgColor
+        phoneTextField.font = UIFont.init(name: "CookieRun", size: 15)
+        
+        self.view.addSubview(phoneImage)
+        phoneImage.snp.makeConstraints { make in
+            make.bottom.equalTo(findIdButton.snp.top).offset(-10)
+            make.leading.equalTo(self.view.snp.leading).offset(70)
+            make.width.height.equalTo(30)
+        }
+        self.view.addSubview(phoneTextField)
+        phoneTextField.snp.makeConstraints { make in
+            make.bottom.equalTo(findIdButton.snp.top).offset(-10)
+            make.leading.equalTo(phoneImage.snp.trailing).offset(10)
+            make.trailing.equalTo(self.view.snp.trailing).offset(-70)
+            make.height.equalTo(30)
+        }
+        
+        //생년월일
+        birthImage.tintColor = UIColor.systemGray2
+        
+        birthTextField.keyboardType = .phonePad
+        birthTextField.placeholder = "ex) 970101"
+        birthTextField.borderStyle = .roundedRect
+        birthTextField.layer.borderWidth = 1
+        birthTextField.layer.borderColor = UIColor.systemGray2.cgColor
+        birthTextField.font = UIFont.init(name: "CookieRun", size: 15)
+        
+        self.view.addSubview(birthImage)
+        birthImage.snp.makeConstraints { make in
+            make.bottom.equalTo(phoneImage.snp.top).offset(-10)
+            make.leading.equalTo(self.view.snp.leading).offset(70)
+            make.width.height.equalTo(30)
+        }
+        self.view.addSubview(birthTextField)
+        birthTextField.snp.makeConstraints { make in
+            make.bottom.equalTo(phoneImage.snp.top).offset(-10)
+            make.leading.equalTo(birthImage.snp.trailing).offset(10)
+            make.trailing.equalTo(self.view.snp.trailing).offset(-70)
+            make.height.equalTo(30)
+        }
+        
+        //이름
+        nameImage.tintColor = UIColor.systemGray2
+        
+        nameTextField.placeholder = "Name"
+        nameTextField.borderStyle = .roundedRect
+        nameTextField.layer.borderWidth = 1
+        nameTextField.layer.borderColor = UIColor.systemGray2.cgColor
+        nameTextField.font = UIFont.init(name: "CookieRun", size: 15)
+        
+        self.view.addSubview(nameImage)
+        nameImage.snp.makeConstraints { make in
+            make.bottom.equalTo(birthImage.snp.top).offset(-10)
+            make.leading.equalTo(self.view.snp.leading).offset(70)
+            make.width.height.equalTo(30)
+        }
+        self.view.addSubview(nameTextField)
+        nameTextField.snp.makeConstraints { make in
+            make.bottom.equalTo(birthImage.snp.top).offset(-10)
+            make.leading.equalTo(nameImage.snp.trailing).offset(10)
+            make.trailing.equalTo(self.view.snp.trailing).offset(-70)
+            make.height.equalTo(30)
+        }
+        
+        //아이디 찾기 레이블
+        let findID = UILabel()
+        
+        findID.text = "Find ID"
+        findID.textColor = UIColor.black
+        findID.font = UIFont.init(name: "CookieRun", size: 30)
+        findID.textAlignment = .center
+        
+        self.view.addSubview(findID)
+        findID.snp.makeConstraints { make in
+            make.bottom.equalTo(nameImage.snp.top).offset(-15)
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(50)
+        }
+        
     }
     
     //MARK: UI 배치(Find Password)
     func passwordUIDeployment(){
         //비밀번호 레이블
         let findPW = UILabel()
-        
-        findPW.frame = CGRect(x: self.view.frame.width/2 - 100, y: 340, width: 200, height: 50)
-        
         findPW.text = "Find Password"
         findPW.textColor = UIColor.black
         findPW.font = UIFont.init(name: "CookieRun", size: 30)
         findPW.textAlignment = .center
         
         self.view.addSubview(findPW)
+        findPW.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview()
+            make.top.equalTo(self.view.snp.centerY)
+            make.height.equalTo(50)
+        }
         
         //아이디
-        idImage.frame = CGRect(x: 70, y: 405, width: 30, height: 30)
         idImage.tintColor = UIColor.systemGray2
-        
-        idTextField.frame = CGRect(x: 110, y: 405, width: 200, height: 30)
         idTextField.placeholder = "id"
         idTextField.borderStyle = .roundedRect
         idTextField.layer.borderWidth = 1
@@ -322,17 +358,26 @@ class FindVC: UIViewController, UITextFieldDelegate {
         idTextField.font = UIFont.init(name: "CookieRun", size: 15)
         
         self.view.addSubview(idImage)
+        idImage.snp.makeConstraints { make in
+            make.top.equalTo(findPW.snp.bottom).offset(15)
+            make.leading.equalTo(self.view.snp.leading).offset(70)
+            make.width.height.equalTo(30)
+        }
         self.view.addSubview(idTextField)
+        idTextField.snp.makeConstraints { make in
+            make.top.equalTo(findPW.snp.bottom).offset(15)
+            make.leading.equalTo(idImage.snp.trailing).offset(10)
+            make.trailing.equalTo(self.view.snp.trailing).offset(-70)
+            make.height.equalTo(30)
+        }
         
         //비밀번호 질문 창
         let pwButton = UIButton()
         
             //이미지
-        pwQuestionImage.frame = CGRect(x: 70, y: 445, width: 30, height: 30)
         pwQuestionImage.tintColor = UIColor.systemGray2
         
             //레이블
-        pwLabel.frame = CGRect(x: 110, y: 445, width: 150, height: 30)
         pwLabel.text = " Password Question"
         pwLabel.textColor = UIColor.systemGray2
         pwLabel.font = UIFont.init(name: "CookieRun", size: 14)
@@ -341,8 +386,6 @@ class FindVC: UIViewController, UITextFieldDelegate {
         pwLabel.layer.borderColor = UIColor.systemGray2.cgColor
         
             //버튼
-        pwButton.frame = CGRect(x: 270, y: 445, width: 40, height: 30)
-        
         pwButton.setTitle("선택", for: .normal)
         pwButton.setTitleColor(UIColor.black, for: .normal)
         pwButton.titleLabel?.font = UIFont.init(name: "CookieRun", size: 15)
@@ -355,14 +398,29 @@ class FindVC: UIViewController, UITextFieldDelegate {
         pwButton.addTarget(self, action: #selector(doselectedQuesetion(_:)), for: .touchUpInside)
         
         self.view.addSubview(pwQuestionImage)
-        self.view.addSubview(pwLabel)
+        pwQuestionImage.snp.makeConstraints { make in
+            make.top.equalTo(idImage.snp.bottom).offset(10)
+            make.leading.equalTo(self.view.snp.leading).offset(70)
+            make.width.height.equalTo(30)
+        }
         self.view.addSubview(pwButton)
+        pwButton.snp.makeConstraints { make in
+            make.top.equalTo(idImage.snp.bottom).offset(10)
+            make.trailing.equalTo(self.view.snp.trailing).offset(-70)
+            make.width.equalTo(40)
+            make.height.equalTo(30)
+        }
+        self.view.addSubview(pwLabel)
+        pwLabel.snp.makeConstraints { make in
+            make.top.equalTo(idImage.snp.bottom).offset(10)
+            make.leading.equalTo(pwQuestionImage.snp.trailing).offset(10)
+            make.trailing.equalTo(pwButton.snp.leading).offset(-10)
+            make.height.equalTo(30)
+        }
         
         //비밀번호 질문 답변 창
-        pwAnswerImage.frame = CGRect(x: 70, y: 485, width: 30, height: 30)
         pwAnswerImage.tintColor = UIColor.systemGray2
         
-        pwAnswerTextField.frame = CGRect(x: 110, y: 485, width: 200, height: 30)
         pwAnswerTextField.placeholder = "Password Qusetion Answer"
         pwAnswerTextField.borderStyle = .roundedRect
         pwAnswerTextField.layer.borderWidth = 1
@@ -370,12 +428,21 @@ class FindVC: UIViewController, UITextFieldDelegate {
         pwAnswerTextField.font = UIFont.init(name: "CookieRun", size: 14)
         
         self.view.addSubview(pwAnswerImage)
+        pwAnswerImage.snp.makeConstraints { make in
+            make.top.equalTo(pwQuestionImage.snp.bottom).offset(10)
+            make.leading.equalTo(self.view.snp.leading).offset(70)
+            make.width.height.equalTo(30)
+        }
         self.view.addSubview(pwAnswerTextField)
+        pwAnswerTextField.snp.makeConstraints { make in
+            make.top.equalTo(pwQuestionImage.snp.bottom).offset(10)
+            make.leading.equalTo(pwAnswerImage.snp.trailing).offset(10)
+            make.trailing.equalTo(self.view.snp.trailing).offset(-70)
+            make.height.equalTo(30)
+        }
         
         //비밀번호 찾기 버튼
         let findpwButton = UIButton()
-        
-        findpwButton.frame = CGRect(x: 260, y: 525, width: 50, height: 30)
         
         findpwButton.setTitle("Find", for: .normal)
         findpwButton.setTitleColor(UIColor.black, for: .normal)
@@ -389,6 +456,12 @@ class FindVC: UIViewController, UITextFieldDelegate {
         findpwButton.addTarget(self, action: #selector(doPasswordFind(_:)), for: .touchUpInside)
         
         self.view.addSubview(findpwButton)
+        findpwButton.snp.makeConstraints { make in
+            make.top.equalTo(pwAnswerTextField.snp.bottom).offset(10)
+            make.trailing.equalTo(self.view.snp.trailing).offset(-70)
+            make.width.equalTo(50)
+            make.height.equalTo(30)
+        }
         
     }
 }
