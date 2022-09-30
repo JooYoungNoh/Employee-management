@@ -25,7 +25,7 @@ class ChattingInterlocutorVC: UIViewController {
     
     let titleLabel: UILabel = {
        let label = UILabel()
-        label.text = "초대할 대화상대 선택"
+        label.text = "대화상대 보기"
         label.textAlignment = .center
         label.textColor = .black
         label.font = UIFont(name: "CookieRun", size: 20)
