@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 import FirebaseFirestore
 import FirebaseStorage
 
@@ -257,9 +258,6 @@ class ShopAddVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
     func uiDeployment(){
         //닫기 버튼 UI
         let closeButton = UIButton()
-        
-        closeButton.frame = CGRect(x: 20, y: 50, width: 80, height: 40)
-        
         closeButton.setTitle("Close", for: .normal)
         closeButton.setTitleColor(UIColor.black, for: .normal)
         closeButton.titleLabel?.font = UIFont.init(name: "CookieRun", size: 20)
@@ -267,39 +265,57 @@ class ShopAddVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         closeButton.addTarget(self, action: #selector(doclose(_:)), for: .touchUpInside)
         
         self.view.addSubview(closeButton)
-        
-        //화면 타이틀 UI
-        let uiTitle = UILabel()
-        
-        uiTitle.frame = CGRect(x: self.view.frame.width / 2 - 100, y: 230, width: 200, height: 50)
-        
-        uiTitle.text = "Create Company"
-        uiTitle.font = UIFont.init(name: "CookieRun", size: 25)
-        uiTitle.textColor = UIColor.black
-        
-        self.view.addSubview(uiTitle)
+        closeButton.snp.makeConstraints { make in
+            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
+            make.leading.equalTo(self.view.snp.leading).offset(5)
+            make.width.equalTo(80)
+            make.height.equalTo(40)
+        }
         
         //명함 배경 UI
-        self.background.frame = CGRect(x: 20, y: self.view.frame.height / 2 - 100, width: 350, height: 200)
         self.background.backgroundColor = UIColor.white
         self.background.layer.cornerRadius = 10
         self.background.layer.borderWidth = 2
         self.background.layer.borderColor = UIColor.black.cgColor
         
         self.view.addSubview(self.background)
+        background.snp.makeConstraints { make in
+            make.leading.equalTo(self.view.snp.leading).offset(25)
+            make.trailing.equalTo(self.view.snp.trailing).offset(-25)
+            make.top.equalTo(self.view.snp.centerY).offset(-110)
+            make.height.equalTo(220)
+        }
+        
+        //화면 타이틀 UI
+        let uiTitle = UILabel()
+        
+        uiTitle.text = "Create Company"
+        uiTitle.textAlignment = .center
+        uiTitle.font = UIFont.init(name: "CookieRun", size: 25)
+        uiTitle.textColor = UIColor.black
+        
+        self.view.addSubview(uiTitle)
+        uiTitle.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview()
+            make.bottom.equalTo(self.background.snp.top).offset(-50)
+            make.height.equalTo(40)
+        }
         
         //회사 로고 이미지 뷰 UI
-        self.logoImage.frame = CGRect(x: 40, y: self.view.frame.height / 2 - 80, width: 100, height: 100)
-        
         //이미지 터치 시 이미지 변경
         let tap = UITapGestureRecognizer(target: self, action: #selector(selectlogo(_:)))
         self.logoImage.addGestureRecognizer(tap)
         self.logoImage.isUserInteractionEnabled = true
-        
+        self.logoImage.contentMode = .scaleToFill
+
         self.view.addSubview(self.logoImage)
+        logoImage.snp.makeConstraints { make in
+            make.top.equalTo(self.background.snp.top).offset(20)
+            make.leading.equalTo(self.background.snp.leading).offset(20)
+            make.width.height.equalTo(100)
+        }
         
         //회사명 텍스트 필드 UI
-        self.companyTextfield.frame = CGRect(x: 160, y: self.view.frame.height / 2 - 80, width: 190, height: 30)
         self.companyTextfield.placeholder = "Company"
         self.companyTextfield.font = UIFont.init(name: "CookieRun", size: 14)
         
@@ -308,9 +324,14 @@ class ShopAddVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         self.companyTextfield.borderStyle = .roundedRect
         
         self.view.addSubview(self.companyTextfield)
+        companyTextfield.snp.makeConstraints { make in
+            make.top.equalTo(self.background.snp.top).offset(20)
+            make.leading.equalTo(self.logoImage.snp.trailing).offset(20)
+            make.trailing.equalTo(self.background.snp.trailing).offset(-20)
+            make.height.equalTo(30)
+        }
         
         //대표자 레이블 UI
-        self.ceoNameLabel.frame = CGRect(x: 160, y: self.view.frame.height / 2 - 40, width: 190, height: 30)
         self.ceoNameLabel.text = " \(self.appDelegate.nameInfo!)"
         self.ceoNameLabel.font = UIFont.init(name: "CookieRun", size: 14)
         
@@ -318,9 +339,14 @@ class ShopAddVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         self.ceoNameLabel.layer.borderColor = UIColor.systemGray2.cgColor
         
         self.view.addSubview(self.ceoNameLabel)
+        ceoNameLabel.snp.makeConstraints { make in
+            make.top.equalTo(self.companyTextfield.snp.bottom).offset(20)
+            make.leading.equalTo(self.logoImage.snp.trailing).offset(20)
+            make.trailing.equalTo(self.background.snp.trailing).offset(-20)
+            make.height.equalTo(30)
+        }
         
-        //대표자 레이블 UI
-        self.ceoPhoneLabel.frame = CGRect(x: 160, y: self.view.frame.height / 2, width: 190, height: 30)
+        //대표자 전화 레이블 UI
         self.ceoPhoneLabel.text = " \(self.appDelegate.phoneInfo!)"
         self.ceoPhoneLabel.font = UIFont.init(name: "CookieRun", size: 14)
         
@@ -328,20 +354,14 @@ class ShopAddVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         self.ceoPhoneLabel.layer.borderColor = UIColor.systemGray2.cgColor
         
         self.view.addSubview(self.ceoPhoneLabel)
-        
-        //업종 레이블 UI
-        self.businessType.frame = CGRect(x: 160, y: self.view.frame.height / 2 + 40, width: 140, height: 30)
-        self.businessType.text = " Select businessType"
-        self.businessType.font = UIFont.init(name: "CookieRun", size: 13)
-        self.businessType.alpha = 0.7
-        
-        self.businessType.layer.borderWidth = 1
-        self.businessType.layer.borderColor = UIColor.systemGray2.cgColor
-        
-        self.view.addSubview(self.businessType)
+        ceoPhoneLabel.snp.makeConstraints { make in
+            make.top.equalTo(self.ceoNameLabel.snp.bottom).offset(20)
+            make.leading.equalTo(self.logoImage.snp.trailing).offset(20)
+            make.trailing.equalTo(self.background.snp.trailing).offset(-20)
+            make.height.equalTo(30)
+        }
         
         //업종 선택 버튼 UI
-        self.businessButton.frame = CGRect(x: 310, y: self.view.frame.height / 2 + 40, width: 40, height: 30)
         self.businessButton.setTitle("선택", for: .normal)
         self.businessButton.setTitleColor(UIColor.black, for: .normal)
         self.businessButton.titleLabel?.font = UIFont.init(name: "CookieRun", size: 14)
@@ -353,9 +373,30 @@ class ShopAddVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         self.businessButton.addTarget(self, action: #selector(selectBusinessType(_:)), for: .touchUpInside)
         
         self.view.addSubview(self.businessButton)
+        businessButton.snp.makeConstraints { make in
+            make.top.equalTo(self.ceoPhoneLabel.snp.bottom).offset(20)
+            make.trailing.equalTo(self.background.snp.trailing).offset(-20)
+            make.height.equalTo(30)
+            make.width.equalTo(40)
+        }
+        
+        //업종 레이블 UI
+        self.businessType.text = " Select businessType"
+        self.businessType.font = UIFont.init(name: "CookieRun", size: 13)
+        self.businessType.alpha = 0.7
+        
+        self.businessType.layer.borderWidth = 1
+        self.businessType.layer.borderColor = UIColor.systemGray2.cgColor
+        
+        self.view.addSubview(self.businessType)
+        businessType.snp.makeConstraints { make in
+            make.top.equalTo(self.ceoPhoneLabel.snp.bottom).offset(20)
+            make.leading.equalTo(self.logoImage.snp.trailing).offset(20)
+            make.trailing.equalTo(self.businessButton.snp.leading).offset(-5)
+            make.height.equalTo(30)
+        }
         
         //등록 버튼
-        self.registerButton.frame = CGRect(x: self.view.frame.width / 2 - 60, y: self.view.frame.height / 2 + 130, width: 120, height: 40)
         self.registerButton.setTitle("register", for: .normal)
         self.registerButton.setTitleColor(UIColor.black, for: .normal)
         self.registerButton.titleLabel?.font = UIFont.init(name: "CookieRun", size: 16)
@@ -368,6 +409,12 @@ class ShopAddVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         self.registerButton.addTarget(self, action: #selector(doregister(_:)), for: .touchUpInside)
         
         self.view.addSubview(self.registerButton)
+        registerButton.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(self.background.snp.bottom).offset(20)
+            make.height.equalTo(40)
+            make.width.equalTo(120)
+        }
     }
 
 }

@@ -100,7 +100,7 @@ class TransitionWriteVC: UIViewController {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 10
-        layout.itemSize = CGSize(width: 150, height: 200)
+        layout.itemSize = CGSize(width: 200, height: 200)
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
         return collection
     }()
@@ -208,20 +208,20 @@ class TransitionWriteVC: UIViewController {
 
         }
         
-        //메모 텍스트 뷰 UI
-        self.view.addSubview(self.writeTV)
-        writeTV.snp.makeConstraints { make in
-            make.trailing.equalToSuperview().offset(-15)
-            make.leading.equalToSuperview().offset(15)
-            make.top.equalTo(self.memoLabel.snp.bottom).offset(10)
-            make.height.equalTo(390)
+        //컬렉션 뷰 UI
+        self.view.addSubview(self.collectionView)
+        collectionView.snp.makeConstraints { make in
+            make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom)
+            make.leading.equalToSuperview().offset(5)
+            make.trailing.equalToSuperview()
+            make.height.equalTo(210)
         }
         
         //사진레이블 UI
         self.view.addSubview(self.pictureLabel)
         pictureLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(10)
-            make.top.equalTo(self.writeTV.snp.bottom).offset(20)
+            make.bottom.equalTo(self.collectionView.snp.top).offset(-5)
             make.width.equalTo(60)
             make.height.equalTo(30)
         }
@@ -231,7 +231,7 @@ class TransitionWriteVC: UIViewController {
         self.view.addSubview(self.deleteButton)
         deleteButton.snp.makeConstraints { make in
             make.trailing.equalToSuperview().offset(-15)
-            make.top.equalTo(self.writeTV.snp.bottom).offset(20)
+            make.bottom.equalTo(self.collectionView.snp.top).offset(-5)
             make.width.equalTo(50)
             make.height.equalTo(30)
         }
@@ -241,17 +241,18 @@ class TransitionWriteVC: UIViewController {
         self.view.addSubview(self.addButton)
         addButton.snp.makeConstraints { make in
             make.trailing.equalTo(self.deleteButton.snp.leading)
-            make.top.equalTo(self.writeTV.snp.bottom).offset(20)
+            make.bottom.equalTo(self.collectionView.snp.top).offset(-5)
             make.width.equalTo(50)
             make.height.equalTo(30)
         }
         
-        //컬렉션 뷰 UI
-        self.view.addSubview(self.collectionView)
-        collectionView.snp.makeConstraints { make in
-            make.top.equalTo(self.pictureLabel.snp.bottom).offset(5)
-            make.leading.trailing.equalToSuperview()
-            make.height.equalTo(220)
+        //메모 텍스트 뷰 UI
+        self.view.addSubview(self.writeTV)
+        writeTV.snp.makeConstraints { make in
+            make.trailing.equalToSuperview().offset(-15)
+            make.leading.equalToSuperview().offset(15)
+            make.top.equalTo(self.memoLabel.snp.bottom).offset(10)
+            make.bottom.equalTo(self.pictureLabel.snp.top).offset(-20)
         }
     
     }

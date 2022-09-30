@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class RequestJoincell: UITableViewCell {
     static let identifier = "RequestJoincell"
@@ -14,7 +15,6 @@ class RequestJoincell: UITableViewCell {
     
     let company: UILabel = {
         let company = UILabel()
-        company.frame = CGRect(x: 20, y: 10, width: 100, height: 30)
         company.font = UIFont.init(name: "CookieRun", size: 14)
         company.textColor = UIColor.black
         company.textAlignment = .left
@@ -24,7 +24,6 @@ class RequestJoincell: UITableViewCell {
     
     let name: UILabel = {
        let name = UILabel()
-        name.frame = CGRect(x: 140, y: 10, width: 130, height: 30)
         name.font = UIFont.init(name: "CookieRun", size: 14)
         name.textColor = UIColor.black
         name.textAlignment = .left
@@ -36,7 +35,6 @@ class RequestJoincell: UITableViewCell {
     
     let yesButton: UIButton = {
        let yesButton = UIButton()
-        yesButton.frame = CGRect(x: 280, y: 10, width: 40, height: 30)
         yesButton.setTitle("수락", for: .normal)
         yesButton.setTitleColor(UIColor.black, for: .normal)
         yesButton.titleLabel?.font = UIFont.init(name: "CookieRun", size: 14)
@@ -50,7 +48,6 @@ class RequestJoincell: UITableViewCell {
     
     let noButton: UIButton = {
        let noButton = UIButton()
-        noButton.frame = CGRect(x: 330, y: 10, width: 40, height: 30)
         noButton.setTitle("거절", for: .normal)
         noButton.setTitleColor(UIColor.black, for: .normal)
         noButton.titleLabel?.font = UIFont.init(name: "CookieRun", size: 14)
@@ -68,9 +65,35 @@ class RequestJoincell: UITableViewCell {
         self.noButton.addTarget(self, action: #selector(doNo(_:)), for: .touchUpInside)
         
         contentView.addSubview(company)
-        contentView.addSubview(name)
         contentView.addSubview(noButton)
         contentView.addSubview(yesButton)
+        contentView.addSubview(name)
+        
+        company.snp.makeConstraints { make in
+            make.leading.equalTo(self.snp.leading).offset(20)
+            make.top.bottom.equalToSuperview()
+            make.width.equalTo(140)
+        }
+        
+        noButton.snp.makeConstraints { make in
+            make.top.equalTo(self.snp.top).offset(10)
+            make.bottom.equalTo(self.snp.bottom).offset(-10)
+            make.trailing.equalTo(self.snp.trailing).offset(-20)
+            make.width.equalTo(40)
+        }
+        
+        yesButton.snp.makeConstraints { make in
+            make.top.equalTo(self.snp.top).offset(10)
+            make.bottom.equalTo(self.snp.bottom).offset(-10)
+            make.trailing.equalTo(noButton.snp.leading).offset(-10)
+            make.width.equalTo(40)
+        }
+        
+        name.snp.makeConstraints { make in
+            make.top.bottom.equalToSuperview()
+            make.leading.equalTo(company.snp.trailing).offset(10)
+            make.trailing.equalTo(yesButton.snp.leading).offset(-10)
+        }
     }
     
     @objc func doYes(_ sender: UIButton){

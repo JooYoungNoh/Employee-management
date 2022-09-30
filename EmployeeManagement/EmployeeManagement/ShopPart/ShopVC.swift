@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 import FirebaseFirestore
 
 struct List{
@@ -151,25 +152,38 @@ class ShopVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISe
         
         csview.backgroundColor = UIColor.white
         
-        listTitle.frame = CGRect(x: 20, y: 0, width: self.view.frame.width / 2, height: 30)
         listTitle.font = UIFont.init(name: "CookieRun", size: 20)
         listTitle.text = "Company"
         listTitle.textColor = UIColor.blue
+    
         
-        bossTitle.frame = CGRect(x: self.view.frame.width / 2 + 20, y: 0, width: 128, height: 30)
         bossTitle.font = UIFont.init(name: "CookieRun", size: 20)
         bossTitle.text = "CEO"
         bossTitle.textColor = UIColor.blue
         bossTitle.textAlignment = .right
         
-        csview.addSubview(listTitle)
         csview.addSubview(bossTitle)
+        bossTitle.snp.makeConstraints { make in
+            make.top.bottom.equalToSuperview()
+            make.trailing.equalTo(csview.snp.trailing).offset(-50)
+            make.width.equalTo(100)
+        }
+        csview.addSubview(listTitle)
+        listTitle.snp.makeConstraints { make in
+            make.top.bottom.equalToSuperview()
+            make.leading.equalTo(csview.snp.leading).offset(20)
+            make.trailing.equalTo(bossTitle.snp.leading).offset(-20)
+        }
         
         return csview
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 35
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 50
     }
     
     //MARK: 서치바 메소드

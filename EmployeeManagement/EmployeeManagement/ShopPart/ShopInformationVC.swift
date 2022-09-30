@@ -407,63 +407,90 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
     //MARK: 화면 메소드
     func uiDeployment(){
         //명함 배경 UI
-        self.background.frame = CGRect(x: 20, y: self.view.frame.height / 2 - 100, width: 350, height: 200)
         self.background.backgroundColor = UIColor.white
         self.background.layer.cornerRadius = 10
         self.background.layer.borderWidth = 2
         self.background.layer.borderColor = UIColor.black.cgColor
         
         self.view.addSubview(self.background)
+        background.snp.makeConstraints { make in
+            make.leading.equalTo(self.view.snp.leading).offset(25)
+            make.trailing.equalTo(self.view.snp.trailing).offset(-25)
+            make.top.equalTo(self.view.snp.centerY).offset(-110)
+            make.height.equalTo(220)
+        }
         
         //회사 로고 이미지 뷰 UI
-        self.logoImage.frame = CGRect(x: 40, y: self.view.frame.height / 2 - 80, width: 100, height: 100)
+        self.logoImage.contentMode = .scaleToFill
 
-        
         self.view.addSubview(self.logoImage)
+        logoImage.snp.makeConstraints { make in
+            make.top.equalTo(self.background.snp.top).offset(20)
+            make.leading.equalTo(self.background.snp.leading).offset(20)
+            make.width.height.equalTo(100)
+        }
         
         //회사명 UI
-        self.companyName.frame = CGRect(x: 160, y: self.view.frame.height / 2 - 90, width: 190, height: 50)
-
         self.companyName.font = UIFont.init(name: "CookieRun", size: 30)
         
         self.view.addSubview(self.companyName)
+        companyName.snp.makeConstraints { make in
+            make.top.equalTo(self.background.snp.top).offset(20)
+            make.leading.equalTo(self.logoImage.snp.trailing).offset(20)
+            make.trailing.equalTo(self.background.snp.trailing).offset(-20)
+            make.height.equalTo(40)
+        }
+        
+        //사원수 레이블 UI
+        self.employeeNumber.textAlignment = .right
+        self.employeeNumber.font = UIFont.init(name: "CookieRun", size: 15)
+        
+        self.view.addSubview(self.employeeNumber)
+        employeeNumber.snp.makeConstraints { make in
+            make.bottom.equalTo(self.background.snp.bottom).offset(-20)
+            make.trailing.equalTo(self.background.snp.trailing).offset(-20)
+            make.width.equalTo(40)
+            make.height.equalTo(20)
+        }
+        
+        //업종 레이블 UI
+        self.businessType.textAlignment = .right
+        self.businessType.font = UIFont.init(name: "CookieRun", size: 15)
+        
+        self.view.addSubview(self.businessType)
+        businessType.snp.makeConstraints { make in
+            make.bottom.equalTo(self.background.snp.bottom).offset(-20)
+            make.leading.equalTo(self.companyName.snp.leading)
+            make.trailing.equalTo(self.employeeNumber.snp.leading).offset(-5)
+            make.height.equalTo(20)
+        }
+        
+        //전화번호 레이블 UI
+        self.ceoPhoneLabel.font = UIFont.init(name: "CookieRun", size: 15)
+        self.ceoPhoneLabel.textAlignment = .right
+        
+        self.view.addSubview(self.ceoPhoneLabel)
+        ceoPhoneLabel.snp.makeConstraints { make in
+            make.bottom.equalTo(self.employeeNumber.snp.top).offset(-5)
+            make.leading.equalTo(self.companyName.snp.leading)
+            make.trailing.equalTo(self.background.snp.trailing).offset(-20)
+            make.height.equalTo(30)
+        }
         
         //대표자 레이블 UI
-        self.ceoNameLabel.frame = CGRect(x: 160, y: self.view.frame.height / 2 - 10, width: 190, height: 40)
-       // self.ceoNameLabel.text = "CEO 노주영"
         self.ceoNameLabel.font = UIFont.init(name: "CookieRun", size: 25)
         self.ceoNameLabel.textAlignment = .right
         
         
         self.view.addSubview(self.ceoNameLabel)
-        
-        //전화번호 레이블 UI
-        self.ceoPhoneLabel.frame = CGRect(x: 160, y: self.view.frame.height / 2 + 35, width: 190, height: 20)
-      //  self.ceoPhoneLabel.text = "01011111111"
-        self.ceoPhoneLabel.font = UIFont.init(name: "CookieRun", size: 15)
-        self.ceoPhoneLabel.textAlignment = .right
-        
-        self.view.addSubview(self.ceoPhoneLabel)
-        
-        //업종 레이블 UI
-        self.businessType.frame = CGRect(x: 140, y: self.view.frame.height / 2 + 50, width: 170, height: 30)
-      //  self.businessType.text = "서비스업"
-        self.businessType.textAlignment = .right
-        self.businessType.font = UIFont.init(name: "CookieRun", size: 15)
-        
-        self.view.addSubview(self.businessType)
-        
-        //사원수 레이블 UI
-        self.employeeNumber.frame = CGRect(x: 310, y: self.view.frame.height / 2 + 50, width: 40, height: 30)
-        
-       // self.employeeNumber.text = "1명"
-        self.employeeNumber.textAlignment = .right
-        self.employeeNumber.font = UIFont.init(name: "CookieRun", size: 15)
-        
-        self.view.addSubview(self.employeeNumber)
+        ceoNameLabel.snp.makeConstraints { make in
+            make.bottom.equalTo(self.ceoPhoneLabel.snp.top).offset(-5)
+            make.leading.equalTo(self.companyName.snp.leading)
+            make.trailing.equalTo(self.background.snp.trailing).offset(-20)
+            make.height.equalTo(40)
+        }
 
         //가입 신청 버튼
-        self.requestButton.frame = CGRect(x: self.view.frame.width / 2 - 60, y: self.view.frame.height / 2 + 130, width: 120, height: 40)
         self.requestButton.setTitle("Request Join", for: .normal)
         self.requestButton.setTitleColor(UIColor.black, for: .normal)
         self.requestButton.titleLabel?.font = UIFont.init(name: "CookieRun", size: 16)
@@ -476,10 +503,14 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
         self.requestButton.addTarget(self, action: #selector(doRequestJoin(_:)), for: .touchUpInside)
         
         self.view.addSubview(self.requestButton)
+        requestButton.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(self.background.snp.bottom).offset(20)
+            make.height.equalTo(40)
+            make.width.equalTo(120)
+        }
         
         //저장 버튼 UI
-        self.saveButton.frame = CGRect(x: self.view.frame.width / 2 - 60, y: self.view.frame.height / 2 + 180, width: 120, height: 40)
-        
         self.saveButton.setTitle("Save", for: .normal)
         saveButton.setTitleColor(UIColor.black, for: .normal)
         self.saveButton.titleLabel?.font = UIFont.init(name: "CookieRun", size: 16)
@@ -493,6 +524,12 @@ class ShopInformationVC: UIViewController, UIImagePickerControllerDelegate, UINa
         self.saveButton.addTarget(self, action: #selector(dosave(_:)), for: .touchUpInside)
         
         self.view.addSubview(self.saveButton)
+        saveButton.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(requestButton.snp.bottom).offset(10)
+            make.height.equalTo(40)
+            make.width.equalTo(120)
+        }
     }
 
 }
