@@ -108,9 +108,16 @@ class ChattingRoomVC: UIViewController {
                         self.tableview.scrollToRow(at: IndexPath(row: self.viewModel.chatList.count - 1, section: 0), at: .bottom, animated: true)
                     }
                 } else {
-                    DispatchQueue.main.async {
-                        self.tableview.reloadData()
-                        self.tableview.scrollToRow(at: IndexPath(row: self.viewModel.chatList.count - 1, section: 0), at: .bottom, animated: true)
+                    if self.viewModel.chatList.last?.imgCheck == true {
+                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1){
+                            self.tableview.reloadData()
+                            self.tableview.scrollToRow(at: IndexPath(row: self.viewModel.chatList.count - 1, section: 0), at: .bottom, animated: true)
+                        }
+                    } else {
+                        DispatchQueue.main.async {
+                            self.tableview.reloadData()
+                            self.tableview.scrollToRow(at: IndexPath(row: self.viewModel.chatList.count - 1, section: 0), at: .bottom, animated: true)
+                        }
                     }
                 }
             }
@@ -319,7 +326,7 @@ extension ChattingRoomVC: UIImagePickerControllerDelegate, UINavigationControlle
             }
             
             //메시지 업데이트
-            self.viewModel.pictureMessageSend(dbIDOnTable: self.dbIDOnTable, date: date)
+            //self.viewModel.pictureMessageSend(dbIDOnTable: self.dbIDOnTable, date: date)
         }
         //이미지 피커 컨트롤창 닫기
         picker.dismiss(animated: true)

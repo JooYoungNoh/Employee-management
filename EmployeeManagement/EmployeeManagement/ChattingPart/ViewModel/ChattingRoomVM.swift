@@ -501,7 +501,7 @@ class ChattingRoomVM {
             if error != nil {
                 print(error!.localizedDescription)
             } else {
-                print("성공")
+                self.pictureMessageSend(dbIDOnTable: dbIDOnTable, date: date)
             }
         }
     }
