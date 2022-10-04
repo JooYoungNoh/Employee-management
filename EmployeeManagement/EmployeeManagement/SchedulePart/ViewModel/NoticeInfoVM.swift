@@ -43,7 +43,6 @@ class NoticeInfoVM {
             for doc in snapShot!.documents{
                 self.companyDelete = doc.documentID
             }
-            print(self.companyDelete)
             if self.companyDelete == "" {
                 let alert = UIAlertController(title: "회사가 존재하지않습니다.", message: "확인해주세요", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default) { (_) in
@@ -77,10 +76,11 @@ class NoticeInfoVM {
                                          "title" : "\(self.titleMemo)",
                                          "date" : dateChange,
                                          "count" : "\(countLabel.text!)"
-                                     ])
+                                     ]){ (_) in
+                                         uv.navigationController?.popViewController(animated: true)
+                                     }
                                  }
                              }
-                             uv.navigationController?.popViewController(animated: true)
                          })
                          alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
                          uv.present(alert, animated: true)
