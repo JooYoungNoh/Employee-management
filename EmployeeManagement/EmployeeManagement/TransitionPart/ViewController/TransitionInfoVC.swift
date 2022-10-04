@@ -75,7 +75,7 @@ class TransitionInfoVC: UIViewController {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 10
-        layout.itemSize = CGSize(width: 150, height: 200)
+        layout.itemSize = CGSize(width: 200, height: 200)
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
         return collection
     }()
