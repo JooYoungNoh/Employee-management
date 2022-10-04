@@ -402,6 +402,7 @@ class MyProfileInfoVC: UIViewController, UITextViewDelegate {
                 self.commentTF.isHidden = true
                 self.countLabel.isHidden = true
                 self.commentLabel.isHidden = false
+                self.imageOnTable = self.profileImage.image
             })
             
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
