@@ -72,7 +72,6 @@ class EmployeeListVC: UIViewController {
         
         //테이블 뷰 UI
         self.tableView.separatorStyle = .none
-        self.tableView.
         
         self.view.addSubview(self.tableView)
         
@@ -100,6 +99,7 @@ extension EmployeeListVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: EmployeeListCell.identifier, for: indexPath) as? EmployeeListCell else { return UITableViewCell() }
+        cell.selectionStyle = .none
         
         if indexPath.section == 0{
             //프로필 이미지
