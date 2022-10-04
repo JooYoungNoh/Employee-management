@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 import FirebaseFirestore
 
 class LoginVC: UIViewController, UITextFieldDelegate {
@@ -36,6 +37,13 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         self.idTextField.delegate = self
         self.pwTextField.delegate = self
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.appDelegate.presentActive = false
+        self.appDelegate.dbOnTable = ""
+        self.appDelegate.activeChatting = false
     }
     //MARK: 액션 메소드
     @objc func goFind(_ sender: UIButton){
@@ -125,75 +133,105 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         let logo = UIImage(named: "management")
         let logoImage = UIImageView(image: logo)
         
-        logoImage.frame = CGRect(x: self.view.frame.width/2 - 70, y: 200, width: 140, height: 120)
-        
         self.view.addSubview(logoImage)
+        logoImage.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview().offset(-120)
+            make.width.equalTo(140)
+            make.height.equalTo(120)
+        }
         
         //아이디
-        idImage.frame = CGRect(x: 80, y: 350, width: 30, height: 30)
         idImage.tintColor = UIColor.systemGray3
-        idTextField.frame = CGRect(x: 120, y: 350, width: 180, height: 30)
-        idTextField.placeholder = "Id"
+        idTextField.placeholder = "id"
         idTextField.borderStyle = .roundedRect
-        idTextField.font = UIFont.init(name: "CookieRun", size: 15)
+        idTextField.font = UIFont.init(name: "CookieRun", size: 14)
         
         self.view.addSubview(idImage)
+        idImage.snp.makeConstraints { make in
+            make.leading.equalTo(self.view.snp.leading).offset(80)
+            make.top.equalTo(logoImage.snp.bottom).offset(30)
+            make.width.height.equalTo(30)
+        }
         self.view.addSubview(idTextField)
+        idTextField.snp.makeConstraints { make in
+            make.leading.equalTo(idImage.snp.trailing).offset(10)
+            make.trailing.equalTo(self.view.snp.trailing).offset(-80)
+            make.top.equalTo(logoImage.snp.bottom).offset(30)
+            make.height.equalTo(30)
+        }
         
         //비밀번호
-        pwImage.frame = CGRect(x: 80, y: 400, width: 30, height: 30)
         pwImage.tintColor = UIColor.systemGray3
-        
-        pwTextField.frame = CGRect(x: 120, y: 400, width: 180, height: 30)
-        pwTextField.placeholder = "Password"
+        pwTextField.placeholder = "password"
         pwTextField.borderStyle = .roundedRect
-        pwTextField.font = UIFont.init(name: "CookieRun", size: 15)
+        pwTextField.font = UIFont.init(name: "CookieRun", size: 14)
         
         self.view.addSubview(pwImage)
+        pwImage.snp.makeConstraints { make in
+            make.leading.equalTo(self.view.snp.leading).offset(80)
+            make.top.equalTo(self.idImage.snp.bottom).offset(20)
+            make.width.height.equalTo(30)
+        }
         self.view.addSubview(pwTextField)
+        pwTextField.snp.makeConstraints { make in
+            make.leading.equalTo(pwImage.snp.trailing).offset(10)
+            make.trailing.equalTo(self.view.snp.trailing).offset(-80)
+            make.top.equalTo(idTextField.snp.bottom).offset(20)
+            make.height.equalTo(30)
+        }
         
         //로그인 버튼
-        login.frame = CGRect(x: 80, y: 450, width: 220, height: 40)
-        
         login.setTitle("Login", for: .normal)
         login.setTitleColor(UIColor.black, for: .normal)
-        login.titleLabel?.font = UIFont.init(name: "CookieRun", size: 16)
+        login.titleLabel?.font = UIFont.init(name: "CookieRun", size: 17)
         login.alpha = 0.7
-        
         login.layer.cornerRadius = 3
         login.layer.borderWidth = 2
         login.layer.borderColor = UIColor.systemGray.cgColor
-        
-        //MARK: 로그인 버튼 이벤트
         login.addTarget(self, action: #selector(goMain(_:)), for: .touchUpInside)
         
         self.view.addSubview(login)
+        login.snp.makeConstraints { make in
+            make.leading.equalTo(self.view.snp.leading).offset(80)
+            make.trailing.equalTo(self.view.snp.trailing).offset(-80)
+            make.top.equalTo(self.pwTextField.snp.bottom).offset(20)
+            make.height.equalTo(40)
+        }
         
         //아이디,비밀번호 찾기 버튼
-        find.frame = CGRect(x: 87, y: 495, width: 140, height: 30)
-        
-        find.setTitle("Find ID/Find Password", for: .normal)
+        find.setTitle("Find ID/Password", for: .normal)
         find.setTitleColor(UIColor.black, for: .normal)
-        find.titleLabel?.font = UIFont.init(name: "CookieRun", size: 13)
+        find.titleLabel?.font = UIFont.init(name: "CookieRun", size: 14)
+        find.backgroundColor = .systemGray6
         find.alpha = 0.7
-        
-        //MARK: 아이디 비번 찾기 버튼 이벤트
+        find.layer.cornerRadius = 3
         find.addTarget(self, action: #selector(goFind(_:)), for: .touchUpInside)
         
         self.view.addSubview(find)
+        find.snp.makeConstraints { make in
+            make.leading.equalTo(self.view.snp.leading).offset(80)
+            make.trailing.equalTo(self.view.snp.centerX).offset(20)
+            make.top.equalTo(self.login.snp.bottom).offset(10)
+            make.height.equalTo(30)
+        }
         
         //회원가입 버튼
-        signUP.frame = CGRect(x: 229, y: 495, width: 64, height: 30)
-        
         signUP.setTitle("Sign Up", for: .normal)
         signUP.setTitleColor(UIColor.black, for: .normal)
-        signUP.titleLabel?.font = UIFont.init(name: "CookieRun", size: 13)
+        signUP.backgroundColor = .systemGray6
+        signUP.titleLabel?.font = UIFont.init(name: "CookieRun", size: 14)
         signUP.alpha = 0.7
-        
-        //MARK: 회원가입 버튼 이벤트
+        signUP.layer.cornerRadius = 3
         signUP.addTarget(self, action: #selector(goSignUp(_:)), for: .touchUpInside)
         
         self.view.addSubview(signUP)
+        signUP.snp.makeConstraints { make in
+            make.leading.equalTo(self.find.snp.trailing).offset(5)
+            make.trailing.equalTo(self.view.snp.trailing).offset(-80)
+            make.top.equalTo(self.login.snp.bottom).offset(10)
+            make.height.equalTo(30)
+        }
     }
 
 }

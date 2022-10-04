@@ -146,26 +146,38 @@ class RequestJoinVC: UIViewController, UITableViewDataSource, UITableViewDelegat
         
         csview.backgroundColor = UIColor.systemGray5
         
-        companyLabel.frame = CGRect(x: 20, y: 0, width: 100, height: 30)
         companyLabel.font = UIFont.init(name: "CookieRun", size: 20)
         companyLabel.text = "회사명"
         companyLabel.textColor = UIColor.blue
         
-        nameLabel.frame = CGRect(x: 140, y: 0, width: 120, height: 30)
         nameLabel.font = UIFont.init(name: "CookieRun", size: 20)
         nameLabel.text = "이름"
         nameLabel.textColor = UIColor.blue
         nameLabel.textAlignment = .left
             
-        selectLabel.frame = CGRect(x: self.view.frame.width / 2 + 20, y: 0, width: 128, height: 30)
         selectLabel.font = UIFont.init(name: "CookieRun", size: 20)
         selectLabel.text = "선택"
         selectLabel.textColor = UIColor.blue
-        selectLabel.textAlignment = .right
+        selectLabel.textAlignment = .center
         
         csview.addSubview(companyLabel)
-        csview.addSubview(nameLabel)
+        companyLabel.snp.makeConstraints { make in
+            make.top.bottom.equalToSuperview()
+            make.leading.equalTo(csview.snp.leading).offset(20)
+            make.width.equalTo(140)
+        }
         csview.addSubview(selectLabel)
+        selectLabel.snp.makeConstraints { make in
+            make.top.bottom.equalToSuperview()
+            make.trailing.equalTo(csview.snp.trailing).offset(-20)
+            make.width.equalTo(90)
+        }
+        csview.addSubview(nameLabel)
+        nameLabel.snp.makeConstraints { make in
+            make.top.bottom.equalToSuperview()
+            make.leading.equalTo(companyLabel.snp.trailing).offset(10)
+            make.trailing.equalTo(selectLabel.snp.leading).offset(-10)
+        }
         
         return csview
 
@@ -174,6 +186,10 @@ class RequestJoinVC: UIViewController, UITableViewDataSource, UITableViewDelegat
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 35
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 50
     }
     
     //MARK: 액션 메소드
@@ -185,9 +201,6 @@ class RequestJoinVC: UIViewController, UITableViewDataSource, UITableViewDelegat
     func uiDeployment(){
         //닫기 버튼 UI
         let closeButton = UIButton()
-        
-        closeButton.frame = CGRect(x: 0, y: 50, width: 80, height: 40)
-        
         closeButton.setTitle("Close", for: .normal)
         closeButton.setTitleColor(UIColor.black, for: .normal)
         closeButton.titleLabel?.font = UIFont.init(name: "CookieRun", size: 20)
@@ -195,21 +208,35 @@ class RequestJoinVC: UIViewController, UITableViewDataSource, UITableViewDelegat
         closeButton.addTarget(self, action: #selector(doclose(_:)), for: .touchUpInside)
         
         self.view.addSubview(closeButton)
+        closeButton.snp.makeConstraints { make in
+            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
+            make.leading.equalTo(self.view.snp.leading).offset(5)
+            make.width.equalTo(80)
+            make.height.equalTo(40)
+        }
         
         //타이틀 레이블 UI
-        self.titleLabel.frame = CGRect(x: self.view.frame.width / 2 - 130, y: 100, width: 260, height: 40)
-        
         self.titleLabel.text = "My Company Request Join"
+        self.titleLabel.textAlignment = .center
         self.titleLabel.textColor = UIColor.black
         self.titleLabel.font = UIFont.init(name: "CookieRun", size: 20)
         
         self.view.addSubview(self.titleLabel)
+        titleLabel.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview()
+            make.top.equalTo(closeButton.snp.bottom).offset(20)
+            make.height.equalTo(40)
+        }
         
         //테이블 뷰 UI
         self.tableview.frame = CGRect(x: 0, y: 150, width: self.view.frame.width, height: self.view.frame.height - 150)
         self.tableview.backgroundColor = UIColor.white
         
         self.view.addSubview(tableview)
+        tableview.snp.makeConstraints { make in
+            make.top.equalTo(self.titleLabel.snp.bottom).offset(20)
+            make.leading.trailing.bottom.equalToSuperview()
+        }
         
     }
 

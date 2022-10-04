@@ -6,9 +6,21 @@
 //
 
 import UIKit
+import FirebaseFirestore
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    let db = Firestore.firestore()
+    
+    //내가 방에서 나갈떄 있는 현재 인원
+    var searchPhoneList: [String] = []
+    var newpresentUser: [String] = []
+    var dbResultID: String = ""
+    
+    let semaphore = DispatchSemaphore(value: 0)
+    let group = DispatchGroup()
+    
     var window: UIWindow?
 
 
@@ -39,6 +51,53 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneWillEnterForeground(_ scene: UIScene) {
         // Called as the scene transitions from the background to the foreground.
         // Use this method to undo the changes made on entering the background.
+        //현재인원에서 나 넣기
+        if self.appDelegate.activeChatting == true {
+            self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(self.appDelegate.dbOnTable)").getDocument { snapshot2, error2 in
+                 if error2 == nil {
+                     self.newpresentUser.removeAll()
+                     self.searchPhoneList.removeAll()
+                     self.newpresentUser = (snapshot2!.data()!["presentUser"] as! [String])
+                     self.searchPhoneList = (snapshot2!.data()!["phoneList"] as! [String])
+                     
+                     self.newpresentUser.append(self.appDelegate.phoneInfo!)
+                     
+                     self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(self.appDelegate.dbOnTable)").updateData([
+                         "presentUser" : self.newpresentUser
+                     ])
+                     
+                     if self.appDelegate.presentActive == true {
+                         DispatchQueue.global().async {
+                             for i in self.searchPhoneList {
+                                 self.group.enter()
+                                 self.dbResultID = ""
+                                 self.db.collection("users").whereField("phone", isEqualTo: i).getDocuments { snapshot, error in
+                                     if error == nil {
+                                         for doc in snapshot!.documents{
+                                             self.dbResultID = doc.documentID
+                                         }
+                                         self.db.collection("users").document("\(self.dbResultID)").collection("chattingList").document("\(self.appDelegate.dbOnTable)").updateData([
+                                             "presentUser" : self.newpresentUser
+                                         ]){ (_) in
+                                             self.semaphore.signal()
+                                             self.group.leave()
+                                         }
+                                     } else {
+                                         print(error!.localizedDescription)
+                                     }
+                                 }
+                                 self.semaphore.wait()
+                             }
+                             self.group.notify(queue: DispatchQueue.main) {
+                                  print("끝")
+                             }
+                         }
+                     }
+                 } else {
+                     print(error2!.localizedDescription)
+                 }
+            }
+        }
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
@@ -48,6 +107,54 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         // Save changes in the application's managed object context when the application transitions to the background.
         (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
+        
+        //현재인원에서 나 빼기
+        if self.appDelegate.activeChatting == true {
+            self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(self.appDelegate.dbOnTable)").getDocument { snapshot2, error2 in
+                 if error2 == nil {
+                     self.newpresentUser.removeAll()
+                     self.searchPhoneList.removeAll()
+                     self.newpresentUser = (snapshot2!.data()!["presentUser"] as! [String])
+                     self.searchPhoneList = (snapshot2!.data()!["phoneList"] as! [String])
+                     
+                     if let index = self.newpresentUser.firstIndex(of: self.appDelegate.phoneInfo!){
+                         self.newpresentUser.remove(at: index)
+                         self.db.collection("users").document("\(self.appDelegate.idInfo!)").collection("chattingList").document("\(self.appDelegate.dbOnTable)").updateData([
+                             "presentUser" : self.newpresentUser
+                         ])
+                         if self.appDelegate.presentActive == true {
+                             DispatchQueue.global().async {
+                                 for i in self.searchPhoneList {
+                                     self.group.enter()
+                                     self.dbResultID = ""
+                                     self.db.collection("users").whereField("phone", isEqualTo: i).getDocuments { snapshot, error in
+                                         if error == nil {
+                                             for doc in snapshot!.documents{
+                                                 self.dbResultID = doc.documentID
+                                             }
+                                             self.db.collection("users").document("\(self.dbResultID)").collection("chattingList").document("\(self.appDelegate.dbOnTable)").updateData([
+                                                 "presentUser" : self.newpresentUser
+                                             ]){ (_) in
+                                                 self.semaphore.signal()
+                                                 self.group.leave()
+                                             }
+                                         } else {
+                                             print(error!.localizedDescription)
+                                         }
+                                     }
+                                     self.semaphore.wait()
+                                 }
+                                 self.group.notify(queue: DispatchQueue.main) {
+                                      print("끝")
+                                 }
+                             }
+                         }
+                     }
+                 } else {
+                     print(error2!.localizedDescription)
+                 }
+             }
+        }
     }
 
 

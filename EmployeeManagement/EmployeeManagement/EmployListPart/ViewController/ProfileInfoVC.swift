@@ -12,6 +12,7 @@ class ProfileInfoVC: UIViewController {
     var nameOnTable: String = ""                //전 화면 셀에 있는 이름
     var commentOnTable: String = ""             //전 회면 셀에 있는 코멘트
     var phoneOnTable: String = ""               //전 화면 셀에 있는 번호
+    var idOnTable: String = ""                  //전 화면 셀에 있는 아이디
     var imageChooseOnTable: Bool = false        //전 화면 셀에 있는 사진유무
     
     var viewModel = ProfileVM()                 //프로필 뷰모델
@@ -172,7 +173,7 @@ class ProfileInfoVC: UIViewController {
         self.view.addSubview(chatLabel)
         chatLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom).offset(-30)
+            make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom).offset(-10)
             make.width.equalTo(80)
             make.height.equalTo(30)
         }
@@ -196,7 +197,7 @@ class ProfileInfoVC: UIViewController {
         collectionView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
             make.bottom.equalTo(self.buttonUpView.snp.top).offset(-20)
-            make.height.equalTo(150)
+            make.height.equalTo(130)
         }
         
         //컬렉션 뷰 위 선 UI
@@ -224,7 +225,7 @@ class ProfileInfoVC: UIViewController {
     }
     
     @objc func doChat(_ sender: UIButton){
-        //TODO: 나중에 채팅 화면 만들고 코드 짤 예정
+        self.viewModel.doChat(uv: self, phoneOnTable: self.phoneOnTable, idOnTable: self.idOnTable)
     }
 
 }

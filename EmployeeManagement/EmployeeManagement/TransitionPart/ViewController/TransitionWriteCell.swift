@@ -36,18 +36,17 @@ class TransitionWriteCell: UICollectionViewCell {
         
         imageView.contentMode = .scaleToFill
         imageView.snp.makeConstraints { make in
-            make.width.equalTo(150)
-            make.height.equalTo(200)
-            make.leading.trailing.equalToSuperview()
-            make.top.equalTo(self.snp.top)
+            make.width.equalTo(180)
+            make.height.equalTo(180)
+            make.center.equalToSuperview()
         }
         
         checkImageView.contentMode = .scaleToFill
         checkImageView.snp.makeConstraints { make in
             make.width.equalTo(40)
             make.height.equalTo(40)
-            make.trailing.equalToSuperview().offset(-5)
-            make.bottom.equalTo(self.snp.bottom).offset(-5)
+            make.trailing.equalTo(self.imageView.snp.trailing).offset(-5)
+            make.bottom.equalTo(self.imageView.snp.bottom).offset(-5)
         }
         
     }

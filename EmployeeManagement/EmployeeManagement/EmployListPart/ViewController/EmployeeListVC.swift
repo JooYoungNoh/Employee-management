@@ -167,11 +167,13 @@ extension EmployeeListVC: UITableViewDelegate, UITableViewDataSource {
                 nv.phoneOnTable = self.viewModel.employeeRealResult[indexPath.row].phone
                 nv.commentOnTable = self.viewModel.employeeRealResult[indexPath.row].comment
                 nv.nameOnTable = self.viewModel.employeeRealResult[indexPath.row].name
+                nv.idOnTable = self.viewModel.employeeRealResult[indexPath.row].id
             } else {
                 nv.imageChooseOnTable = self.viewModel.searchResult[indexPath.row].profileImg
                 nv.phoneOnTable = self.viewModel.searchResult[indexPath.row].phone
                 nv.commentOnTable = self.viewModel.searchResult[indexPath.row].comment
                 nv.nameOnTable = self.viewModel.searchResult[indexPath.row].name
+                nv.idOnTable = self.viewModel.searchResult[indexPath.row].id
             }
             nv.modalPresentationStyle = .fullScreen
             self.present(nv, animated: true)

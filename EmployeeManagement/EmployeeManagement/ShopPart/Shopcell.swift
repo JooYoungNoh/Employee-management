@@ -6,13 +6,13 @@
 //
 
 import UIKit
+import SnapKit
 
 class Shopcell: UITableViewCell {
     static let identifier = "Shopcell"
     
     let nameLabel: UILabel = {
         let nameLabel = UILabel()
-        nameLabel.frame = CGRect(x: 20, y: 10, width: 200, height: 30)
         nameLabel.font = UIFont.init(name: "CookieRun", size: 14)
         nameLabel.textColor = UIColor.black
         
@@ -20,7 +20,6 @@ class Shopcell: UITableViewCell {
     }()
     let bossLabel: UILabel = {
         let bossLabel = UILabel()
-        bossLabel.frame = CGRect(x: 240, y: 10, width: 100, height: 30)
         bossLabel.font = UIFont.init(name: "CookieRun", size: 14)
         bossLabel.textColor = UIColor.black
         bossLabel.textAlignment = .right
@@ -31,8 +30,20 @@ class Shopcell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?){
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        contentView.addSubview(nameLabel)
         contentView.addSubview(bossLabel)
+        contentView.addSubview(nameLabel)
+        
+        bossLabel.snp.makeConstraints { make in
+            make.top.bottom.equalToSuperview()
+            make.trailing.equalTo(self.snp.trailing).offset(-50)
+            make.width.equalTo(100)
+        }
+        
+        nameLabel.snp.makeConstraints { make in
+            make.top.bottom.equalToSuperview()
+            make.leading.equalTo(self.snp.leading).offset(20)
+            make.trailing.equalTo(self.bossLabel.snp.leading).offset(-10)
+        }
     }
     
     required init?(coder: NSCoder) {

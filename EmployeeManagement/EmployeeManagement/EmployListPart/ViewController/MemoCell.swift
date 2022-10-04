@@ -30,20 +30,20 @@ class MemoCell: UITableViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?){
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        contentView.addSubview(titleLabel)
         contentView.addSubview(dateLabel)
+        contentView.addSubview(titleLabel)
         
-        titleLabel.snp.makeConstraints { make in
-            make.leading.equalTo(20)
+        dateLabel.snp.makeConstraints { make in
+            make.trailing.equalTo(self.snp.trailing).offset(-25)
             make.top.equalTo(8)
-            make.width.equalTo(220)
+            make.width.equalTo(100)
             make.height.equalTo(40)
         }
         
-        dateLabel.snp.makeConstraints { make in
-            make.leading.equalTo(titleLabel.snp.trailing).offset(10)
+        titleLabel.snp.makeConstraints { make in
+            make.leading.equalTo(self.snp.leading).offset(20)
+            make.trailing.equalTo(self.dateLabel.snp.leading).offset(-10)
             make.top.equalTo(8)
-            make.width.equalTo(100)
             make.height.equalTo(40)
         }
     }
