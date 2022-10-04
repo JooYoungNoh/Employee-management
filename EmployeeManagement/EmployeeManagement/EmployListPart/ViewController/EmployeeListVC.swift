@@ -72,6 +72,7 @@ class EmployeeListVC: UIViewController {
         
         //테이블 뷰 UI
         self.tableView.separatorStyle = .none
+        self.tableView.
         
         self.view.addSubview(self.tableView)
         
@@ -151,7 +152,9 @@ extension EmployeeListVC: UITableViewDelegate, UITableViewDataSource {
         
         
         if indexPath.section == 0{
-            myNV.imageOnTable = self.viewModel.myImage
+            if let index = self.viewModel.userImageList.firstIndex(where: {$0.userPhone == self.viewModel.appDelegate.phoneInfo!}){
+                myNV.imageOnTable = self.viewModel.userImageList[index].userImage
+            }
             myNV.commentOnTable = self.viewModel.myComment
             myNV.nameOnTable = self.viewModel.myName
             myNV.modalPresentationStyle = .fullScreen
