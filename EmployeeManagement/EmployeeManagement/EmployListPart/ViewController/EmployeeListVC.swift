@@ -28,20 +28,17 @@ class EmployeeListVC: UIViewController {
         self.tableView.dataSource = self
         self.tableView.delegate = self
         self.tableView.register(EmployeeListCell.self, forCellReuseIdentifier: EmployeeListCell.identifier)
+        self.uiCreate()
 
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.prefersLargeTitles = true
-        self.uiCreate()
-        self.viewModel.findMe{ () in
-            self.tableView.reloadData()
-        }
         
-        self.viewModel.findEmployList(){ (completion2) in
-        }
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1){
-            self.tableView.reloadData()
+        self.viewModel.findList(){ (completion2) in
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5){
+                self.tableView.reloadData()
+            }
         }
     }
     
@@ -105,7 +102,7 @@ extension EmployeeListVC: UITableViewDelegate, UITableViewDataSource {
         
         if indexPath.section == 0{
             //프로필 이미지
-            cell.userImageView.image = self.viewModel.myDownloadimage(choose: self.viewModel.myProfileImg)
+            self.viewModel.findImage(imgView: cell.userImageView, phone: self.viewModel.myPhone)
             cell.nameLabel.text = self.viewModel.myName
             cell.commentLabel.text = self.viewModel.myComment
         } else {
@@ -114,7 +111,7 @@ extension EmployeeListVC: UITableViewDelegate, UITableViewDataSource {
                 cell.userImageView.image = nil
                 if self.viewModel.employeeRealResult[indexPath.row].profileImg == true {
                     DispatchQueue.main.async {
-                        self.viewModel.employeeDownloadimage(imgView: cell.userImageView, phone: self.viewModel.employeeRealResult[indexPath.row].phone)
+                        self.viewModel.findImage(imgView: cell.userImageView, phone: self.viewModel.employeeRealResult[indexPath.row].phone)
                     }
                 } else {
                     cell.userImageView.image = UIImage(named: "account")
@@ -126,7 +123,7 @@ extension EmployeeListVC: UITableViewDelegate, UITableViewDataSource {
                 cell.userImageView.image = nil
                 if self.viewModel.searchResult[indexPath.row].profileImg == true {
                     DispatchQueue.main.async {
-                        self.viewModel.employeeDownloadimage(imgView: cell.userImageView, phone: self.viewModel.searchResult[indexPath.row].phone)
+                        self.viewModel.findImage(imgView: cell.userImageView, phone: self.viewModel.searchResult[indexPath.row].phone)
                     }
                 } else {
                     cell.userImageView.image = UIImage(named: "account")
