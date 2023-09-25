@@ -6,6 +6,7 @@
 //
 
 import FirebaseFirestore
+import UIKit
 
 class NoticeListVM {
     

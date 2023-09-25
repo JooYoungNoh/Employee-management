@@ -8,6 +8,7 @@
 import Foundation
 import FirebaseFirestore
 import FirebaseStorage
+import UIKit
 
 class ChattingImageListVM {
     let db = Firestore.firestore()
